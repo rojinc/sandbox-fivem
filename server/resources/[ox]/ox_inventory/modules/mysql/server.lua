@@ -61,9 +61,22 @@ Citizen.CreateThreadNow(function()
 			`name` varchar(100) NOT NULL,
 			`data` longtext DEFAULT NULL,
 			`lastupdated` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-			UNIQUE KEY `owner` (`owner`,`name`)
+			UNIQUE KEY `owner` (`owner`,`name`),
+			KEY `idx_lastupdated` (`lastupdated`)
 		)]])
     else
+        -- Add index on lastupdated if it doesn't exist (for cleanup query performance)
+        local hasIndex = pcall(MySQL.scalar.await, [[
+            SELECT 1 FROM INFORMATION_SCHEMA.STATISTICS
+            WHERE TABLE_SCHEMA = DATABASE()
+            AND TABLE_NAME = 'ox_inventory'
+            AND INDEX_NAME = 'idx_lastupdated'
+        ]])
+
+        if not hasIndex then
+            pcall(MySQL.query.await, 'ALTER TABLE `ox_inventory` ADD INDEX `idx_lastupdated` (`lastupdated`)')
+            print('[ox_inventory] Added index on lastupdated column for better performance')
+        end
         -- Shouldn't be needed anymore; was used for some data conversion for v2.5.0 (back in March 2022)
         -- result = MySQL.query.await("SELECT owner, name FROM ox_inventory WHERE NOT owner = ''")
 
