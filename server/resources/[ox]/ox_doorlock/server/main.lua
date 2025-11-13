@@ -329,10 +329,12 @@ local function setDoorState(id, state, lockpick)
 					description = state == 0 and 'cannot_unlock' or 'cannot_lock'
 				})
 			elseif Config.NotifyType == 'sandbox' then
-				exports['sandbox-hud']:Notification(
+				TriggerClientEvent(
+					'sandbox-hud:client:Notification',
 					source,
 					"error",
-					state == 0 and locale('cannot_unlock') or locale('cannot_lock')
+					state == 0 and locale('cannot_unlock') or locale('cannot_lock'),
+					3500
 				)
 			end
 		end

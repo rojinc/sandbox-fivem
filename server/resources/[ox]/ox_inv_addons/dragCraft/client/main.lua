@@ -15,28 +15,33 @@ RegisterNetEvent('dragCraft:Craft', function(duration, index)
 
     if continue == false then return end
 
-    local result = lib.progressCircle({
+    exports['sandbox-hud']:Progress({
+        name = "crafting_item",
         duration = duration,
-        label = 'Crafting...',
-        position = 'middle',
+        label = "Crafting...",
         useWhileDead = false,
         canCancel = true,
-        disable = {
-            car = true,
+        controlDisables = {
+            disableMovement = false,
+            disableCarMovement = true,
+            disableMouse = false,
+            disableCombat = true,
         },
-        anim = {
-            dict = 'amb@prop_human_parking_meter@male@base',
-            clip = 'base'
+        animation = {
+            animDict = "amb@prop_human_parking_meter@male@base",
+            anim = "base",
+            flags = 49,
         },
-    })
+    }, function(cancelled)
+        local result = not cancelled
+        TriggerServerEvent('dragCraft:success', result, index)
 
-    TriggerServerEvent('dragCraft:success', result, index)
-
-    if result then
-        if recipe.client?.after then
-            recipe.client.after(recipe)
+        if result then
+            if recipe.client?.after then
+                recipe.client.after(recipe)
+            end
         end
-    end
+    end)
 end)
 
 local function addRecipe(id, recipe, sync)

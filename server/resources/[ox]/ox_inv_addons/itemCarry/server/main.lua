@@ -10,11 +10,7 @@ ox_inventory:registerHook('createItem', function(payload)
     local plyState = Player(plyid).state
 
     if plyState.carryItem then
-        lib.notify(plyid, {
-            title = 'Inventory',
-            description = 'You are already carrying something!',
-            type = 'error'
-        })
+        TriggerClientEvent('sandbox-hud:client:Notification', plyid, 'error', 'You are already carrying something!', 2500)
         local coords = GetEntityCoords(GetPlayerPed(plyid))
         CreateThread(function()
             Wait(300)
@@ -50,11 +46,7 @@ ox_inventory:registerHook('swapItems', function(payload)
             local plyState = Player(payload.source).state
 
             if plyState.carryItem then
-                lib.notify(payload.source, {
-                    title = 'Inventory',
-                    description = 'You are already carrying something!',
-                    type = 'error'
-                })
+                TriggerClientEvent('sandbox-hud:client:Notification', payload.source, 'error', 'You are already carrying something!', 2500)
                 return false
             end
         end
