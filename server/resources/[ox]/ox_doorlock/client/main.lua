@@ -166,12 +166,28 @@ RegisterNetEvent('ox_doorlock:setState', function(id, state, source, data)
 			DoorSystemSetHoldOpen(double[2].hash, door.state == 0)
 		end
 
-		while door.state == 1 and (not IsDoorClosed(double[1].hash) or not IsDoorClosed(double[2].hash)) do Wait(0) end
+		-- Add timeout to prevent infinite loop
+		local timeout = GetGameTimer() + 5000  -- 5 second timeout
+		while door.state == 1 and (not IsDoorClosed(double[1].hash) or not IsDoorClosed(double[2].hash)) do
+			if GetGameTimer() > timeout then
+				warn(('Door %s failed to close within timeout'):format(door.id))
+				break
+			end
+			Wait(0)
+		end
 	else
 		DoorSystemSetDoorState(door.hash, door.state, false, false)
 
 		if door.holdOpen then DoorSystemSetHoldOpen(door.hash, door.state == 0) end
-		while door.state == 1 and not IsDoorClosed(door.hash) do Wait(0) end
+		-- Add timeout to prevent infinite loop
+		local timeout = GetGameTimer() + 5000  -- 5 second timeout
+		while door.state == 1 and not IsDoorClosed(door.hash) do
+			if GetGameTimer() > timeout then
+				warn(('Door %s failed to close within timeout'):format(door.id))
+				break
+			end
+			Wait(0)
+		end
 	end
 
 	if door.state == state and door.distance and door.distance < 20 then

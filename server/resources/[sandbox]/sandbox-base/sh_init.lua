@@ -3,9 +3,17 @@ AddEventHandler("onResourceStart", function(resource)
 		Wait(1000)
 		CreateThread(function()
 			local ver
+			local maxWait = 10000  -- 10 seconds timeout
+			local waited = 0
 			repeat
-				Wait(0)
-			until exports["sandbox-base"]:GetSbfwVersion() ~= nil
+				Wait(100)
+				waited = waited + 100
+			until exports["sandbox-base"]:GetSbfwVersion() ~= nil or waited >= maxWait
+
+			if waited >= maxWait then
+				print("^1ERROR: Failed to get framework version after 10 seconds^7")
+				return
+			end
 
 			if exports["sandbox-base"]:GetSbfwVersion() == "UNKNOWN" then
 				ver = "^1Version Unknown"

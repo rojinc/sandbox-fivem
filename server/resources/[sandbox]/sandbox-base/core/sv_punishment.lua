@@ -1,6 +1,19 @@
 exports("PunishmentCheckBan", function(key, value)
 	local p = promise.new()
 
+	-- Whitelist allowed keys to prevent SQL injection
+	local allowedKeys = {
+		account = true,
+		identifier = true,
+		id = true,
+	}
+
+	if not allowedKeys[key] then
+		exports['sandbox-base']:LoggerError("Punishment", string.format("Invalid ban check key attempted: %s", tostring(key)))
+		p:resolve(nil)
+		return Citizen.Await(p)
+	end
+
 	local query = 'SELECT * FROM bans WHERE `' .. key .. '` = ? AND active = 1'
 	exports.oxmysql:execute(query, { value }, function(results)
 		if results and #results > 0 then
@@ -555,7 +568,7 @@ exports("PunishmentBanIdentifier", function(identifier, expires, reason, issuer)
 				nil,
 				nil,
 				identifier,
-				bannedPlayer,
+				identifier,
 				{},
 				reason,
 				expires,

@@ -76,7 +76,9 @@ local craftHook = ox_inventory:registerHook('swapItems', function(data)
                 remove = recipe.costs[toSlot.name].remove,
                 slot = toSlot.slot
             },
-            result = resultForQueue
+            result = resultForQueue,
+            startTime = os.time(),
+            duration = recipe.duration
         }
 
         ---@type boolean | nil
@@ -132,7 +134,34 @@ RegisterNetEvent('dragCraft:success', function(success, index)
 
     if not queuedCraft then return end
 
+    -- Server-side timing validation to prevent cheat clients
+    if queuedCraft.startTime and queuedCraft.duration then
+        local elapsed = (os.time() - queuedCraft.startTime) * 1000
+        if elapsed < (queuedCraft.duration - 1000) then -- Allow 1s variance
+            print(('[dragCraft] Player %s completed craft too quickly (elapsed: %dms, required: %dms)'):format(source, elapsed, queuedCraft.duration))
+            CraftQueue[source] = nil
+            return
+        end
+    end
+
     if success then
+        -- Verify player still has items before removing (prevent exploit if items were dropped/traded)
+        if queuedCraft.item1 and queuedCraft.item1.remove then
+            if ox_inventory:GetItem(source, queuedCraft.item1.name, nil, true) < queuedCraft.item1.amount then
+                print(('[dragCraft] Player %s does not have enough %s'):format(source, queuedCraft.item1.name))
+                CraftQueue[source] = nil
+                return
+            end
+        end
+
+        if queuedCraft.item2 and queuedCraft.item2.remove then
+            if ox_inventory:GetItem(source, queuedCraft.item2.name, nil, true) < queuedCraft.item2.amount then
+                print(('[dragCraft] Player %s does not have enough %s'):format(source, queuedCraft.item2.name))
+                CraftQueue[source] = nil
+                return
+            end
+        end
+
         processCraftItem(source, queuedCraft.item1)
         processCraftItem(source, queuedCraft.item2)
 
@@ -141,8 +170,11 @@ RegisterNetEvent('dragCraft:success', function(success, index)
             ox_inventory:AddItem(source, resultData.name, resultData.amount)
         end
 
-        if recipe.server.after then
-            recipe.server.after(recipe)
+        if recipe.server and recipe.server.after then
+            local success, err = pcall(recipe.server.after, recipe)
+            if not success then
+                print(('[dragCraft] Error in craft after callback for %s: %s'):format(index, err))
+            end
         end
     end
 

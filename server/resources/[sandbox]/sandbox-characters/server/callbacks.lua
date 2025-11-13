@@ -37,8 +37,17 @@ function RegisterCallbacks()
 	end)
 
 	exports["sandbox-base"]:RegisterServerCallback("Characters:GetServerData", function(source, data, cb)
-		while exports['sandbox-base']:FetchSource(source) == nil do
+		local maxWait = 30  -- 30 seconds timeout
+		local waited = 0
+		while exports['sandbox-base']:FetchSource(source) == nil and waited < maxWait do
 			Wait(1000)
+			waited = waited + 1
+		end
+
+		if waited >= maxWait then
+			exports['sandbox-base']:LoggerError("Characters", "Timeout waiting for player source: " .. source)
+			cb({ changelog = nil, motd = "" })
+			return
 		end
 
 		local motd = GetConvar("motd", "Welcome to SandboxRP")

@@ -78,9 +78,13 @@ function doLog(level, component, log, flags, data)
 		if flags.file then
 			local currDate = os.date("%Y-%m-%d")
 			local timestamp = os.date("%I:%M:%S %p")
+
+			-- Sanitize component name to prevent command injection
+			local sanitizedComponent = component:gsub('[^%w_-]', '_')
+
 			os.execute("mkdir logs")
-			os.execute(('mkdir "logs/%s"'):format(component))
-			local logFile, errorReason = io.open(("logs/%s/%s.log"):format(component, currDate), "a")
+			os.execute(('mkdir "logs/%s"'):format(sanitizedComponent))
+			local logFile, errorReason = io.open(("logs/%s/%s.log"):format(sanitizedComponent, currDate), "a")
 			if not logFile then
 				return print(errorReason)
 			end

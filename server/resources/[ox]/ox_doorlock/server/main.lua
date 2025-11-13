@@ -298,7 +298,19 @@ local function setDoorState(id, state, lockpick)
 	state = (state == 1 or state == 0) and state or (state and 1 or 0)
 
 	if door then
-		local authorised = not source or source == '' or isAuthorised(source, door, lockpick)
+		-- Never allow empty/invalid source to bypass authorization (security fix)
+		-- Only allow nil source for internal/automatic calls (like autolock)
+		local authorised = false
+		if not source then
+			-- Internal call (autolock, etc.) - allow
+			authorised = true
+		elseif source == '' or source == 0 then
+			-- Invalid source - deny
+			authorised = false
+		else
+			-- Valid player source - check permissions
+			authorised = isAuthorised(source, door, lockpick)
+		end
 
 		if authorised then
 			door.state = state

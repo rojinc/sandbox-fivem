@@ -78,7 +78,19 @@ end)
 
 
 RegisterNetEvent("carryItem:updateCarryItem", function(item, amount)
-    local plyState = Player(source).state
+    -- Validate client-provided data against actual inventory
+    local actualCount = 0
+    if item then
+        actualCount = ox_inventory:GetItem(source, item, nil, true) or 0
+    end
 
+    if actualCount ~= amount then
+        -- Client is out of sync or cheating, resync with actual inventory
+        print(('[itemCarry] Player %s inventory desync for %s (claimed: %d, actual: %d)'):format(source, item or 'nil', amount, actualCount))
+        findCarryItem(source)
+        return
+    end
+
+    local plyState = Player(source).state
     plyState:set("carryItem", (amount > 0 and item) or nil, true)
 end)

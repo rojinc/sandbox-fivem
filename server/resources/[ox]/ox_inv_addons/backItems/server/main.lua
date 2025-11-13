@@ -12,6 +12,11 @@ AddStateBagChangeHandler('flashlightState', '', function(bagName, _, state)
     local source = GetPlayerFromStateBagName(bagName)
     local currentWeapon = exports.ox_inventory:GetCurrentWeapon(source)
 
+    -- Check if player has a weapon equipped and it has metadata
+    if not currentWeapon or not currentWeapon.metadata then
+        return
+    end
+
     currentWeapon.metadata.flashlight = state
     exports.ox_inventory:SetMetadata(source, currentWeapon.slot, currentWeapon.metadata)
 end)
