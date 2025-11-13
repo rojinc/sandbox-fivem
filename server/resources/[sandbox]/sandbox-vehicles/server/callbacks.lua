@@ -561,7 +561,7 @@ function RegisterCallbacks()
                     end
 
                     local f = exports['sandbox-finance']:AccountsGetOrganization("government")
-                    exports['sandbox-finance']:BalanceDeposit(f.Account, vehicle.Storage.Fin, false, true)
+                    exports['sandbox-finance']:BalanceDeposit(f.Account, vehicle.Storage.Fine or 0, false, true)
                 end
 
 
@@ -775,7 +775,8 @@ function RegisterCallbacks()
     end)
 
     exports["sandbox-base"]:RegisterServerCallback('Vehicles:Tranfers:CompleteTransfer', function(source, data, cb)
-        local SID, VIN in data
+        local SID = data.SID
+        local VIN = data.VIN
         local char = exports['sandbox-characters']:FetchCharacterSource(source)
 
         if SID and VIN and char then

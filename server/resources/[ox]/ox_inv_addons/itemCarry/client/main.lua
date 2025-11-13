@@ -46,11 +46,23 @@ AddStateBagChangeHandler("carryItem", nil, function(bagName, key, carryItem, _un
         currentCarryObject = nil
     end
 
-    lib.requestModel(carryData.prop.model)
+    -- Request model with error handling
+    local modelLoaded = pcall(lib.requestModel, carryData.prop.model, 1000)
+    if not modelLoaded then
+        print('[itemCarry] Failed to load model: ' .. tostring(carryData.prop.model))
+        return
+    end
 
     local plyPos = GetEntityCoords(cache.ped)
-    lib.requestModel(carryData.prop.model, 1000)
     currentCarryObject = CreateObject(carryData.prop.model, plyPos.x, plyPos.y, plyPos.z + 0.2, true, true, true)
+
+    -- Verify object was created
+    if not DoesEntityExist(currentCarryObject) then
+        print('[itemCarry] Failed to create carry object')
+        currentCarryObject = nil
+        return
+    end
+
     SetEntityCollision(currentCarryObject, false, false)
 
     local placement = carryData.prop.placement
@@ -59,7 +71,14 @@ AddStateBagChangeHandler("carryItem", nil, function(bagName, key, carryItem, _un
         placement.pos.y, placement.pos.z, placement.rot.x, placement.rot.y, placement.rot.z, true, true, false, true, 1,
         true)
 
-    lib.requestAnimDict(carryData.anim.dict, 1000)
+    -- Request animation with error handling - cleanup object if fails
+    local animLoaded = pcall(lib.requestAnimDict, carryData.anim.dict, 1000)
+    if not animLoaded then
+        print('[itemCarry] Failed to load anim dict: ' .. tostring(carryData.anim.dict))
+        DeleteEntity(currentCarryObject)
+        currentCarryObject = nil
+        return
+    end
 
     if carryData.walkOnly then
         local controls = { 21, 22 }

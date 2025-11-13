@@ -14,9 +14,15 @@ end
 
 function StoreData(source)
 	if _saving[source] then
-		return
+		-- Check if save is taking too long
+		if type(_saving[source]) == "number" and (os.time() - _saving[source]) > 60 then
+			exports['sandbox-base']:LoggerError("Characters",
+				string.format("Save took too long for source %s, forcing new save", source))
+		else
+			return
+		end
 	end
-	_saving[source] = true
+	_saving[source] = os.time()  -- Store timestamp instead of boolean
 	local char = exports['sandbox-characters']:FetchCharacterSource(source)
 	if char ~= nil then
 		local data = char:GetData()
@@ -66,12 +72,21 @@ function StoreData(source)
 
 		dbData['@ID'] = cId
 
-		local saveCharacter = MySQL.update.await(query, dbData)
-		_saving[source] = false
+		-- Add error handling for MySQL save
+		local success, saveCharacter = pcall(MySQL.update.await, query, dbData)
+		if not success or not saveCharacter then
+			exports['sandbox-base']:LoggerError("Characters",
+				string.format("Failed to save character %s: %s", cId, tostring(saveCharacter)))
+			_saving[source] = nil
+			return false
+		end
+
+		_saving[source] = nil
 
 		exports['sandbox-base']:LoggerTrace("Characters",
 			string.format("Character %s has been saved to the Database successfully", cId),
 			{ console = true })
+		return true
 	end
 end
 

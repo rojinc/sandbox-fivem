@@ -6,6 +6,8 @@ local PlayerState = LocalPlayer.state
 SetFlashLightKeepOnWhileMoving(true)
 
 local Players = {}
+local bucketHandler = nil
+local backItemsHandler = nil
 
 local function deleteBackItemsForPlayer(serverId)
     if not serverId or not Players[serverId] then return end
@@ -54,7 +56,7 @@ function RefreshBackItems()
     end
 end
 
-AddStateBagChangeHandler('bucket', ('player:%s'):format(cache.serverId), function(_, _, value)
+bucketHandler = AddStateBagChangeHandler('bucket', ('player:%s'):format(cache.serverId), function(_, _, value)
     if value == 0 then
         if PlayerState.backItems and next(PlayerState.backItems) then
             refreshBackItemsLocal()
@@ -72,7 +74,7 @@ RegisterNetEvent('txcl:setPlayerMode', function(mode)
     RefreshBackItems()
 end)
 
-AddStateBagChangeHandler('backItems', nil, function(bagName, _, backItems, _, replicated)
+backItemsHandler = AddStateBagChangeHandler('backItems', nil, function(bagName, _, backItems, _, replicated)
     if replicated then
         return
     end
@@ -143,4 +145,24 @@ end)
 RegisterNetEvent('backItems:clearPlayerItems', function(serverId)
     deleteBackItemsForPlayer(serverId)
     Players[serverId] = nil
+end)
+
+-- Cleanup event handlers on resource stop
+AddEventHandler('onResourceStop', function(resource)
+    if resource == GetCurrentResourceName() then
+        -- Remove state bag handlers
+        if bucketHandler then
+            RemoveStateBagChangeHandler(bucketHandler)
+        end
+        if backItemsHandler then
+            RemoveStateBagChangeHandler(backItemsHandler)
+        end
+
+        -- Clean up all back items
+        for serverId, backItems in pairs(Players) do
+            if backItems then
+                deleteBackItemsForPlayer(serverId)
+            end
+        end
+    end
 end)
