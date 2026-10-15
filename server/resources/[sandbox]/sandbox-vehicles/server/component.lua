@@ -1013,7 +1013,7 @@ AddEventHandler('entityRemoved', function(entity)
                 Vehicles.Stores:Delete(ent.state.VIN)
             end
 
-            Citizen.Wait(1000)
+            Wait(1000)
 
             if isLocal then
                 Vehicles:SpawnTemp(-1, vehModel, nil, coords, heading, function(vehicleId)
@@ -1048,7 +1048,7 @@ AddEventHandler('explosionEvent', function(sender, ev)
     end
 end)
 
-RegisterServerEvent('Vehicle:Server:InspectVIN', function(vNet)
+RegisterNetEvent('Vehicle:Server:InspectVIN', function(vNet)
     local src = source
     local veh = NetworkGetEntityFromNetworkId(vNet)
     if DoesEntityExist(veh) then
@@ -1060,7 +1060,7 @@ RegisterServerEvent('Vehicle:Server:InspectVIN', function(vNet)
     end
 end)
 
-RegisterServerEvent('Vehicles:Server:FlipVehicle', function(netVeh, correctPitch)
+RegisterNetEvent('Vehicles:Server:FlipVehicle', function(netVeh, correctPitch)
     local vehicle = NetworkGetEntityFromNetworkId(netVeh)
     if vehicle and DoesEntityExist(vehicle) then
         local netOwner = NetworkGetEntityOwner(vehicle)

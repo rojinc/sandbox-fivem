@@ -8,7 +8,7 @@ function RunSpeed(modifier, duration, cd, ss)
 		return
 	end
 	_runSpeed = true
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		local c = 0
 		if not ss then
 			AnimpostfxPlay("DrugsTrevorClownsFight", 0, true)
@@ -21,12 +21,12 @@ function RunSpeed(modifier, duration, cd, ss)
 
 		while LocalPlayer.state.loggedIn and _runSpeed and not LocalPlayer.state.drugsRunSpeed do
 			SetPedMoveRateOverride(PlayerPedId(), modifier)
-			Citizen.Wait(1)
+			Wait(1)
 		end
 		Buffs:RemoveBuffType("speed")
 		SetPedMoveRateOverride(PlayerPedId(), 0.0)
 		AnimpostfxStop("DrugsTrevorClownsFight")
-		Citizen.Wait(cd)
+		Wait(cd)
 		_energyCd = false
 	end)
 end
@@ -62,7 +62,7 @@ RegisterNetEvent("Inventory:Client:UseVanityItem", function(sender, action, item
 			end
 		end
 	end
-	Citizen.SetTimeout(10000, function()
+	SetTimeout(10000, function()
 		Hud.Overlay:Hide()
 	end)
 end)

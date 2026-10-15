@@ -7,7 +7,7 @@ end)
 RegisterNetEvent("Characters:Client:Spawn")
 AddEventHandler("Characters:Client:Spawn", function()
     while not GlobalState.LSUPickupLocation do
-        Citizen.Wait(100)
+        Wait(100)
     end
 
     PedInteraction:Add("lsu-pickup-guy", `s_m_y_dockwork_01`, GlobalState.LSUPickupLocation.coords, GlobalState.LSUPickupLocation.heading, 50.0, {
@@ -65,7 +65,7 @@ RegisterNUICallback("Boosting:AcceptContract", function(data, cb)
         if res?.success then
             Laptop.Data:Add("disabledBoostingContracts", data.id)
 
-            Citizen.SetTimeout(120000, function()
+            SetTimeout(120000, function()
                 Laptop.Data:Remove("disabledBoostingContracts", data.id)
             end)
         end

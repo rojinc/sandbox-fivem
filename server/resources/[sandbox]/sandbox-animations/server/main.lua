@@ -154,7 +154,7 @@ AddEventHandler("Proxy:Shared:RegisterReady", function()
 	exports["sandbox-base"]:RegisterComponent("Animations", ANIMATIONS)
 end)
 
-RegisterServerEvent("Animations:Server:ClearAttached", function(propsToDelete)
+RegisterNetEvent("Animations:Server:ClearAttached", function(propsToDelete)
 	local src = source
 	local ped = GetPlayerPed(src)
 
@@ -169,7 +169,7 @@ end)
 
 local pendingSend = false
 
-RegisterServerEvent("Selfie:CaptureSelfie", function()
+RegisterNetEvent("Selfie:CaptureSelfie", function()
 	local src = source
 	local char = Fetch:CharacterSource(src)
 	if char then

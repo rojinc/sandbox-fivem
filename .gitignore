@@ -26,3 +26,14 @@ server/created_doors_data.txt
 
 coord-line/
 server/resources/\[sandbox\]/sandbox-pwnzor2/pac.db
+
+# build + dependency artefacts (never commit)
+**/node_modules/
+**/.yarn.installed
+**/.vite/
+**/*.tsbuildinfo
+
+# secrets and design sources never belong in the repo
+*.pem
+*.key
+*.psd

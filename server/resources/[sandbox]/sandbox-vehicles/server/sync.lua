@@ -1,12 +1,12 @@
--- RegisterServerEvent('VehicleSync:Server:EmergencyAirhorn', function(veh, state)
+-- RegisterNetEvent('VehicleSync:Server:EmergencyAirhorn', function(veh, state)
 --     TriggerClientEvent('VehicleSync:Client:EmergencyAirhorn', -1, veh, state)
 -- end)
 
--- RegisterServerEvent('VehicleSync:Server:SyncIndicators', function(veh, state)
+-- RegisterNetEvent('VehicleSync:Server:SyncIndicators', function(veh, state)
 --     TriggerClientEvent('VehicleSync:Client:SyncIndicators', -1, veh, state)
 -- end)
 
--- RegisterServerEvent('VehicleSync:Server:Emergency', function(veh, lights, siren)
+-- RegisterNetEvent('VehicleSync:Server:Emergency', function(veh, lights, siren)
 --     TriggerClientEvent('VehicleSync:Client:Emergency', -1, veh, lights, siren)
 -- end)
 
@@ -14,19 +14,19 @@
 --     TriggerClientEvent('VehicleSync:Client:SyncNeons', -1, veh, state)
 -- end)
 
-RegisterServerEvent('VehicleSync:Server:ShutDoor', function(vNet, door, instant)
+RegisterNetEvent('VehicleSync:Server:ShutDoor', function(vNet, door, instant)
     local veh = NetworkGetEntityFromNetworkId(vNet)
 
     TriggerClientEvent('VehicleSync:Client:ShutDoor', NetworkGetEntityOwner(veh), vNet, door, instant)
 end)
 
-RegisterServerEvent('VehicleSync:Server:OpenDoor', function(vNet, door, loose, instant)
+RegisterNetEvent('VehicleSync:Server:OpenDoor', function(vNet, door, loose, instant)
     local veh = NetworkGetEntityFromNetworkId(vNet)
 
     TriggerClientEvent('VehicleSync:Client:OpenDoor', NetworkGetEntityOwner(veh), vNet, door, loose, instant)
 end)
 
-RegisterServerEvent('VehicleSync:Server:BodyRepair', function(vNet, door, loose, instant)
+RegisterNetEvent('VehicleSync:Server:BodyRepair', function(vNet, door, loose, instant)
     local veh = NetworkGetEntityFromNetworkId(vNet)
 
     local ent = Entity(veh)
@@ -43,7 +43,7 @@ RegisterServerEvent('VehicleSync:Server:BodyRepair', function(vNet, door, loose,
     TriggerClientEvent('VehicleSync:Client:BodyRepair', -1, vNet)
 end)
 
-RegisterServerEvent('VehicleSync:Server:EngineRepair', function(vNet, door, loose, instant)
+RegisterNetEvent('VehicleSync:Server:EngineRepair', function(vNet, door, loose, instant)
     local veh = NetworkGetEntityFromNetworkId(vNet)
 
     local ent = Entity(veh)

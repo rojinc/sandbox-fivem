@@ -89,10 +89,10 @@ AddEventHandler('Proxy:Shared:ExtendReady', function(component)
 	end
 end)
 
-RegisterServerEvent('VOIP:Radio:Server:SetChannel', function(targetChannel)
+RegisterNetEvent('VOIP:Radio:Server:SetChannel', function(targetChannel)
 	VOIP.Radio:SetChannel(source, targetChannel)
 end)
 
-RegisterServerEvent('VOIP:Radio:Server:SetTalking', function(isTalking, extendo)
+RegisterNetEvent('VOIP:Radio:Server:SetTalking', function(isTalking, extendo)
 	VOIP.Radio:SetTalking(source, isTalking, extendo)
 end)

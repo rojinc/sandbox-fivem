@@ -23,7 +23,7 @@ function RegisterBadgeCallbacks()
 			and IsPedOnFoot(LocalPlayer.state.ped)
 		then
 			StartBadgeAnim(data.Department)
-			Citizen.Wait(2500)
+			Wait(2500)
 
 			cb(true)
 		else
@@ -41,7 +41,7 @@ function RegisterBadgeCallbacks()
 			and IsPedOnFoot(LocalPlayer.state.ped)
 		then
 			StartLicenseAnim()
-			Citizen.Wait(2500)
+			Wait(2500)
 
 			cb(true)
 		else
@@ -83,7 +83,7 @@ function StartBadgeAnim(department)
 	TaskPlayAnim(playerPed, 1.0, -1, -1, 50, 0, 0, 0, 0)
 	TaskPlayAnim(playerPed, "paper_1_rcm_alt1-7", "player_one_dual-7", 1.0, 1.0, -1, 50, 0, 0, 0, 0)
 
-	Citizen.SetTimeout(11000, function()
+	SetTimeout(11000, function()
 		StopBadgeAnim()
 	end)
 end
@@ -131,7 +131,7 @@ function StartLicenseAnim()
 	TaskPlayAnim(playerPed, 1.0, -1, -1, 50, 0, 0, 0, 0)
 	TaskPlayAnim(playerPed, "paper_1_rcm_alt1-7", "player_one_dual-7", 1.0, 1.0, -1, 50, 0, 0, 0, 0)
 
-	Citizen.SetTimeout(11000, function()
+	SetTimeout(11000, function()
 		StopLicenseAnim()
 	end)
 end

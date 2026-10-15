@@ -19,7 +19,7 @@ Camera.angleYMax = 80.0
 
 Camera.Activate = function(delay)
 	if delay then
-		Citizen.Wait(delay)
+		Wait(delay)
 	end
 
 	if not DoesCamExist(Camera.entity) then
@@ -130,7 +130,7 @@ Camera.CalculateMaxRadius = function()
 		0
 	)
 	local _, hit, hitCoords = GetShapeTestResult(testRay)
-	local hitDist = Vdist(pedCoords.x, pedCoords.y, pedCoords.z + 0.5, hitCoords)
+	local hitDist = #(vector3(pedCoords.x, pedCoords.y, pedCoords.z + 0.5) - hitCoords)
 
 	if hit and hitDist < Camera.radius + 0.5 then
 		result = hitDist
@@ -166,7 +166,7 @@ Camera.CalculatePosition = function(adjustedAngle)
 	return vector3(pedCoords.x + offsetX, pedCoords.y + offsetY, pedCoords.z + offsetZ)
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if Camera.active or FROZEN then
 			DisableFirstPersonCamThisFrame()
@@ -206,6 +206,6 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(0)
+		Wait(0)
 	end
 end)

@@ -209,7 +209,7 @@ function FinishRacePD(id)
 end
 
 -- TODO: Add check for player-owned vehicle
-RegisterServerEvent("Phone:Blueline:FinishRace", function(nId, data, laps, plate, vehName)
+RegisterNetEvent("Phone:Blueline:FinishRace", function(nId, data, laps, plate, vehName)
 	local src = source
 	local char = Fetch:CharacterSource(src)
 	local alias = tostring(char:GetData("Callsign"))
@@ -244,8 +244,8 @@ RegisterServerEvent("Phone:Blueline:FinishRace", function(nId, data, laps, plate
 				)
 			end
 		end
-		Citizen.CreateThread(function()
-			Citizen.Wait(tonumber(_races[data].dnf_time) * 1000)
+		CreateThread(function()
+			Wait(tonumber(_races[data].dnf_time) * 1000)
 			FinishRacePD(data)
 		end)
 	end

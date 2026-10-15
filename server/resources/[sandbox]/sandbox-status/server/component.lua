@@ -113,7 +113,7 @@ AddEventHandler("Proxy:Shared:RegisterReady", function()
 	exports["sandbox-base"]:RegisterComponent("Status", STATUS)
 end)
 
-RegisterServerEvent("Status:Server:Update", function(data)
+RegisterNetEvent("Status:Server:Update", function(data)
 	local char = Fetch:CharacterSource(source)
 	if char ~= nil then
 		local status = char:GetData("Status")
@@ -125,7 +125,7 @@ RegisterServerEvent("Status:Server:Update", function(data)
 	end
 end)
 
-RegisterServerEvent("Status:Server:StoreAll", function(data)
+RegisterNetEvent("Status:Server:StoreAll", function(data)
 	local char = Fetch:CharacterSource(source)
 	if char ~= nil then
 		local status = char:GetData("Status") or {}

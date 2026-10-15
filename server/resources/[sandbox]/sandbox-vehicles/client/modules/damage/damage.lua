@@ -60,13 +60,13 @@ AddEventHandler("gameEventTriggered", function(event, args)
 
 							local stalling = true
 							Notification:Error("Engine Stalled")
-							Citizen.CreateThread(function()
+							CreateThread(function()
 								while stalling do
 									Vehicles.Engine:Force(DAMAGE_VEHICLE, false)
-									Citizen.Wait(500)
+									Wait(500)
 								end
 							end)
-							Citizen.SetTimeout(math.random(1, 5) * 1000, function()
+							SetTimeout(math.random(1, 5) * 1000, function()
 								stalling = false
 							end)
 						end

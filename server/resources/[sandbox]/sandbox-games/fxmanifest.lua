@@ -1,5 +1,3 @@
-server_script "SVV1QAJ.lua"
-client_script "SVV1QAJ.lua"
 fx_version("cerulean")
 games({ "gta5" })
 lua54("yes")
@@ -11,7 +9,6 @@ client_script("@sandbox-pwnzor/client/check.lua")
 client_scripts({
 	"config.lua",
 	"client/*.lua",
-	--'demo_games.lua',
 })
 
 server_scripts({

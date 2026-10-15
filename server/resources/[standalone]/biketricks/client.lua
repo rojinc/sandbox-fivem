@@ -14,7 +14,7 @@ local Keys = {
 --YBN Bike Tricks Edited By 8x for free updates join discord https://discord.gg/fandgwjNUm
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local playerPed = PlayerPedId()
 		local isOnBike = false
@@ -25,14 +25,14 @@ Citizen.CreateThread(function()
 			end
 		end
 		if not isOnBike then
-			Citizen.Wait(5000)
+			Wait(5000)
 		else
-			Citizen.Wait(5)
+			Wait(5)
 			if IsControlPressed(0, Keys["B"]) and IsControlJustReleased(0, 172) then
 				if IsThisModelABicycle(GetEntityModel(vehicle)) or IsThisModelABike(GetEntityModel(vehicle)) or IsThisModelAQuadbike(GetEntityModel(vehicle)) then
 					RequestAnimDict('rcmextreme2atv')
 					while not HasAnimDictLoaded('rcmextreme2atv') do
-						Citizen.Wait(100)
+						Wait(100)
 					end
 					TaskPlayAnim(playerPed, 'rcmextreme2atv', 'idle_e', -1, -1, -1, 32, 0, 0, 0, 0)
 				end	
@@ -42,7 +42,7 @@ Citizen.CreateThread(function()
 				if IsThisModelABicycle(GetEntityModel(vehicle)) or IsThisModelABike(GetEntityModel(vehicle)) or IsThisModelAQuadbike(GetEntityModel(vehicle))  then
 					RequestAnimDict('rcmextreme2atv')
 					while not HasAnimDictLoaded('rcmextreme2atv') do
-						Citizen.Wait(100)
+						Wait(100)
 					end
 					TaskPlayAnim(playerPed, 'rcmextreme2atv', 'idle_d', -1, -1, -1, 32, 0, 0, 0, 0)
 				end	
@@ -52,7 +52,7 @@ Citizen.CreateThread(function()
 				if IsThisModelABicycle(GetEntityModel(vehicle)) or IsThisModelABike(GetEntityModel(vehicle)) or IsThisModelAQuadbike(GetEntityModel(vehicle)) then
 					RequestAnimDict('rcmextreme2atv')
 					while not HasAnimDictLoaded('rcmextreme2atv') do
-						Citizen.Wait(100)
+						Wait(100)
 					end
 					TaskPlayAnim(playerPed, 'rcmextreme2atv', 'idle_b', -1, -1, -1, 32, 0, 0, 0, 0)
 				end	
@@ -62,7 +62,7 @@ Citizen.CreateThread(function()
 				if IsThisModelABicycle(GetEntityModel(vehicle)) or IsThisModelABike(GetEntityModel(vehicle)) or IsThisModelAQuadbike(GetEntityModel(vehicle))  then
 					RequestAnimDict('rcmextreme2atv')
 					while not HasAnimDictLoaded('rcmextreme2atv') do
-						Citizen.Wait(100)
+						Wait(100)
 					end
 					TaskPlayAnim(playerPed, 'rcmextreme2atv', 'idle_c', -1, -1, -1, 32, 0, 0, 0, 0)
 				end	
@@ -71,7 +71,7 @@ Citizen.CreateThread(function()
 				if IsThisModelABicycle(GetEntityModel(vehicle)) or IsThisModelABike(GetEntityModel(vehicle)) or IsThisModelAQuadbike(GetEntityModel(vehicle))  then
 					RequestAnimDict('rcmextreme2atv')
 					while not HasAnimDictLoaded('rcmextreme2atv') do
-						Citizen.Wait(100)
+						Wait(100)
 					end
 					TaskPlayAnim(playerPed, 'rcmextreme2atv', 'idle_a', -1, -1, -1, 32, 0, 0, 0, 0)
 				end	

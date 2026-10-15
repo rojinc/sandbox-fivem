@@ -1,10 +1,10 @@
-RegisterServerEvent('chat:init')
-RegisterServerEvent('chat:addTemplate')
-RegisterServerEvent('chat:addMessage')
-RegisterServerEvent('chat:addSuggestion')
-RegisterServerEvent('chat:removeSuggestion')
-RegisterServerEvent('_chat:messageEntered')
-RegisterServerEvent('__cfx_internal:commandFallback')
+RegisterNetEvent('chat:init')
+RegisterNetEvent('chat:addTemplate')
+RegisterNetEvent('chat:addMessage')
+RegisterNetEvent('chat:addSuggestion')
+RegisterNetEvent('chat:removeSuggestion')
+RegisterNetEvent('_chat:messageEntered')
+RegisterNetEvent('__cfx_internal:commandFallback')
 
 AddEventHandler('_chat:messageEntered', function(author, color, message)
     if not message or not author then
@@ -34,7 +34,7 @@ AddEventHandler('chat:init', function()
     Chat.Refresh:Commands(source)
 end)
 
-RegisterServerEvent('onResourceStart')
+RegisterNetEvent('onResourceStart')
 AddEventHandler('onResourceStart', function(resource)
     if resource ~= GetCurrentResourceName() then
         for _, player in ipairs(GetPlayers()) do

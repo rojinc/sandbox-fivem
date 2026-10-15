@@ -138,7 +138,7 @@ function ShowCash(source)
 	)
 end
 
-RegisterServerEvent("Wallet:ShowCash", function()
+RegisterNetEvent("Wallet:ShowCash", function()
 	local source = source
 	ShowCash(source)
 end)

@@ -35,7 +35,7 @@ function DrawText3Ds(x, y, z, text)
 end
 
 function GetVehicle()
-	local playerped = GetPlayerPed(-1)
+	local playerped = PlayerPedId()
 	local playerCoords = GetEntityCoords(playerped)
 	local handle, ped = FindFirstVehicle()
 	local success
@@ -43,11 +43,11 @@ function GetVehicle()
 	local distanceFrom
 	repeat
 		local pos = GetEntityCoords(ped)
-		local distance = GetDistanceBetweenCoords(playerCoords, pos, true)
+		local distance = #(playerCoords - pos)
 		if canPedBeUsed(ped) and distance < 30.0 and (distanceFrom == nil or distance < distanceFrom) then
 			distanceFrom = distance
 			rped = ped
-			if IsEntityTouchingEntity(GetPlayerPed(-1), ped) then
+			if IsEntityTouchingEntity(PlayerPedId(), ped) then
 				DrawText3Ds(
 					pos["x"],
 					pos["y"],
@@ -65,7 +65,7 @@ function GetVehicle()
 end
 
 function GetObject()
-	local playerped = GetPlayerPed(-1)
+	local playerped = PlayerPedId()
 	local playerCoords = GetEntityCoords(playerped)
 	local handle, ped = FindFirstObject()
 	local success
@@ -73,11 +73,11 @@ function GetObject()
 	local distanceFrom
 	repeat
 		local pos = GetEntityCoords(ped)
-		local distance = GetDistanceBetweenCoords(playerCoords, pos, true)
+		local distance = #(playerCoords - pos)
 		if distance < 10.0 then
 			distanceFrom = distance
 			rped = ped
-			if IsEntityTouchingEntity(GetPlayerPed(-1), ped) then
+			if IsEntityTouchingEntity(PlayerPedId(), ped) then
 				DrawText3Ds(
 					pos["x"],
 					pos["y"],
@@ -114,7 +114,7 @@ function GetObject()
 end
 
 function getNPC()
-	local playerped = GetPlayerPed(-1)
+	local playerped = PlayerPedId()
 	local playerCoords = GetEntityCoords(playerped)
 	local handle, ped = FindFirstPed()
 	local success
@@ -122,12 +122,12 @@ function getNPC()
 	local distanceFrom
 	repeat
 		local pos = GetEntityCoords(ped)
-		local distance = GetDistanceBetweenCoords(playerCoords, pos, true)
+		local distance = #(playerCoords - pos)
 		if canPedBeUsed(ped) and distance < 30.0 and (distanceFrom == nil or distance < distanceFrom) then
 			distanceFrom = distance
 			rped = ped
 
-			if IsEntityTouchingEntity(GetPlayerPed(-1), ped) then
+			if IsEntityTouchingEntity(PlayerPedId(), ped) then
 				DrawText3Ds(
 					pos["x"],
 					pos["y"],
@@ -164,7 +164,7 @@ function canPedBeUsed(ped)
 	if ped == nil then
 		return false
 	end
-	if ped == GetPlayerPed(-1) then
+	if ped == PlayerPedId() then
 		return false
 	end
 	if not DoesEntityExist(ped) then
@@ -173,29 +173,29 @@ function canPedBeUsed(ped)
 	return true
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(1)
+		Wait(1)
 
 		if _debugging then
-			local pos = GetEntityCoords(GetPlayerPed(-1))
+			local pos = GetEntityCoords(PlayerPedId())
 
-			local forPos = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0, 1.0, 0.0)
-			local backPos = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0, -1.0, 0.0)
-			local LPos = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 1.0, 0.0, 0.0)
-			local RPos = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), -1.0, 0.0, 0.0)
+			local forPos = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0, 1.0, 0.0)
+			local backPos = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0, -1.0, 0.0)
+			local LPos = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 1.0, 0.0, 0.0)
+			local RPos = GetOffsetFromEntityInWorldCoords(PlayerPedId(), -1.0, 0.0, 0.0)
 
-			local forPos2 = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0, 2.0, 0.0)
-			local backPos2 = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0, -2.0, 0.0)
-			local LPos2 = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 2.0, 0.0, 0.0)
-			local RPos2 = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), -2.0, 0.0, 0.0)
+			local forPos2 = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0, 2.0, 0.0)
+			local backPos2 = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0, -2.0, 0.0)
+			local LPos2 = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 2.0, 0.0, 0.0)
+			local RPos2 = GetOffsetFromEntityInWorldCoords(PlayerPedId(), -2.0, 0.0, 0.0)
 
-			local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), true))
+			local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), true))
 			local currentStreetHash, intersectStreetHash =
 				GetStreetNameAtCoord(x, y, z, currentStreetHash, intersectStreetHash)
 			currentStreetName = GetStreetNameFromHashKey(currentStreetHash)
 
-			drawTxt(0.8, 0.50, 0.4, 0.4, 0.30, "Heading: " .. GetEntityHeading(GetPlayerPed(-1)), 55, 155, 55, 255)
+			drawTxt(0.8, 0.50, 0.4, 0.4, 0.30, "Heading: " .. GetEntityHeading(PlayerPedId()), 55, 155, 55, 255)
 			drawTxt(0.8, 0.52, 0.4, 0.4, 0.30, "Coords: " .. pos, 55, 155, 55, 255)
 			drawTxt(
 				0.8,
@@ -203,27 +203,27 @@ Citizen.CreateThread(function()
 				0.4,
 				0.4,
 				0.30,
-				"Attached Ent: " .. GetEntityAttachedTo(GetPlayerPed(-1)),
+				"Attached Ent: " .. GetEntityAttachedTo(PlayerPedId()),
 				55,
 				155,
 				55,
 				255
 			)
-			drawTxt(0.8, 0.56, 0.4, 0.4, 0.30, "Health: " .. GetEntityHealth(GetPlayerPed(-1)), 55, 155, 55, 255)
+			drawTxt(0.8, 0.56, 0.4, 0.4, 0.30, "Health: " .. GetEntityHealth(PlayerPedId()), 55, 155, 55, 255)
 			drawTxt(
 				0.8,
 				0.58,
 				0.4,
 				0.4,
 				0.30,
-				"H a G: " .. GetEntityHeightAboveGround(GetPlayerPed(-1)),
+				"H a G: " .. GetEntityHeightAboveGround(PlayerPedId()),
 				55,
 				155,
 				55,
 				255
 			)
-			drawTxt(0.8, 0.60, 0.4, 0.4, 0.30, "Model: " .. GetEntityModel(GetPlayerPed(-1)), 55, 155, 55, 255)
-			drawTxt(0.8, 0.62, 0.4, 0.4, 0.30, "Speed: " .. GetEntitySpeed(GetPlayerPed(-1)), 55, 155, 55, 255)
+			drawTxt(0.8, 0.60, 0.4, 0.4, 0.30, "Model: " .. GetEntityModel(PlayerPedId()), 55, 155, 55, 255)
+			drawTxt(0.8, 0.62, 0.4, 0.4, 0.30, "Speed: " .. GetEntitySpeed(PlayerPedId()), 55, 155, 55, 255)
 			drawTxt(0.8, 0.64, 0.4, 0.4, 0.30, "Frame Time: " .. GetFrameTime(), 55, 155, 55, 255)
 			drawTxt(0.8, 0.66, 0.4, 0.4, 0.30, "Street: " .. currentStreetName, 55, 155, 55, 255)
 
@@ -243,7 +243,7 @@ Citizen.CreateThread(function()
 			local veh = GetVehicle()
 			local nearobj = GetObject()
 		else
-			Citizen.Wait(5000)
+			Wait(5000)
 		end
 	end
 end)

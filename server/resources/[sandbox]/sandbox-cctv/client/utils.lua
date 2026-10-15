@@ -11,7 +11,7 @@ function LoadAnimationDict(dict)
 	RequestAnimDict(dict)
 	while not HasAnimDictLoaded(dict) do
 		RequestAnimDict(dict)
-		Citizen.Wait(1)
+		Wait(1)
 	end
 end
 
@@ -19,7 +19,7 @@ function DrawText3D(x, y, z, text) --Just a simple generic 3d text function. Cop
 	globalWait = 10
 	local onScreen, _x, _y = World3dToScreen2d(x, y, z)
 	local p = GetGameplayCamCoords()
-	local distance = GetDistanceBetweenCoords(p.x, p.y, p.z, x, y, z, 1)
+	local distance = #(p - vector3(x, y, z))
 	local scale = (1 / distance) * 2
 	local fov = (1 / GetGameplayCamFov()) * 100
 	local scale = scale * fov

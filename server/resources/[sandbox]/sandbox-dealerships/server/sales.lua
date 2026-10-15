@@ -19,7 +19,7 @@ RegisterNetEvent('Vehicles:Server:TestDriveTime', function(vNet)
             if timeRemaining > 0 then
                 Execute:Client(_src, "Notification", "Info", "Test Drive Time Remaining", timeRemaining * 1000, "car")
     
-                Citizen.SetTimeout(timeRemaining * 1000, function()
+                SetTimeout(timeRemaining * 1000, function()
                     EndTestDrive(vehicle, dealership, _src)
                 end)
             else
@@ -455,7 +455,7 @@ function SendPendingLoanEmail(charData, dealerData, vehicleInfoData, downPayment
             (os.time() + (60 * 5))
         )
 
-        Citizen.SetTimeout(60000 * 5, function()
+        SetTimeout(60000 * 5, function()
             _pendingLoanAccept[charData.SID] = nil
         end)
     else

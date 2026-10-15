@@ -1,5 +1,3 @@
-server_script "DPVEH8TZWPW5.lua"
-client_script "DPVEH8TZWPW5.lua"
 fx_version("cerulean")
 games({ "gta5" })
 lua54("yes")
@@ -11,7 +9,6 @@ data_file("SCALEFORM_DLC_FILE")("stream/int3232302352.gfx")
 client_scripts({
 	"config.lua",
 	"client/*.lua",
-	--'demo_games.lua',
 })
 
 server_scripts({

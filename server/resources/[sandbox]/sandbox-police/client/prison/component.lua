@@ -419,7 +419,7 @@ AddEventHandler("Prison:Client:SetLockdown", function(entity, data)
 					TriggerServerEvent("Prison:Server:Lockdown:AlertPolice", state)
 				end
 
-				Citizen.SetTimeout(5000, function()
+				SetTimeout(5000, function()
 					_PROGRESS_LOCKDOWN = false
 				end)
 			else
@@ -443,7 +443,7 @@ AddEventHandler("Prison:Client:SetCellState", function(entity, data)
 				end
 
 				-- TriggerEvent("Prison:Client:JailAlarm", data.state)
-				Citizen.SetTimeout(5000, function()
+				SetTimeout(5000, function()
 					_PROGRESS_DOORS = false
 				end)
 			else
@@ -461,9 +461,9 @@ AddEventHandler("Prison:Client:JailAlarm", function(toggle)
 		RefreshInterior(alarmIpl)
 		EnableInteriorProp(alarmIpl, "prison_alarm")
 
-		Citizen.CreateThread(function()
+		CreateThread(function()
 			while not PrepareAlarm("PRISON_ALARMS") do
-				Citizen.Wait(100)
+				Wait(100)
 			end
 			StartAlarm("PRISON_ALARMS", true)
 		end)
@@ -473,9 +473,9 @@ AddEventHandler("Prison:Client:JailAlarm", function(toggle)
 		RefreshInterior(alarmIpl)
 		DisableInteriorProp(alarmIpl, "prison_alarm")
 
-		Citizen.CreateThread(function()
+		CreateThread(function()
 			while not PrepareAlarm("PRISON_ALARMS") do
-				Citizen.Wait(100)
+				Wait(100)
 			end
 			StopAllAlarms(true)
 		end)

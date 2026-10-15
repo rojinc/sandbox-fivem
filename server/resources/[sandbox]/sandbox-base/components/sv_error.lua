@@ -1,4 +1,4 @@
-RegisterServerEvent("Error:Server:Report", function(resource, ...)
+RegisterNetEvent("Error:Server:Report", function(resource, ...)
 	COMPONENTS.Logger:Error("Client Error", string.format("Script Error In %s", resource), {
 		console = true,
 		file = true,

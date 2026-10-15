@@ -138,7 +138,7 @@ AddEventHandler("Robbery:Client:Signs:StealSign", function(data, entity)
 	if math.random(100) >= 85 then
 		alarm = true
 		if coords ~= nil then
-			Citizen.SetTimeout(1000, function()
+			SetTimeout(1000, function()
 				TriggerServerEvent("Robbery:Server:Signs:AlertPolice", coords)
 			end)
 		end
@@ -157,7 +157,7 @@ AddEventHandler("Robbery:Client:Signs:StealSign", function(data, entity)
 			Minigame.Play:RoundSkillbar(1.0, 5, {
 				onSuccess = function(data)
 					while LocalPlayer.state.doingAction do -- Apparently this is dumb
-						Citizen.Wait(100)
+						Wait(100)
 					end
 
 					DoStealSignsProgress(
@@ -180,7 +180,7 @@ AddEventHandler("Robbery:Client:Signs:StealSign", function(data, entity)
 				end,
 				onFail = function(data)
 					while LocalPlayer.state.doingAction do -- Apparently this is dumb
-						Citizen.Wait(100)
+						Wait(100)
 					end
 					TriggerServerEvent("Robbery:Server:Signs:AlertPolice", coords)
 				end,

@@ -1,6 +1,6 @@
 VEHICLE_KEYS = {}
 
-RegisterServerEvent("Vehicles:Server:StealLocalKeys", function(vehNet)
+RegisterNetEvent("Vehicles:Server:StealLocalKeys", function(vehNet)
 	local src = source
 	local veh = NetworkGetEntityFromNetworkId(vehNet)
 	local vehEnt = Entity(veh)

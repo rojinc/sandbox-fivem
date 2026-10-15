@@ -4,7 +4,7 @@ _inPursuitVehicleMode = 1
 _inPursuitVehicleMegaphone = false
 
 AddEventHandler("Characters:Client:Spawn", function()
-    Citizen.Wait(500)
+    Wait(500)
     Buffs:RegisterBuff("pursuit-modes", "gauge-circle-bolt", "#892020", -1, "permanent")
 end)
 
@@ -73,7 +73,7 @@ AddEventHandler('Vehicles:Client:StartUp', function()
             TriggerEvent("EmergencyAlerts:Client:PursuitModeChange", _inPursuitVehicleSettings[_inPursuitVehicleMode].name or _inPursuitVehicleMode)
 
             _timeout = true
-            Citizen.SetTimeout(2000, function()
+            SetTimeout(2000, function()
                 _timeout = false
             end)
         end

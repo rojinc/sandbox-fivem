@@ -1,8 +1,8 @@
-RegisterServerEvent('Characters:Server:Spawning', function()
+RegisterNetEvent('Characters:Server:Spawning', function()
     Middleware:TriggerEvent("Characters:Spawning", source)
 end)
 
-RegisterServerEvent('Ped:LeaveCreator', function()
+RegisterNetEvent('Ped:LeaveCreator', function()
     local char = Fetch:CharacterSource(source)
     if char ~= nil then
         if char:GetData("New") then

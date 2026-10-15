@@ -15,7 +15,7 @@ _MDT = {
 			Animations.Emotes:ForceCancel()
 			Weapons:UnequipIfEquippedNoAnim()
 
-			Citizen.CreateThread(function()
+			CreateThread(function()
 				local playerPed = PlayerPedId()
 				LoadAnim("amb@code_human_in_bus_passenger_idles@female@tablet@base")
 				LoadModel(`prop_cs_tablet`)
@@ -63,7 +63,7 @@ _MDT = {
 							false
 						)
 					end
-					Citizen.Wait(250)
+					Wait(250)
 				end
 
 				StopAnimTask(playerPed, "amb@code_human_in_bus_passenger_idles@female@tablet@base", "base", 3.0)
@@ -134,7 +134,7 @@ _MDT = {
 				_badgeOpen = true
 				badgeIdOpen = data.SID
 
-				Citizen.SetTimeout(9000, function()
+				SetTimeout(9000, function()
 					if _badgeOpen and badgeIdOpen == data.SID then
 						MDT.Badges:Close()
 					end
@@ -159,7 +159,7 @@ _MDT = {
 				_badgeOpen = true
 				badgeIdOpen = data.SID
 
-				Citizen.SetTimeout(9000, function()
+				SetTimeout(9000, function()
 					if _badgeOpen and badgeIdOpen == data.SID then
 						MDT.Licenses:Close()
 					end
@@ -213,13 +213,13 @@ end)
 function LoadAnim(dict)
 	while not HasAnimDictLoaded(dict) do
 		RequestAnimDict(dict)
-		Citizen.Wait(10)
+		Wait(10)
 	end
 end
 
 function LoadModel(hash)
 	while not HasModelLoaded(hash) do
 		RequestModel(hash)
-		Citizen.Wait(10)
+		Wait(10)
 	end
 end

@@ -154,7 +154,7 @@ function CreateBowlingPlayer(source, nickName)
     end
 end
 
-RegisterServerEvent('Bowling:Server:StartBowling', function(alleyId)
+RegisterNetEvent('Bowling:Server:StartBowling', function(alleyId)
     local src = source
     local char = Fetch:CharacterSource(src)
     if char and alleyId then
@@ -186,7 +186,7 @@ RegisterServerEvent('Bowling:Server:StartBowling', function(alleyId)
                     end
 
                     if currentIndex then
-                        local nextIndex = currentIndex += 1
+                        local nextIndex = currentIndex + 1
                         if nextIndex > #alley.players then
                             nextIndex = 1
                         end

@@ -19,8 +19,7 @@ AddEventHandler('Core:Shared:Ready', function()
                 Callbacks:ClientCallback(source, "Lasers:Create:End")
             elseif args[1] == "save" then
                 Callbacks:ClientCallback(source, "Lasers:Create:Save")
-            else
-
+            end
         end, {
             help = "Create Lasers",
             params = {

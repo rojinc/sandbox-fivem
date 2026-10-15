@@ -59,7 +59,7 @@ AddEventHandler('Vehicles:Client:CharacterLogin', function()
             end
         end
 
-        Citizen.Wait(2500)
+        Wait(2500)
         
         -- Add Restricted Ones After so the Blips Appear With the Restricted Ones at the end of the list
         -- for k, v in pairs(_vehicleStorage) do
@@ -634,7 +634,7 @@ end)
 AddEventHandler('Vehicles:Client:Storage:Retrieve', function(data)
     if loadingVehicleStorageVehicle then
         Notification:Error('Awaiting Vehicle Load')
-        Citizen.SetTimeout(2500, function()
+        SetTimeout(2500, function()
             CleanupTempVehicle()
         end)
         return
@@ -666,7 +666,7 @@ AddEventHandler('ListMenu:Close', function()
         if not vehActuallySpawningOne then
             CleanupTempVehicle()
         else
-            Citizen.SetTimeout(2500, function()
+            SetTimeout(2500, function()
                 CleanupTempVehicle()
             end)
         end

@@ -330,7 +330,7 @@ RegisterNetEvent("Inventory:Server:ReloadItems", function()
 	TriggerLatentClientEvent("Inventory:Client:ReceiveReload", source, 50000, itemsDatabase)
 end)
 
-RegisterServerEvent("Inventory:server:closePlayerInventory", function()
+RegisterNetEvent("Inventory:server:closePlayerInventory", function()
 	local src = source
 	local char = Fetch:CharacterSource(src)
 	if char ~= nil then
@@ -2305,7 +2305,7 @@ INVENTORY = {
 	AddItem = function(self, Owner, Name, Count, md, invType, vehClass, vehModel, entity, isRecurse, Slot, forceCreateDate, quality, skipMetaGen, skipChangeAlert)
 		local p = promise.new()
 
-		Citizen.CreateThread(function()
+		CreateThread(function()
 			if vehClass == nil then
 				vehClass = false
 			end
@@ -2989,7 +2989,7 @@ INVENTORY = {
 	},
 	Holding = {
 		Put = function(self, source)
-			Citizen.CreateThread(function()
+			CreateThread(function()
 				local p = promise.new()
 				local char = Fetch:CharacterSource(source)
 				if char ~= nil then
@@ -3033,7 +3033,7 @@ INVENTORY = {
 			end)
 		end,
 		Take = function(self, source)
-			Citizen.CreateThread(function()
+			CreateThread(function()
 				local p = promise.new()
 				local char = Fetch:CharacterSource(source)
 				if char ~= nil then
@@ -3079,7 +3079,7 @@ INVENTORY = {
 	},
 	Ballistics = {
 		Clear = function(self, source, ballisticId, ballisticType)
-			Citizen.CreateThread(function()
+			CreateThread(function()
 				local p = promise.new()
 				local char = Fetch:CharacterSource(source)
 				if char ~= nil then
