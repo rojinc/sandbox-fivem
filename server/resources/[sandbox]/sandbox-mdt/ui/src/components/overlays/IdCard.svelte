@@ -117,8 +117,8 @@
         min-height: 0;
     }
     .photo {
-        width: 120px;
-        height: 150px;
+        width: 136px;
+        align-self: stretch;
         object-fit: cover;
         background: var(--au-bg-sunk);
         flex-shrink: 0;

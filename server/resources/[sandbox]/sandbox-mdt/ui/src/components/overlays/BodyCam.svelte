@@ -1,5 +1,6 @@
 <script>
     import { app } from '../../state/app.svelte.js';
+    import { alerts } from '../../state/alerts.svelte.js';
 
     /** Body camera recording stamp, top right, straight on the game world (no panel). */
     let now = $state(new Date());
@@ -14,7 +15,7 @@
     const unit = $derived(app.user?.Callsign ? `Unit ${app.user.Callsign}` : app.user?.SID ? `ID ${app.user.SID}` : '');
 </script>
 
-<div class="bodycam au-overworld" aria-hidden="true">
+<div class="bodycam au-overworld" class:beside-panel={alerts.showing} aria-hidden="true">
     <div class="rec"><span class="dot"></span>Recording</div>
     <div class="au-mono">{stamp}</div>
     {#if unit}<div class="au-mono">AXON BODY 3 {unit}</div>{/if}
@@ -29,6 +30,10 @@
         font-size: var(--au-fs-xs);
         line-height: 1.4;
         pointer-events: none !important;
+    }
+    /* Keep the stamp visible while the alerts panel is docked on the right. */
+    .bodycam.beside-panel {
+        right: 532px;
     }
     .rec {
         display: inline-flex;

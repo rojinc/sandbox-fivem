@@ -182,7 +182,7 @@
                 <ul class="notices">
                     {#each notices as n (n.id)}
                         <li>
-                            <button type="button" class="link" onclick={() => openNotice(n)}>{n.title}</button>
+                            <button type="button" class="mdt-link" onclick={() => openNotice(n)}>{n.title}</button>
                             <span class="au-muted">{formatDay(n.created)}</span>
                         </li>
                     {/each}
@@ -265,28 +265,6 @@
         gap: var(--au-s3);
         padding: var(--au-s2) 0;
         border-bottom: 1px solid var(--au-border);
-    }
-    .link {
-        border: 0;
-        padding: 0;
-        background: none;
-        color: var(--au-action);
-        font: inherit;
-        text-align: left;
-        text-decoration: underline;
-        text-underline-offset: 0.18em;
-        cursor: pointer;
-    }
-    .link:hover {
-        color: var(--au-action-hover);
-        text-decoration-thickness: 3px;
-    }
-    .link:focus-visible {
-        outline: 3px solid transparent;
-        background: var(--au-focus);
-        color: var(--au-on-focus);
-        text-decoration: none;
-        box-shadow: 0 4px var(--au-on-focus);
     }
     .nowrap {
         white-space: nowrap;

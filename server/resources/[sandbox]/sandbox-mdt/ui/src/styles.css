@@ -112,3 +112,48 @@
     margin: 0 0 var(--au-s3);
     max-width: 70ch;
 }
+
+/* A button that reads as a link: opens another record. */
+.mdt-link {
+    border: 0;
+    padding: 0;
+    background: none;
+    color: var(--au-action);
+    font: inherit;
+    text-align: left;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+    cursor: pointer;
+}
+.mdt-link:hover {
+    color: var(--au-action-hover);
+    text-decoration-thickness: 3px;
+}
+.mdt-link:focus-visible {
+    outline: 3px solid transparent;
+    background: var(--au-focus);
+    color: var(--au-on-focus);
+    text-decoration: none;
+    box-shadow: 0 4px var(--au-on-focus);
+}
+
+/* Record header: photo beside the name. */
+.mdt-record-head {
+    display: flex;
+    gap: var(--au-s5);
+    align-items: flex-start;
+    margin: 0 0 var(--au-s5);
+}
+.mdt-record-head__text {
+    flex: 1;
+    min-width: 0;
+}
+.mdt-record-head h1 {
+    margin: 0;
+    font-size: var(--au-fs-lg);
+}
+.mdt-record-head p {
+    margin: var(--au-s1) 0 0;
+    color: var(--au-muted);
+}

@@ -131,8 +131,8 @@
                     <dt>Owner</dt>
                     <dd>
                         {#if ownerIsPerson}
-                            <Button variant="tertiary" size="sm" onclick={() => go('person', { id: v.Owner.Id })}>{v.Owner.Person ? personName(v.Owner.Person) : `State ID ${v.Owner.Id}`}</Button>
-                            <span class="au-muted">State ID <span class="au-mono">{v.Owner.Id}</span></span>
+                            <button type="button" class="mdt-link" onclick={() => go('person', { id: v.Owner.Id })}>{v.Owner.Person ? personName(v.Owner.Person) : `State ID ${v.Owner.Id}`}</button>
+                            {#if v.Owner.Person}<span class="au-muted">, state ID <span class="au-mono">{v.Owner.Id}</span></span>{/if}
                         {:else}
                             {v.Owner?.JobName ?? 'Unknown business'}
                         {/if}

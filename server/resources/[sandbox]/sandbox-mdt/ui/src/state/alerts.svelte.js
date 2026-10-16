@@ -43,6 +43,8 @@ export function addAlert(alert) {
         ...alerts.alerts.filter((a) => a.id !== alert.id && ((a.time ?? now) >= now - ALERT_TTL || (a.attached ?? []).length > 0)),
         { ...alert, attached: alert.attached ?? [], time: alert.time ?? now },
     ];
+    // A panic opens itself so "Set route" is one click away.
+    if (alert.panic) alerts.selected = alert.id;
 }
 
 export function removeAlert(id) {

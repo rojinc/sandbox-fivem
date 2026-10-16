@@ -133,8 +133,13 @@
 {:else if status === 'missing'}
     <State title="No person with state ID {params.id}">The person may have been deleted. Search again from People.</State>
 {:else}
-    <div class="mdt-page-head">
-        <div>
+    <div class="mdt-record-head">
+        {#if d.Mugshot}
+            <img class="mdt-photo" src={d.Mugshot} alt="Photo of {d.First} {d.Last}" />
+        {:else}
+            <div class="mdt-photo">No photo</div>
+        {/if}
+        <div class="mdt-record-head__text">
             <h1>{d.First} {d.Last}</h1>
             <p>State ID <span class="au-mono">{d.SID}</span></p>
             <div class="mdt-tags tags">
@@ -146,9 +151,7 @@
             </div>
         </div>
         {#if canCreateIncident}
-            <div class="mdt-page-head__actions">
-                <Button onclick={() => go('report-edit', { type: 0, suspect: { SID: d.SID, First: d.First, Last: d.Last, Licenses: d.Licenses ?? {} } })}>Create incident report</Button>
-            </div>
+            <Button onclick={() => go('report-edit', { type: 0, suspect: { SID: d.SID, First: d.First, Last: d.Last, Licenses: d.Licenses ?? {} } })}>Create incident report</Button>
         {/if}
     </div>
 
@@ -239,14 +242,8 @@
         </div>
 
         <aside>
-            {#if d.Mugshot}
-                <img class="mdt-photo" src={d.Mugshot} alt="Photo of {d.First} {d.Last}" />
-            {:else}
-                <div class="mdt-photo">No photo on file</div>
-            {/if}
-
             {#if isPolice || canLicences || canExpunge || canBar || isSysAdmin || hasJob('government')}
-                <section class="mdt-section actions">
+                <section class="mdt-section">
                     <h2>Record actions</h2>
                     <div class="stack">
                         <Button variant="secondary" size="sm" onclick={() => go('reports', { term: `suspect: ${d.SID}` })}>Find reports naming this person</Button>
@@ -359,9 +356,6 @@
     .block {
         margin-bottom: var(--au-s4);
     }
-    .actions {
-        margin-top: var(--au-s6);
-    }
     .stack {
         display: flex;
         flex-direction: column;
@@ -373,9 +367,5 @@
     }
     .nowrap {
         white-space: nowrap;
-    }
-    aside .mdt-photo {
-        width: 160px;
-        height: 200px;
     }
 </style>

@@ -72,7 +72,7 @@
                     <td><strong>{p.First} {p.Last}</strong></td>
                     <td>{formatDay(p.DOB)}</td>
                     <td>{p.Gender ? 'Female' : 'Male'}</td>
-                    <td class="au-mono">{p.Phone ?? 'None'}</td>
+                    <td>{#if p.Phone}<span class="au-mono">{p.Phone}</span>{:else}<span class="au-muted">None</span>{/if}</td>
                     <td>
                         <span class="mdt-tags">
                             {#if p.Flags?.Violent}<Tag tone="error">Violent</Tag>{/if}

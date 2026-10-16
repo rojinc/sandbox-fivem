@@ -7,41 +7,41 @@
           "state": "active",
           "title": "Warrant for Marcus Dale (2207)",
           "creatorName": "Ana Okafor",
-          "expires": "$nowMs+518400000",
-          "issued": "$nowMs-86400000"
+          "expires": 1792709901774,
+          "issued": 1792105101774
         },
         {
           "id": 309,
           "state": "active",
           "title": "Warrant for Kira Vance (1983)",
           "creatorName": "Jordan Reyes",
-          "expires": "$nowMs+259200000",
-          "issued": "$nowMs-345600000"
+          "expires": 1792450701774,
+          "issued": 1791845901774
         },
         {
           "id": 304,
           "state": "active",
           "title": "Warrant for Tomas Ibarra (2410)",
           "creatorName": "Lee Park",
-          "expires": "$nowMs+43200000",
-          "issued": "$nowMs-561600000"
+          "expires": 1792234701774,
+          "issued": 1791629901774
         }
       ],
       "notices": [
         {
           "id": 41,
           "title": "Body cameras must record every traffic stop",
-          "created": "$nowMs-7200000"
+          "created": 1792184301774
         },
         {
           "id": 40,
           "title": "Firearms requalification closes Friday",
-          "created": "$nowMs-172800000"
+          "created": 1792018701774
         },
         {
           "id": 37,
           "title": "New pursuit policy from 1 November",
-          "created": "$nowMs-604800000"
+          "created": 1791586701774
         }
       ],
       "govWorkers": [
@@ -78,7 +78,7 @@
           "SID": 2207
         }
       },
-      "RegistrationDate": "$now-2592000",
+      "RegistrationDate": 1789599501,
       "Storage": {
         "Type": 1,
         "Id": 3,
@@ -89,7 +89,7 @@
         {
           "Type": "stolen",
           "Description": "Reported stolen by the owner after a break-in on Grove Street.",
-          "Date": "$nowMs-3600000",
+          "Date": 1792187901774,
           "Author": {
             "SID": 1042,
             "First": "Jordan",
@@ -101,7 +101,7 @@
       "Strikes": [
         {
           "Description": "Street racing on the Del Perro Freeway.",
-          "Date": "$nowMs-864000000",
+          "Date": 1791327501774,
           "Author": {
             "SID": 1077,
             "First": "Ana",
@@ -116,7 +116,7 @@
           "Id": 1983,
           "First": "Kira",
           "Last": "Vance",
-          "Time": "$nowMs-5184000000"
+          "Time": 1787007501774
         }
       ]
     }
