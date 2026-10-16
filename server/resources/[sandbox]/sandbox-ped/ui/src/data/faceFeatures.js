@@ -27,7 +27,7 @@ export const FACE_FEATURE_GROUPS = [
         ],
     },
     {
-        title: 'Eyes & lips',
+        title: 'Eyes and lips',
         items: [
             { label: 'Eye opening', index: 11 },
             { label: 'Lip thickness', index: 12 },
@@ -74,18 +74,18 @@ export const EYE_COLORS = [
     'Light spiral',
     'Chromatic red',
     'Chromatic red / blue',
-    'Black & blue',
-    'Red & white',
+    'Black and blue',
+    'Red and white',
     'Green snake',
     'Red snake',
     'Dark blue snake',
     'Dark yellow',
     'Bright yellow',
     'Solid black',
-    'Blue & black devil',
+    'Blue and black devil',
     'Small white pupil',
     'Glossed over',
 ];
 
-/** Head-blend shape/skin indices go 0..46 (as the previous UI allowed). */
+/** Head-blend face and skin indices go 0..46, the range the previous UI allowed. */
 export const HEAD_BLEND_MAX = 46;

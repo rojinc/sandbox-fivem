@@ -1,3 +1,8 @@
+/**
+ * Ped models offered in the Ped model section, indexed by gender
+ * (0 male, 1 female, as SET_PED_DATA.gender). The first entry of each list is
+ * the multiplayer (freemode) ped, the only model every option fully supports.
+ */
 export default [
 	[
 		'mp_m_freemode_01',

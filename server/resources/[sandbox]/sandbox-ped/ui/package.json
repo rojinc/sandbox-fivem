@@ -1,8 +1,6 @@
 {
   "name": "sandbox-ped-ui",
   "private": true,
-  "version": "1.0.0",
-  "description": "NUI for sandbox-ped: character creator, clothing store, barber, tattoo parlor and plastic surgery.",
   "type": "module",
   "scripts": {
     "dev": "vite",
