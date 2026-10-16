@@ -1,0 +1,64 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "backdrop": true,
+  "messages": [
+    {
+      "type": "APP_SHOW",
+      "data": {
+        "rate": 10
+      }
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 410.5
+      },
+      "delay": 50
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 395.2
+      },
+      "delay": 50
+    },
+    {
+      "type": "SET_RATE",
+      "data": {
+        "rate": 11
+      },
+      "delay": 50
+    },
+    {
+      "type": "SET_RATE",
+      "data": {
+        "rate": 12
+      },
+      "delay": 50
+    },
+    {
+      "type": "SET_RATE",
+      "data": {
+        "rate": 13
+      },
+      "delay": 50
+    },
+    {
+      "type": "SET_RATE",
+      "data": {
+        "rate": 14
+      },
+      "delay": 50
+    },
+    {
+      "type": "SET_RATE",
+      "data": {
+        "rate": 15
+      },
+      "delay": 50
+    }
+  ]
+}

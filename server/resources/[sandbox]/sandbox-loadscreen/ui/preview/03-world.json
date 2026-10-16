@@ -1,0 +1,22 @@
+{
+  "viewport": [1920, 1080],
+  "backdrop": true,
+  "settle": 300,
+  "wait": 9400,
+  "messages": [
+    { "raw": { "eventName": "loadProgress", "loadFraction": 0.44 } },
+    { "raw": { "eventName": "startDataFileEntries", "count": 118 } },
+    { "raw": { "eventName": "endDataFileEntries" } },
+    { "raw": { "eventName": "startInitFunction", "type": "INIT_BEFORE_MAP_LOADED" } },
+    { "raw": { "eventName": "startInitFunctionOrder", "type": "INIT_BEFORE_MAP_LOADED", "order": 1, "count": 27 } },
+    { "raw": { "eventName": "initFunctionInvoking", "type": "INIT_BEFORE_MAP_LOADED", "name": "CVehicleRecordingMgr", "idx": 12 } },
+    { "raw": { "eventName": "initFunctionInvoked", "type": "INIT_BEFORE_MAP_LOADED", "name": "CVehicleRecordingMgr" } },
+    { "raw": { "eventName": "endInitFunction", "type": "INIT_BEFORE_MAP_LOADED" } },
+    { "raw": { "eventName": "startInitFunction", "type": "INIT_AFTER_MAP_LOADED" } },
+    { "raw": { "eventName": "startInitFunctionOrder", "type": "INIT_AFTER_MAP_LOADED", "order": 1, "count": 19 } },
+    { "raw": { "eventName": "initFunctionInvoking", "type": "INIT_AFTER_MAP_LOADED", "name": "CScenarioManager", "idx": 4 } },
+    { "raw": { "eventName": "initFunctionInvoked", "type": "INIT_AFTER_MAP_LOADED", "name": "CScenarioManager" } },
+    { "raw": { "eventName": "initFunctionInvoking", "type": "INIT_AFTER_MAP_LOADED", "name": "CPathServer::InitBeforeMapLoaded", "idx": 5 } },
+    { "raw": { "eventName": "loadProgress", "loadFraction": 0.67 }, "delay": 80 }
+  ]
+}

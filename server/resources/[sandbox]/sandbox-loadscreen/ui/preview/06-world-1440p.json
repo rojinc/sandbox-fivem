@@ -1,0 +1,14 @@
+{
+  "viewport": [2560, 1440],
+  "backdrop": true,
+  "settle": 300,
+  "messages": [
+    { "raw": { "eventName": "loadProgress", "loadFraction": 0.38 } },
+    { "raw": { "eventName": "startInitFunctionOrder", "type": "MAP", "order": 1, "count": 10 } },
+    { "raw": { "eventName": "initFunctionInvoked", "type": "MAP", "name": "CPopulationStreaming" } },
+    { "raw": { "eventName": "startInitFunction", "type": "INIT_BEFORE_MAP_LOADED" } },
+    { "raw": { "eventName": "startInitFunctionOrder", "type": "INIT_BEFORE_MAP_LOADED", "order": 1, "count": 27 } },
+    { "raw": { "eventName": "initFunctionInvoking", "type": "INIT_BEFORE_MAP_LOADED", "name": "CVehicleRecordingMgr", "idx": 12 } },
+    { "raw": { "eventName": "loadProgress", "loadFraction": 0.53 }, "delay": 80 }
+  ]
+}

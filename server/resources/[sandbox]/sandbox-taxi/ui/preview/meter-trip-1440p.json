@@ -1,0 +1,99 @@
+{
+  "viewport": [
+    2560,
+    1440
+  ],
+  "backdrop": true,
+  "messages": [
+    {
+      "type": "APP_SHOW",
+      "data": {
+        "rate": 12
+      }
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 0.0
+      },
+      "delay": 50
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 6.2
+      },
+      "delay": 50
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 14.8
+      },
+      "delay": 50
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 19.9
+      },
+      "delay": 50
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 21.3
+      },
+      "delay": 50
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 22.0
+      },
+      "delay": 50
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 21.7
+      },
+      "delay": 50
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 20.4
+      },
+      "delay": 50
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 18.1
+      },
+      "delay": 50
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 17.6
+      },
+      "delay": 50
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 19.2
+      },
+      "delay": 50
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 20.8
+      },
+      "delay": 50
+    }
+  ]
+}

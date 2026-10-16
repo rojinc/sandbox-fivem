@@ -1,0 +1,19 @@
+{
+  "viewport": [1920, 1080],
+  "backdrop": true,
+  "settle": 300,
+  "messages": [
+    { "raw": { "eventName": "loadProgress", "loadFraction": 0.8 } },
+    { "raw": { "eventName": "startInitFunction", "type": "INIT_AFTER_MAP_LOADED" } },
+    { "raw": { "eventName": "endInitFunction", "type": "INIT_AFTER_MAP_LOADED" } },
+    { "raw": { "eventName": "startInitFunction", "type": "INIT_SESSION" } },
+    { "raw": { "eventName": "startInitFunctionOrder", "type": "INIT_SESSION", "order": 1, "count": 42 } },
+    { "raw": { "eventName": "initFunctionInvoked", "type": "INIT_SESSION", "name": "CNetwork" } },
+    { "raw": { "eventName": "initFunctionInvoked", "type": "INIT_SESSION", "name": "CPlayerInfo" } },
+    { "raw": { "eventName": "initFunctionInvoked", "type": "INIT_SESSION", "name": "CGameWorld" } },
+    { "raw": { "eventName": "initFunctionInvoking", "type": "INIT_SESSION", "name": "CStreaming::InitSession", "idx": 17 } },
+    { "raw": { "eventName": "onLogLine", "message": "Started resource sandbox-base" } },
+    { "raw": { "eventName": "onLogLine", "message": "Started resource sandbox-characters" } },
+    { "raw": { "eventName": "loadProgress", "loadFraction": 0.91 }, "delay": 80 }
+  ]
+}

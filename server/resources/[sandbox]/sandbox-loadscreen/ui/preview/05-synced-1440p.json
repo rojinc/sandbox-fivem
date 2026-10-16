@@ -1,0 +1,13 @@
+{
+  "viewport": [2560, 1440],
+  "backdrop": true,
+  "settle": 300,
+  "messages": [
+    { "raw": { "eventName": "loadProgress", "loadFraction": 0.95 } },
+    { "raw": { "eventName": "startInitFunction", "type": "INIT_SESSION" } },
+    { "raw": { "eventName": "startInitFunctionOrder", "type": "INIT_SESSION", "order": 2, "count": 8 } },
+    { "raw": { "eventName": "initFunctionInvoked", "type": "INIT_SESSION", "name": "CNetworkSession" } },
+    { "raw": { "eventName": "loadProgress", "loadFraction": 1 } },
+    { "raw": { "eventName": "endInitFunction", "type": "INIT_SESSION" }, "delay": 80 }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "viewport": [1920, 1080],
+  "backdrop": true,
+  "settle": 300,
+  "messages": [
+    { "type": "HANDOVER", "data": { "name": "Jess Okafor", "priority": 2, "priorityMessage": "Crash priority: you were in the city 4 minutes ago, so you skip the queue." } },
+    { "raw": { "eventName": "loadProgress", "loadFraction": 0.12 } },
+    { "raw": { "eventName": "startDataFileEntries", "count": 118 } },
+    { "raw": { "eventName": "onDataFileEntry", "name": "dlc_patchday27ng:/common/data/levels/gta5/vehicles.meta", "type": 20, "isNew": false } },
+    { "raw": { "eventName": "loadProgress", "loadFraction": 0.21 }, "delay": 80 }
+  ]
+}

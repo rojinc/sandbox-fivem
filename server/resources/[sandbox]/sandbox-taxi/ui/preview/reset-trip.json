@@ -1,0 +1,33 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "backdrop": true,
+  "messages": [
+    {
+      "type": "APP_SHOW",
+      "data": {
+        "rate": 10
+      }
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 820.0
+      },
+      "delay": 50
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 640.3
+      },
+      "delay": 50
+    },
+    {
+      "type": "RESET_TRIP",
+      "delay": 50
+    }
+  ]
+}

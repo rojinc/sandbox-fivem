@@ -1,0 +1,21 @@
+{
+  "viewport": [1920, 1080],
+  "backdrop": true,
+  "settle": 300,
+  "messages": [
+    { "raw": { "eventName": "loadProgress", "loadFraction": 0.06 } },
+    { "raw": { "eventName": "onLogLine", "message": "Loading data files" } },
+    { "raw": { "eventName": "startDataFileEntries", "count": 118 } },
+    { "raw": { "eventName": "onDataFileEntry", "name": "dlc_patchday27ng:/common/data/levels/gta5/vehicles.meta", "type": 20, "isNew": false } },
+    { "raw": { "eventName": "performMapLoadFunction", "idx": 1 } },
+    { "raw": { "eventName": "loadProgress", "loadFraction": 0.3 } },
+    { "raw": { "eventName": "startInitFunction", "type": "MAP" } },
+    { "raw": { "eventName": "startInitFunctionOrder", "type": "MAP", "order": 1, "count": 10 } },
+    { "raw": { "eventName": "initFunctionInvoking", "type": "MAP", "name": "CPopulationStreaming", "idx": 3 } },
+    { "raw": { "eventName": "initFunctionInvoked", "type": "MAP", "name": "CPopulationStreaming" } },
+    { "raw": { "eventName": "initFunctionInvoked", "type": "MAP", "name": "CVehicleModelInfo" } },
+    { "raw": { "eventName": "initFunctionInvoked", "type": "MAP", "name": "CPedModelInfo" } },
+    { "raw": { "eventName": "initFunctionInvoking", "type": "MAP", "name": "CInteriorProxy", "idx": 6 } },
+    { "raw": { "eventName": "loadProgress", "loadFraction": 0.42 }, "delay": 80 }
+  ]
+}

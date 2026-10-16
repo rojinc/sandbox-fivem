@@ -1,0 +1,57 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "backdrop": true,
+  "messages": [
+    {
+      "type": "APP_SHOW",
+      "data": {
+        "rate": 85
+      }
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 3900.4
+      },
+      "delay": 50
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 4210.0
+      },
+      "delay": 50
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 3875.9
+      },
+      "delay": 50
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 4102.2
+      },
+      "delay": 50
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 4033.7
+      },
+      "delay": 50
+    },
+    {
+      "type": "UPDATE_TRIP",
+      "data": {
+        "trip": 0.2
+      },
+      "delay": 50
+    }
+  ]
+}
