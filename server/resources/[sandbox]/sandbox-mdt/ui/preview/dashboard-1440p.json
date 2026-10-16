@@ -1,0 +1,285 @@
+{
+  "viewport": [
+    2560,
+    1440
+  ],
+  "mocks": {
+    "GetHomeData": {
+      "warrants": [
+        {
+          "id": 311,
+          "state": "active",
+          "title": "Warrant for Marcus Dale (2207)",
+          "creatorName": "Ana Okafor",
+          "expires": "$nowMs+518400000",
+          "issued": "$nowMs-86400000"
+        },
+        {
+          "id": 309,
+          "state": "active",
+          "title": "Warrant for Kira Vance (1983)",
+          "creatorName": "Jordan Reyes",
+          "expires": "$nowMs+259200000",
+          "issued": "$nowMs-345600000"
+        },
+        {
+          "id": 304,
+          "state": "active",
+          "title": "Warrant for Tomas Ibarra (2410)",
+          "creatorName": "Lee Park",
+          "expires": "$nowMs+43200000",
+          "issued": "$nowMs-561600000"
+        }
+      ],
+      "notices": [
+        {
+          "id": 41,
+          "title": "Body cameras must record every traffic stop",
+          "created": "$nowMs-7200000"
+        },
+        {
+          "id": 40,
+          "title": "Firearms requalification closes Friday",
+          "created": "$nowMs-172800000"
+        },
+        {
+          "id": 37,
+          "title": "New pursuit policy from 1 November",
+          "created": "$nowMs-604800000"
+        }
+      ],
+      "govWorkers": [
+        {
+          "SID": 3001,
+          "First": "Helen",
+          "Last": "Marsh",
+          "Phone": "555-0190",
+          "Workplace": "Department of Justice",
+          "Grade": "Judge"
+        },
+        {
+          "SID": 3012,
+          "First": "Victor",
+          "Last": "Osei",
+          "Phone": "555-0177",
+          "Workplace": "District Attorney's Office",
+          "Grade": "ADA"
+        }
+      ]
+    }
+  },
+  "messages": [
+    {
+      "type": "SET_USER",
+      "data": {
+        "user": {
+          "SID": 1042,
+          "First": "Jordan",
+          "Last": "Reyes",
+          "Callsign": "1-A-12",
+          "Phone": "555-0142",
+          "Gender": 0,
+          "DOB": "1994-03-12",
+          "Qualifications": [
+            "PD_FTO"
+          ],
+          "MDTSystemAdmin": false
+        }
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "charges",
+        "data": [
+          {
+            "id": 1,
+            "type": 1,
+            "title": "Speeding",
+            "description": "Driving above the posted limit.",
+            "fine": 250,
+            "jail": 0,
+            "points": 2
+          },
+          {
+            "id": 2,
+            "type": 1,
+            "title": "Running a red light",
+            "description": "Failing to stop at a red signal.",
+            "fine": 300,
+            "jail": 0,
+            "points": 3
+          },
+          {
+            "id": 3,
+            "type": 1,
+            "title": "Reckless driving",
+            "description": "Driving with wilful disregard for safety.",
+            "fine": 800,
+            "jail": 0,
+            "points": 4
+          },
+          {
+            "id": 4,
+            "type": 2,
+            "title": "Evading a peace officer",
+            "description": "Fleeing a marked police vehicle.",
+            "fine": 1500,
+            "jail": 10,
+            "points": 4
+          },
+          {
+            "id": 5,
+            "type": 2,
+            "title": "Possession of a controlled substance",
+            "description": "Small quantity for personal use.",
+            "fine": 1000,
+            "jail": 5,
+            "points": 0
+          },
+          {
+            "id": 6,
+            "type": 2,
+            "title": "Resisting arrest",
+            "description": "Physically resisting a lawful arrest.",
+            "fine": 1200,
+            "jail": 10,
+            "points": 0
+          },
+          {
+            "id": 7,
+            "type": 2,
+            "title": "Trespassing",
+            "description": "Entering property without permission.",
+            "fine": 500,
+            "jail": 5,
+            "points": 0
+          },
+          {
+            "id": 8,
+            "type": 3,
+            "title": "Armed robbery",
+            "description": "Robbery while armed with a weapon.",
+            "fine": 8000,
+            "jail": 45,
+            "points": 0
+          },
+          {
+            "id": 9,
+            "type": 3,
+            "title": "Assault with a deadly weapon",
+            "description": "Assault using a weapon or vehicle.",
+            "fine": 5000,
+            "jail": 35,
+            "points": 0
+          },
+          {
+            "id": 10,
+            "type": 3,
+            "title": "Grand theft auto",
+            "description": "Theft of a motor vehicle.",
+            "fine": 4000,
+            "jail": 25,
+            "points": 0
+          },
+          {
+            "id": 11,
+            "type": 3,
+            "title": "Possession with intent to distribute",
+            "description": "Controlled substances packaged for sale.",
+            "fine": 6000,
+            "jail": 30,
+            "points": 0
+          },
+          {
+            "id": 12,
+            "type": 3,
+            "title": "Attempted murder of a peace officer",
+            "description": "Attempt to kill an on-duty officer.",
+            "fine": 15000,
+            "jail": 90,
+            "points": 0
+          }
+        ]
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "bolos",
+        "data": [
+          {
+            "id": 0,
+            "type": "car",
+            "title": "Black Bravado Buffalo, partial plate 46E",
+            "summary": "Fled a traffic stop on Vespucci Boulevard.",
+            "description": "Two occupants, driver in a red cap. Rear bumper damaged.",
+            "time": "$nowMs-1800000",
+            "author": {
+              "SID": 1042,
+              "First": "Jordan",
+              "Last": "Reyes",
+              "Callsign": "1-A-12"
+            }
+          },
+          {
+            "id": 1,
+            "type": "user",
+            "title": "Male, mid 20s, green hoodie",
+            "summary": "Suspect in the Fleeca robbery at Legion Square.",
+            "description": "Last seen heading north on foot.",
+            "time": "$nowMs-5400000",
+            "author": {
+              "SID": 1077,
+              "First": "Ana",
+              "Last": "Okafor",
+              "Callsign": "2-B-04"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "JOB_LOGIN",
+      "data": {
+        "points": {
+          "reduction": 50,
+          "license": 20
+        },
+        "job": {
+          "Id": "police",
+          "Name": "Police",
+          "Workplace": {
+            "Id": "lspd",
+            "Name": "Los Santos Police Department"
+          },
+          "Grade": {
+            "Id": "sergeant",
+            "Name": "Sergeant",
+            "Level": 6
+          }
+        },
+        "jobPermissions": {
+          "MDT_INCIDENT_REPORT_VIEW": true,
+          "MDT_INCIDENT_REPORT_CREATE": true,
+          "MDT_INVESTIGATIVE_REPORT_VIEW": true,
+          "MDT_INVESTIGATIVE_REPORT_CREATE": true,
+          "MDT_CIVILIAN_REPORT_VIEW": true,
+          "MDT_CIVILIAN_REPORT_CREATE": true,
+          "MDT_POLICE_FTO_REPORTS": true,
+          "PD_COMMAND": true,
+          "REVOKE_LICENSE_SUSPENSIONS": true,
+          "police_alerts": true
+        },
+        "attorney": false
+      }
+    },
+    {
+      "type": "APP_SHOW",
+      "data": {}
+    }
+  ],
+  "backdrop": true,
+  "settle": 400,
+  "wait": 900
+}

@@ -51,7 +51,12 @@
           "DOB": 662687999,
           "Phone": "555-0133",
           "Jobs": []
-        }
+        },
+        "Groups": [
+          "management",
+          "whitelisted"
+        ],
+        "Ping": 18
       },
       {
         "Source": 5,
@@ -71,7 +76,11 @@
               }
             }
           ]
-        }
+        },
+        "Groups": [
+          "whitelisted"
+        ],
+        "Ping": 42
       },
       {
         "Source": 8,
@@ -97,7 +106,12 @@
               }
             }
           ]
-        }
+        },
+        "Groups": [
+          "whitelisted",
+          "police"
+        ],
+        "Ping": 63
       },
       {
         "Source": 12,
@@ -117,13 +131,22 @@
               }
             }
           ]
-        }
+        },
+        "Groups": [
+          "whitelisted"
+        ],
+        "Ping": 35
       },
       {
         "Source": 14,
         "Name": "velociraptor_99",
         "AccountID": 1203,
-        "Character": false
+        "Character": false,
+        "Groups": [
+          "whitelisted",
+          "ems"
+        ],
+        "Ping": 88
       },
       {
         "Source": 17,
@@ -136,7 +159,11 @@
           "DOB": 662687999,
           "Phone": "555-0133",
           "Jobs": []
-        }
+        },
+        "Groups": [
+          "whitelisted"
+        ],
+        "Ping": 124
       },
       {
         "Source": 19,
@@ -156,13 +183,22 @@
               }
             }
           ]
-        }
+        },
+        "Groups": [
+          "whitelisted",
+          "mechanic"
+        ],
+        "Ping": 51
       },
       {
         "Source": 21,
         "Name": "TinyTim",
         "AccountID": 1702,
-        "Character": false
+        "Character": false,
+        "Groups": [
+          "whitelisted"
+        ],
+        "Ping": 29
       },
       {
         "Source": 23,
@@ -188,7 +224,12 @@
               }
             }
           ]
-        }
+        },
+        "Groups": [
+          "management",
+          "whitelisted"
+        ],
+        "Ping": 77
       },
       {
         "Source": 26,
@@ -208,7 +249,11 @@
               }
             }
           ]
-        }
+        },
+        "Groups": [
+          "whitelisted"
+        ],
+        "Ping": 40
       },
       {
         "Source": 28,
@@ -221,7 +266,12 @@
           "DOB": 662687999,
           "Phone": "555-0133",
           "Jobs": []
-        }
+        },
+        "Groups": [
+          "whitelisted",
+          "police"
+        ],
+        "Ping": 212
       },
       {
         "Source": 31,
@@ -234,7 +284,11 @@
           "DOB": 662687999,
           "Phone": "555-0133",
           "Jobs": []
-        }
+        },
+        "Groups": [
+          "whitelisted"
+        ],
+        "Ping": 33
       },
       {
         "Source": 34,
@@ -254,7 +308,12 @@
               }
             }
           ]
-        }
+        },
+        "Groups": [
+          "whitelisted",
+          "ems"
+        ],
+        "Ping": 56
       },
       {
         "Source": 36,
@@ -267,13 +326,22 @@
           "DOB": 662687999,
           "Phone": "555-0133",
           "Jobs": []
-        }
+        },
+        "Groups": [
+          "whitelisted"
+        ],
+        "Ping": 95
       },
       {
         "Source": 40,
         "Name": "Dusty",
         "AccountID": 2090,
-        "Character": false
+        "Character": false,
+        "Groups": [
+          "whitelisted",
+          "mechanic"
+        ],
+        "Ping": 47
       },
       {
         "Source": 42,
@@ -299,7 +367,11 @@
               }
             }
           ]
-        }
+        },
+        "Groups": [
+          "whitelisted"
+        ],
+        "Ping": 61
       }
     ]
   }

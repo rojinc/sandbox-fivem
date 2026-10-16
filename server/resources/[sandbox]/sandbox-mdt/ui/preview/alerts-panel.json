@@ -1,0 +1,153 @@
+{
+  "wait": 700,
+  "mocks": {},
+  "messages": [
+    {
+      "type": "SET_USER",
+      "data": {
+        "user": {
+          "SID": 1042,
+          "First": "Jordan",
+          "Last": "Reyes",
+          "Callsign": "1-A-12",
+          "Phone": "555-0142",
+          "Gender": 0,
+          "DOB": "1994-03-12",
+          "Qualifications": [
+            "PD_FTO"
+          ],
+          "MDTSystemAdmin": false
+        }
+      }
+    },
+    {
+      "type": "SET_SHOWING",
+      "data": {
+        "state": true
+      }
+    },
+    {
+      "type": "ADD_ALERT",
+      "data": {
+        "alert": {
+          "id": "local-1",
+          "code": "10-71",
+          "title": "Shots Fired",
+          "type": "police_alerts",
+          "style": 1,
+          "panic": false,
+          "location": {
+            "street1": "Grove Street",
+            "street2": "Forum Drive",
+            "area": "Davis",
+            "x": 1,
+            "y": 2,
+            "z": 3
+          },
+          "description": {
+            "details": "Several shots heard near the basketball court."
+          },
+          "client": true,
+          "attached": [],
+          "camera": false,
+          "time": "$nowMs-960000"
+        }
+      }
+    },
+    {
+      "type": "ADD_ALERT",
+      "data": {
+        "alert": {
+          "id": "local-2",
+          "code": "10-47",
+          "title": "Injured Person",
+          "type": [
+            "police_alerts",
+            "ems_alerts"
+          ],
+          "style": 2,
+          "panic": false,
+          "location": {
+            "street1": "Del Perro Boulevard",
+            "area": "Del Perro",
+            "x": 1,
+            "y": 2,
+            "z": 3
+          },
+          "description": {
+            "details": "Cyclist down after a collision."
+          },
+          "client": true,
+          "attached": [],
+          "time": "$nowMs-720000"
+        }
+      }
+    },
+    {
+      "type": "ADD_ALERT",
+      "data": {
+        "alert": {
+          "id": "local-3",
+          "code": "10-90",
+          "title": "Store Alarm",
+          "type": "police_alerts",
+          "style": 1,
+          "panic": false,
+          "location": {
+            "street1": "Innocence Boulevard",
+            "area": "Strawberry",
+            "x": 1,
+            "y": 2,
+            "z": 3
+          },
+          "description": {
+            "details": "Silent alarm at the 24/7 store."
+          },
+          "client": true,
+          "attached": [],
+          "camera": 12,
+          "time": "$nowMs-480000"
+        }
+      }
+    },
+    {
+      "type": "ADD_ALERT",
+      "data": {
+        "alert": {
+          "id": "local-4",
+          "code": "10-13A",
+          "title": "Officer Down",
+          "type": "police_alerts",
+          "style": 1,
+          "panic": true,
+          "location": {
+            "street1": "Vespucci Boulevard",
+            "street2": "San Andreas Avenue",
+            "area": "Little Seoul",
+            "x": 1,
+            "y": 2,
+            "z": 3
+          },
+          "description": {
+            "details": "Panic button pressed by 2-B-04 Okafor."
+          },
+          "client": true,
+          "attached": [],
+          "time": "$nowMs-240000"
+        }
+      }
+    },
+    {
+      "type": "SET_BODYCAM",
+      "data": {
+        "state": true
+      }
+    }
+  ],
+  "viewport": [
+    1920,
+    1080
+  ],
+  "backdrop": true,
+  "settle": 400
+}

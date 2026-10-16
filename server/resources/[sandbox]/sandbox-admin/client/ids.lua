@@ -104,3 +104,7 @@ function ToggleAdminPlayerIDs()
         end)
     end
 end
+
+function AdminPlayerIDsActive()
+    return isPlayerIDActive
+end

@@ -1,0 +1,22 @@
+{
+  "mocks": {},
+  "messages": [
+    {
+      "type": "SHOW_DRIVER_LICENSE",
+      "data": {
+        "SID": 2207,
+        "Name": "Marcus Dale",
+        "Gender": 0,
+        "DOB": "1996-07-21",
+        "Mugshot": ""
+      }
+    }
+  ],
+  "viewport": [
+    1920,
+    1080
+  ],
+  "backdrop": true,
+  "settle": 400,
+  "wait": 900
+}

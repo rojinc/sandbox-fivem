@@ -19,7 +19,16 @@ end)
 function OpenMenu()
     if not _menuOpen and _hasMenu then
         _menuOpen = true
-        SendNUIMessage({ type = "APP_SHOW" })
+        SendNUIMessage({
+            type = "APP_SHOW",
+            data = {
+                -- current state of the Self toggles, so the console's checkboxes match the game
+                toggles = {
+                    ids = AdminPlayerIDsActive and AdminPlayerIDsActive() or false,
+                    invisible = AdminIsInvisible and AdminIsInvisible() or false,
+                },
+            },
+        })
 		SetNuiFocus(true, true)
     end
 end

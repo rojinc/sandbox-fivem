@@ -1,0 +1,114 @@
+/* Terminal-wide helpers. Colours and sizes come from the kit tokens only. */
+
+.mdt-page-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--au-s4);
+    margin: 0 0 var(--au-s4);
+}
+.mdt-page-head h1 {
+    margin: 0;
+    font-size: var(--au-fs-lg);
+}
+.mdt-page-head p {
+    margin: var(--au-s1) 0 0;
+    color: var(--au-muted);
+}
+.mdt-page-head__actions {
+    display: flex;
+    gap: var(--au-s2);
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.mdt-section {
+    margin: 0 0 var(--au-s6);
+}
+.mdt-section > h2 {
+    margin: 0 0 var(--au-s2);
+    font-size: var(--au-fs-md);
+}
+.mdt-section__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--au-s3);
+    margin: 0 0 var(--au-s2);
+}
+.mdt-section__head h2 {
+    margin: 0;
+    font-size: var(--au-fs-md);
+}
+
+/* Two thirds + one third, for record pages and the dashboard. */
+.mdt-split {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: var(--au-s8);
+    align-items: start;
+}
+
+/* Rows in record tables open the record. */
+.mdt-table tbody tr.is-clickable:focus-visible {
+    outline: 3px solid var(--au-focus);
+    outline-offset: -3px;
+}
+.mdt-table td.mdt-num,
+.mdt-table th.mdt-num {
+    text-align: right;
+}
+.mdt-table td {
+    vertical-align: middle;
+}
+
+.mdt-empty {
+    padding: var(--au-s6) 0;
+    color: var(--au-muted);
+}
+.mdt-empty strong {
+    display: block;
+    color: var(--au-text);
+    margin-bottom: var(--au-s1);
+}
+
+.mdt-back {
+    margin: 0 0 var(--au-s3);
+}
+
+.mdt-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--au-s1);
+}
+
+.mdt-pager {
+    display: flex;
+    align-items: center;
+    gap: var(--au-s3);
+    margin-top: var(--au-s3);
+    color: var(--au-muted);
+}
+
+.mdt-form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0 var(--au-s4);
+}
+
+.mdt-photo {
+    width: 128px;
+    height: 160px;
+    object-fit: cover;
+    background: var(--au-bg-sunk);
+    border: 2px solid var(--au-border);
+    display: grid;
+    place-items: center;
+    color: var(--au-muted);
+    flex-shrink: 0;
+}
+
+.mdt-rich p {
+    margin: 0 0 var(--au-s3);
+    max-width: 70ch;
+}

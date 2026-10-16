@@ -49,6 +49,8 @@ function RegisterCallbacks()
                             Name = v:GetData('Name'),
                             AccountID = v:GetData('AccountID'),
                             Character = v:GetData('Character'),
+                            Groups = v:GetData('Groups'),
+                            Ping = GetPlayerPing(v:GetData('Source')),
                         })
                     end
                 end

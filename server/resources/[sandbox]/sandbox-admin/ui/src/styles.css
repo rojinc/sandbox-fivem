@@ -1,0 +1,142 @@
+/*
+ * The console frame is laid out in px for 1920x1080 and zoomed for larger
+ * screens (App.svelte). Page helpers shared by every section live here.
+ */
+.stage {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+.frame {
+    position: relative;
+    width: 1720px;
+    height: 960px;
+}
+
+/* A section that fills the console body and scrolls by itself. */
+.page {
+    height: 100%;
+    overflow: auto;
+    padding: var(--au-s6);
+}
+
+/* List on the left, record of the selected row on the right. */
+.split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 640px;
+    height: 100%;
+    min-height: 0;
+}
+.split__list {
+    min-width: 0;
+    min-height: 0;
+    overflow: auto;
+    padding: var(--au-s6);
+}
+.split__record {
+    min-height: 0;
+    overflow: auto;
+    padding: var(--au-s6);
+    background: var(--au-bg-shade);
+    border-left: 1px solid var(--au-border);
+}
+
+.page-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--au-s6);
+    margin-bottom: var(--au-s5);
+}
+.page-head h1 {
+    margin: 0;
+    font-size: var(--au-fs-lg);
+}
+.page-head p {
+    margin: var(--au-s1) 0 0;
+    color: var(--au-muted);
+    font-size: var(--au-fs-xs);
+}
+
+/* Major sections open with the 4px ink rule. */
+.section {
+    border-top: 4px solid var(--au-ink);
+    padding-top: var(--au-s3);
+    margin-top: var(--au-s6);
+}
+.section > h2 {
+    margin: 0 0 var(--au-s3);
+    font-size: var(--au-fs-md);
+}
+.section > h3,
+.sub > h3 {
+    margin: 0 0 var(--au-s2);
+    font-size: var(--au-fs-sm);
+}
+.sub {
+    margin-top: var(--au-s6);
+}
+
+.lead-muted {
+    margin: 0 0 var(--au-s3);
+    color: var(--au-muted);
+    font-size: var(--au-fs-xs);
+}
+
+/* Definition rows: wider label column, values may wrap. */
+.facts {
+    grid-template-columns: 168px minmax(0, 1fr);
+    row-gap: var(--au-s2);
+    margin: 0;
+}
+.facts dd {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+.facts .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--au-s1);
+}
+
+/* Table helpers */
+.table-wrap {
+    overflow-x: auto;
+}
+.au-table td.num,
+.au-table th.num {
+    text-align: right;
+}
+.au-table tbody tr.is-clickable:focus-visible {
+    outline: 3px solid var(--au-focus);
+    outline-offset: -3px;
+}
+.au-table .dim {
+    color: var(--au-muted);
+}
+.au-table .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--au-s1);
+}
+.au-table td.reason {
+    max-width: 360px;
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    gap: var(--au-s3);
+    padding: var(--au-s6) 0;
+    color: var(--au-muted);
+    font-size: var(--au-fs-xs);
+}
+
+.note {
+    margin: var(--au-s2) 0 0;
+    color: var(--au-muted);
+    font-size: var(--au-fs-xs);
+}

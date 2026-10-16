@@ -1,0 +1,79 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "settle": 500,
+  "wait": 1200,
+  "messages": [
+    {
+      "type": "SET_USERDATA",
+      "data": {
+        "user": {
+          "Source": 3,
+          "Name": "Dr Nick",
+          "AccountID": 1,
+          "Identifier": "license:7888128828188291c0ffee",
+          "Groups": [
+            "management",
+            "whitelisted"
+          ],
+          "Discord": "184562123456789012",
+          "Mention": "<@184562123456789012>",
+          "Avatar": ""
+        },
+        "permission": "management",
+        "permissionName": "Management",
+        "permissionLevel": 100
+      }
+    },
+    {
+      "type": "APP_SHOW",
+      "data": {
+        "toggles": {
+          "ids": true,
+          "invisible": false
+        }
+      }
+    },
+    {
+      "raw": {
+        "previewRoute": "/self"
+      },
+      "delay": 50
+    }
+  ],
+  "mocks": {
+    "GetPlayer": {
+      "Source": 3,
+      "Name": "Dr Nick",
+      "GameName": "Dr Nick",
+      "AccountID": 1,
+      "Identifier": "license:7888128828188291c0ffee",
+      "Discord": "203991827364555001",
+      "Mention": "<@203991827364555001>",
+      "Avatar": "",
+      "Level": 100,
+      "Groups": [
+        "management",
+        "whitelisted"
+      ],
+      "StaffGroup": "Management",
+      "Character": {
+        "First": "Nicholas",
+        "Last": "Riviera",
+        "SID": 1,
+        "DOB": 662687999,
+        "Phone": "555-0133",
+        "Jobs": [],
+        "Coords": {
+          "x": -1037.7412,
+          "y": -2737.8031,
+          "z": 20.1693
+        }
+      },
+      "Characters": [],
+      "Vehicle": false
+    }
+  }
+}

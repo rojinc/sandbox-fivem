@@ -1,0 +1,475 @@
+{
+  "viewport": [
+    2560,
+    1440
+  ],
+  "settle": 500,
+  "wait": 1200,
+  "messages": [
+    {
+      "type": "SET_USERDATA",
+      "data": {
+        "user": {
+          "Source": 3,
+          "Name": "Dr Nick",
+          "AccountID": 1,
+          "Identifier": "license:7888128828188291c0ffee",
+          "Groups": [
+            "management",
+            "whitelisted"
+          ],
+          "Discord": "184562123456789012",
+          "Mention": "<@184562123456789012>",
+          "Avatar": ""
+        },
+        "permission": "management",
+        "permissionName": "Management",
+        "permissionLevel": 100
+      }
+    },
+    {
+      "type": "APP_SHOW",
+      "data": {}
+    },
+    {
+      "raw": {
+        "previewRoute": "/player/5"
+      },
+      "delay": 50
+    }
+  ],
+  "mocks": {
+    "GetPlayer": {
+      "Source": 5,
+      "Name": "PandaBear",
+      "GameName": "PandaBear",
+      "AccountID": 418,
+      "Identifier": "license:2f1c9a0e7b3d4c5a8e9f0a1b2c3d4e5f6a7b8c9d",
+      "Discord": "203991827364555001",
+      "Mention": "<@203991827364555001>",
+      "Avatar": "",
+      "Level": 0,
+      "Groups": [
+        "whitelisted"
+      ],
+      "StaffGroup": false,
+      "Character": {
+        "First": "Walter",
+        "Last": "Western",
+        "SID": 3,
+        "DOB": 662687999,
+        "Phone": "555-0133",
+        "Jobs": [
+          {
+            "Name": "LSPD",
+            "Grade": {
+              "Name": "Sergeant"
+            }
+          },
+          {
+            "Name": "Mechanic",
+            "Grade": {
+              "Name": "Trainee"
+            }
+          }
+        ],
+        "Coords": {
+          "x": 215.3271,
+          "y": -809.8123,
+          "z": 30.7291
+        }
+      },
+      "Characters": [
+        {
+          "SID": 1187,
+          "First": "Benny",
+          "Last": "Western",
+          "DOB": 599616000,
+          "BankAccount": 110042,
+          "Jobs": [
+            {
+              "Name": "Mechanic",
+              "Grade": {
+                "Name": "Trainee"
+              }
+            }
+          ],
+          "Cash": 3560,
+          "LastPlayed": 1791849600,
+          "Phone": "555-0145",
+          "Deleted": false,
+          "User": 418
+        },
+        {
+          "SID": 2451,
+          "First": "Carla",
+          "Last": "Ruiz",
+          "DOB": 741398400,
+          "BankAccount": 110310,
+          "Jobs": [],
+          "Cash": 125,
+          "LastPlayed": 1791072000,
+          "Phone": "555-0199",
+          "Deleted": false,
+          "User": 418
+        },
+        {
+          "SID": 644,
+          "First": "Rick",
+          "Last": "Sanchez",
+          "DOB": 476496000,
+          "BankAccount": 100644,
+          "Jobs": [],
+          "Cash": 0,
+          "LastPlayed": 1757548800,
+          "Phone": "555-0010",
+          "Deleted": true,
+          "User": 418
+        }
+      ],
+      "Vehicle": {
+        "Entity": 5121,
+        "VIN": "3SBX7A1M9K2L0P4Q",
+        "Plate": "WW 1991",
+        "Make": "Bravado",
+        "Model": "Buffalo S",
+        "Driver": true
+      }
+    },
+    "GetPlayerList": [
+      {
+        "Source": 3,
+        "Name": "Dr Nick",
+        "AccountID": 1,
+        "Character": {
+          "First": "Nicholas",
+          "Last": "Riviera",
+          "SID": 1,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": []
+        },
+        "Groups": [
+          "management",
+          "whitelisted"
+        ],
+        "Ping": 18
+      },
+      {
+        "Source": 5,
+        "Name": "PandaBear",
+        "AccountID": 418,
+        "Character": {
+          "First": "Walter",
+          "Last": "Western",
+          "SID": 3,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": [
+            {
+              "Name": "LSPD",
+              "Grade": {
+                "Name": "Sergeant"
+              }
+            }
+          ]
+        },
+        "Groups": [
+          "whitelisted"
+        ],
+        "Ping": 42
+      },
+      {
+        "Source": 8,
+        "Name": "Mossy",
+        "AccountID": 77,
+        "Character": {
+          "First": "Jenna",
+          "Last": "Marbles",
+          "SID": 1402,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": [
+            {
+              "Name": "EMS",
+              "Grade": {
+                "Name": "Paramedic"
+              }
+            },
+            {
+              "Name": "Taxi",
+              "Grade": {
+                "Name": "Driver"
+              }
+            }
+          ]
+        },
+        "Groups": [
+          "whitelisted",
+          "police"
+        ],
+        "Ping": 63
+      },
+      {
+        "Source": 12,
+        "Name": "Kestrel",
+        "AccountID": 902,
+        "Character": {
+          "First": "Ruby",
+          "Last": "Hale",
+          "SID": 2210,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": [
+            {
+              "Name": "Mechanic",
+              "Grade": {
+                "Name": "Trainee"
+              }
+            }
+          ]
+        },
+        "Groups": [
+          "whitelisted"
+        ],
+        "Ping": 35
+      },
+      {
+        "Source": 14,
+        "Name": "velociraptor_99",
+        "AccountID": 1203,
+        "Character": false,
+        "Groups": [
+          "whitelisted",
+          "ems"
+        ],
+        "Ping": 88
+      },
+      {
+        "Source": 17,
+        "Name": "Juniper",
+        "AccountID": 1540,
+        "Character": {
+          "First": "Marcus",
+          "Last": "Bell",
+          "SID": 3104,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": []
+        },
+        "Groups": [
+          "whitelisted"
+        ],
+        "Ping": 124
+      },
+      {
+        "Source": 19,
+        "Name": "Oslo",
+        "AccountID": 1611,
+        "Character": {
+          "First": "Dante",
+          "Last": "Okafor",
+          "SID": 3188,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": [
+            {
+              "Name": "LSPD",
+              "Grade": {
+                "Name": "Sergeant"
+              }
+            }
+          ]
+        },
+        "Groups": [
+          "whitelisted",
+          "mechanic"
+        ],
+        "Ping": 51
+      },
+      {
+        "Source": 21,
+        "Name": "TinyTim",
+        "AccountID": 1702,
+        "Character": false,
+        "Groups": [
+          "whitelisted"
+        ],
+        "Ping": 29
+      },
+      {
+        "Source": 23,
+        "Name": "Halcyon",
+        "AccountID": 1799,
+        "Character": {
+          "First": "Ivy",
+          "Last": "Sorensen",
+          "SID": 3290,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": [
+            {
+              "Name": "EMS",
+              "Grade": {
+                "Name": "Paramedic"
+              }
+            },
+            {
+              "Name": "Taxi",
+              "Grade": {
+                "Name": "Driver"
+              }
+            }
+          ]
+        },
+        "Groups": [
+          "management",
+          "whitelisted"
+        ],
+        "Ping": 77
+      },
+      {
+        "Source": 26,
+        "Name": "Brick",
+        "AccountID": 1844,
+        "Character": {
+          "First": "Leon",
+          "Last": "Castillo",
+          "SID": 3312,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": [
+            {
+              "Name": "Mechanic",
+              "Grade": {
+                "Name": "Trainee"
+              }
+            }
+          ]
+        },
+        "Groups": [
+          "whitelisted"
+        ],
+        "Ping": 40
+      },
+      {
+        "Source": 28,
+        "Name": "Nova",
+        "AccountID": 1901,
+        "Character": {
+          "First": "Priya",
+          "Last": "Nair",
+          "SID": 3340,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": []
+        },
+        "Groups": [
+          "whitelisted",
+          "police"
+        ],
+        "Ping": 212
+      },
+      {
+        "Source": 31,
+        "Name": "Gravel",
+        "AccountID": 1950,
+        "Character": {
+          "First": "Hank",
+          "Last": "Mueller",
+          "SID": 3351,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": []
+        },
+        "Groups": [
+          "whitelisted"
+        ],
+        "Ping": 33
+      },
+      {
+        "Source": 34,
+        "Name": "Sparrow",
+        "AccountID": 2010,
+        "Character": {
+          "First": "Amara",
+          "Last": "Diallo",
+          "SID": 3402,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": [
+            {
+              "Name": "LSPD",
+              "Grade": {
+                "Name": "Sergeant"
+              }
+            }
+          ]
+        },
+        "Groups": [
+          "whitelisted",
+          "ems"
+        ],
+        "Ping": 56
+      },
+      {
+        "Source": 36,
+        "Name": "Quill",
+        "AccountID": 2044,
+        "Character": {
+          "First": "Theo",
+          "Last": "Lindqvist",
+          "SID": 3417,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": []
+        },
+        "Groups": [
+          "whitelisted"
+        ],
+        "Ping": 95
+      },
+      {
+        "Source": 40,
+        "Name": "Dusty",
+        "AccountID": 2090,
+        "Character": false,
+        "Groups": [
+          "whitelisted",
+          "mechanic"
+        ],
+        "Ping": 47
+      },
+      {
+        "Source": 42,
+        "Name": "Marlow",
+        "AccountID": 2133,
+        "Character": {
+          "First": "Sienna",
+          "Last": "Park",
+          "SID": 3455,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": [
+            {
+              "Name": "EMS",
+              "Grade": {
+                "Name": "Paramedic"
+              }
+            },
+            {
+              "Name": "Taxi",
+              "Grade": {
+                "Name": "Driver"
+              }
+            }
+          ]
+        },
+        "Groups": [
+          "whitelisted"
+        ],
+        "Ping": 61
+      }
+    ]
+  }
+}

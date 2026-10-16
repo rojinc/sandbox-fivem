@@ -1,18 +1,12 @@
 {
   "name": "sandbox-mdt-ui",
   "private": true,
-  "version": "2.0.0",
-  "description": "Mobile Data Terminal NUI for sandbox-mdt (police / EMS / DOC / DOJ records, dispatch alerts, badges, bodycam).",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build"
   },
   "dependencies": {
-    "@sandbox/ui-kit": "*",
-    "date-fns": "^4.4.0",
-    "react-draggable": "^4.4.6",
-    "react-router-dom": "^7.18.4",
-    "socket.io-client": "^4.8.1"
+    "@sandbox/ui-kit": "*"
   }
 }

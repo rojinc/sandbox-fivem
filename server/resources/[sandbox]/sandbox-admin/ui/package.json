@@ -1,15 +1,12 @@
 {
   "name": "sandbox-admin-ui",
   "private": true,
-  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build"
   },
   "dependencies": {
-    "@sandbox/ui-kit": "*",
-    "date-fns": "^4.4.0",
-    "react-router-dom": "^7.18.4"
+    "@sandbox/ui-kit": "*"
   }
 }

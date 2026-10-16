@@ -1,37 +1,59 @@
-import { format, formatDistanceToNowStrict, isValid } from 'date-fns';
+/** Formatting for values that arrive from Lua. Dates in Australian style ("16 October 2026", "2:40pm"). */
 
-const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+const dayFmt = new Intl.DateTimeFormat('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
+const dayShortFmt = new Intl.DateTimeFormat('en-AU', { day: 'numeric', month: 'long' });
+const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 
-export function fmtMoney(v) {
-    const n = Number(v);
-    return Number.isFinite(n) ? usd.format(n) : '—';
-}
-
-export function unixToDate(seconds) {
-    const n = Number(seconds);
+/** Unix seconds (or ms) -> Date, or null. */
+export function toDate(ts) {
+    const n = Number(ts);
     if (!Number.isFinite(n) || n <= 0) return null;
-    const d = new Date(n * 1000);
-    return isValid(d) ? d : null;
+    const d = new Date(n < 1e12 ? n * 1000 : n);
+    return Number.isNaN(d.getTime()) ? null : d;
 }
 
-export function fmtDate(seconds) {
-    const d = unixToDate(seconds);
-    return d ? format(d, 'd MMM yyyy') : '—';
+/** 2:40pm */
+export function clock(ts) {
+    const d = toDate(ts);
+    if (!d) return '';
+    let h = d.getHours();
+    const m = String(d.getMinutes()).padStart(2, '0');
+    const suffix = h >= 12 ? 'pm' : 'am';
+    h = h % 12 || 12;
+    return `${h}:${m}${suffix}`;
 }
 
-export function fmtTime(seconds) {
-    const d = unixToDate(seconds);
-    return d ? format(d, 'HH:mm') : '—';
+/** 16 October 2026 */
+export function day(ts) {
+    const d = toDate(ts);
+    return d ? dayFmt.format(d) : '';
 }
 
-export function fmtDateTime(seconds) {
-    const d = unixToDate(seconds);
-    return d ? format(d, 'd MMM, HH:mm') : '—';
+/** "2:40pm" today, "15 October, 2:40pm" this year, otherwise "15 October 2025". */
+export function when(ts, now = new Date()) {
+    const d = toDate(ts);
+    if (!d) return '';
+    if (d.toDateString() === now.toDateString()) return clock(d);
+    if (d.getFullYear() === now.getFullYear()) return `${dayShortFmt.format(d)}, ${clock(d)}`;
+    return dayFmt.format(d);
 }
 
-export function fmtAgo(seconds) {
-    const d = unixToDate(seconds);
-    return d ? formatDistanceToNowStrict(d, { addSuffix: true }) : '—';
+/** "12 minutes ago", "3 hours ago", "4 days ago" */
+export function ago(ts, now = Date.now()) {
+    const d = toDate(ts);
+    if (!d) return '';
+    const s = Math.max(0, (now - d.getTime()) / 1000);
+    if (s < 60) return 'just now';
+    const plural = (n, unit) => `${n} ${unit}${n === 1 ? '' : 's'} ago`;
+    if (s < 3600) return plural(Math.round(s / 60), 'minute');
+    if (s < 86400) return plural(Math.round(s / 3600), 'hour');
+    if (s < 86400 * 30) return plural(Math.round(s / 86400), 'day');
+    return dayFmt.format(d);
+}
+
+export function formatMoney(v) {
+    const n = Number(v);
+    return Number.isFinite(n) ? money.format(n) : '';
 }
 
 export function round(v, places = 2) {
@@ -41,63 +63,57 @@ export function round(v, places = 2) {
     return Math.round(n * m) / m;
 }
 
-export function fmtNum(v, places = 0) {
-    const r = round(v, places);
-    return r === null ? '—' : r.toLocaleString('en-US', { maximumFractionDigits: places });
-}
-
-export function vec3(c, places = 3) {
-    if (!c || typeof c !== 'object') return '—';
-    return `vector3(${round(c.x, places)}, ${round(c.y, places)}, ${round(c.z, places)})`;
+/** vector3(x, y, z) as Lua scripts paste it. */
+export function vec3(c, places = 2) {
+    if (!c || typeof c !== 'object') return '';
+    const [x, y, z] = [round(c.x, places), round(c.y, places), round(c.z, places)];
+    if (x === null || y === null || z === null) return '';
+    return `vector3(${x}, ${y}, ${z})`;
 }
 
 export function charName(c) {
-    if (!c || typeof c !== 'object') return null;
-    const name = [c.First, c.Last].filter(Boolean).join(' ');
-    return name || null;
-}
-
-export function charLabel(c) {
-    const name = charName(c);
-    if (!name) return null;
-    return c.SID !== undefined && c.SID !== null ? `${name} (${c.SID})` : name;
+    if (!c || typeof c !== 'object') return '';
+    return [c.First, c.Last].filter(Boolean).join(' ');
 }
 
 export function vehicleName(v) {
-    return `${v?.Make ?? 'Unknown'} ${v?.Model ?? 'Unknown'}`;
+    const name = [v?.Make, v?.Model].filter(Boolean).join(' ');
+    return name || 'Unknown vehicle';
 }
 
-export function fmtJobs(jobs) {
-    if (!Array.isArray(jobs) || jobs.length === 0) return 'No jobs';
-    return jobs
+/** "Police (Sergeant), Mechanic" */
+export function jobsText(jobs) {
+    const list = Array.isArray(jobs) ? jobs : jobs && typeof jobs === 'object' ? Object.values(jobs) : [];
+    if (!list.length) return '';
+    return list
         .map((j) => {
-            const grade = j?.Grade?.Name ? ` · ${j.Grade.Name}` : '';
-            return `${j?.Name ?? 'Unknown'}${grade}`;
+            const name = j?.Name ?? j?.Label ?? 'Unknown job';
+            const grade = j?.Grade?.Name;
+            return grade ? `${name} (${grade})` : name;
         })
         .join(', ');
 }
 
-export function initials(name) {
-    const parts = String(name ?? '')
-        .trim()
-        .split(/\s+/)
-        .filter(Boolean);
-    if (!parts.length) return '?';
-    return parts
-        .slice(0, 2)
-        .map((p) => p[0].toUpperCase())
-        .join('');
-}
-
-/** Render any scalar from Lua, with a dash for nil/false/empty. */
-export function text(v, fallback = '—') {
+/** Any scalar from Lua as text; nil, false and '' become the fallback. */
+export function text(v, fallback = '') {
     if (v === undefined || v === null || v === false || v === '') return fallback;
     return String(v);
 }
 
-export function pct(value, max) {
+/** Lua arrays with holes or keyed tables arrive as objects: always hand back an array. */
+export function asList(v) {
+    if (Array.isArray(v)) return v.filter((x) => x !== null && x !== undefined);
+    if (v && typeof v === 'object') return Object.values(v).filter((x) => x !== null && x !== undefined);
+    return [];
+}
+
+export function percent(value, max) {
     const v = Number(value);
     const m = Number(max);
-    if (!Number.isFinite(v) || !Number.isFinite(m) || m <= 0) return 0;
-    return Math.max(0, Math.min(100, (v / m) * 100));
+    if (!Number.isFinite(v) || !Number.isFinite(m) || m <= 0) return null;
+    return Math.max(0, Math.min(100, Math.round((v / m) * 100)));
+}
+
+export function plural(n, one, many = `${one}s`) {
+    return `${n} ${n === 1 ? one : many}`;
 }

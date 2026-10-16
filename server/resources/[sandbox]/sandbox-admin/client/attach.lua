@@ -19,6 +19,10 @@ RegisterNetEvent('Admin:Client:Invisible', function()
     end
 end)
 
+function AdminIsInvisible()
+    return _isInvis
+end
+
 AddEventHandler('Characters:Client:Logout', function()
     if _isInvis then
         SetEntityVisible(LocalPlayer.state.ped, true)

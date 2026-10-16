@@ -1,15 +1,18 @@
 /**
- * Which role the terminal shows and the navigation for it. Ported from the
- * old Jobs/links.js + Jobs/*.jsx route tables.
+ * Which role the terminal serves and what it may open. Ported from the old
+ * Jobs/links.js route tables.
  */
+import { app, hasPerm } from '../state/app.svelte.js';
+import { store } from '../state/data.svelte.js';
 
-export function resolveRole({ govJob, attorney, prison }) {
-    if (prison) return 'public-prison';
-    switch (govJob?.Id) {
+export function resolveRole() {
+    const job = app.job;
+    if (store.prison) return 'public-prison';
+    switch (job?.Id) {
         case 'police':
             return 'police';
         case 'government':
-            switch (govJob?.Workplace?.Id) {
+            switch (job?.Workplace?.Id) {
                 case 'doj':
                     return 'doj';
                 case 'dattorney':
@@ -24,103 +27,129 @@ export function resolveRole({ govJob, attorney, prison }) {
         case 'ems':
             return 'ems';
         default:
-            return attorney ? 'attorney' : 'public';
+            return app.attorney ? 'attorney' : 'public';
     }
 }
 
-const home = { label: 'Home', icon: 'house', path: '/' };
-const roster = (icon = 'user-tie') => ({ label: 'Roster', icon, path: '/roster' });
-const reports = { label: 'Reports', icon: 'file-lines', path: '/reports' };
-const warrants = { label: 'Warrants', icon: 'file-contract', path: '/warrants' };
-const people = { label: 'People', icon: 'user', path: '/people' };
-const vehicles = { label: 'Vehicles', icon: 'car', path: '/vehicles' };
-const properties = { label: 'Properties', icon: 'house-chimney', path: '/properties' };
-const firearms = { label: 'Firearms', icon: 'gun', path: '/firearms' };
-const penal = { label: 'Penal Code', icon: 'gavel', path: '/penal-code' };
-const library = { label: 'Document Library', icon: 'book', path: '/library' };
-const fleet = { label: 'Fleet', icon: 'truck', path: '/fleet-manager', permission: 'FLEET_MANAGEMENT' };
-const prisoners = { label: 'Inmate Management', icon: 'handcuffs', path: '/prisoners' };
-const permissions = (permission) => ({ label: 'Permissions', icon: 'crown', path: '/admin/permissions', permission });
-
-const systemAdmin = [
-    { section: 'System' },
-    { label: 'Permissions', icon: 'terminal', path: '/system/gov-permissions', permission: true },
-    { label: 'Full Roster', icon: 'terminal', path: '/system/gov-roster', permission: true },
-    { label: 'Charges', icon: 'terminal', path: '/system/charges', permission: true },
-];
-
-const NAV = {
-    police: [home, roster('user-shield'), reports, warrants, people, vehicles, properties, firearms, penal, library, fleet, permissions('PD_HIGH_COMMAND'), ...systemAdmin],
-    doj: [home, roster(), reports, warrants, people, vehicles, properties, firearms, penal, library, permissions('DOJ_JUDGE'), ...systemAdmin],
-    da: [home, roster(), reports, warrants, people, vehicles, properties, firearms, penal, library, permissions('GOV_DA'), ...systemAdmin],
-    publicdefenders: [home, reports, warrants, people, vehicles, properties, firearms, penal, library],
-    government: [home, warrants, penal, library],
-    ems: [home, roster('user-doctor'), reports, people, vehicles, fleet, library, permissions('SAFD_HIGH_COMMAND'), ...systemAdmin],
-    doc: [home, roster(), reports, prisoners, people, vehicles, fleet, penal, library, permissions('DOC_HIGH_COMMAND'), ...systemAdmin],
-    attorney: [home, reports, warrants, people, penal, library],
-    public: [home, warrants, penal, library],
-    'public-prison': [home],
-};
-
-export const navForRole = (role) => NAV[role] ?? NAV.public;
-
-/** Pages (route ids) each role can open. */
 const PAGES = {
-    police: ['home', 'roster', 'reports', 'warrants', 'people', 'vehicles', 'properties', 'firearms', 'penal-code', 'library', 'fleet-manager', 'create-bolo', 'create-notice', 'admin-permissions', 'system'],
-    doj: ['home', 'roster', 'reports', 'warrants', 'people', 'vehicles', 'properties', 'firearms', 'penal-code', 'library', 'create-notice', 'admin-permissions', 'system'],
-    da: ['home', 'roster', 'reports', 'warrants', 'people', 'vehicles', 'properties', 'firearms', 'penal-code', 'library', 'create-notice', 'admin-permissions', 'system'],
-    publicdefenders: ['home', 'reports', 'warrants', 'people', 'vehicles', 'properties', 'firearms', 'penal-code', 'library', 'create-notice'],
-    government: ['home', 'warrants', 'penal-code', 'library'],
-    ems: ['home', 'roster', 'reports', 'people', 'vehicles', 'fleet-manager', 'library', 'create-notice', 'admin-permissions', 'system'],
-    doc: ['home', 'roster', 'reports', 'prisoners', 'people', 'vehicles', 'fleet-manager', 'penal-code', 'library', 'create-notice', 'admin-permissions', 'system'],
-    attorney: ['home', 'reports', 'warrants', 'people', 'vehicles', 'properties', 'firearms', 'penal-code', 'library', 'roster'],
-    public: ['home', 'warrants', 'penal-code', 'library'],
-    'public-prison': ['home'],
+    police: ['dashboard', 'people', 'vehicles', 'properties', 'firearms', 'warrants', 'bolos', 'reports', 'charges', 'roster', 'library', 'admin'],
+    doj: ['dashboard', 'people', 'vehicles', 'properties', 'firearms', 'warrants', 'reports', 'charges', 'roster', 'library', 'admin'],
+    da: ['dashboard', 'people', 'vehicles', 'properties', 'firearms', 'warrants', 'reports', 'charges', 'roster', 'library', 'admin'],
+    publicdefenders: ['dashboard', 'people', 'vehicles', 'properties', 'firearms', 'warrants', 'reports', 'charges', 'library'],
+    government: ['dashboard', 'warrants', 'charges', 'library'],
+    ems: ['dashboard', 'people', 'vehicles', 'reports', 'roster', 'library', 'admin'],
+    doc: ['dashboard', 'people', 'vehicles', 'reports', 'inmates', 'charges', 'roster', 'library', 'admin'],
+    attorney: ['dashboard', 'people', 'warrants', 'reports', 'charges', 'library'],
+    public: ['dashboard', 'warrants', 'charges', 'library'],
+    'public-prison': ['visitation'],
 };
 
-export const pagesForRole = (role) => new Set(PAGES[role] ?? PAGES.public);
-
-export const adminPermissionFor = {
-    police: 'PD_HIGH_COMMAND',
-    doj: 'DOJ_JUDGE',
-    da: 'GOV_DA',
-    ems: 'SAFD_HIGH_COMMAND',
-    doc: 'DOC_HIGH_COMMAND',
+const LABELS = {
+    dashboard: 'Dashboard',
+    people: 'People',
+    vehicles: 'Vehicles',
+    properties: 'Properties',
+    firearms: 'Firearms',
+    warrants: 'Warrants',
+    bolos: 'BOLOs',
+    reports: 'Reports',
+    charges: 'Charges',
+    roster: 'Roster',
+    library: 'Library',
+    inmates: 'Inmates',
+    admin: 'Admin',
+    visitation: 'Visitation',
 };
 
-export const permissionJobFor = {
-    police: 'police',
-    doj: 'government',
-    da: 'government',
-    ems: 'ems',
-    doc: 'prison',
-};
-
+/** High-command permission that opens the permission manager, per role. */
+export const adminPermissionFor = { police: 'PD_HIGH_COMMAND', doj: 'DOJ_JUDGE', da: 'GOV_DA', ems: 'SAFD_HIGH_COMMAND', doc: 'DOC_HIGH_COMMAND' };
+export const permissionJobFor = { police: 'police', doj: 'government', da: 'government', ems: 'ems', doc: 'prison' };
 export const fleetJobFor = { police: 'police', ems: 'ems', doc: 'prison' };
+export const rosterJobFor = { police: 'police', doj: 'government', da: 'government', ems: 'ems', doc: 'prison', attorney: 'government' };
 
-export function branding(govJob, attorney) {
-    if (attorney && !govJob) return { primary: 'Electronic Records System', secondary: 'San Andreas Department of Justice' };
-    switch (govJob?.Id) {
+export function adminSections(role = resolveRole()) {
+    const out = [];
+    if (adminPermissionFor[role] && hasPerm(adminPermissionFor[role])) out.push('permissions');
+    if (fleetJobFor[role] && hasPerm('FLEET_MANAGEMENT')) out.push('fleet');
+    if (hasPerm(true)) out.push('system');
+    return out;
+}
+
+export function pagesFor(role = resolveRole()) {
+    return (PAGES[role] ?? PAGES.public).filter((p) => p !== 'admin' || adminSections(role).length > 0);
+}
+
+export function navItems(role = resolveRole()) {
+    return pagesFor(role).map((id) => ({ id, label: LABELS[id] }));
+}
+
+/** Pages that belong to a nav section (records open under their list). */
+export const SECTION_OF = {
+    person: 'people',
+    vehicle: 'vehicles',
+    report: 'reports',
+    'report-edit': 'reports',
+    warrant: 'warrants',
+    firearm: 'firearms',
+    'bolo-new': 'bolos',
+    'notice-new': 'dashboard',
+};
+
+const SHORT = {
+    lspd: 'LSPD',
+    bcso: 'BCSO',
+    sast: 'SAST',
+    sasp: 'SASP',
+    guardius: 'Guardius',
+    safd: 'EMS',
+    doctors: 'EMS',
+    corrections: 'DOC',
+    doj: 'DOJ',
+    dattorney: 'DA',
+    publicdefenders: 'OPD',
+    mayoroffice: 'Mayor',
+};
+
+const JOB_SHORT = { police: 'Police', ems: 'EMS', prison: 'DOC', government: 'Government' };
+
+/** The acronym in the header eyebrow: the department, as written. */
+export function departmentShort() {
+    const role = resolveRole();
+    if (role === 'public-prison') return 'DOC';
+    const wp = app.job?.Workplace?.Id;
+    if (wp && SHORT[wp]) return SHORT[wp];
+    if (app.job?.Id && JOB_SHORT[app.job.Id]) return JOB_SHORT[app.job.Id];
+    return app.attorney ? 'DOJ' : 'San Andreas';
+}
+
+export function departmentName() {
+    const role = resolveRole();
+    if (role === 'public-prison') return 'San Andreas Department of Corrections';
+    if (app.job?.Workplace?.Name) return app.job.Workplace.Name;
+    if (app.job?.Name) return app.job.Name;
+    return app.attorney ? 'San Andreas Department of Justice' : 'State of San Andreas';
+}
+
+export function terminalTitle() {
+    switch (resolveRole()) {
         case 'police':
-            return { primary: govJob?.Workplace?.Name ?? 'Police', secondary: 'Electronic Records System' };
-        case 'prison':
-            return { primary: 'San Andreas Department of Corrections', secondary: 'Electronic Records System' };
-        case 'government':
-            if (govJob?.Workplace?.Id === 'doj') return { primary: 'San Andreas Department of Justice', secondary: 'Electronic Records System' };
-            return { primary: 'State of San Andreas', secondary: 'Public Records Repository' };
         case 'ems':
-            return { primary: 'State of San Andreas Medical Services', secondary: 'Electronic Records System' };
+        case 'doc':
+            return 'Mobile data terminal';
+        case 'public-prison':
+            return 'Inmate visitation';
+        case 'public':
+        case 'government':
+            return 'Public records';
         default:
-            return { primary: 'State of San Andreas', secondary: 'Public Records Repository' };
+            return 'Electronic records system';
     }
 }
 
-/** Human title of a path, for the top bar. */
-export function pageTitle(pathname, role) {
-    const all = [...navForRole(role)].filter((l) => l.path);
-    const hit = all.find((l) => l.path === pathname);
-    if (hit) return hit.path === '/' ? (role === 'public-prison' ? 'Inmate Visitation' : 'Dashboard') : hit.label;
-    if (pathname.startsWith('/create/bolo')) return 'New BOLO';
-    if (pathname.startsWith('/create/notice')) return 'New Notice';
-    return 'Records';
+/** "Callsign 1-A-12, Sergeant Jordan Reyes" */
+export function signedInLine() {
+    const u = app.user;
+    if (!u) return '';
+    const name = [app.job?.Grade?.Name, u.First, u.Last].filter(Boolean).join(' ');
+    return u.Callsign && app.job ? `Callsign ${u.Callsign}, ${name}` : name;
 }

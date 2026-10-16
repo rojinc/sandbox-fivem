@@ -1,0 +1,26 @@
+{
+  "mocks": {},
+  "messages": [
+    {
+      "type": "SHOW_GOV_ID",
+      "data": {
+        "First": "Jordan",
+        "Last": "Reyes",
+        "Department": "lspd",
+        "Department Name": "Los Santos Police Department",
+        "SID": 1042,
+        "Title": "Sergeant",
+        "Callsign": "1-A-12",
+        "DOB": "1994-03-12",
+        "Mugshot": ""
+      }
+    }
+  ],
+  "viewport": [
+    1920,
+    1080
+  ],
+  "backdrop": true,
+  "settle": 400,
+  "wait": 900
+}

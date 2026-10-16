@@ -1,84 +1,112 @@
-# sandbox-admin — Lua ↔ NUI contract
+# sandbox-admin: Lua and NUI contract
 
-Extracted from `client/nui.lua` (the only client file that talks to the page)
-with data shapes from `server/callbacks.lua`, `server/server.lua`,
-`server/dashboard.lua` and `sandbox-base/core/sv_player.lua`. The Lua side is
-the source of truth; the UI's reducers (`ui/src/features/*`) and `fetchNui`
-calls follow these names and field names exactly.
+Source of truth: `client/nui.lua` (the only client file that talks to the page),
+with reply shapes from `server/callbacks.lua`, `server/dashboard.lua` and
+`sandbox-base`. The Svelte bridge (`src/bridge.js`) and every `call()` in
+`src/components` use these names and fields exactly.
 
-## Lua → UI (`SendNUIMessage`) — 4 message types
+## Lua to UI (`SendNUIMessage`): 4 message types
 
-| `type` | `data` | Sent from | Reducer |
+| `type` | `data` | Sent from | Handled in |
 |---|---|---|---|
-| `SET_USERDATA` | `user` `{ Source, Name, AccountID, Identifier, Groups[], Discord, Mention, Avatar }`, `permission` (highest staff group id: `management`/`dev`/`admin`…), `permissionName` (its display name), `permissionLevel` (number) | `Admin:Client:Menu:RecievePermissionData`, once per session (guarded by `_hasMenu`), fired by the `Characters:Spawning` middleware | `features/app` |
-| `APP_SHOW` | none | `OpenMenu()` ← `Admin:Client:Menu:Open` (`/admin`, `/staff`, HOME keybind) | `features/app` (`visible = true`) |
-| `APP_HIDE` | none | `CloseMenu()` ← `Close` callback, `UI:Client:Reset`, spectate start, customs | `features/app` (`visible = false`) |
-| `COPY` | `data` (string) | `CopyClipboard()` ← `Admin:CopyClipboard` export, `/cpcoords`, `/cpproperty` | `features/clipboard` (recorded; `ClipboardBridge` performs the copy) |
+| `SET_USERDATA` | `user` `{ Source, Name, AccountID, Identifier, Groups[], Discord, Mention, Avatar }`, `permission` (highest staff group id: `management`, `dev`, `admin`...), `permissionName` (its display name), `permissionLevel` (number) | `Admin:Client:Menu:RecievePermissionData`, once per session (guarded by `_hasMenu`) | `state/app.svelte.js` `setUserData` |
+| `APP_SHOW` | `{ toggles: { ids: bool, invisible: bool } }` (current state of the Self toggles; older Lua sent no data and the UI keeps its last known state) | `OpenMenu()` from `Admin:Client:Menu:Open` (`/admin`, `/staff`, HOME keybind) | `show()` |
+| `APP_HIDE` | none | `CloseMenu()` from the `Close` callback, `UI:Client:Reset`, spectate start, customs | `hide()` |
+| `COPY` | `{ data: string }` | `CopyClipboard()` from the `Admin:CopyClipboard` export, `/cpcoords`, `/cpproperty` | `state/clipboard.svelte.js` `copyText` (the console's own copy buttons use the same function) |
 
-## NUI focus
+## Focus
 
-`OpenMenu()` sends `APP_SHOW` then `SetNuiFocus(true, true)`; `CloseMenu()`
-sends `APP_HIDE` then `SetNuiFocus(false, false)`. The page never assumes
-focus: Escape and the Close button both call the `Close` callback and Lua
-drops focus. `CloseMenu()` is also called from `Admin:Client:Attach`
-(spectate) and one second after `CurrentVehicleAction { action = "customs" }`.
+`OpenMenu()` sends `APP_SHOW` then `SetNuiFocus(true, true)`; `CloseMenu()` sends
+`APP_HIDE` then `SetNuiFocus(false, false)`. The page never calls `SetNuiFocus`.
+Escape and the "Close console" button call `Close`; Lua drops focus and sends
+`APP_HIDE`. While a dialog is open, Escape closes the dialog only.
+The console is mounted only while visible, so every section fetches fresh data
+each time it is opened; `state/nav.svelte.js` remembers the last section.
 
-## UI → Lua (`RegisterNUICallback`) — 16 callbacks
+## UI to Lua (`RegisterNUICallback`): 16 callbacks
 
-| Callback | Body the Lua reads | Reply | Used by |
+| Callback | Body | Reply | Used by |
 |---|---|---|---|
-| `Close` | — | `"OK"` | Escape, Close button |
-| `GetPlayerList` | `{ disconnected: bool }` | online: `[{ Source, Name, AccountID, Character }]`; disconnected: `RecentDisconnects` entries `[{ Source, Groups, Name, GameName, ID, Discord, Mention, AccountID, Avatar, Identifier, Level, IsStaff, IsAdmin, Character, Reason, DisconnectedTime }]` (last 60); `false` when not staff | Online players, Disconnected |
-| `GetPlayer` | raw number (server id) | online: `{ Source, Name, GameName, AccountID, Identifier, Discord, Mention, Avatar, Level, Groups, StaffGroup, Character:{First,Last,SID,DOB,Phone,Jobs,Coords}|false, Characters[], Vehicle:{Entity,VIN,Plate,Make,Model,Driver}|number }`; disconnected: the `RecentDisconnects` entry + `StaffGroup`, `Disconnected=true`, `Reconnected` (new source or `false`); `false` when unknown | Player view |
-| `GetAllPlayersByCharacter` | `{ term: string, page: number }` | `{ players: [{ SID, First, Last, DOB, BankAccount, Jobs, Cash, LastPlayed, Phone, Deleted, User, Online? }], pages }` — note `pages` is the **total document count** (10 per page) | Find characters |
-| `ActionPlayer` | `{ targetSource, action: "goto"|"bring"|"heal"|"attach"|"marker" }` | `{ success, message }` or `false` | Player view |
-| `KickPlayer` | `{ targetSource, reason }` | result of `Punishment:Kick` or `false` | Player view (menu) |
-| `BanPlayer` | `{ targetSource, reason, length }` (`length` −1..90 days; non-admins 1..7) | result of `Punishment.Ban:Source` or `false` | Player view (menu) |
-| `GetVehicleList` | — | `[{ Entity, VIN, Plate, Make, Model, OwnerId }]` or `false` | Owned vehicles |
-| `GetVehicle` | raw number (entity id) | `{ Make, Model, VIN, Owned, Owner, Plate, Value, Entity, EntityModel, Coords, Heading, Fuel, Damage:{Engine,Body}, DamagedParts:{Axle,Radiator,Transmission,FuelInjectors,Brakes,Clutch,Electronics} }` or `false` | Vehicle view |
-| `ActionVehicle` | `{ model, target, action: "fuel"|"delete"|"locks"|"sitinside"|"explode"|"repair"|"repair_full"|"repair_engine"|"stall" }` (client adds `numSeats` from `model`) | `{ success, message }` or `false` | Vehicle view |
-| `GetCurrentVehicle` | — | same as `GetVehicle` plus `Seat` (−1 driver, 0… passenger, or `"Not In Vehicle"`), no `Entity`; `false` when not in a vehicle | Current vehicle |
-| `CurrentVehicleAction` | `{ action: "repair"|"repair_full"|"repair_engine"|"explode"|"alarm"|"fuel"|"customs" }` | `{ success, message }` or `false` | Current vehicle |
-| `StopAllAttach` | — | `"OK"` | Sidebar tool |
-| `GetPlayerHistory` | — | `{ current, max, queue, history: [{ count, time }] }` (≤ 12 samples, one every 30 min) | Dashboard |
-| `ToggleInvisible` | — | `true`/`false` | Sidebar tool (level ≥ 100) |
-| `ToggleIDs` | — | `"OK"` | Sidebar tool |
+| `Close` | `{}` | `"OK"` | Close console, Escape |
+| `GetPlayerList` | `{ disconnected: bool }` | online: `[{ Source, Name, AccountID, Character, Groups, Ping }]`; disconnected: `RecentDisconnects` entries `[{ Source, Groups, Name, GameName, ID, Discord, Mention, AccountID, Avatar, Identifier, Level, IsStaff, IsAdmin, Character, Reason, DisconnectedTime }]` (last 60); `false` when not staff | Players (online, left recently), Dashboard (recent disconnects) |
+| `GetPlayer` | raw number (server id) | online: `{ Source, Name, GameName, AccountID, Identifier, Discord, Mention, Avatar, Level, Groups, StaffGroup, Character: { First, Last, SID, DOB, Phone, Jobs, Coords } or false, Characters[], Vehicle: { Entity, VIN, Plate, Make, Model, Driver } or number }`; disconnected: the `RecentDisconnects` entry plus `StaffGroup`, `Disconnected = true`, `Reconnected` (new source or `false`); `false` when unknown | Player record, Self (your own character and coordinates) |
+| `GetAllPlayersByCharacter` | `{ term: string, page: number }` | `{ players: [{ SID, First, Last, DOB, BankAccount, Jobs, Cash, LastPlayed, Phone, Deleted, User, Online? }], pages }`: `pages` is the total number of matches (10 per page) | Players, "Every character on record" |
+| `ActionPlayer` | `{ targetSource, action: "goto" or "bring" or "heal" or "attach" or "marker" }` | `{ success, message }` or `false` | Player record actions, Self "Heal yourself" |
+| `KickPlayer` | `{ targetSource, reason }` | result of `Punishment:Kick` or `false` | Kick dialog |
+| `BanPlayer` | `{ targetSource, reason, length }` (days, -1 permanent; non-admins 1 to 7) | result of `Punishment.Ban:Source` or `false` | Ban dialog |
+| `GetVehicleList` | `{}` | `[{ Entity, VIN, Plate, Make, Model, OwnerId }]` or `false` | Vehicle, Owned vehicles |
+| `GetVehicle` | raw number (entity) | `{ Make, Model, VIN, Owned, Owner, Plate, Value, Entity, EntityModel, Coords, Heading, Fuel, Damage: { Engine, Body }, DamagedParts: { Axle, Radiator, Transmission, FuelInjectors, Brakes, Clutch, Electronics } }` or `false` | Vehicle record |
+| `ActionVehicle` | `{ model, target, action: "fuel" or "delete" or "locks" or "sitinside" or "explode" or "repair" or "repair_full" or "repair_engine" or "stall" }` (Lua adds `numSeats`) | `{ success, message }` or `false` | Vehicle record actions |
+| `GetCurrentVehicle` | `{}` | as `GetVehicle` plus `Seat` (-1 driver, 0.. passenger, or `"Not In Vehicle"`), no `Entity`; `false` when not in a vehicle | Vehicle, Your vehicle |
+| `CurrentVehicleAction` | `{ action: "repair" or "repair_full" or "repair_engine" or "explode" or "alarm" or "fuel" or "customs" }` | `{ success, message }` or `false` | Your vehicle actions |
+| `StopAllAttach` | `{}` | `"OK"` | Self, Stop spectating |
+| `GetPlayerHistory` | `{}` | `{ current, max, queue, history: [{ count, time }] }` (up to 12 samples, one every 30 minutes) | Dashboard |
+| `ToggleInvisible` | `{}` | `true` or `false` (level 100) | Self, "Invisible to other players" checkbox |
+| `ToggleIDs` | `{}` | `"OK"` | Self, "Show player IDs above heads" checkbox |
 
-## Permission gates (mirrors legacy UI + server checks)
+## Lua changes made for this console
 
-* Console flavour: `permission` ∈ {`dev`, `management`} → admin navigation
-  (adds Owned vehicles, Current vehicle); anything else → staff navigation.
-* `permissionLevel ≥ 100`: invisibility toggle.
-* `≥ 90`: phone numbers, coordinates, GPS marker, full/engine repair, refuel,
-  locks, stall, explode, alarm, customs.
-* `≥ 75`: ban, sit inside, delete vehicle, open a player's vehicle.
-* Ban lengths 1/2/3/7 days from level 75; 14/30/permanent from level 99.
+- `server/callbacks.lua` `Admin:GetPlayerList`: online entries also carry
+  `Groups` and `Ping` (`GetPlayerPing`) for the Groups and Ping columns. The UI
+  hides both columns when an older server leaves them out.
+- `client/nui.lua` `OpenMenu()`: `APP_SHOW` carries `toggles`, read from two new
+  accessors, `AdminPlayerIDsActive()` (`client/ids.lua`) and `AdminIsInvisible()`
+  (`client/attach.lua`), so the Self checkboxes start in the real state even
+  after the debug keybind or a character logout changed it.
 
-## Dead UI not ported (no Lua trigger)
+## Permission gates (old console behaviour; the server re-checks everything)
 
-* Redux actions `SET_DATA`, `ADD_DATA`, `UPDATE_DATA`, `REMOVE_DATA`,
-  `RESET_DATA`, `LOGOUT`, `UPDATE_SEARCH_TERM`, `CLEAR_SEARCH` and
-  `SET_OPACITY_MODE` (`grep -r` over `client/` finds none of them; the last was
-  a hover effect dispatched by the UI itself).
-* `searchReducer` (MDT leftovers: people/vehicle/firearm/report/warrant).
-* `assets/audio/panic*.mp3`, `assets/font/*.ttf`, `globalStyles.js`
-  (`pricedown.ttf`, never imported), `favicon.ico`, Google-hosted "Exo" font.
-* The Kick/Ban buttons were commented out in the legacy player page but their
-  callbacks are live and permission-checked on the server, so they are
-  available behind the "More actions" menu with a confirmation dialog.
+- Console flavour: `permission` of `dev` or `management` adds the Vehicle section.
+- Level 100: invisibility checkbox.
+- Level 90: phone numbers and coordinates of other players, GPS marker, full and
+  engine repair, refuel, locks, stall, explode, alarm, customs.
+- Level 75: ban, heal yourself, sit inside, delete a vehicle, open a player's vehicle.
+- Ban lengths of 1, 2, 3 and 7 days from level 75; 14, 30 days and permanent from level 99.
+- On a player record: actions on yourself are hidden (except heal from level 75);
+  bring, spectate and kick are disabled with a reason when their level is above
+  yours; actions that need a character are disabled with a reason when they have
+  none; a disconnected record shows no actions, only a link to the new session
+  when they have reconnected.
 
-## Preview-only hook
+## Not ported, and why
 
-`scripts/preview.mjs` can only post window messages, so scenarios pick a page
-with `{ "raw": { "previewRoute": "/players" } }`. That object has no `type`,
-`NuiBridge` ignores it, and it is **not** part of the Lua contract
-(`src/components/shell/PreviewRouteListener.jsx`).
+- Noclip and god mode toggles: no NUI callback exists. Noclip is the END keybind
+  and `/noclip` (server-checked through `Admin:NoClip`); god mode is not part of
+  this resource.
+- The legacy Redux actions `SET_DATA`, `ADD_DATA`, `UPDATE_DATA`, `REMOVE_DATA`,
+  `RESET_DATA`, `LOGOUT`, `UPDATE_SEARCH_TERM`, `CLEAR_SEARCH`, `SET_OPACITY_MODE`
+  and the MDT search reducer: no Lua sends them.
+- "Copy admin site URL" (it pointed at an external site with no Lua behind it),
+  avatars, the logo image, audio files and the old fonts.
+- The "Esc closes the console" hint: no key hints anywhere.
 
 ## Lua quirks the UI works around
 
-* `Admin:ActionPlayer` never calls `cb` for `action == "marker"`; the UI fires
-  it with a short timeout and does not wait for a reply.
-* `GetAllPlayersByCharacter` returns the total count under `pages`; the UI
-  divides by the server's `PER_PAGE` (10).
-* `GetVehicleList` entries may lack `OwnerId` (`Owner?.Id`); shown as Unknown.
-* Replies that are the string `"OK"` are not JSON; `fetchNui` yields `null`.
+- `ActionPlayer` never calls `cb` for `marker`; the UI sends it with a 2 second
+  timeout and reports success without waiting.
+- `GetAllPlayersByCharacter` returns the total count under `pages`; the UI
+  divides by 10 (`PER_PAGE`).
+- `"OK"` replies are not JSON; `fetchNui` returns the string, which counts as success.
+- Every call has an 8 second timeout so a missing `cb` cannot leave a section loading.
+- Lua messages arrive in Title Case ("Vehicle Repaired Fully"); the UI shows them
+  in sentence case.
+
+## Preview-only hook
+
+`scripts/preview.mjs` can only post window messages, so scenarios choose a
+screen with `{ "raw": { "previewRoute": "/players" } }`. The object has no
+`type`, Lua never sends it, and it is not part of the contract
+(`previewRoute` in `src/state/nav.svelte.js`). Routes: `/`, `/players`,
+`/disconnected-players`, `/players-characters`, `/player/<id>`,
+`/player/<id>/kick`, `/player/<id>/ban`, `/self`, `/current-vehicle`,
+`/vehicles`, `/vehicle/<entity>`.
+
+## Preview scenarios (`ui/preview`)
+
+01 dashboard, 02 players, 03 players empty, 04 left recently, 05 character
+search, 06 owned vehicles, 07 player record, 08 disconnected record, 09 player
+not found, 10 vehicle record, 11 your vehicle, 12 not in a vehicle, 13 staff
+dashboard with no samples, 14 level 50 player record, 15 kick dialog (replaces
+the old router "not found" page, which no longer exists), 16 no staff profile,
+17 hidden, 18 ban dialog, 19 Self at level 100, 20 Self at level 50, 21 player
+record at 2560x1440, 22 player list refused by the server.
