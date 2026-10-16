@@ -100,7 +100,7 @@ _MDT.Misc = {
 				if v.id == id then
 					table.remove(_bolos, k)
 					for user, _ in pairs(_onDutyUsers) do
-						TriggerClientEvent("MDT:Client:RemoveData", user, "bolos", k)
+						TriggerClientEvent("MDT:Client:RemoveData", user, "bolos", id)
 					end
 					return true
 				end

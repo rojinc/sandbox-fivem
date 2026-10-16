@@ -7,7 +7,8 @@ export function htmlToText(html) {
     if (!html) return '';
     const withBreaks = String(html)
         .replace(/<br\s*\/?>/gi, '\n')
-        .replace(/<\/(p|div|li|h[1-6])>/gi, '\n')
+        .replace(/<\/(p|div|h[1-6])>/gi, '\n\n')
+        .replace(/<\/li>/gi, '\n')
         .replace(/<li[^>]*>/gi, '- ');
     const doc = new DOMParser().parseFromString(withBreaks, 'text/html');
     return (doc.body.textContent ?? '').replace(/\n{3,}/g, '\n\n').trim();

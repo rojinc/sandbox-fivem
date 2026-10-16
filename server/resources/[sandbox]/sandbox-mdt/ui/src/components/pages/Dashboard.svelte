@@ -1,4 +1,5 @@
 <script>
+    import { untrack } from 'svelte';
     import { Button, Tag, Modal, Select, TextInput, RichText, uid } from '@sandbox/ui-kit';
     import { app, go, hasPerm } from '../../state/app.svelte.js';
     import { store } from '../../state/data.svelte.js';
@@ -30,9 +31,11 @@
         status = 'ready';
     }
 
+    // Refetch when the server marks the data stale (SET_DATA homeLastFetch 0) or after 2 minutes.
     $effect(() => {
-        if (app.user && (!store.homeLastFetch || Date.now() - store.homeLastFetch > 120000)) refresh();
-        else if (store.homeLastFetch) status = 'ready';
+        const user = app.user;
+        const last = store.homeLastFetch;
+        if (user && (!last || Date.now() - last > 120000)) untrack(refresh);
     });
 
     const warrants = $derived(
@@ -46,6 +49,7 @@
     const canPost = $derived(hasPerm(['PD_HIGH_COMMAND', 'SAFD_HIGH_COMMAND', 'DOJ_JUDGE', 'GOV_MAYOR', 'GOV_DA', 'GOV_CPUB', 'DOC_HIGH_COMMAND']));
     const canRemoveNotice = $derived(hasPerm(['PD_HIGH_COMMAND', 'SAFD_HIGH_COMMAND', 'DOC_HIGH_COMMAND']));
     const showWorkers = $derived(role === 'police' || app.job?.Id === 'government');
+    const hasMain = $derived(pages.includes('warrants') || pages.includes('bolos'));
 
     // Look up: the main task on a police terminal.
     const lookups = $derived(
@@ -111,8 +115,8 @@
     </form>
 {/if}
 
-<div class="mdt-split">
-    <div>
+<div class:mdt-split={hasMain} class:single={!hasMain}>
+    {#if hasMain}<div>
         {#if pages.includes('warrants')}
             <section class="mdt-section">
                 <div class="mdt-section__head">
@@ -168,7 +172,7 @@
                 {/if}
             </section>
         {/if}
-    </div>
+    </div>{/if}
 
     <aside>
         <section class="mdt-section">
@@ -183,7 +187,7 @@
                     {#each notices as n (n.id)}
                         <li>
                             <button type="button" class="mdt-link" onclick={() => openNotice(n)}>{n.title}</button>
-                            <span class="au-muted">{formatDay(n.created)}</span>
+                            <span class="au-muted when">{relative(n.created)}</span>
                         </li>
                     {/each}
                 </ul>
@@ -266,10 +270,14 @@
         padding: var(--au-s2) 0;
         border-bottom: 1px solid var(--au-border);
     }
-    .nowrap {
+    .nowrap,
+    .when {
         white-space: nowrap;
     }
     .meta {
         margin-top: var(--au-s4);
+    }
+    .single {
+        max-width: 860px;
     }
 </style>

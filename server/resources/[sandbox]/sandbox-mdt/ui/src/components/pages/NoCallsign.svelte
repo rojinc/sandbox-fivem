@@ -2,4 +2,9 @@
     let { params = {} } = $props();
 </script>
 
-<div class="mdt-page-head"><div><h1>NoCallsign</h1><p>Coming in this pass.</p></div></div>
+<div class="mdt-page-head">
+    <div>
+        <h1>You need a callsign</h1>
+        <p>The terminal opens once command staff give you a callsign on the roster. Ask your supervisor.</p>
+    </div>
+</div>

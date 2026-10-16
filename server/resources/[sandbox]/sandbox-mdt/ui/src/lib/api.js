@@ -27,3 +27,15 @@ export function paged(res, page = 1) {
     if (typeof res === 'object') return { data: list(res), pages: page };
     return null;
 }
+
+/** A list that may arrive JSON-encoded (mdt_reports_people.charges from a raw query). */
+export function parseList(v) {
+    if (typeof v === 'string') {
+        try {
+            return list(JSON.parse(v));
+        } catch {
+            return [];
+        }
+    }
+    return list(v);
+}

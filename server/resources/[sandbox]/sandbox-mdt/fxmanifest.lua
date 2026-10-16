@@ -15,4 +15,4 @@ server_scripts({ "shared/*.lua", "server/**/*.lua" })
 
 ui_page("ui/dist/index.html")
 
-files({ "ui/dist/index.html", "ui/dist/*.js" })
+files({ "ui/dist/index.html", "ui/dist/assets/*" })

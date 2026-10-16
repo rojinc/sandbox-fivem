@@ -1,0 +1,67 @@
+{
+  "mocks": {
+    "GetHomeData": {
+      "warrants": [],
+      "notices": [],
+      "govWorkers": []
+    }
+  },
+  "messages": [
+    {
+      "type": "SET_USER",
+      "data": {
+        "user": {
+          "SID": 1300,
+          "First": "Priya",
+          "Last": "Shah",
+          "Callsign": "M-14",
+          "Phone": "555-0142",
+          "Gender": 0,
+          "DOB": "1994-03-12",
+          "Qualifications": [
+            "PD_FTO"
+          ],
+          "MDTSystemAdmin": false
+        }
+      }
+    },
+    {
+      "type": "JOB_LOGIN",
+      "data": {
+        "points": {
+          "reduction": 50,
+          "license": 20
+        },
+        "job": {
+          "Id": "ems",
+          "Name": "EMS",
+          "Workplace": {
+            "Id": "safd",
+            "Name": "San Andreas Medical Services"
+          },
+          "Grade": {
+            "Id": "paramedic",
+            "Name": "Paramedic",
+            "Level": 3
+          }
+        },
+        "jobPermissions": {
+          "MDT_MEDICAL_REPORTS": true,
+          "ems_alerts": true
+        },
+        "attorney": false
+      }
+    },
+    {
+      "type": "APP_SHOW",
+      "data": {}
+    }
+  ],
+  "viewport": [
+    1920,
+    1080
+  ],
+  "backdrop": true,
+  "settle": 400,
+  "wait": 900
+}

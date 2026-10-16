@@ -7,41 +7,41 @@
           "state": "active",
           "title": "Warrant for Marcus Dale (2207)",
           "creatorName": "Ana Okafor",
-          "expires": 1792709901774,
-          "issued": 1792105101774
+          "expires": 1792710686698,
+          "issued": 1792105886698
         },
         {
           "id": 309,
           "state": "active",
           "title": "Warrant for Kira Vance (1983)",
           "creatorName": "Jordan Reyes",
-          "expires": 1792450701774,
-          "issued": 1791845901774
+          "expires": 1792451486698,
+          "issued": 1791846686698
         },
         {
           "id": 304,
           "state": "active",
           "title": "Warrant for Tomas Ibarra (2410)",
           "creatorName": "Lee Park",
-          "expires": 1792234701774,
-          "issued": 1791629901774
+          "expires": 1792235486698,
+          "issued": 1791630686698
         }
       ],
       "notices": [
         {
           "id": 41,
           "title": "Body cameras must record every traffic stop",
-          "created": 1792184301774
+          "created": 1792185086698
         },
         {
           "id": 40,
           "title": "Firearms requalification closes Friday",
-          "created": 1792018701774
+          "created": 1792019486698
         },
         {
           "id": 37,
           "title": "New pursuit policy from 1 November",
-          "created": 1791586701774
+          "created": 1791587486698
         }
       ],
       "govWorkers": [
@@ -69,7 +69,7 @@
       "title": "Pursuit and arrest on Vespucci Boulevard",
       "notes": "<p>At 14:05 I attempted a traffic stop on a black Bravado Buffalo (46EEK572) for running a red light at Vespucci Boulevard and San Andreas Avenue.</p><p>The driver fled north. After a 4 minute pursuit the vehicle stopped in Little Seoul and the driver, Marcus Dale, resisted arrest.</p>",
       "allowAttorney": true,
-      "created": 1792187901774,
+      "created": 1792188686698,
       "creatorSID": 1042,
       "creatorName": "Jordan Reyes",
       "creatorCallsign": "1-A-12",

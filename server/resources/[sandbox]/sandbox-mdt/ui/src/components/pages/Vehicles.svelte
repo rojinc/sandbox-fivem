@@ -1,4 +1,5 @@
 <script>
+    import { onMount } from 'svelte';
     import { Tag } from '@sandbox/ui-kit';
     import { go } from '../../state/app.svelte.js';
     import { search } from '../../state/search.svelte.js';
@@ -32,7 +33,7 @@
         s.status = 'ready';
     }
 
-    $effect.pre(() => {
+    onMount(() => {
         if (params.term && params.term !== s.searched) run(params.term);
     });
 

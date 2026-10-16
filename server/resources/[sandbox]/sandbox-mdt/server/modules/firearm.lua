@@ -14,7 +14,7 @@ _MDT.Firearm = {
 		})
 
 		if firearm and firearm.serial then
-			firearm.flags = MySQL.query.await("SELECT title, description, date, author_sid, author_first, author_last, author_callsign FROM firearms_flags WHERE serial = ?", {
+			firearm.flags = MySQL.query.await("SELECT id, title, description, date, author_sid, author_first, author_last, author_callsign FROM firearms_flags WHERE serial = ?", {
 				firearm.serial
 			})
 		end

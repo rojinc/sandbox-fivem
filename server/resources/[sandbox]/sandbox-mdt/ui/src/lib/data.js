@@ -24,7 +24,7 @@ export const reportType = (v) => ReportTypes.find((r) => r.value == v);
 export const reportTypeLabel = (v) => reportType(v)?.label ?? 'Report';
 
 export const ChargeTypes = [
-    { label: 'Infraction', value: 1, tone: 'info' },
+    { label: 'Infraction', value: 1, tone: 'default' },
     { label: 'Misdemeanour', value: 2, tone: 'warning' },
     { label: 'Felony', value: 3, tone: 'error' },
 ];
@@ -68,7 +68,8 @@ export const VehicleFlagTypes = [
 ];
 export const vehicleFlag = (v) => VehicleFlagTypes.find((f) => f.value === v) ?? { label: v || 'Flag', tone: 'error' };
 
-export const FirearmFlagTitles = ['Stolen', 'Seized', 'Flagged', 'Destroyed by police'];
+// Stored as the flag title in the database; keep the original wording so new flags match existing ones.
+export const FirearmFlagTitles = ['Stolen', 'Seized', 'Flagged', 'PD Trashed/Broken'];
 
 export const BOLOTypes = [
     { label: 'Person', value: 'user' },

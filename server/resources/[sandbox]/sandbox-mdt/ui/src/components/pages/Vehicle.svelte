@@ -1,4 +1,5 @@
 <script>
+    import { onMount } from 'svelte';
     import { Button, Tag, Modal, Field, Select, Textarea, PageAlert } from '@sandbox/ui-kit';
     import { app, go, back, hasJob } from '../../state/app.svelte.js';
     import { toast } from '../../state/toasts.svelte.js';
@@ -29,9 +30,7 @@
         status = 'ready';
     }
 
-    $effect(() => {
-        load();
-    });
+    onMount(load);
 
     const flags = $derived(list(v?.Flags));
     const strikes = $derived(list(v?.Strikes));
@@ -131,8 +130,7 @@
                     <dt>Owner</dt>
                     <dd>
                         {#if ownerIsPerson}
-                            <button type="button" class="mdt-link" onclick={() => go('person', { id: v.Owner.Id })}>{v.Owner.Person ? personName(v.Owner.Person) : `State ID ${v.Owner.Id}`}</button>
-                            {#if v.Owner.Person}<span class="au-muted">, state ID <span class="au-mono">{v.Owner.Id}</span></span>{/if}
+                            <button type="button" class="mdt-link" onclick={() => go('person', { id: v.Owner.Id })}>{v.Owner.Person ? personName(v.Owner.Person) : `State ID ${v.Owner.Id}`}</button>{#if v.Owner.Person}<span class="au-muted">, state ID <span class="au-mono">{v.Owner.Id}</span></span>{/if}
                         {:else}
                             {v.Owner?.JobName ?? 'Unknown business'}
                         {/if}

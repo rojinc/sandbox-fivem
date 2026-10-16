@@ -12,13 +12,13 @@
 
     const p = (n) => String(n).padStart(2, '0');
     const stamp = $derived(`${now.getFullYear()}-${p(now.getMonth() + 1)}-${p(now.getDate())} ${p(now.getHours())}:${p(now.getMinutes())}:${p(now.getSeconds())}`);
-    const unit = $derived(app.user?.Callsign ? `Unit ${app.user.Callsign}` : app.user?.SID ? `ID ${app.user.SID}` : '');
+    const unit = $derived(app.user?.Callsign ? `Unit ${app.user.Callsign}` : app.user?.SID ? `State ID ${app.user.SID}` : '');
 </script>
 
 <div class="bodycam au-overworld" class:beside-panel={alerts.showing} aria-hidden="true">
     <div class="rec"><span class="dot"></span>Recording</div>
     <div class="au-mono">{stamp}</div>
-    {#if unit}<div class="au-mono">AXON BODY 3 {unit}</div>{/if}
+    {#if unit}<div>Body camera, {unit}</div>{/if}
 </div>
 
 <style>

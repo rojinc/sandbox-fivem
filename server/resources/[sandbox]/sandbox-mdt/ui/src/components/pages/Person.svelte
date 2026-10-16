@@ -1,4 +1,5 @@
 <script>
+    import { onMount } from 'svelte';
     import { Button, Tag, Modal, Field, TextInput, Checkbox, PageAlert } from '@sandbox/ui-kit';
     import { app, go, back, hasPerm, hasJob } from '../../state/app.svelte.js';
     import { store } from '../../state/data.svelte.js';
@@ -36,9 +37,7 @@
         status = 'ready';
     }
 
-    $effect(() => {
-        load();
-    });
+    onMount(load);
 
     const d = $derived(person?.data ?? {});
     const govJobs = $derived(list(store.governmentJobs));
@@ -146,7 +145,7 @@
                 {#if d.Flags?.Violent}<Tag tone="error">Violent</Tag>{/if}
                 {#if paroleLeft}<Tag tone="warning">On parole</Tag>{/if}
                 {#if suspended.length}<Tag tone="warning">Licence suspended</Tag>{/if}
-                {#if d.Attorney}<Tag tone="info">Bar certified attorney</Tag>{/if}
+                {#if d.Attorney}<Tag>Bar certified attorney</Tag>{/if}
                 {#if govEmployment}<Tag>Government employee</Tag>{/if}
             </div>
         </div>
