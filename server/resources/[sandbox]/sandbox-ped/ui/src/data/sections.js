@@ -4,31 +4,31 @@
  */
 export const MODES = {
     CREATOR: {
-        eyebrow: 'NEW CHARACTER',
+        eyebrow: 'New character',
         priceKey: 'CREATOR',
         canCancel: false,
         sections: ['heritage', 'features', 'skin', 'makeup', 'hair', 'brows', 'bodyhair', 'body', 'model', 'tops', 'legs', 'accessories', 'extras', 'tattoos'],
     },
     SHOP: {
-        eyebrow: 'CLOTHING STORE',
+        eyebrow: 'Clothing store',
         priceKey: 'SHOP',
         canCancel: true,
         sections: ['tops', 'legs', 'accessories', 'extras'],
     },
     BARBER: {
-        eyebrow: 'BARBER',
+        eyebrow: 'Barber',
         priceKey: 'BARBER',
         canCancel: true,
         sections: ['hair', 'brows', 'bodyhair', 'makeup'],
     },
     TATTOO: {
-        eyebrow: 'TATTOO PARLOUR',
+        eyebrow: 'Tattoo parlour',
         priceKey: 'TATTOO',
         canCancel: true,
         sections: ['zone:ZONE_TORSO', 'zone:ZONE_HEAD', 'zone:ZONE_LEFT_ARM', 'zone:ZONE_RIGHT_ARM', 'zone:ZONE_LEFT_LEG', 'zone:ZONE_RIGHT_LEG'],
     },
     SURGERY: {
-        eyebrow: 'SURGERY',
+        eyebrow: 'Surgery',
         priceKey: 'SURGERY',
         canCancel: true,
         sections: ['heritage', 'features', 'skin', 'makeup', 'hair', 'brows', 'bodyhair', 'body', 'model'],
@@ -60,7 +60,7 @@ const BASE = {
     makeup: { label: 'Makeup', title: 'Makeup', group: 'Face' },
     hair: { label: 'Hair', title: 'Hair', group: 'Hair' },
     brows: { label: 'Brows and beard', title: 'Brows and beard', group: 'Hair' },
-    bodyhair: { label: 'Body hair', title: 'Body hair', group: 'Hair' },
+    bodyhair: { label: 'Chest hair', title: 'Chest hair', group: 'Hair' },
     body: { label: 'Body', title: 'Body', group: 'Body' },
     model: { label: 'Ped model', title: 'Ped model', group: 'Body' },
     tops: { label: 'Tops', title: 'Tops', group: 'Clothing' },
