@@ -11,7 +11,8 @@ client_script("@sandbox-pwnzor/client/check.lua")
 ui_page("ui/dist/index.html")
 
 files({
-	"ui/dist/*.*",
+	"ui/dist/index.html",
+	"ui/dist/assets/*",
 })
 
 client_scripts({

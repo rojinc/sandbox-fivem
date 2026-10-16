@@ -1,5 +1,13 @@
 /** SetPedFaceFeature indices (0..19), grouped for the Features section. */
 export const FACE_FEATURE_GROUPS = [
+    { title: 'Eyes', items: [{ label: 'Opening', index: 11 }] },
+    {
+        title: 'Eyebrows',
+        items: [
+            { label: 'Height', index: 6 },
+            { label: 'Depth', index: 7 },
+        ],
+    },
     {
         title: 'Nose',
         items: [
@@ -12,13 +20,6 @@ export const FACE_FEATURE_GROUPS = [
         ],
     },
     {
-        title: 'Eyebrows',
-        items: [
-            { label: 'Height', index: 6 },
-            { label: 'Length', index: 7 },
-        ],
-    },
-    {
         title: 'Cheeks',
         items: [
             { label: 'Bone height', index: 8 },
@@ -26,13 +27,7 @@ export const FACE_FEATURE_GROUPS = [
             { label: 'Width', index: 10 },
         ],
     },
-    {
-        title: 'Eyes and lips',
-        items: [
-            { label: 'Eye opening', index: 11 },
-            { label: 'Lip thickness', index: 12 },
-        ],
-    },
+    { title: 'Lips', items: [{ label: 'Thickness', index: 12 }] },
     {
         title: 'Jaw',
         items: [
@@ -46,13 +41,10 @@ export const FACE_FEATURE_GROUPS = [
             { label: 'Height', index: 15 },
             { label: 'Length', index: 16 },
             { label: 'Width', index: 17 },
-            { label: 'Dimple', index: 18 },
+            { label: 'Cleft', index: 18 },
         ],
     },
-    {
-        title: 'Neck',
-        items: [{ label: 'Thickness', index: 19 }],
-    },
+    { title: 'Neck', items: [{ label: 'Thickness', index: 19 }] },
 ];
 
 export const EYE_COLORS = [

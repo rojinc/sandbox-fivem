@@ -343,17 +343,24 @@ RegisterNUICallback("GetPedHairRgbColor", function(data, cb)
 	})
 end)
 
+-- Ids the server hides from the clothing store for this slot and gender, as a set of
+-- string ids. Every level of GlobalState.ClothingStoreHidden may be missing.
+function HiddenStoreItems(kind, slot, gender)
+	local hidden = GlobalState["ClothingStoreHidden"]
+	local byKind = hidden and hidden[kind]
+	local bySlot = byKind and byKind[slot]
+	return (bySlot and bySlot[gender]) or {}
+end
+
 RegisterNUICallback("GetNumberOfPedDrawableVariations", function(data, cb)
 	cb("OK")
 
 	local gender = LocalPlayer.state.Character:GetData("Gender")
 	local comps = {}
-	for i = 0, GetNumberOfPedDrawableVariations(PlayerPedId(), data.componentId) do
-		if
-			GlobalState["ClothingStoreHidden"].components[data.componentId] == nil
-			or GlobalState["ClothingStoreHidden"].props[data.componentId][gender] == nil
-			or not GlobalState["ClothingStoreHidden"].components[data.componentId][gender][tostring(i)]
-		then
+	-- Valid drawable ids are 0 .. count - 1.
+	local hidden = HiddenStoreItems("components", data.componentId, gender)
+	for i = 0, GetNumberOfPedDrawableVariations(PlayerPedId(), data.componentId) - 1 do
+		if not hidden[tostring(i)] then
 			table.insert(comps, i)
 		end
 	end
@@ -385,12 +392,10 @@ RegisterNUICallback("GetNumberOfPedPropDrawableVariations", function(data, cb)
 
 	local gender = LocalPlayer.state.Character:GetData("Gender")
 	local comps = {}
-	for i = 0, GetNumberOfPedPropDrawableVariations(PlayerPedId(), data.componentId) do
-		if
-			GlobalState["ClothingStoreHidden"].components[data.componentId] == nil
-			or GlobalState["ClothingStoreHidden"].props[data.componentId][gender] == nil
-			or not GlobalState["ClothingStoreHidden"].components[data.componentId][gender][tostring(i)]
-		then
+	-- Valid prop ids are 0 .. count - 1.
+	local hidden = HiddenStoreItems("props", data.componentId, gender)
+	for i = 0, GetNumberOfPedPropDrawableVariations(PlayerPedId(), data.componentId) - 1 do
+		if not hidden[tostring(i)] then
 			table.insert(comps, i)
 		end
 	end

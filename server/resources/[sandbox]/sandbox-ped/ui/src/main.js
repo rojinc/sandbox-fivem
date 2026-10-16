@@ -11,5 +11,5 @@ mount(App, { target: document.getElementById('app') });
 
 // vite dev in a plain browser: replay a preview scenario so the editor has data.
 if (import.meta.env.DEV && isEnvBrowser()) {
-    import('../preview/creator.json').then((m) => debugData((m.default.messages ?? []).filter((x) => x.type), 50));
+    import('../preview/01-creator-heritage.json').then((m) => debugData((m.default.messages ?? []).filter((x) => x.type), 50));
 }

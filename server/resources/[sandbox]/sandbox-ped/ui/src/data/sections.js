@@ -7,7 +7,7 @@ export const MODES = {
         eyebrow: 'New character',
         priceKey: 'CREATOR',
         canCancel: false,
-        sections: ['heritage', 'features', 'skin', 'makeup', 'hair', 'brows', 'bodyhair', 'body', 'model', 'tops', 'legs', 'accessories', 'extras', 'tattoos'],
+        sections: ['heritage', 'features', 'skin', 'makeup', 'hair', 'brows', 'bodyhair', 'tops', 'legs', 'accessories', 'extras', 'body', 'model', 'tattoos'],
     },
     SHOP: {
         eyebrow: 'Clothing store',
@@ -31,7 +31,7 @@ export const MODES = {
         eyebrow: 'Surgery',
         priceKey: 'SURGERY',
         canCancel: true,
-        sections: ['heritage', 'features', 'skin', 'makeup', 'hair', 'brows', 'bodyhair', 'body', 'model'],
+        sections: ['heritage', 'features', 'skin', 'makeup', 'hair', 'brows', 'bodyhair', 'arms', 'body', 'model'],
     },
 };
 
@@ -58,16 +58,17 @@ const BASE = {
     features: { label: 'Features', title: 'Facial features', group: 'Face' },
     skin: { label: 'Skin', title: 'Skin', group: 'Face' },
     makeup: { label: 'Makeup', title: 'Makeup', group: 'Face' },
-    hair: { label: 'Hair', title: 'Hair', group: 'Hair' },
+    hair: { label: 'Haircut', title: 'Haircut', group: 'Hair' },
     brows: { label: 'Brows and beard', title: 'Brows and beard', group: 'Hair' },
     bodyhair: { label: 'Chest hair', title: 'Chest hair', group: 'Hair' },
-    body: { label: 'Body', title: 'Body', group: 'Body' },
+    arms: { label: 'Arms', title: 'Arms', group: 'Body' },
+    body: { label: 'Blemishes', title: 'Body blemishes', group: 'Body' },
     model: { label: 'Ped model', title: 'Ped model', group: 'Body' },
     tops: { label: 'Tops', title: 'Tops', group: 'Clothing' },
     legs: { label: 'Legs and feet', title: 'Legs and feet', group: 'Clothing' },
     accessories: { label: 'Accessories', title: 'Accessories', group: 'Clothing' },
     extras: { label: 'Masks and bags', title: 'Masks and bags', group: 'Clothing' },
-    tattoos: { label: 'Tattoos', title: 'Tattoos', group: 'Tattoos', naked: true },
+    tattoos: { label: 'Tattoos', title: 'Tattoos', group: 'Body', naked: true },
 };
 
 export function sectionDef(id) {

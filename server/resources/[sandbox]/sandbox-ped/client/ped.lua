@@ -425,11 +425,8 @@ PED = {
 					SetPedHeadOverlay(playerPed, value.id, value.index, (value.opacity / 100) + 0.0)
 
 					if value.color1 and value.color1 > 0 then
-						if type(value.color2) == "number" then
-							SetPedHeadOverlayColor(playerPed, value.id, 2, value.color1, 0)
-						else
-							SetPedHeadOverlayColor(playerPed, value.id, 2, value.color1, value.color2)
-						end
+						local color2 = type(value.color2) == "number" and value.color2 or 0
+						SetPedHeadOverlayColor(playerPed, value.id, 2, value.color1, color2)
 					else
 						SetPedHeadOverlayColor(playerPed, value.id, 0, 0, 0)
 					end
@@ -571,11 +568,8 @@ PED = {
 					SetPedHeadOverlay(playerPed, value.id, value.index, (value.opacity / 100) + 0.0)
 
 					if value.color1 and value.color1 > 0 then
-						if type(value.color2) == "number" then
-							SetPedHeadOverlayColor(playerPed, value.id, 2, value.color1, 0)
-						else
-							SetPedHeadOverlayColor(playerPed, value.id, 2, value.color1, value.color2)
-						end
+						local color2 = type(value.color2) == "number" and value.color2 or 0
+						SetPedHeadOverlayColor(playerPed, value.id, 2, value.color1, color2)
 					else
 						SetPedHeadOverlayColor(playerPed, value.id, 0, 0, 0)
 					end

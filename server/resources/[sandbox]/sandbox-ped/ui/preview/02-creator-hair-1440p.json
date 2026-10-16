@@ -1,10 +1,11 @@
 {
   "viewport": [
-    1920,
-    1080
+    2560,
+    1440
   ],
-  "settle": 500,
-  "wait": 900,
+  "backdrop": true,
+  "settle": 400,
+  "wait": 700,
   "messages": [
     {
       "type": "SET_PRICING",
@@ -449,7 +450,7 @@
       "type": "SET_PED_DATA",
       "data": {
         "ped": {
-          "model": "mp_f_freemode_01",
+          "model": "mp_m_freemode_01",
           "customization": {
             "face": {
               "face1": {
@@ -467,28 +468,28 @@
                 "texture": 0,
                 "mix": 100
               },
-              "features": [
-                12,
-                -8,
-                0,
-                20,
-                0,
-                0,
-                5,
-                0,
-                -15,
-                0,
-                0,
-                0,
-                10,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0
-              ]
+              "features": {
+                "0": 12,
+                "1": -8,
+                "2": 0,
+                "3": 20,
+                "4": 0,
+                "5": 0,
+                "6": 5,
+                "7": 0,
+                "8": -15,
+                "9": 0,
+                "10": 0,
+                "11": 0,
+                "12": 10,
+                "13": 0,
+                "14": 0,
+                "15": 0,
+                "16": 0,
+                "17": 0,
+                "18": 0,
+                "19": 0
+              }
             },
             "eyeColor": 3,
             "overlay": {
@@ -502,7 +503,7 @@
                 "id": 1,
                 "index": 10,
                 "opacity": 100,
-                "disabled": true,
+                "disabled": false,
                 "color1": 2
               },
               "eyebrows": {
@@ -635,7 +636,7 @@
               },
               "hair": {
                 "componentId": 2,
-                "drawableId": 11,
+                "drawableId": 4,
                 "textureId": 0,
                 "paletteId": 0
               },
@@ -647,8 +648,8 @@
               },
               "leg": {
                 "componentId": 4,
-                "drawableId": 15,
-                "textureId": 2,
+                "drawableId": 61,
+                "textureId": 3,
                 "paletteId": 0
               },
               "bag": {
@@ -659,8 +660,8 @@
               },
               "shoes": {
                 "componentId": 6,
-                "drawableId": 35,
-                "textureId": 0,
+                "drawableId": 34,
+                "textureId": 1,
                 "paletteId": 0
               },
               "accessory": {
@@ -671,7 +672,7 @@
               },
               "undershirt": {
                 "componentId": 8,
-                "drawableId": 14,
+                "drawableId": 15,
                 "textureId": 0,
                 "paletteId": 0
               },
@@ -689,8 +690,8 @@
               },
               "torso2": {
                 "componentId": 11,
-                "drawableId": 18,
-                "textureId": 3,
+                "drawableId": 15,
+                "textureId": 2,
                 "paletteId": 0
               }
             },
@@ -758,17 +759,18 @@
             "hairOverlay": -1
           }
         },
-        "gender": 1
+        "gender": 0
       }
     },
     {
       "type": "SET_STATE",
       "data": {
-        "state": "SHOP"
+        "state": "CREATOR"
       }
     },
     {
-      "type": "APP_SHOW"
+      "type": "APP_SHOW",
+      "data": {}
     },
     {
       "type": "SET_MAX_DRAWABLE",
@@ -890,8 +892,7 @@
           118,
           119
         ]
-      },
-      "delay": 150
+      }
     },
     {
       "type": "SET_MAX_TEXTURE",
@@ -2083,6 +2084,268 @@
         "name": "palette",
         "rgb": "rgb(70, 160, 90)"
       }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 32,
+        "name": "palette",
+        "rgb": "rgb(40, 100, 60)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 33,
+        "name": "palette",
+        "rgb": "rgb(30, 130, 110)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 34,
+        "name": "palette",
+        "rgb": "rgb(60, 160, 170)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 35,
+        "name": "palette",
+        "rgb": "rgb(40, 90, 120)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 36,
+        "name": "palette",
+        "rgb": "rgb(80, 50, 120)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 37,
+        "name": "palette",
+        "rgb": "rgb(140, 40, 90)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 38,
+        "name": "palette",
+        "rgb": "rgb(170, 30, 40)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 39,
+        "name": "palette",
+        "rgb": "rgb(210, 60, 60)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 40,
+        "name": "palette",
+        "rgb": "rgb(240, 120, 150)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 41,
+        "name": "palette",
+        "rgb": "rgb(250, 170, 200)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 42,
+        "name": "palette",
+        "rgb": "rgb(120, 200, 230)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 43,
+        "name": "palette",
+        "rgb": "rgb(90, 140, 220)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 44,
+        "name": "palette",
+        "rgb": "rgb(160, 200, 90)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 45,
+        "name": "palette",
+        "rgb": "rgb(220, 230, 120)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 46,
+        "name": "palette",
+        "rgb": "rgb(150, 110, 70)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 47,
+        "name": "palette",
+        "rgb": "rgb(120, 85, 55)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 48,
+        "name": "palette",
+        "rgb": "rgb(95, 65, 45)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 49,
+        "name": "palette",
+        "rgb": "rgb(70, 50, 35)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 50,
+        "name": "palette",
+        "rgb": "rgb(200, 160, 110)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 51,
+        "name": "palette",
+        "rgb": "rgb(225, 190, 140)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 52,
+        "name": "palette",
+        "rgb": "rgb(240, 215, 170)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 53,
+        "name": "palette",
+        "rgb": "rgb(180, 120, 60)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 54,
+        "name": "palette",
+        "rgb": "rgb(150, 90, 40)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 55,
+        "name": "palette",
+        "rgb": "rgb(110, 60, 30)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 56,
+        "name": "palette",
+        "rgb": "rgb(90, 40, 20)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 57,
+        "name": "palette",
+        "rgb": "rgb(60, 30, 20)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 58,
+        "name": "palette",
+        "rgb": "rgb(40, 25, 20)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 59,
+        "name": "palette",
+        "rgb": "rgb(25, 20, 18)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 60,
+        "name": "palette",
+        "rgb": "rgb(230, 230, 230)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 61,
+        "name": "palette",
+        "rgb": "rgb(245, 240, 225)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 62,
+        "name": "palette",
+        "rgb": "rgb(120, 130, 140)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 63,
+        "name": "palette",
+        "rgb": "rgb(80, 85, 90)"
+      }
+    },
+    {
+      "raw": {
+        "previewSection": "hair"
+      },
+      "delay": 50
     }
   ]
 }
