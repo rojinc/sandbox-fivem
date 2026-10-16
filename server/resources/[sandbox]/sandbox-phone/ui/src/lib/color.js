@@ -8,7 +8,7 @@ export function onColor(hex) {
     const lin = (c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
     const L = 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
     // Contrast against white (1.05 / (L + 0.05)) vs against #181a1d (L + 0.05) / 0.0598
-    return 1.05 / (L + 0.05) >= (L + 0.05) / 0.0598 ? '#ffffff' : 'var(--au-on-ink)';
+    return 1.05 / (L + 0.05) >= (L + 0.05) / 0.0598 ? 'var(--au-text)' : 'var(--au-on-ink)';
 }
 
 /** A tile colour from the catalogue, or a neutral fallback. */

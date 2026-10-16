@@ -164,6 +164,26 @@ export const CHATTER_MESSAGES = [
     { id: 31, message: 'Roster is up on the board.', timestamp: now - 4000, author: 5110 },
 ];
 
+export const LABOR = {
+    jobs: {
+        Mining: { Id: 'Mining', Name: 'Mining', Salary: 450, Limit: 10, OnDuty: [{ Joiner: 31 }] },
+        Garbage: { Id: 'Garbage', Name: 'Garbage collection', Salary: 380, Limit: 6, OnDuty: [] },
+        Salvaging: { Id: 'Salvaging', Name: 'Salvaging', Salary: 0, Limit: 0, OnDuty: [] },
+    },
+    groups: [{ Creator: { ID: 31, SID: 5001, First: 'Dex', Last: 'Morrow' }, Members: [{ ID: 44, SID: 5110, First: 'Lucia', Last: 'Ferrante' }], Working: false }],
+    reputations: [{ id: 'Mining', label: 'Mining', value: 1400, current: { label: 'Rank 2', value: 1000 }, next: { label: 'Rank 3', value: 2500 } }],
+};
+
+export const COINS = [
+    { Name: 'Vroom', Short: 'VRM', Price: 120, Buyable: true, Sellable: true },
+    { Name: 'Meme coin', Short: 'MEME', Price: 4, Buyable: true, Sellable: 3 },
+];
+
+export const LOANS = {
+    creditScore: 612,
+    loans: [{ _id: 'l1', Type: 'vehicle', AssetIdentifier: '1HGBH41JXMN109186', Total: 68000, DownPayment: 13600, Paid: 20400, Remaining: 47600, InterestRate: 10, TotalPayments: 10, PaidPayments: 3, MissedPayments: 1, MissablePayments: 3, NextPayment: (now + 86400 * 2) * 1000, Defaulted: false }],
+};
+
 /** The messages Lua sends at spawn, in order. */
 export const messages = [
     { type: 'SET_APPS', data: APPS },
@@ -197,6 +217,9 @@ export function installMocks() {
     mockNui('Banking:GetData', BANK);
     mockNui('Banking:GetTransactions', TRANSACTIONS);
     mockNui('Documents:GetSignatures', []);
+    mockNui('GetLaborDetails', LABOR);
+    mockNui('GetCryptoCoins', COINS);
+    mockNui('Loans:GetData', LOANS);
     mockNui('Twitter:GetCount', TWEETS.length);
     mockNui('Twitter:GetTweets', TWEETS);
     mockNui('Chatter:GetMessageCount', CHATTER_MESSAGES.length);

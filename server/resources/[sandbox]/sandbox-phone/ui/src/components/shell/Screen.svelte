@@ -45,7 +45,7 @@
                     <View app={apps[r.app]} segs={r.segs} />
                 {/key}
             {:else}
-                <NotAvailable app={{ label: 'App not installed' }} />
+                <NotAvailable missing />
             {/if}
         </div>
         {#if !phone.limited && !locked}

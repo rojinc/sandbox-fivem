@@ -389,8 +389,7 @@ _appData = {
 		unread = 0,
 		restricted = {
 			job = {
-				--realestate = 1,
-				penis = 1,
+				realestate = 1,
 			},
 		},
 	},

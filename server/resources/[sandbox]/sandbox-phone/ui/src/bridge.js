@@ -50,9 +50,12 @@ export function installBridge() {
     onNui('PHONE_VISIBLE', () => open(false));
     onNui('PHONE_VISIBLE_LIMITED', () => open(true));
     onNui('PHONE_NOT_VISIBLE', () => {
+        // Sent on logout. The old reducer answered with ClosePhone so Lua drops focus and plays the put-away animation.
+        const wasOpen = phone.visible;
         phone.visible = false;
         phone.limited = false;
         phone.moving = false;
+        if (wasOpen) fetchNui('ClosePhone');
     });
     onNui('PHONE_NOT_VISIBLE_FORCED', () => {
         phone.visible = false;

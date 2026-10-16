@@ -81,7 +81,7 @@
         <Button size="sm" variant="tertiary" onclick={() => (wallet = true)}>Wallet</Button>
     {/snippet}
     <dl class="ph-facts">
-        <div><dt>Your coins are worth</dt><dd class="worth">{usd(worth)}</dd></div>
+        <div><dt>Total value</dt><dd class="worth">{usd(worth)}</dd></div>
     </dl>
     {#if loading && !coins.length}
         <p class="ph-note state"><Spinner size={18} /> Loading prices</p>

@@ -35,7 +35,7 @@
                 <Checkbox
                     checked={!s.appNotifications?.[app.name]}
                     disabled={!s.notifications}
-                    label="{app.label} notifications"
+                    label={app.label}
                     onchange={(e) => toggle(app.name, e.currentTarget.checked)}
                 />
             </li>

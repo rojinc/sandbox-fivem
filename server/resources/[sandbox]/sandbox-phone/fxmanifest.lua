@@ -13,13 +13,7 @@ server_script("@oxmysql/lib/MySQL.lua")
 ui_page("ui/dist/index.html")
 files({
 	"ui/dist/index.html",
-	"ui/dist/*.png",
-	"ui/dist/*.webp",
-	"ui/dist/*.gif",
-	"ui/dist/*.gifv",
-	"ui/dist/*.js",
-	"ui/dist/*.mp3",
-	"ui/dist/*.ttf",
+	"ui/dist/assets/*",
 })
 
 client_scripts({

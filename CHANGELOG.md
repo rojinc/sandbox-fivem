@@ -21,6 +21,9 @@
   inventory settings, crafting quantities, vehicle repairs by distance, race
   finishes, bicycle purchases (price and model resolved server-side), roulette
   totals. The never-triggered key-theft handler was removed.
+- Phone adverts are rebuilt on the server: author, number, id and time come
+  from the character and server clock, not the client. `/resetphonepos` docks
+  the phone again, and Dynasty 8 is restricted to the real estate job again.
 - Radar settings are validated before they are saved; the cross street bug and
   flagged-plate flag were fixed. Taxi and chat dependency names fixed; chat
   releases NUI focus on logout.
@@ -38,7 +41,9 @@
   (docked panel so the peds stay in view), chat, taxi meter, police radar,
   radio (drawn inside the handset), bank and ATM, minigames, clothing and
   barber stores, staff admin console, police MDT and alerts, the generic
-  list menu, and the inventory with shops and the crafting bench.
+  list menu, the inventory with shops and the crafting bench, and the phone
+  (drawn inside the player's case, 21 apps; Dyn8, Properties, Redline,
+  Blueline and Music say they are not available yet).
 - Key hints and keyboard guides are gone from every screen, and from the
   Lua notices that only listed keys: customs camera, scene placement, selfie
   and evidence cameras, fishing, bike carry and emote effects. Interaction

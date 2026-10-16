@@ -2,9 +2,10 @@ function RegisterChatCommands()
 	Chat:RegisterCommand("resetphonepos", function(source, args, rawCommand)
 		local char = Fetch:CharacterSource(source)
 		if char ~= nil then
+			-- {1000, 250} is the docked position the phone UI treats as "not moved".
 			char:SetData("PhonePosition", {
-				x = 25,
-				y = 25,
+				x = 1000,
+				y = 250,
 			})
 			TriggerClientEvent("Phone:Client:RestorePosition", source, char:GetData("PhonePosition"))
 			Chat.Send.System:Single(source, "Phone Position Reset")
