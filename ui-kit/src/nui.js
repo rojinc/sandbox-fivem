@@ -128,8 +128,9 @@ export function onKey(keys, fn, { prevent = true } = {}) {
     const list = [].concat(keys);
     const listener = (e) => {
         if (!list.includes(e.key)) return;
+        // A handler that returns false declines the key (its surface is not open), so typing elsewhere keeps working.
+        if (fn(e) === false) return;
         if (prevent) e.preventDefault();
-        fn(e);
     };
     window.addEventListener('keydown', listener);
     const off = () => window.removeEventListener('keydown', listener);

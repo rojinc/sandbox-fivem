@@ -31,16 +31,16 @@ AddEventHandler("Core:Shared:Ready", function()
 			return {
 				{
 					HUDConfig = {
-						layout = "default",
-						statusType = "numbers",
-						buffsAnchor = "compass",
-						vehicle = "default",
-						buffsAnchor2 = true,
-						showRPM = true,
+						compassLocation = "top",
+						compassAlways = true,
 						hideCrossStreet = false,
 						hideCompassBg = false,
-						minimapAnchor = true,
-						transparentBg = true,
+						maskRadio = false,
+						speedUnit = "mph",
+						showRPM = true,
+						showGears = true,
+						skewed = false,
+						skewAmount = 15,
 					},
 				},
 			}
@@ -50,16 +50,16 @@ AddEventHandler("Core:Shared:Ready", function()
 			local config = char:GetData("HUDConfig")
 			if not config then
 				char:SetData("HUDConfig", {
-					layout = "default",
-					statusType = "numbers",
-					buffsAnchor = "compass",
-					vehicle = "default",
-					buffsAnchor2 = true,
-					showRPM = true,
+					compassLocation = "top",
+					compassAlways = true,
 					hideCrossStreet = false,
 					hideCompassBg = false,
-					minimapAnchor = true,
-					transparentBg = true,
+					maskRadio = false,
+					speedUnit = "mph",
+					showRPM = true,
+					showGears = true,
+					skewed = false,
+					skewAmount = 15,
 				})
 			end
 		end, 1)

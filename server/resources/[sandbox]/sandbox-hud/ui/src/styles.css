@@ -1,0 +1,40 @@
+/*
+ * HUD-specific styles. The in-world HUD scales with the viewport: the root
+ * font-size is 16px at 1920 wide and everything inside is sized in em, so
+ * 1440p and 4K keep the 1080p proportions. Menus and dialogs use the kit's
+ * fixed pixel sizes.
+ */
+.hud-root {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    font-size: clamp(11px, 0.8333vw, 40px);
+}
+
+.hud-ui {
+    pointer-events: auto;
+}
+
+/* White text with the hard 1px shadow minimal-hud uses for legibility over the world. */
+.hud-text {
+    color: var(--hud-white);
+    font-weight: 700;
+    text-shadow: var(--hud-shadow);
+    font-feature-settings: 'tnum';
+    font-variant-numeric: tabular-nums;
+}
+
+.hud-shadow {
+    filter: drop-shadow(var(--hud-shadow));
+}
+
+@keyframes hud-pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}

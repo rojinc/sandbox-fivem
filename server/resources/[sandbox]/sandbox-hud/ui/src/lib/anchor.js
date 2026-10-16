@@ -1,24 +1,25 @@
 /**
- * The minimap anchor Lua sends (GetMinimapAnchor in client/hud.lua) is normalised
- * screen space: leftX/rightX/topY/bottomY in 0..1. The cluster normally occupies
- * the minimap's slot (radar hidden); when the radar is visible ("shifted", in a
- * vehicle or with GPS) it moves to the minimap's right edge.
+ * The minimap anchor Lua sends (GetMinimapAnchor in client/hud.lua) is
+ * normalised screen space: leftX/rightX/topY/bottomY/width/height in 0..1.
+ * The status cluster sits directly under the minimap, twice as wide as the
+ * map, like minimal-hud. Without an anchor (browser dev) it sits bottom-left.
  */
 export function hasAnchor(position) {
-    return Boolean(position && typeof position.bottomY === 'number');
+    return Boolean(position && typeof position.bottomY === 'number' && typeof position.leftX === 'number');
 }
 
-/** CSS for the main cluster container: anchored by its bottom-left corner. */
-export function clusterAnchor(position, shifted) {
+export function statusAnchor(position) {
     if (!hasAnchor(position)) {
-        return { left: '1.35vw', bottom: '2.6vh' };
+        return 'left:1.1vw;bottom:1.6vh;width:28vw';
     }
-    const x = shifted ? position.rightX + 0.0055 : position.leftX + 0.0045;
-    return { left: `${x * 100}vw`, bottom: `${(1 - position.bottomY) * 100}vh` };
+    const width = Math.max(0.2, (position.width ?? 0.14) * 2);
+    return `left:${(position.leftX * 100).toFixed(3)}vw;top:calc(${(position.bottomY * 100).toFixed(3)}vh + 0.4em);width:${(width * 100).toFixed(3)}vw`;
 }
 
-/** Top-left corner just under the minimap (minimap layout). */
-export function belowMinimap(position) {
-    if (!hasAnchor(position)) return { left: 15, top: 2 };
-    return { left: `${(position.leftX + 0.0045) * 100}vw`, top: `${(position.bottomY + 0.001) * 100}vh` };
+/** Buff chips sit to the right of the minimap, just above the status row. */
+export function buffsAnchor(position) {
+    if (!hasAnchor(position)) {
+        return 'left:1.1vw;bottom:calc(1.6vh + 3.4em)';
+    }
+    return `left:calc(${(position.rightX * 100).toFixed(3)}vw + 0.6em);top:calc(${(position.bottomY * 100).toFixed(3)}vh - 2.3em)`;
 }

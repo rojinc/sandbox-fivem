@@ -9,7 +9,8 @@
   },
   "workspaces": [
     "ui-kit",
-    "ui-kit/example"
+    "ui-kit/example",
+    "server/resources/[[]sandbox[]]/sandbox-hud/ui"
   ],
   "scripts": {
     "build": "node scripts/build-all.mjs",

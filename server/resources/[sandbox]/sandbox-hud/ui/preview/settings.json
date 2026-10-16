@@ -1,8 +1,32 @@
 {
-    "viewport": [1920, 1080],
+    "viewport": [
+        1920,
+        1080
+    ],
     "backdrop": true,
     "messages": [
-        { "type": "SET_CONFIG", "data": { "config": { "layout": "center", "statusType": "bars", "buffsAnchor": "minimap", "vehicle": "default" } } },
-        { "type": "TOGGLE_SETTINGS", "data": { "state": true } }
+        {
+            "type": "SET_CONFIG",
+            "data": {
+                "config": {
+                    "compassLocation": "top",
+                    "compassAlways": true,
+                    "hideCrossStreet": false,
+                    "hideCompassBg": false,
+                    "maskRadio": false,
+                    "speedUnit": "mph",
+                    "showRPM": true,
+                    "showGears": true,
+                    "skewed": false,
+                    "skewAmount": 15
+                }
+            }
+        },
+        {
+            "type": "TOGGLE_SETTINGS",
+            "data": {
+                "state": true
+            }
+        }
     ]
 }

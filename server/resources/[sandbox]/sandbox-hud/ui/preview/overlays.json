@@ -1,15 +1,121 @@
 {
-    "viewport": [1920, 1080],
+    "viewport": [
+        1920,
+        1080
+    ],
     "backdrop": true,
     "messages": [
-        { "type": "UPDATE_MM_POS", "data": { "position": { "leftX": 0.0107, "rightX": 0.1514, "topY": 0.7978, "bottomY": 0.9741, "width": 0.1406, "height": 0.1762 } } },
-        { "type": "SET_CONFIG", "data": { "config": { "layout": "minimap", "statusType": "numbers", "minimapAnchor": true } } },
-        { "type": "SHOW_HUD", "data": { "hp": 100, "maxHp": 100, "armor": 50 } },
-        { "type": "REGISTER_STATUS", "data": { "status": { "name": "PLAYER_HUNGER", "max": 100, "value": 63, "icon": "drumstick-bite", "color": "#ca5fe8", "flash": true, "options": { "hideZero": false, "order": 5 } } } },
-        { "type": "UPDATE_LOCATION", "data": { "location": { "main": "Paleto Blvd", "cross": "Procopio Dr", "area": "Paleto Bay", "direction": "N" } } },
-        { "type": "SHOW_INFO_OVERLAY", "data": { "info": { "label": "Hunting", "description": "Track the <b>deer</b> using the map. Stay quiet and move slowly." } } },
-        { "type": "SHOW_OVERLAY", "data": [ { "Name": "hunting_map_dark", "MetaData": {} } ] },
-        { "type": "SHOW_EYE", "data": { "icon": "hand" } },
-        { "type": "OPEN_MENU", "data": { "menu": [ { "icon": "car", "text": "Open trunk", "event": "Vehicles:Trunk" }, { "icon": "key", "text": "Lock vehicle", "event": "Vehicles:Lock" }, { "icon": "gas-pump", "text": "Refuel", "event": "Fuel:Start" } ] } }
+        {
+            "type": "UPDATE_MM_POS",
+            "data": {
+                "position": {
+                    "leftX": 0.0107,
+                    "rightX": 0.1514,
+                    "topY": 0.7578,
+                    "bottomY": 0.9341,
+                    "width": 0.1406,
+                    "height": 0.1762
+                }
+            }
+        },
+        {
+            "type": "SET_CONFIG",
+            "data": {
+                "config": {
+                    "compassLocation": "top",
+                    "compassAlways": true,
+                    "hideCrossStreet": false,
+                    "hideCompassBg": false,
+                    "maskRadio": false,
+                    "speedUnit": "mph",
+                    "showRPM": true,
+                    "showGears": true,
+                    "skewed": false,
+                    "skewAmount": 15
+                }
+            }
+        },
+        {
+            "type": "SHOW_HUD",
+            "data": {
+                "hp": 100,
+                "maxHp": 100,
+                "armor": 50
+            }
+        },
+        {
+            "type": "REGISTER_STATUS",
+            "data": {
+                "status": {
+                    "name": "PLAYER_HUNGER",
+                    "max": 100,
+                    "value": 63,
+                    "icon": "drumstick-bite",
+                    "color": "#ca5fe8",
+                    "flash": true,
+                    "options": {
+                        "hideZero": false,
+                        "order": 5
+                    }
+                }
+            }
+        },
+        {
+            "type": "UPDATE_LOCATION",
+            "data": {
+                "location": {
+                    "main": "Paleto Blvd",
+                    "cross": "Procopio Dr",
+                    "area": "Paleto Bay",
+                    "direction": "N"
+                }
+            }
+        },
+        {
+            "type": "SHOW_INFO_OVERLAY",
+            "data": {
+                "info": {
+                    "label": "Hunting",
+                    "description": "Track the <b>deer</b> using the map. Stay quiet and move slowly."
+                }
+            }
+        },
+        {
+            "type": "SHOW_OVERLAY",
+            "data": [
+                {
+                    "Name": "hunting_map_dark",
+                    "MetaData": {}
+                }
+            ]
+        },
+        {
+            "type": "SHOW_EYE",
+            "data": {
+                "icon": "hand"
+            }
+        },
+        {
+            "type": "OPEN_MENU",
+            "data": {
+                "menu": [
+                    {
+                        "icon": "car",
+                        "text": "Open trunk",
+                        "event": "Vehicles:Trunk"
+                    },
+                    {
+                        "icon": "key",
+                        "text": "Lock vehicle",
+                        "event": "Vehicles:Lock"
+                    },
+                    {
+                        "icon": "gas-pump",
+                        "text": "Refuel",
+                        "event": "Fuel:Start"
+                    }
+                ]
+            }
+        }
     ]
 }

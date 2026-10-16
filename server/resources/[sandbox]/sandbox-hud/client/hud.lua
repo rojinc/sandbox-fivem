@@ -41,7 +41,7 @@ function GetMinimapAnchor()
 		minimap.width = scaleX*(resX/(2.52*aspectRatio))
 		minimap.height = scaleY*(resY/(2.3374))
 	else
-		minimapRawX, minimapRawY = GetScriptGfxPosition(-0.0045, -0.0245 + (-0.188888))
+		minimapRawX, minimapRawY = GetScriptGfxPosition(-0.0045, -0.0645 + (-0.188888))
 		minimap.width = scaleX*(resX/(4*aspectRatio))
 		minimap.height = scaleY*(resY/(5.674))
 	end
@@ -105,9 +105,10 @@ AddEventHandler("Core:Shared:Ready", function()
 	
         SetBlipAlpha(GetNorthRadarBlip(), 0.0)
 
-		SetMinimapComponentPosition("minimap", "L", "B", -0.0045, -0.0245, 0.150, 0.18888)
-		SetMinimapComponentPosition("minimap_mask", "L", "B", 0.020, 0.022, 0.111, 0.159)
-		SetMinimapComponentPosition("minimap_blur", "L", "B", -0.03, 0.002, 0.266, 0.237)
+		-- Lifted 0.04 so the status bars fit between the minimap and the screen edge (GetMinimapAnchor matches).
+		SetMinimapComponentPosition("minimap", "L", "B", -0.0045, -0.0645, 0.150, 0.18888)
+		SetMinimapComponentPosition("minimap_mask", "L", "B", 0.020, -0.018, 0.111, 0.159)
+		SetMinimapComponentPosition("minimap_blur", "L", "B", -0.03, -0.038, 0.266, 0.237)
 
 		SetRadarBigmapEnabled(true, false)
 		Wait(0)
@@ -750,13 +751,29 @@ function StartVehicleThreads()
 		})
 	end
 
+	-- Boats, helicopters and planes have no gearbox worth showing; bicycles have no dashboard.
+	local hasGears = class ~= 13 and class ~= 14 and class ~= 15 and class ~= 16
+
 	CreateThread(function()
 		DisplayRadar(true)
 		while _vehToggled do
 			local speed = math.ceil(GetEntitySpeed(GLOBAL_VEH) * 2.237)
+			local gear, gears = false, 0
+			if hasGears and GLOBAL_VEH then
+				gears = GetVehicleHighGear(GLOBAL_VEH)
+				gear = GetVehicleDashboardCurrentGear()
+				if gears <= 1 then
+					gear, gears = false, 0
+				end
+			end
+			local headlights = 0
+			if GLOBAL_VEH then
+				local _, lightsOn, highBeamsOn = GetVehicleLightsState(GLOBAL_VEH)
+				headlights = (highBeamsOn and 2) or (lightsOn and 1) or 0
+			end
 			SendNUIMessage({
 				type = "UPDATE_SPEED",
-				data = { speed = speed },
+				data = { speed = speed, gear = gear, gears = gears, headlights = headlights },
 			})
 			Wait(100)
 		end

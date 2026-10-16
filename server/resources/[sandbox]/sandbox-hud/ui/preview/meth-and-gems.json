@@ -1,8 +1,25 @@
 {
-    "viewport": [1920, 1080],
+    "viewport": [
+        1920,
+        1080
+    ],
     "backdrop": true,
     "messages": [
-        { "type": "SHOW_GEM_TABLE", "data": { "info": 87 } },
-        { "type": "OPEN_METH", "data": { "config": { "ingredients": 4, "cookTimeMax": 45, "tableId": 3 } } }
+        {
+            "type": "SHOW_GEM_TABLE",
+            "data": {
+                "info": 87
+            }
+        },
+        {
+            "type": "OPEN_METH",
+            "data": {
+                "config": {
+                    "ingredients": 4,
+                    "cookTimeMax": 45,
+                    "tableId": 3
+                }
+            }
+        }
     ]
 }
