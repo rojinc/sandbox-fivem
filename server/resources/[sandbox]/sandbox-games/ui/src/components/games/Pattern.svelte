@@ -78,7 +78,7 @@
     });
 
     const inCursor = (i) => (i - selected + n) % n < difficulty;
-    const width = COLS * CELL_W + (COLS - 1) * GAP + 34;
+    const width = COLS * CELL_W + (COLS - 1) * GAP + 36;
 </script>
 
 <Frame

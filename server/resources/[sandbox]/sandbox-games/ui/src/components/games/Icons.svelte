@@ -43,6 +43,11 @@
     const iconCount = clamp(Math.floor(toNumber(params.difficulty, 8)), 1, ICONS.length);
     const needed = clamp(Math.floor(toNumber(params.difficulty2, 4)), 1, iconCount);
 
+    // The shuffle grid fills the same height as the answer step, so the panel keeps its size.
+    const BODY_H = 264;
+    const rows = Math.ceil(iconCount / 4);
+    const tileHeight = clamp(Math.floor((BODY_H - (rows - 1) * 8) / rows), 56, 128);
+
     const genIcons = () =>
         shuffle(ICONS)
             .slice(0, iconCount)
@@ -132,15 +137,15 @@
         {#if !input}
             <div class="ic-grid">
                 {#each icons as it, i (`${shuffleCount}-${i}`)}
-                    <div class="ic-tile" style:color={it.color.color}>
-                        <Icon icon={it.icon} size={32} stroke={2} />
+                    <div class="ic-tile" style:color={it.color.color} style:height="{tileHeight}px">
+                        <Icon icon={it.icon} size={rows <= 2 ? 40 : 32} stroke={2} />
                     </div>
                 {/each}
             </div>
         {:else}
             <div class="ic-ask">
                 <div class="ic-subject">
-                    {#if selected}<Icon icon={selected.icon} size={80} stroke={1.5} />{/if}
+                    {#if selected}<Icon icon={selected.icon} size={64} stroke={1.75} />{/if}
                 </div>
                 <form {onsubmit}>
                     <Field id={inputId} label="Colour of this icon" hint={COLOR_HINT}>
@@ -157,7 +162,7 @@
 
 <style>
     .ic-body {
-        min-height: 328px;
+        min-height: 264px;
     }
 
     .ic-grid {
@@ -169,7 +174,6 @@
     .ic-tile {
         display: grid;
         place-items: center;
-        height: 72px;
         background: var(--au-bg-sunk);
         border: 2px solid var(--au-border);
     }
@@ -183,7 +187,7 @@
     .ic-subject {
         display: grid;
         place-items: center;
-        height: 136px;
+        height: 104px;
         background: var(--au-bg-sunk);
         border: 2px solid var(--au-border);
         color: var(--au-text);

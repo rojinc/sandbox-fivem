@@ -77,11 +77,35 @@ calls `SetNuiFocus(true, params.needsMouse)` and
 the `Minigame:End` callback and in `Minigame:Cancel`. The UI never assumes it
 has focus and never hides itself without calling `Minigame:End`.
 
-## UI-internal actions (not part of the contract)
+## UI state (not part of the contract)
 
-`FINISH_GAME` and `HIDE_GAME` are dispatched by the UI only. `FAIL_GAME` is
-both the Lua cancel message and the action the UI dispatches on a failed
-result.
+`src/state/game.svelte.js` holds the one game on screen: `session` (incremented
+on every `SHOW_GAME`, the game component remounts), `result` (`null` while
+playing, then `success` / `perfect` / `fail`) and `reason` (why a game failed,
+shown under the result only: "Time ran out", "Game stopped", "Wrong code"...).
+`reason` is never sent to Lua; the `Minigame:Finish` body stays `{ state }`
+(plus `entered` for the keypad). `FAIL_GAME` from Lua marks the game failed
+with the reason "Game stopped" and does not send `Minigame:Finish` (Lua has
+already fired `onFail`); the panel still holds 2 s, fades and sends
+`Minigame:End`, as the previous UI did.
+
+## Inputs per game (unchanged from the previous UI)
+
+| Game | Input |
+| ---- | ----- |
+| `skillbar` | `E` (shown inside the target zone) |
+| `round` | the key in the centre of the ring (`1` `2` `3`, or `E`); any other of `E Q R 1 2 3 4` fails |
+| `scanner` | the key shown on the target bar |
+| `sequencer`, `scrambler`, `memory`, `aim`, `tracking` | mouse |
+| `keypad` | mouse, or `0`-`9`, `Backspace`, `Enter` |
+| `captcha`, `icons` | text field, `Enter` or the button checks the answer |
+| `keymaster` | the letter on each alley (`Q W E R`, `A S D F` or `Z X C V`) |
+| `pattern` | `W A S D` or the arrow keys move the cursor, `Space` / `Enter` confirm |
+| every game | `Escape` gives up (`Minigame:Finish { state = 0 }`) |
+
+No key hints are drawn: a key the player must press is shown as the target
+itself (the letter in the zone, on the bar, in the ring, on the falling cap).
+Keymaster's `timer` is read as a JSON array or as an object with numeric keys.
 
 ## Dropped from the old UI (never triggered by Lua)
 
@@ -91,7 +115,10 @@ result.
 * The `drill` / sliders NUI game: the Lua `Sliders` entry is commented out and
   `Drill` is a scaleform.
 * Pricedown / LCD / Oswald (Google Fonts) fonts, `@mojs/core`, `use-sound`,
-  `@mui/styles`, Font Awesome Pro.
+  `@mui/styles`, Font Awesome Pro, and then React, Redux and MUI themselves
+  (the UI is now Svelte 5 on `@sandbox/ui-kit`).
+* Key-hint footers ("Enter Submit", "W A S D Move cursor"), the dot-grid
+  playfield backgrounds, glows and gradients.
 
 ## Lua quirks noticed while extracting (not changed here)
 

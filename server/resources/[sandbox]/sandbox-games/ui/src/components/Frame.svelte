@@ -39,8 +39,11 @@
     const won = $derived(result === 'success' || result === 'perfect');
     const stageLabel = $derived(phases ? stageTexts[Math.min(phases.stage, stageTexts.length - 1)] : '');
     const reasonText = $derived(game.reason === 'time' ? 'Time ran out' : game.reason === 'cancelled' ? 'Game stopped' : game.reason);
-    const resultCaption = $derived(won ? (result === 'perfect' ? 'Perfect run' : caption) : (reasonText ?? caption));
-    const showLine = $derived(phase === 'play' && !result && (status || facts));
+    const stopped = $derived(!won && game.reason === 'cancelled');
+    const resultText = $derived(won ? successText : stopped ? 'Game stopped' : failText);
+    const resultCaption = $derived(won ? (result === 'perfect' ? 'Perfect run' : caption) : stopped ? null : (reasonText ?? caption));
+    // The quiet line stays for the whole game so the panel never changes height between phases.
+    const showLine = $derived(Boolean(status || facts));
 </script>
 
 <script module>
@@ -71,7 +74,7 @@
             <div class="gm-cover gm-cover--result">
                 <div class="gm-result" class:is-ok={won} class:is-bad={!won}>
                     <Icon icon={won ? 'check' : 'x'} size={40} stroke={2} />
-                    <div class="gm-result__text">{won ? successText : failText}</div>
+                    <div class="gm-result__text">{resultText}</div>
                     {#if resultCaption}<div class="gm-result__caption">{resultCaption}</div>{/if}
                 </div>
             </div>

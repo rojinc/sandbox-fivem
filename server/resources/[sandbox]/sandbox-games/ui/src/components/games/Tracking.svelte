@@ -21,10 +21,10 @@
         ['var(--au-action)', 'var(--au-action-contrast)'],
         ['var(--au-action-hover)', 'var(--au-action-contrast)'],
         ['var(--au-action-soft)', 'var(--au-text)'],
-        ['var(--au-text)', 'var(--au-action-contrast)'],
-        ['var(--au-muted)', 'var(--au-action-contrast)'],
-        ['var(--au-hint)', 'var(--au-action-contrast)'],
-        ['var(--au-border-strong)', 'var(--au-text)'],
+        ['var(--au-ink)', 'var(--au-on-ink)'],
+        ['var(--au-muted)', 'var(--au-on-ink)'],
+        ['var(--au-bar)', 'var(--au-on-ink)'],
+        ['var(--au-border)', 'var(--au-text)'],
         ['var(--au-bg-alt-shade)', 'var(--au-text)'],
     ];
 
