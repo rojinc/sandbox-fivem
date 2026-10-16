@@ -29,7 +29,12 @@
     <section class="section">
         <h3 class="heading">Chop lists are locked</h3>
         <p class="lead">Chop lists open at Chopping rank 3. The private list opens at rank 5.</p>
-        {#if chopRep}<div class="narrow"><RepMeter rep={chopRep} /></div>{/if}
+        {#if chopRep}
+            <div class="narrow">
+                <h4 class="subheading">Your chopping rank</h4>
+                <RepMeter rep={chopRep} />
+            </div>
+        {/if}
     </section>
 {:else if !lists.length}
     <div class="state">

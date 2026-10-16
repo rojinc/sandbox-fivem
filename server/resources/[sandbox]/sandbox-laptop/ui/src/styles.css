@@ -30,7 +30,9 @@
     font-size: var(--au-fs-sm);
 }
 
-.section + .section {
+.section + .section,
+.split + .section,
+.section + .split {
     margin-top: var(--au-s8);
 }
 
@@ -62,6 +64,10 @@
 
 .actions--end {
     justify-content: flex-end;
+}
+
+.cell-actions .actions {
+    flex-wrap: nowrap;
 }
 
 /* Tables: the kit table with right-aligned figures and a cell for row actions */

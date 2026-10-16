@@ -5,6 +5,7 @@
     import { laptop } from '../../state/laptop.svelte.js';
     import { env } from '../../state/env.svelte.js';
     import { notificationApp } from '../../lib/apps.js';
+    import { sentence } from '../../lib/format.js';
 
     /**
      * A notification with accept/cancel actions (team invites, join requests,
@@ -26,7 +27,7 @@
 </script>
 
 {#if current}
-    <Modal title={current.title || 'Request'} eyebrow={app?.label} onclose={() => markAnswered(current._id)} closeLabel="Close without answering" width="480px">
+    <Modal title={sentence(current.title) || 'Request'} eyebrow={app?.label} onclose={() => markAnswered(current._id)} closeLabel="Close without answering" width="480px">
         {#if current.description}
             <RichText text={current.description} tag="p" class="answer__text" />
         {/if}

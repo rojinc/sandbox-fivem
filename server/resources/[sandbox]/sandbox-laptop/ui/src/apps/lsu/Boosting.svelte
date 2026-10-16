@@ -136,7 +136,10 @@
         <h3 class="heading">Boosting is locked</h3>
         <p class="lead">Boosting opens at Chopping rank 5. Chop vehicles from the chop lists to raise your rank.</p>
         {#if chopRep}
-            <div class="narrow"><RepMeter rep={chopRep} /></div>
+            <div class="narrow">
+                <h4 class="subheading">Your chopping rank</h4>
+                <RepMeter rep={chopRep} />
+            </div>
         {/if}
     </div>
 {:else if !alias}
@@ -200,7 +203,7 @@
                             <td class="cell-strong">{c.vehicle.class}</td>
                             <td>
                                 {c.vehicle.label ?? `${c.vehicle.make ?? ''} ${c.vehicle.model ?? ''}`}
-                                {#if c.vehicle.rare}<Tag tone="info">Rare</Tag>{/if}
+                                {#if c.vehicle.rare}<Tag>Rare</Tag>{/if}
                             </td>
                             <td class="is-numeric">{crypto(c.prices?.standard?.price, c.prices?.standard?.coin)}</td>
                             <td>{timeLeft(c.expires, env.now)}</td>

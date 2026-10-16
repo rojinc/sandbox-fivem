@@ -27,7 +27,11 @@ export function cleanHtml(html) {
 
 /** One line of plain text for a table cell. */
 export function summary(html, max = 120) {
-    const text = plainText(String(html ?? '').replace(/<(br|\/p|\/li|\/h[1-6])\s*\/?>/gi, ' '))
+    const text = plainText(
+        String(html ?? '')
+            .replace(/<\/li>\s*<li[^>]*>/gi, '; ')
+            .replace(/<(br|\/p|\/li|\/h[1-6])\s*\/?>/gi, ' '),
+    )
         .replace(/&nbsp;/g, ' ')
         .replace(/&amp;/g, '&')
         .replace(/&lt;/g, '<')

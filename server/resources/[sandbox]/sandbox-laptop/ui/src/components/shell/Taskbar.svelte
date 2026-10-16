@@ -44,7 +44,7 @@
         align-items: stretch;
         gap: var(--au-s4);
         padding: 0 0 0 var(--au-s4);
-        background: var(--au-bg-sunk);
+        background: var(--au-bg-shade);
         border-top: 1px solid var(--au-border);
         font-size: var(--au-fs-xs);
     }

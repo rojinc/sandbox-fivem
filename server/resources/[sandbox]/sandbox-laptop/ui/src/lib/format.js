@@ -99,6 +99,19 @@ export function crypto(amount, coin) {
     return `${num.format(Number(amount) || 0)} $${coin ?? ''}`;
 }
 
+/**
+ * Server strings come in Title Case ("New Join Request", "On A Boosting
+ * Contract"). Lower-case each later word that is a plain capitalised word;
+ * acronyms and mixed-case names stay as they are.
+ */
+export function sentence(text) {
+    if (typeof text !== 'string') return text;
+    return text
+        .split(' ')
+        .map((w, i) => (i > 0 && (/^[A-Z][a-z']+$/.test(w) || w === 'A') ? w.toLowerCase() : w))
+        .join(' ');
+}
+
 export function person(p) {
     if (!p) return 'Unknown';
     const name = [p.First, p.Last].filter(Boolean).join(' ') || 'Unknown';

@@ -75,7 +75,7 @@
 {:else}
     <section class="section">
         <div class="section-head">
-            <h3 class="heading">Market</h3>
+            <h3 class="heading">Items for sale</h3>
         </div>
         <p class="lead">Pay in crypto and collect your order from the dock worker at today's pickup location. You can order up to 5 of each item.</p>
         {#if rows.length}
