@@ -2,7 +2,7 @@
 
 A heavily modified version of the Mythic Framework for Sandbox RP: a component-based
 FiveM framework in Lua 5.4 whose interfaces are Svelte 5 apps built on one shared design
-system (`/ui-kit`, the GOLD design system look in Roboto). Released with the permission of
+system (`/ui-kit`: one dark theme, Roboto, Tabler icons). Released with the permission of
 the original Mythic Framework authors Alzar & Dr Nick.
 
 Start with `CLAUDE.md` (layout and rules), `DESIGN.md` (the interface design brief),

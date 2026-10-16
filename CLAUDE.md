@@ -3,8 +3,8 @@
 A FiveM roleplay server derived from the Mythic Framework. Lua resources live
 under `server/resources/[sandbox]` (the framework) and `server/resources/[cfx-default]`
 (the few stock Cfx resources still needed). Every interface is a Svelte 5 NUI
-sharing `/ui-kit`; the look is the GOLD design system (Australian Government
-Design System) in Roboto, documented in `/DESIGN.md` and `/docs/NUI-GUIDE.md`.
+sharing `/ui-kit`; the look is one dark console theme (#181a1d) in Roboto with
+Tabler icons, documented in `/DESIGN.md` and `/docs/NUI-GUIDE.md`.
 
 ## Layout
 
@@ -25,6 +25,7 @@ npm install                       # root, once
 npm run build                     # build every ui/dist
 node scripts/preview.mjs --ui <resource>   # headless screenshots of ui/preview/*.json
 npm run luacheck                  # Lua 5.4 syntax check (pip install lupa)
+npm run icons                     # regenerate the bundled Tabler icon set
 ```
 
 ## Rules

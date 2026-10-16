@@ -26,12 +26,12 @@
   releases NUI focus on logout.
 
 ### Added
-- `/ui-kit`: a Svelte 5 design system on the GOLD (Australian Government
-  Design System) tokens in Roboto, with the NUI runtime, Font Awesome Free
-  registry (Pro names aliased) and formatters.
+- `/ui-kit`: a Svelte 5 design system with one dark theme (#181a1d) in
+  Roboto, Tabler outline icons (Font Awesome names from Lua are mapped
+  automatically, `npm run icons`), the NUI runtime and formatters.
 - `sandbox-hud` rebuilt in Svelte on the minimal-hud layout (status bars under
-  the minimap, 240° RPM speedometer with gears, compass pills) with gov-style
-  menus, dialogs, prompts and notifications; `client/hud.lua` lifts the minimap
+  the minimap, 240° RPM speedometer with gears, compass pills) with dark
+  menus and dialogs, colour-filled notifications and panel-free prompts; `client/hud.lua` lifts the minimap
   and reports gear and headlight state.
 - `scripts/build-all.mjs`, `scripts/preview.mjs` (headless Chromium renders of
   scenario files), `scripts/luacheck.py`, `DESIGN.md`, `docs/NUI-GUIDE.md`.
