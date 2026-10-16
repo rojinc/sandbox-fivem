@@ -1,0 +1,262 @@
+/*
+ * SandboxRP design tokens.
+ *
+ * One dark theme, tuned for legibility over a moving 3D scene. Every NUI
+ * imports this file once (through AppRoot) and reads values via var(--sb-*).
+ * JS consumers use ./tokens.js, which mirrors these values.
+ */
+:root {
+    /* type */
+    --sb-font-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --sb-font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+    --sb-text-xs: 11px;
+    --sb-text-sm: 12px;
+    --sb-text-md: 14px;
+    --sb-text-lg: 16px;
+    --sb-text-xl: 20px;
+    --sb-text-2xl: 26px;
+    --sb-text-3xl: 34px;
+
+    /* layers (opaque) */
+    --sb-bg-0: #090b0f;
+    --sb-bg-1: #0f1218;
+    --sb-bg-2: #151a22;
+    --sb-bg-3: #1c222c;
+    --sb-bg-4: #242b37;
+
+    /* layers (glass) */
+    --sb-surface: rgba(15, 18, 24, 0.78);
+    --sb-surface-strong: rgba(15, 18, 24, 0.92);
+    --sb-surface-soft: rgba(255, 255, 255, 0.045);
+    --sb-surface-hover: rgba(255, 255, 255, 0.07);
+    --sb-surface-active: rgba(255, 255, 255, 0.11);
+
+    /* lines */
+    --sb-border: rgba(255, 255, 255, 0.08);
+    --sb-border-strong: rgba(255, 255, 255, 0.16);
+    --sb-border-accent: rgba(245, 184, 46, 0.45);
+
+    /* text */
+    --sb-text: #f2f4f7;
+    --sb-text-2: #aab2bf;
+    --sb-text-3: #6f7886;
+    --sb-text-disabled: #4a515d;
+    --sb-text-inverse: #0b0d12;
+
+    /* brand + semantic */
+    --sb-accent: #f5b82e;
+    --sb-accent-strong: #e5a502;
+    --sb-accent-soft: rgba(245, 184, 46, 0.14);
+    --sb-success: #3ddc84;
+    --sb-success-soft: rgba(61, 220, 132, 0.14);
+    --sb-warning: #f6a623;
+    --sb-warning-soft: rgba(246, 166, 35, 0.14);
+    --sb-danger: #f0475a;
+    --sb-danger-soft: rgba(240, 71, 90, 0.14);
+    --sb-info: #4f9cff;
+    --sb-info-soft: rgba(79, 156, 255, 0.14);
+
+    /* geometry */
+    --sb-radius-xs: 4px;
+    --sb-radius-sm: 6px;
+    --sb-radius-md: 10px;
+    --sb-radius-lg: 14px;
+    --sb-radius-xl: 20px;
+    --sb-radius-pill: 999px;
+    --sb-space-1: 4px;
+    --sb-space-2: 8px;
+    --sb-space-3: 12px;
+    --sb-space-4: 16px;
+    --sb-space-5: 20px;
+    --sb-space-6: 24px;
+    --sb-space-8: 32px;
+    --sb-space-10: 40px;
+
+    /* depth */
+    --sb-shadow-1: 0 2px 8px rgba(0, 0, 0, 0.35);
+    --sb-shadow-2: 0 10px 30px rgba(0, 0, 0, 0.45);
+    --sb-shadow-3: 0 24px 60px rgba(0, 0, 0, 0.55);
+    --sb-blur: 18px;
+    --sb-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.65);
+
+    /* motion */
+    --sb-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --sb-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --sb-dur-fast: 120ms;
+    --sb-dur: 200ms;
+    --sb-dur-slow: 320ms;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: transparent;
+    color: var(--sb-text);
+    font-family: var(--sb-font-ui);
+    font-size: var(--sb-text-md);
+    line-height: 1.45;
+    overflow: hidden;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Browser-only backdrop so the UI can be designed outside the game. */
+body.nui-dev {
+    background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(69, 92, 128, 0.35), transparent 60%),
+        radial-gradient(900px 500px at 80% 90%, rgba(120, 72, 36, 0.3), transparent 60%),
+        linear-gradient(180deg, #2a3341 0%, #141922 100%);
+}
+
+input,
+textarea,
+button,
+select {
+    font: inherit;
+    color: inherit;
+}
+
+input,
+textarea {
+    user-select: text;
+}
+
+a {
+    color: var(--sb-accent);
+    text-decoration: none;
+}
+
+::selection {
+    background: var(--sb-accent-soft);
+}
+
+*::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.14);
+    border-radius: var(--sb-radius-pill);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.24);
+}
+
+/* utility classes shared by every NUI */
+.sb-glass {
+    background: var(--sb-surface);
+    backdrop-filter: blur(var(--sb-blur));
+    -webkit-backdrop-filter: blur(var(--sb-blur));
+    border: 1px solid var(--sb-border);
+    border-radius: var(--sb-radius-lg);
+    box-shadow: var(--sb-shadow-2);
+}
+
+.sb-glass-strong {
+    background: var(--sb-surface-strong);
+    backdrop-filter: blur(var(--sb-blur));
+    -webkit-backdrop-filter: blur(var(--sb-blur));
+    border: 1px solid var(--sb-border);
+    border-radius: var(--sb-radius-lg);
+    box-shadow: var(--sb-shadow-3);
+}
+
+.sb-mono {
+    font-family: var(--sb-font-mono);
+    font-variant-numeric: tabular-nums;
+}
+
+.sb-overworld {
+    text-shadow: var(--sb-text-shadow);
+}
+
+.sb-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@keyframes sb-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes sb-rise-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes sb-slide-in-right {
+    from {
+        opacity: 0;
+        transform: translateX(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes sb-pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.35;
+    }
+}
+
+@keyframes sb-blink-danger {
+    0%,
+    49% {
+        border-color: var(--sb-border);
+    }
+    50%,
+    100% {
+        border-color: var(--sb-danger);
+    }
+}
+
+.sb-anim-fade {
+    animation: sb-fade-in var(--sb-dur) var(--sb-ease) both;
+}
+
+.sb-anim-rise {
+    animation: sb-rise-in var(--sb-dur-slow) var(--sb-ease-out) both;
+}
+
+.sb-anim-slide-right {
+    animation: sb-slide-in-right var(--sb-dur-slow) var(--sb-ease-out) both;
+}

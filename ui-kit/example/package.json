@@ -1,0 +1,1 @@
+{ "name": "@sandbox/ui-kit-example", "private": true, "type": "module", "scripts": { "build": "vite build" }, "dependencies": { "@sandbox/ui-kit": "*" } }

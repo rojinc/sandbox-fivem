@@ -37,3 +37,6 @@ server/resources/\[sandbox\]/sandbox-pwnzor2/pac.db
 *.pem
 *.key
 *.psd
+
+# headless preview screenshots
+.preview/
