@@ -1,0 +1,10 @@
+{
+  "viewport": [1920, 1080],
+  "backdrop": true,
+  "messages": [
+    { "type": "UPDATE_DATA", "data": { "frequency": 420, "frequencyName": "", "power": true, "volume": 100, "type": 1, "typeName": "Encrypted Radio" } },
+    { "type": "UPDATE_DATA", "data": { "frequency": 1, "frequencyName": "Emergency #1", "power": true, "volume": 100, "type": 1, "typeName": "Encrypted Radio" }, "delay": 20 },
+    { "type": "UPDATE_DATA", "data": { "frequency": 3, "frequencyName": "Emergency #3", "power": true, "volume": 120, "type": 1, "typeName": "Encrypted Radio" }, "delay": 20 },
+    { "type": "APP_SHOW", "delay": 50 }
+  ]
+}

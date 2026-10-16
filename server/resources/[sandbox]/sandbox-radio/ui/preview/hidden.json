@@ -1,0 +1,7 @@
+{
+  "viewport": [1920, 1080],
+  "backdrop": true,
+  "messages": [
+    { "type": "UPDATE_DATA", "data": { "frequency": 3, "frequencyName": "Emergency #3", "power": true, "volume": 100, "type": 1, "typeName": "Encrypted Radio" } }
+  ]
+}

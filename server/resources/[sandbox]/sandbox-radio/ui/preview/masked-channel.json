@@ -1,0 +1,8 @@
+{
+  "viewport": [1920, 1080],
+  "backdrop": true,
+  "messages": [
+    { "type": "UPDATE_DATA", "data": { "frequency": 7, "frequencyName": "Emergency #7", "power": true, "volume": 80, "type": 1, "typeName": "Encrypted Radio", "maskRadio": true } },
+    { "type": "APP_SHOW", "delay": 50 }
+  ]
+}

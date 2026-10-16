@@ -227,6 +227,15 @@ function CloseRadio()
 	DeleteEntity(_radioProp)
 end
 
+local function GetMaskRadio()
+	local character = LocalPlayer.state.Character
+	if not character then
+		return false
+	end
+	local hudConfig = character:GetData("HUDConfig")
+	return (hudConfig and hudConfig.maskRadio) or false
+end
+
 function SendUpdates()
 	SendNUIMessage({
 		type = "UPDATE_DATA",
@@ -237,6 +246,7 @@ function SendUpdates()
 			volume = Utils:Round(RADIO_VOLUME, 0),
 			type = HAS_RADIO,
 			typeName = radioNames[HAS_RADIO] or "Radio",
+			maskRadio = GetMaskRadio(),
 		},
 	})
 end
@@ -338,6 +348,7 @@ RegisterNetEvent("Characters:Client:Updated", function(k)
 		local maskRadio = LocalPlayer.state.Character:GetData("HUDConfig")?.maskRadio or false
 		TriggerEvent("EmergencyAlerts:Client:RadioChannelChange", tostring(RADIO_FREQUENCY))
 		TriggerEvent("Status:Client:Update", "radio-freq", maskRadio and "???.?" or RADIO_FREQUENCY)
+		SendUpdates()
 	end
 end)
 

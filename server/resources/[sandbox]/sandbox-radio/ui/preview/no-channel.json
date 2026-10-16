@@ -1,0 +1,8 @@
+{
+  "viewport": [1920, 1080],
+  "backdrop": true,
+  "messages": [
+    { "type": "UPDATE_DATA", "data": { "frequency": 0, "frequencyName": "", "power": true, "volume": 100, "type": 3, "typeName": "P6900 Radio" } },
+    { "type": "APP_SHOW", "delay": 50 }
+  ]
+}
