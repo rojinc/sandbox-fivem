@@ -1,0 +1,11 @@
+/*
+ * The chat is a widget floating over the game world: a click-through layer
+ * with one dark-palette column in the top-left corner. Chrome is sized in px
+ * for 1080p; ChatWindow zooms the column on larger screens.
+ */
+.chat-root {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}

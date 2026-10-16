@@ -1,0 +1,126 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "backdrop": true,
+  "settle": 400,
+  "messages": [
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 1,
+          "type": "broadcast",
+          "message": "Server restart in <b>15 minutes</b>. Please find a safe place to log out."
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 2,
+          "type": "911",
+          "message": "Someone is breaking into the store on Innocence Blvd.",
+          "author": {
+            "Anonymous": true
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 3,
+          "type": "911",
+          "message": "My friend fell off his bike near the Del Perro pier and his leg looks broken.",
+          "author": {
+            "First": "Devon",
+            "Last": "Hale",
+            "Phone": "555-0177",
+            "SID": 318
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 4,
+          "type": "311",
+          "message": "Street light out on Elgin Ave, been flickering all night.",
+          "author": {
+            "First": "Mia",
+            "Last": "Reyes",
+            "Phone": "555-0142",
+            "SID": 1042
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 5,
+          "type": "311",
+          "message": "Noted, a crew will be out in the morning.",
+          "author": {
+            "First": "Sam",
+            "Last": "Okafor",
+            "Phone": "555-0199",
+            "SID": 77,
+            "Reply": 1042
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 6,
+          "type": "411",
+          "message": "Unit 12 requesting backup at Legion Square, two suspects on foot heading north."
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 7,
+          "type": "411A",
+          "message": "Cell block C headcount complete, all inmates accounted for."
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 8,
+          "type": "tests",
+          "message": "<b>Blood alcohol:</b> 0.02%<br><b>THC:</b> negative<br><b>Opiates:</b> negative"
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 9,
+          "type": "server",
+          "message": "You do not have permission to use that command."
+        }
+      }
+    },
+    {
+      "type": "ON_OPEN",
+      "delay": 100
+    }
+  ]
+}

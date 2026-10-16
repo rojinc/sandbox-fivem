@@ -1,0 +1,26 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "backdrop": true,
+  "settle": 300,
+  "wait": 7200,
+  "messages": [
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 1,
+          "type": "ooc",
+          "message": "this line previews for six seconds and then fades",
+          "author": {
+            "First": "Mia",
+            "Last": "Reyes",
+            "SID": 1042
+          }
+        }
+      }
+    }
+  ]
+}

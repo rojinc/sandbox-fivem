@@ -1,0 +1,121 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "backdrop": true,
+  "settle": 400,
+  "messages": [
+    {
+      "type": "ON_TEMPLATE_ADD",
+      "data": {
+        "template": {
+          "id": "announce",
+          "html": "<div><b>📣 {0}</b><br>{1}</div>"
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "color": [
+            255,
+            255,
+            255
+          ],
+          "args": [
+            "Jordan Pryce",
+            "hello from the stock chatMessage event"
+          ]
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "args": [
+            "^3[Server]^7 Restart in ^110 minutes^7, save your ^*progress^r now."
+          ]
+        }
+      },
+      "delay": 100
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "templateId": "print",
+          "multiline": true,
+          "args": [
+            "ok   tick 1\nok   tick 2\nwarn tick 3 took 212ms"
+          ]
+        }
+      },
+      "delay": 100
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "templateId": "announce",
+          "color": [
+            245,
+            184,
+            46
+          ],
+          "args": [
+            "Weekend event",
+            "Double salary on all jobs until Monday"
+          ]
+        }
+      },
+      "delay": 100
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "template": "<i>{0}</i> waves at <b>{1}</b>",
+          "color": [
+            79,
+            156,
+            255
+          ],
+          "args": [
+            "Mia Reyes",
+            "everyone"
+          ]
+        }
+      },
+      "delay": 100
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "args": [
+            "^2^_Underlined green^r and ^6purple ^~struck^r."
+          ]
+        }
+      },
+      "delay": 100
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "args": [
+            "<script>alert(1)</script> &lt;b&gt;escaped&lt;/b&gt; stays text"
+          ]
+        }
+      },
+      "delay": 100
+    },
+    {
+      "type": "ON_OPEN",
+      "delay": 100
+    }
+  ]
+}

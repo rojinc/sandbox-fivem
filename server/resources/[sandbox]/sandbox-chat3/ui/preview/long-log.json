@@ -1,0 +1,675 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "backdrop": true,
+  "settle": 400,
+  "messages": [
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/me",
+          "help": "Let people know what you are doing",
+          "params": [
+            {
+              "name": "action",
+              "help": "What your character is doing"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/ooc",
+          "help": "Out of character chat",
+          "params": [
+            {
+              "name": "message",
+              "help": "What to say, visible to everyone"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/911",
+          "help": "Call emergency services",
+          "params": [
+            {
+              "name": "message",
+              "help": "Describe the emergency and where you are"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/911a",
+          "help": "Call emergency services anonymously",
+          "params": [
+            {
+              "name": "message",
+              "help": "Describe the emergency"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/911r",
+          "help": "Reply to a 911 call",
+          "params": [
+            {
+              "name": "sid",
+              "help": "State ID of the caller"
+            },
+            {
+              "name": "message",
+              "help": "Your reply"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/311",
+          "help": "Call the non-emergency line",
+          "params": [
+            {
+              "name": "message",
+              "help": "What you need help with"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/311a",
+          "help": "Call the non-emergency line anonymously",
+          "params": [
+            {
+              "name": "message",
+              "help": "What you need help with"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/311r",
+          "help": "Reply to a 311 call",
+          "params": [
+            {
+              "name": "sid",
+              "help": "State ID of the caller"
+            },
+            {
+              "name": "message",
+              "help": "Your reply"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/clearall",
+          "help": "[Staff] Clear chat for everyone",
+          "params": []
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/give",
+          "help": "Give an item to a nearby player",
+          "params": [
+            {
+              "name": "target",
+              "help": "Server ID of the player"
+            },
+            {
+              "name": "item",
+              "help": "Item name"
+            },
+            {
+              "name": "count",
+              "help": "How many"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/dv",
+          "help": "",
+          "params": []
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/car",
+          "help": "",
+          "params": []
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 0,
+          "type": "ooc",
+          "message": "anyone selling a bike?",
+          "author": {
+            "First": "Mia",
+            "Last": "Reyes",
+            "SID": 1042
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 1,
+          "type": "ooc",
+          "message": "meet at the garage in 5",
+          "author": {
+            "First": "Devon",
+            "Last": "Hale",
+            "SID": 318
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 2,
+          "type": "ooc",
+          "message": "lol",
+          "author": {
+            "First": "Sam",
+            "Last": "Okafor",
+            "SID": 77
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 3,
+          "type": "ooc",
+          "message": "who took my truck",
+          "author": {
+            "First": "Priya",
+            "Last": "Nair",
+            "SID": 2210
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 4,
+          "type": "ooc",
+          "message": "is the casino open",
+          "author": {
+            "First": "Luis",
+            "Last": "Moreno",
+            "SID": 505
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 4,
+          "type": "system",
+          "message": "Autosave complete (5 players online)."
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 5,
+          "type": "ooc",
+          "message": "gg",
+          "author": {
+            "First": "Mia",
+            "Last": "Reyes",
+            "SID": 1042
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 6,
+          "type": "ooc",
+          "message": "need a mechanic at paleto",
+          "author": {
+            "First": "Devon",
+            "Last": "Hale",
+            "SID": 318
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 7,
+          "type": "ooc",
+          "message": "headed to the docks",
+          "author": {
+            "First": "Sam",
+            "Last": "Okafor",
+            "SID": 77
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 8,
+          "type": "ooc",
+          "message": "brb",
+          "author": {
+            "First": "Priya",
+            "Last": "Nair",
+            "SID": 2210
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 9,
+          "type": "ooc",
+          "message": "what time is the race",
+          "author": {
+            "First": "Luis",
+            "Last": "Moreno",
+            "SID": 505
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 10,
+          "type": "ooc",
+          "message": "nice drift",
+          "author": {
+            "First": "Mia",
+            "Last": "Reyes",
+            "SID": 1042
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 11,
+          "type": "ooc",
+          "message": "anyone need a ride?",
+          "author": {
+            "First": "Devon",
+            "Last": "Hale",
+            "SID": 318
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 12,
+          "type": "ooc",
+          "message": "anyone selling a bike?",
+          "author": {
+            "First": "Sam",
+            "Last": "Okafor",
+            "SID": 77
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 13,
+          "type": "ooc",
+          "message": "meet at the garage in 5",
+          "author": {
+            "First": "Priya",
+            "Last": "Nair",
+            "SID": 2210
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 13,
+          "type": "system",
+          "message": "Autosave complete (14 players online)."
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 14,
+          "type": "ooc",
+          "message": "lol",
+          "author": {
+            "First": "Luis",
+            "Last": "Moreno",
+            "SID": 505
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 15,
+          "type": "ooc",
+          "message": "who took my truck",
+          "author": {
+            "First": "Mia",
+            "Last": "Reyes",
+            "SID": 1042
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 16,
+          "type": "ooc",
+          "message": "is the casino open",
+          "author": {
+            "First": "Devon",
+            "Last": "Hale",
+            "SID": 318
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 17,
+          "type": "ooc",
+          "message": "gg",
+          "author": {
+            "First": "Sam",
+            "Last": "Okafor",
+            "SID": 77
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 18,
+          "type": "ooc",
+          "message": "need a mechanic at paleto",
+          "author": {
+            "First": "Priya",
+            "Last": "Nair",
+            "SID": 2210
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 19,
+          "type": "ooc",
+          "message": "headed to the docks",
+          "author": {
+            "First": "Luis",
+            "Last": "Moreno",
+            "SID": 505
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 20,
+          "type": "ooc",
+          "message": "brb",
+          "author": {
+            "First": "Mia",
+            "Last": "Reyes",
+            "SID": 1042
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 21,
+          "type": "ooc",
+          "message": "what time is the race",
+          "author": {
+            "First": "Devon",
+            "Last": "Hale",
+            "SID": 318
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 22,
+          "type": "ooc",
+          "message": "nice drift",
+          "author": {
+            "First": "Sam",
+            "Last": "Okafor",
+            "SID": 77
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 22,
+          "type": "system",
+          "message": "Autosave complete (23 players online)."
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 23,
+          "type": "ooc",
+          "message": "anyone need a ride?",
+          "author": {
+            "First": "Priya",
+            "Last": "Nair",
+            "SID": 2210
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 24,
+          "type": "ooc",
+          "message": "anyone selling a bike?",
+          "author": {
+            "First": "Luis",
+            "Last": "Moreno",
+            "SID": 505
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 25,
+          "type": "ooc",
+          "message": "meet at the garage in 5",
+          "author": {
+            "First": "Mia",
+            "Last": "Reyes",
+            "SID": 1042
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 26,
+          "type": "ooc",
+          "message": "lol",
+          "author": {
+            "First": "Devon",
+            "Last": "Hale",
+            "SID": 318
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 27,
+          "type": "ooc",
+          "message": "who took my truck",
+          "author": {
+            "First": "Sam",
+            "Last": "Okafor",
+            "SID": 77
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 28,
+          "type": "ooc",
+          "message": "is the casino open",
+          "author": {
+            "First": "Priya",
+            "Last": "Nair",
+            "SID": 2210
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 29,
+          "type": "ooc",
+          "message": "gg",
+          "author": {
+            "First": "Luis",
+            "Last": "Moreno",
+            "SID": 505
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_OPEN",
+      "delay": 100
+    }
+  ]
+}

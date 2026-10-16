@@ -1,0 +1,288 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "backdrop": true,
+  "settle": 400,
+  "messages": [
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/me",
+          "help": "Let people know what you are doing",
+          "params": [
+            {
+              "name": "action",
+              "help": "What your character is doing"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/ooc",
+          "help": "Out of character chat",
+          "params": [
+            {
+              "name": "message",
+              "help": "What to say, visible to everyone"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/911",
+          "help": "Call emergency services",
+          "params": [
+            {
+              "name": "message",
+              "help": "Describe the emergency and where you are"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/911a",
+          "help": "Call emergency services anonymously",
+          "params": [
+            {
+              "name": "message",
+              "help": "Describe the emergency"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/911r",
+          "help": "Reply to a 911 call",
+          "params": [
+            {
+              "name": "sid",
+              "help": "State ID of the caller"
+            },
+            {
+              "name": "message",
+              "help": "Your reply"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/311",
+          "help": "Call the non-emergency line",
+          "params": [
+            {
+              "name": "message",
+              "help": "What you need help with"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/311a",
+          "help": "Call the non-emergency line anonymously",
+          "params": [
+            {
+              "name": "message",
+              "help": "What you need help with"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/311r",
+          "help": "Reply to a 311 call",
+          "params": [
+            {
+              "name": "sid",
+              "help": "State ID of the caller"
+            },
+            {
+              "name": "message",
+              "help": "Your reply"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/clearall",
+          "help": "[Staff] Clear chat for everyone",
+          "params": []
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/give",
+          "help": "Give an item to a nearby player",
+          "params": [
+            {
+              "name": "target",
+              "help": "Server ID of the player"
+            },
+            {
+              "name": "item",
+              "help": "Item name"
+            },
+            {
+              "name": "count",
+              "help": "How many"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/dv",
+          "help": "",
+          "params": []
+        }
+      }
+    },
+    {
+      "type": "ON_SUGGESTION_ADD",
+      "data": {
+        "suggestion": {
+          "name": "/car",
+          "help": "",
+          "params": []
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 1,
+          "type": "system",
+          "message": "Welcome back, <b>Jordan Pryce</b>. Press <b>T</b> to chat."
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 2,
+          "type": "ooc",
+          "message": "anyone else seeing the fog roll in over the pier?",
+          "author": {
+            "First": "Mia",
+            "Last": "Reyes",
+            "SID": 1042
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 3,
+          "type": "ooc",
+          "message": "yeah, weather script just kicked in",
+          "author": {
+            "First": "Devon",
+            "Last": "Hale",
+            "SID": 318
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 4,
+          "type": "911",
+          "message": "Two cars just collided on the highway near the Vinewood sign, one driver is not moving.",
+          "author": {
+            "First": "Mia",
+            "Last": "Reyes",
+            "Phone": "555-0142",
+            "SID": 1042
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 5,
+          "type": "911",
+          "message": "Units are on the way, stay with the driver and keep the line open.",
+          "author": {
+            "First": "Sam",
+            "Last": "Okafor",
+            "Phone": "555-0199",
+            "SID": 77,
+            "Reply": 1042
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 6,
+          "type": "server",
+          "message": "Invalid Number Of Arguments"
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 7,
+          "type": "dispatch",
+          "message": "<b>10-71</b> Shots fired — Grove Street\nSuspect vehicle: black Sultan, plate <b>8KLX 441</b>"
+        }
+      }
+    },
+    {
+      "type": "ON_OPEN",
+      "delay": 100
+    }
+  ]
+}

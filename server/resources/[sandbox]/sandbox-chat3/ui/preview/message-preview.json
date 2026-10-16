@@ -1,0 +1,52 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "backdrop": true,
+  "settle": 400,
+  "messages": [
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 1,
+          "type": "ooc",
+          "message": "is the mechanic open tonight?",
+          "author": {
+            "First": "Mia",
+            "Last": "Reyes",
+            "SID": 1042
+          }
+        }
+      }
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 2,
+          "type": "system",
+          "message": "Your vehicle has been <b>impounded</b>. Collect it at the Mission Row lot."
+        }
+      },
+      "delay": 150
+    },
+    {
+      "type": "ON_MESSAGE",
+      "data": {
+        "message": {
+          "time": 3,
+          "type": "ooc",
+          "message": "yep, until 2am",
+          "author": {
+            "First": "Devon",
+            "Last": "Hale",
+            "SID": 318
+          }
+        }
+      },
+      "delay": 150
+    }
+  ]
+}
