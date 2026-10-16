@@ -1,0 +1,64 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "settle": 500,
+  "messages": [
+    {
+      "type": "APP_SHOW"
+    },
+    {
+      "type": "LOADING_SHOW",
+      "data": {
+        "message": "Getting Character Data"
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "changelog": null,
+        "motd": "",
+        "characters": [
+          {
+            "ID": "606e8a3c8144f19ec0aeeece",
+            "SID": 1042,
+            "First": "Jordan",
+            "Last": "Reyes",
+            "Phone": "555-0142",
+            "DOB": "1991-04-12T12:00:00.000Z",
+            "Gender": 0,
+            "LastPlayed": 1792090000000,
+            "Jobs": [
+              {
+                "Id": "police",
+                "Name": "Police",
+                "Workplace": {
+                  "Id": "lspd",
+                  "Name": "Los Santos Police Department"
+                },
+                "Grade": {
+                  "Id": "sergeant",
+                  "Name": "Sergeant",
+                  "Level": 3
+                }
+              }
+            ],
+            "GangChain": false,
+            "Preview": false
+          }
+        ],
+        "characterLimit": 3
+      }
+    },
+    {
+      "type": "LOADING_HIDE"
+    },
+    {
+      "type": "SET_STATE",
+      "data": {
+        "state": "STATE_CHARACTERS"
+      }
+    }
+  ]
+}

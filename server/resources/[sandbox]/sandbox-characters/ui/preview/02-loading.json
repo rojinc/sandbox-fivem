@@ -1,0 +1,18 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "settle": 500,
+  "messages": [
+    {
+      "type": "APP_SHOW"
+    },
+    {
+      "type": "LOADING_SHOW",
+      "data": {
+        "message": "Getting Character Data"
+      }
+    }
+  ]
+}

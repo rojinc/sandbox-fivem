@@ -1,0 +1,205 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "settle": 500,
+  "messages": [
+    {
+      "type": "APP_SHOW"
+    },
+    {
+      "type": "LOADING_SHOW",
+      "data": {
+        "message": "Getting Character Data"
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "changelog": null,
+        "motd": "Welcome to SandboxRP \u2014 patch 3.2 is live. Report bugs in <b>#support</b>.",
+        "characters": [
+          {
+            "ID": "606e8a3c8144f19ec0aeeece",
+            "SID": 1042,
+            "First": "Jordan",
+            "Last": "Reyes",
+            "Phone": "555-0142",
+            "DOB": "1991-04-12T12:00:00.000Z",
+            "Gender": 0,
+            "LastPlayed": 1792090000000,
+            "Jobs": [
+              {
+                "Id": "police",
+                "Name": "Police",
+                "Workplace": {
+                  "Id": "lspd",
+                  "Name": "Los Santos Police Department"
+                },
+                "Grade": {
+                  "Id": "sergeant",
+                  "Name": "Sergeant",
+                  "Level": 3
+                }
+              }
+            ],
+            "GangChain": false,
+            "Preview": false
+          },
+          {
+            "ID": "606e8a3c8144f19ec0aeeecf",
+            "SID": 2210,
+            "First": "Mia",
+            "Last": "Okafor",
+            "Phone": "555-0199",
+            "DOB": "1998-09-03T12:00:00.000Z",
+            "Gender": 1,
+            "LastPlayed": -1,
+            "Jobs": {},
+            "GangChain": false,
+            "Preview": false
+          },
+          {
+            "ID": "62a1c0ffee0000000000d0c3",
+            "SID": 3375,
+            "First": "Dante",
+            "Last": "Caruso",
+            "Phone": "555-0177",
+            "DOB": "1985-11-30T12:00:00.000Z",
+            "Gender": 0,
+            "LastPlayed": 1788600000000,
+            "Jobs": [
+              {
+                "Id": "mechanic",
+                "Name": "Mechanic",
+                "Workplace": {
+                  "Id": "bennys",
+                  "Name": "Benny's Original Motor Works"
+                },
+                "Grade": {
+                  "Id": "owner",
+                  "Name": "Owner",
+                  "Level": 5
+                }
+              },
+              {
+                "Id": "taxi",
+                "Name": "Downtown Cab Co.",
+                "Workplace": false,
+                "Grade": {
+                  "Id": "driver",
+                  "Name": "Driver",
+                  "Level": 1
+                }
+              }
+            ],
+            "GangChain": {
+              "Gang": "ballas"
+            },
+            "Preview": {
+              "model": "mp_m_freemode_01"
+            }
+          }
+        ],
+        "characterLimit": 3
+      }
+    },
+    {
+      "type": "LOADING_HIDE"
+    },
+    {
+      "type": "SET_STATE",
+      "data": {
+        "state": "STATE_CHARACTERS"
+      }
+    },
+    {
+      "type": "SET_SPAWNS",
+      "data": {
+        "spawns": [
+          {
+            "id": "LastLocation",
+            "label": "Last Location",
+            "location": {
+              "x": 215.3,
+              "y": -810.1,
+              "z": 30.7,
+              "h": 0.0
+            },
+            "icon": "location-smile",
+            "event": "Characters:GlobalSpawn"
+          },
+          {
+            "id": 1,
+            "label": "LSIA",
+            "location": {
+              "x": -1044.84,
+              "y": -2749.85,
+              "z": 21.36,
+              "h": 0.0
+            },
+            "event": "Characters:GlobalSpawn"
+          },
+          {
+            "id": "64f1a2b3c4d5e6f7a8b9c0d1",
+            "label": "Pillbox Hill Medical Center",
+            "location": {
+              "x": 300.0,
+              "y": -580.0,
+              "z": 43.3,
+              "h": 70.0
+            },
+            "icon": "hospital",
+            "event": "Characters:GlobalSpawn"
+          },
+          {
+            "id": "64f1a2b3c4d5e6f7a8b9c0d2",
+            "label": "Mirror Park Apartments",
+            "location": {
+              "x": 1200.0,
+              "y": -570.0,
+              "z": 69.0,
+              "h": 0.0
+            },
+            "icon": "house-tree",
+            "event": "Characters:GlobalSpawn"
+          },
+          {
+            "id": "64f1a2b3c4d5e6f7a8b9c0d3",
+            "label": "Sandy Shores Motel",
+            "location": {
+              "x": 1930.0,
+              "y": 3730.0,
+              "z": 32.8,
+              "h": 120.0
+            },
+            "icon": "bed",
+            "event": "Characters:GlobalSpawn"
+          },
+          {
+            "id": "64f1a2b3c4d5e6f7a8b9c0d4",
+            "label": "Paleto Bay Sheriff",
+            "location": {
+              "x": -440.0,
+              "y": 6010.0,
+              "z": 31.7,
+              "h": 220.0
+            },
+            "icon": "shield-halved",
+            "event": "Characters:GlobalSpawn"
+          }
+        ]
+      }
+    },
+    {
+      "type": "SET_STATE",
+      "data": {
+        "state": "STATE_SPAWN"
+      }
+    },
+    {
+      "type": "LOADING_HIDE"
+    }
+  ]
+}

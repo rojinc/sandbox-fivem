@@ -1,0 +1,37 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "settle": 500,
+  "messages": [
+    {
+      "type": "APP_SHOW"
+    },
+    {
+      "type": "LOADING_SHOW",
+      "data": {
+        "message": "Getting Character Data"
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "changelog": null,
+        "motd": "Welcome to SandboxRP \u2014 patch 3.2 is live. Report bugs in <b>#support</b>.",
+        "characters": [],
+        "characterLimit": 3
+      }
+    },
+    {
+      "type": "LOADING_HIDE"
+    },
+    {
+      "type": "SET_STATE",
+      "data": {
+        "state": "STATE_CHARACTERS"
+      }
+    }
+  ],
+  "wait": 900
+}

@@ -1,0 +1,146 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "settle": 500,
+  "messages": [
+    {
+      "type": "APP_SHOW"
+    },
+    {
+      "type": "LOADING_SHOW",
+      "data": {
+        "message": "Getting Character Data"
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "changelog": null,
+        "motd": "Welcome to SandboxRP \u2014 patch 3.2 is live. Report bugs in <b>#support</b>.",
+        "characters": [
+          {
+            "ID": "606e8a3c8144f19ec0aeeece",
+            "SID": 1042,
+            "First": "Jordan",
+            "Last": "Reyes",
+            "Phone": "555-0142",
+            "DOB": "1991-04-12T12:00:00.000Z",
+            "Gender": 0,
+            "LastPlayed": 1792090000000,
+            "Jobs": [
+              {
+                "Id": "police",
+                "Name": "Police",
+                "Workplace": {
+                  "Id": "lspd",
+                  "Name": "Los Santos Police Department"
+                },
+                "Grade": {
+                  "Id": "sergeant",
+                  "Name": "Sergeant",
+                  "Level": 3
+                }
+              }
+            ],
+            "GangChain": false,
+            "Preview": false
+          },
+          {
+            "ID": "606e8a3c8144f19ec0aeeecf",
+            "SID": 2210,
+            "First": "Mia",
+            "Last": "Okafor",
+            "Phone": "555-0199",
+            "DOB": "1998-09-03T12:00:00.000Z",
+            "Gender": 1,
+            "LastPlayed": -1,
+            "Jobs": {},
+            "GangChain": false,
+            "Preview": false
+          },
+          {
+            "ID": "62a1c0ffee0000000000d0c3",
+            "SID": 3375,
+            "First": "Dante",
+            "Last": "Caruso",
+            "Phone": "555-0177",
+            "DOB": "1985-11-30T12:00:00.000Z",
+            "Gender": 0,
+            "LastPlayed": 1788600000000,
+            "Jobs": [
+              {
+                "Id": "mechanic",
+                "Name": "Mechanic",
+                "Workplace": {
+                  "Id": "bennys",
+                  "Name": "Benny's Original Motor Works"
+                },
+                "Grade": {
+                  "Id": "owner",
+                  "Name": "Owner",
+                  "Level": 5
+                }
+              },
+              {
+                "Id": "taxi",
+                "Name": "Downtown Cab Co.",
+                "Workplace": false,
+                "Grade": {
+                  "Id": "driver",
+                  "Name": "Driver",
+                  "Level": 1
+                }
+              }
+            ],
+            "GangChain": {
+              "Gang": "ballas"
+            },
+            "Preview": {
+              "model": "mp_m_freemode_01"
+            }
+          }
+        ],
+        "characterLimit": 3
+      }
+    },
+    {
+      "type": "LOADING_HIDE"
+    },
+    {
+      "type": "SET_STATE",
+      "data": {
+        "state": "STATE_CHARACTERS"
+      }
+    },
+    {
+      "type": "SET_SPAWNS",
+      "data": {
+        "spawns": [
+          {
+            "id": 1,
+            "icon": "link",
+            "label": "Bolingbroke Penitentiary",
+            "location": {
+              "x": 1767.49,
+              "y": 2501.12,
+              "z": 45.72,
+              "h": 0.0
+            },
+            "event": "Jail:SpawnJailed"
+          }
+        ]
+      }
+    },
+    {
+      "type": "SET_STATE",
+      "data": {
+        "state": "STATE_SPAWN"
+      }
+    },
+    {
+      "type": "LOADING_HIDE"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+/*
+ * Character select is designed in px for 1920x1080. App.svelte sets `zoom`
+ * on .cs-root from the viewport size so 1440p and 4K keep the proportions.
+ */
+.cs-root {
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+/* The gov page floats over the game world with a margin all round. */
+.cs-frame {
+    position: absolute;
+    top: 40px;
+    bottom: 40px;
+    left: 50%;
+    width: 1600px;
+    margin-left: -800px;
+}
+
+.cs-name {
+    font-weight: 700;
+}
+
+/* Record tables: rows are selected, not opened, so the selection needs a rule. */
+.cs-table th,
+.cs-table td {
+    vertical-align: middle;
+}
+.cs-table tbody tr {
+    transition: background var(--au-fast) var(--au-ease);
+}
+.cs-table tbody tr.is-selected td:first-child {
+    box-shadow: inset 4px 0 0 var(--au-action);
+}
+.cs-table tbody tr.is-selected td {
+    background: var(--au-bg-alt-shade);
+}
+.cs-table tbody tr:focus-visible {
+    outline: 3px solid var(--au-focus);
+    outline-offset: -3px;
+}
