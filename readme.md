@@ -1,6 +1,25 @@
-![Logo](https://i.ibb.co/Tm01NWq/banner.png)
 # Sandbox RP
-This is a heavily modified version of Mythic Framework for Sandbox RP. This is a custsom framework that uses a component system, all UI's are built in React. This codebase is being released with the full permissions of the original Mythic Framework authors Alzar & Dr Nick
+
+A heavily modified version of the Mythic Framework for Sandbox RP: a component-based
+FiveM framework in Lua 5.4 whose interfaces are Svelte 5 apps built on one shared design
+system (`/ui-kit`, the GOLD design system look in Roboto). Released with the permission of
+the original Mythic Framework authors Alzar & Dr Nick.
+
+Start with `CLAUDE.md` (layout and rules), `DESIGN.md` (the interface design brief),
+`docs/NUI-GUIDE.md` (how the interfaces are built and verified) and `CHANGELOG.md`
+(what changed in the cleanup).
+
+## Building the interfaces
+
+```bash
+npm install          # once, at the repository root (Node 20.19+)
+npm run build        # builds every server/resources/[sandbox]/*/ui into ui/dist
+npm run luacheck     # Lua 5.4 syntax check of every resource (pip install lupa)
+node scripts/preview.mjs --ui sandbox-hud   # headless screenshots of a UI's preview scenarios
+```
+
+`ui/dist` folders are committed because FiveM serves them as-is; rebuild and commit them
+whenever a UI changes.
 
 ## Dependencies
 

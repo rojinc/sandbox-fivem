@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 /**
- * Build every NUI in the workspace (or a subset) with Vite.
+ * Build every NUI under server/resources/[sandbox]/<resource>/ui with Vite.
  *
  *   npm run build                 # all
- *   npm run build -- hud phone    # only packages whose name contains these
+ *   npm run build -- hud phone    # only resources whose name contains these
  *   npm run clean                 # delete every ui/dist
  *
+ * A UI is any ui/ folder with a package.json and a vite.config.js. They are
+ * not npm workspaces: they only depend on @sandbox/ui-kit, which the root
+ * workspace links into node_modules, so Vite runs straight from the root.
  * Builds run with limited parallelism so a full rebuild stays fast without
  * starving the machine.
  */
@@ -16,6 +19,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const RESOURCES = path.join(ROOT, 'server', 'resources', '[sandbox]');
+const VITE = path.join(ROOT, 'node_modules', '.bin', 'vite');
 const args = process.argv.slice(2);
 const clean = args.includes('--clean');
 const filters = args.filter((a) => !a.startsWith('--'));
@@ -49,21 +53,23 @@ function dirSize(p) {
 function run(pkg) {
     return new Promise((resolve) => {
         const started = Date.now();
-        const child = spawn('npm', ['run', 'build', '--workspace', pkg.name, '--silent'], {
-            cwd: ROOT,
+        const child = spawn(VITE, ['build'], {
+            cwd: pkg.dir,
             env: { ...process.env, NODE_ENV: 'production', FORCE_COLOR: '0' },
             stdio: ['ignore', 'pipe', 'pipe'],
         });
         let output = '';
         child.stdout.on('data', (d) => (output += d));
         child.stderr.on('data', (d) => (output += d));
-        child.on('close', (code) => {
-            resolve({ pkg, code, output, ms: Date.now() - started });
-        });
+        child.on('close', (code) => resolve({ pkg, code, output, ms: Date.now() - started }));
     });
 }
 
 async function main() {
+    if (!existsSync(VITE)) {
+        console.error('Vite is not installed. Run `npm install` at the repository root first.');
+        process.exit(1);
+    }
     let packages = findUiPackages();
     if (filters.length) {
         packages = packages.filter((p) => filters.some((f) => p.resource.includes(f) || p.name.includes(f)));
