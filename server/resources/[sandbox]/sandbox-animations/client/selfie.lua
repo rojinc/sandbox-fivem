@@ -20,15 +20,6 @@ end)
 function StartSelfieMode()
 	if not _selfie and not LocalPlayer.state.doingAction then
 		_selfie = true
-		Notification.Persistent:Info(
-			"camera-info-notif",
-			string.format("Camera - Press %s to take a Selfie", Keybinds:GetKey("primary_action"))
-				.. "<br/>"
-				.. string.format("Camera - Press %s to flip the camera", Keybinds:GetKey("secondary_action"))
-				.. "<br/>"
-				.. string.format("Camera - Press %s to cancel", Keybinds:GetKey("emote_cancel")),
-			"camera"
-		)
 		Inventory:Disable()
 		Hud:Hide()
 		DestroyMobilePhone()
@@ -41,7 +32,6 @@ end
 
 function StopSelfieMode()
 	if _selfie then
-		Notification.Persistent:Remove("camera-info-notif")
 		DestroyMobilePhone()
 		Wait(10)
 		CellCamDisableThisFrame(false)

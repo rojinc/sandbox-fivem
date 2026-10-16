@@ -33,5 +33,17 @@
   the minimap, 240° RPM speedometer with gears, compass pills) with dark
   menus and dialogs, colour-filled notifications and panel-free prompts; `client/hud.lua` lifts the minimap
   and reports gear and headlight state.
+- Every other interface rebuilt in Svelte on the kit, each with a
+  `ui/CONTRACT.md` and preview scenarios: loading screen, character select
+  (docked panel so the peds stay in view), chat, taxi meter, police radar,
+  radio (drawn inside the handset), bank and ATM, minigames, clothing and
+  barber stores, staff admin console, police MDT and alerts, the generic
+  list menu, and the inventory with shops and the crafting bench.
+- Key hints and keyboard guides are gone from every screen, and from the
+  Lua notices that only listed keys: customs camera, scene placement, selfie
+  and evidence cameras, fishing, bike carry and emote effects. Interaction
+  prompts ("E Open bank") and the respawn line still show their key.
+- Escape closes interfaces on key-up, so the release no longer opens the
+  pause menu after focus returns to the game.
 - `scripts/build-all.mjs`, `scripts/preview.mjs` (headless Chromium renders of
   scenario files), `scripts/luacheck.py`, `DESIGN.md`, `docs/NUI-GUIDE.md`.

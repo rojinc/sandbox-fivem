@@ -284,9 +284,9 @@ RegisterNetEvent("Fishing:Client:StartFishing", function(toolUsed)
     end
 
     if fishingZone == 4 or fishingZone == 5 then
-        Notification.Persistent:Info("fishing-info-notif", string.format("Fishing - Press %s to Stop. Maybe you could try some deeper water for better fish!", Keybinds:GetKey("cancel_action")), "fishing-rod")
+        Notification.Persistent:Info("fishing-info-notif", "Fishing. Deeper water has bigger fish.", "fishing-rod")
     else
-        Notification.Persistent:Info("fishing-info-notif", string.format("Fishing - Press %s to Stop", Keybinds:GetKey("cancel_action")), "fishing-rod")
+        Notification.Persistent:Info("fishing-info-notif", "Fishing", "fishing-rod")
     end
 
     local tick = 0

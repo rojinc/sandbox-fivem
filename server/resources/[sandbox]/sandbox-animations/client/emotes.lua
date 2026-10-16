@@ -257,7 +257,6 @@ function DoAnEmote(emoteData, fromUserInput, length, notCancellable, emoteName, 
                 else
                     PtfxWait = emoteData.AdditionalOptions.PtfxWait
                     PtfxPrompt = true
-                    Notification:Info(emoteData.AdditionalOptions.PtfxInfo, 5000)
                     CreateThread(function()
                         while PtfxPrompt do
                             if IsControlPressed(0, 47) then

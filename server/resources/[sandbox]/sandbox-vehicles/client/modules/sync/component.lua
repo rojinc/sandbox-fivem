@@ -243,12 +243,6 @@ _vehicleSyncStuff = {
 								1,
 								true
 							)
-							Notification.Info(
-								self,
-								string.format("Press [%s] to drop the bike", Keybinds:GetKey("veh_bike_drop")),
-								8000,
-								"fas fa-bicycle"
-							)
 						end
 					end
 				end

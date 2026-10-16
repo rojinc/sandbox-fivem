@@ -60,15 +60,6 @@ function StartInspecting()
 		inspecting = true
 		fetchedEvidenceCache = FetchEvidence()
 		nearbyEvidence = filterNearbyEvidence(fetchedEvidenceCache)
-		local NotifyStr = string.format("Camera - Press %s to exit", Keybinds:GetKey("emote_cancel"))
-		if LocalPlayer.state.onDuty == "police" then
-			NotifyStr = string.format("Camera - Press %s to take a photo", Keybinds:GetKey("secondary_action"))
-				.. "<br/>"
-				.. string.format("Camera - Press %s to exit", Keybinds:GetKey("emote_cancel"))
-		end
-		if ignoreFreeAim then
-			Notification.Persistent:Info("camera-info-notif2", NotifyStr, "camera")
-		end
 		CreateThread(function()
 			while inspecting do
 				if CanSeeEvidence() then
@@ -177,7 +168,6 @@ function StartInspecting()
 end
 
 function StopInspecting()
-	Notification.Persistent:Remove("camera-info-notif2")
 	if inspecting then
 		inspecting = false
 	end

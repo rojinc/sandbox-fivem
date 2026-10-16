@@ -36,6 +36,9 @@ ui/
 - Focus belongs to Lua. The UI never calls `SetNuiFocus`; Escape calls the
   matching close callback and Lua drops focus. `onKey`/`onEscape` handlers
   return `false` while their surface is closed so other inputs keep working.
+  Escape fires on key-up: closing on key-down drops focus before the release,
+  and the release then opens the game's pause menu. Use `onKey`/`onEscape`
+  rather than your own `keydown` listener for Escape.
 - Everything the server trusts must be validated in Lua. The UI is a client.
 - HTML from Lua goes through `RichText` or `sanitizeHtml`, never raw `{@html}`.
 
