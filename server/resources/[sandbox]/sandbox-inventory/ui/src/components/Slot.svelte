@@ -29,7 +29,7 @@
     const origin = $derived(interactive && ui.held?.side === side && ui.held?.slot === slot);
     const hovered = $derived(interactive && ui.hover?.side === side && ui.hover?.slot === slot);
     const count = $derived(Number(instance?.Count) || 0);
-    const showCount = $derived(Boolean(instance) && (count > 1 || (inv.secondary.playerShop && side === 'secondary' && count > 0)));
+    const showCount = $derived(Boolean(instance) && !(side === 'secondary' && inv.secondary.shop) && (count > 1 || (inv.secondary.playerShop && side === 'secondary' && count > 0)));
 
     const label = $derived.by(() => {
         if (!instance) return hotkey ? `Slot ${slot}, empty` : `Empty slot ${slot}`;
@@ -91,7 +91,7 @@
 {#snippet body()}
     {#if hotkey}<span class="key au-mono" aria-hidden="true">{slot}</span>{/if}
     {#if instance && def}
-        <span class="pic" class:pic--shop={price !== null}><ItemImage {instance} {def} size={Math.round(size * 0.6)} /></span>
+        <span class="pic" class:pic--shop={price !== null}><ItemImage {instance} {def} size={Math.round(size * 0.6)} textWidth={size - 8} /></span>
         {#if price !== null}
             <span class="price au-mono" aria-hidden="true">{price > 0 ? formatPrice(price) : 'Free'}</span>
         {/if}
@@ -135,7 +135,8 @@
     .slot.is-target,
     .slot.is-selected {
         border-color: var(--au-ink);
-        box-shadow: inset 0 0 0 1px var(--au-ink);
+        outline: 2px solid var(--au-ink);
+        outline-offset: -2px;
     }
     .slot.is-hovered,
     .slot.is-target {

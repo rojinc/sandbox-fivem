@@ -6,12 +6,13 @@
     import { catalog } from '../state/catalog.svelte.js';
     import { inventoryWeight, formatWeight, WEIGHT_UNIT } from '../lib/item.js';
     import { submitAction } from '../lib/actions.js';
+    import { ui } from '../state/ui.svelte.js';
 
     /**
      * A title row on the world (name in bold, weight in mono, a thin weight
      * line) over a square dark grid of slots.
      */
-    let { side, columns = 6, cell = 96, rows = 6 } = $props();
+    let { side, columns = 6, cell = 96, rows = 5 } = $props();
 
     const data = $derived(inv[side]);
     const isShop = $derived(side === 'secondary' && (data.shop || data.playerShop));
@@ -44,10 +45,10 @@
     });
 </script>
 
-<section class="panel-wrap" aria-label={title} style:width="{gridWidth + 4 + SCROLLBAR}px">
+<section class="panel-wrap" aria-label={title} style:width="{gridWidth + 4}px">
     <div class="head au-overworld">
         <h2 class="title au-truncate">{title}</h2>
-        {#if !isShop}
+        {#if !isShop && data.loaded}
             <span class="weight au-mono" class:is-full={capacity > 0 && weight >= capacity}>
                 {#if capacity > 0 && weight >= capacity}<span class="full">Full</span>{/if}
                 {formatWeight(weight)} / {formatWeight(capacity)} {WEIGHT_UNIT}
@@ -56,8 +57,9 @@
     </div>
     {#if !isShop}
         <WeightLine value={weight} max={capacity} label="Weight in {title}" />
+    {:else}
+        <div class="line-space" aria-hidden="true"></div>
     {/if}
-    {#if subline}<p class="sub au-overworld">{subline}</p>{/if}
 
     <div class="panel">
         {#if !data.loaded}
@@ -74,13 +76,15 @@
                 <span>There is nothing here you can buy. Some shops only sell to certain jobs.</span>
             </div>
         {:else}
-            <div class="grid" style:grid-template-columns="repeat({columns}, {cell}px)" style:gap="{gap}px" style:padding="{pad}px" style:max-height="{maxHeight}px" style:width="{gridWidth + SCROLLBAR}px" style:padding-right="{pad + (scrolls ? 0 : SCROLLBAR)}px">
+            <div class="grid" onscroll={() => (ui.hover = null)} style:grid-template-columns="repeat({columns}, {cell}px)" style:gap="{gap}px" style:padding="{pad}px" style:max-height="{maxHeight}px" style:width="{gridWidth}px" style:padding-right="{scrolls ? pad - SCROLLBAR : pad}px">
                 {#each slots as n (n)}
                     <Slot {side} slot={n} instance={bySlot.get(n) ?? null} size={cell} hotkey={side === 'player' && n <= 5} />
                 {/each}
             </div>
         {/if}
     </div>
+
+    {#if subline}<p class="sub au-overworld">{subline}</p>{/if}
 
     {#if side === 'secondary' && data.action && data.loaded}
         <div class="action">
@@ -120,8 +124,11 @@
         font-weight: 700;
         margin-right: var(--au-s2);
     }
+    .line-space {
+        height: 4px;
+    }
     .sub {
-        margin: var(--au-s2) 0 0;
+        margin: var(--au-s3) 0 0;
         font-size: var(--au-fs-xs);
         max-width: none;
     }

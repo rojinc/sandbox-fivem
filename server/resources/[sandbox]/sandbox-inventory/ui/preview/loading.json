@@ -1,0 +1,37 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "backdrop": true,
+  "settle": 400,
+  "wait": 700,
+  "messages": [
+    {
+      "type": "ITEMS_UNLOADED",
+      "data": {}
+    },
+    {
+      "type": "RESET_ITEMS",
+      "data": {}
+    },
+    {
+      "type": "SET_PLAYER_INVENTORY",
+      "data": {
+        "size": 30,
+        "name": "Lachlan Brooks",
+        "inventory": [],
+        "invType": 1,
+        "capacity": 200,
+        "owner": 4127,
+        "isWeaponEligble": true,
+        "qualifications": [],
+        "loaded": false
+      }
+    },
+    {
+      "type": "APP_SHOW",
+      "data": {}
+    }
+  ]
+}

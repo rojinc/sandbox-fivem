@@ -162,6 +162,11 @@
     const extra = $derived(metaRows(md));
     const quality = $derived(Number(instance?.Quality) || 0);
     const price = $derived(shopCtx && instance ? unitPrice(instance, def, inv.secondary) : null);
+    const weightText = $derived(
+        n > 1 && weight > 0
+            ? `${formatWeight(weight)} ${WEIGHT_UNIT} each, ${formatWeight(weight * n)} ${WEIGHT_UNIT} in total`
+            : `${formatWeight(weight)} ${WEIGHT_UNIT}`,
+    );
 </script>
 
 <div class="tip">
@@ -179,21 +184,19 @@
 
         {#if price !== null}
             <dt>Price</dt>
-            <dd class="au-mono">{price > 0 ? `${formatPrice(price)} each` : 'Free'}</dd>
+            <dd>{price > 0 ? `${formatPrice(price)} each` : 'Free'}</dd>
         {/if}
 
         <dt>Weight</dt>
-        <dd>
-            <span class="au-mono">{formatWeight(weight)} {WEIGHT_UNIT}</span>{#if n > 1 && weight > 0}<span class="au-muted"> each, </span><span class="au-mono">{formatWeight(weight * n)} {WEIGHT_UNIT}</span><span class="au-muted"> in total</span>{/if}
-        </dd>
+        <dd>{weightText}</dd>
 
         <dt>{shopCtx && inv.secondary.shop ? 'Buy at once' : 'Count'}</dt>
-        <dd><span class="au-mono">{formatCount(n)}</span>{#if max > 0}<span class="au-muted"> (stacks to </span><span class="au-mono">{formatCount(max)}</span><span class="au-muted">)</span>{/if}</dd>
+        <dd>{formatCount(n)}{max > 0 ? ` (stacks to ${formatCount(max)})` : ''}</dd>
 
         {#if durability !== null}
             <dt>Durability</dt>
             {#if durability > 0}
-                <dd class="au-mono">{Math.min(100, durability)}%</dd>
+                <dd>{Math.min(100, durability)}%</dd>
             {:else}
                 <dd class="is-error">Broken</dd>
             {/if}
@@ -201,7 +204,7 @@
 
         {#if quality > 0}
             <dt>Quality</dt>
-            <dd class="au-mono">{quality}%</dd>
+            <dd>{quality}%</dd>
         {/if}
 
         {#each permit as row (row.label)}
@@ -256,6 +259,9 @@
         justify-content: space-between;
         gap: var(--au-s3);
         margin-bottom: var(--au-s2);
+    }
+    .tip__head :global(.au-tag) {
+        font-size: var(--au-fs-xs);
     }
     .tip__name {
         font-size: var(--au-fs-sm);

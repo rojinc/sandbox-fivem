@@ -1,0 +1,695 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "backdrop": true,
+  "settle": 400,
+  "wait": 700,
+  "messages": [
+    {
+      "type": "SET_ITEMS",
+      "data": {
+        "items": {
+          "water": {
+            "name": "water",
+            "label": "Water",
+            "price": 3,
+            "isUsable": true,
+            "isStackable": 25,
+            "type": 1,
+            "rarity": 1,
+            "weight": 0.25,
+            "durability": 432000,
+            "isDestroyed": true
+          },
+          "sandwich": {
+            "name": "sandwich",
+            "label": "Ham Sandwich",
+            "price": 3,
+            "isUsable": true,
+            "isStackable": 15,
+            "type": 1,
+            "rarity": 1,
+            "weight": 0.25,
+            "durability": 432000,
+            "isDestroyed": true
+          },
+          "coffee": {
+            "name": "coffee",
+            "label": "Coffee",
+            "price": 295,
+            "isUsable": true,
+            "isStackable": 15,
+            "type": 1,
+            "rarity": 1,
+            "weight": 0.25,
+            "durability": 432000,
+            "isDestroyed": true
+          },
+          "burger": {
+            "name": "burger",
+            "label": "The Bleeder",
+            "price": 50,
+            "isUsable": true,
+            "isStackable": 15,
+            "type": 1,
+            "rarity": 1,
+            "weight": 0.25,
+            "durability": 432000,
+            "isDestroyed": true
+          },
+          "bandage": {
+            "name": "bandage",
+            "label": "Bandage",
+            "price": 50,
+            "isUsable": true,
+            "isStackable": 30,
+            "type": 1,
+            "rarity": 1,
+            "weight": 0.25,
+            "durability": 432000,
+            "isDestroyed": true
+          },
+          "WEAPON_PISTOL": {
+            "name": "WEAPON_PISTOL",
+            "label": "Pistol",
+            "price": 2000,
+            "isUsable": true,
+            "isStackable": false,
+            "type": 2,
+            "rarity": 1,
+            "weight": 5,
+            "durability": 1814400,
+            "isDestroyed": false,
+            "requiresLicense": true
+          },
+          "WEAPON_COMBATPISTOL": {
+            "name": "WEAPON_COMBATPISTOL",
+            "label": "Combat Pistol",
+            "price": 3200,
+            "isUsable": true,
+            "isStackable": false,
+            "type": 2,
+            "rarity": 1,
+            "weight": 5,
+            "durability": 1814400,
+            "isDestroyed": false,
+            "requiresLicense": true
+          },
+          "AMMO_PISTOL": {
+            "name": "AMMO_PISTOL",
+            "label": "Pistol Ammo",
+            "price": 50,
+            "isUsable": true,
+            "isStackable": 10,
+            "type": 9,
+            "rarity": 1,
+            "weight": 0.1,
+            "durability": 2592000,
+            "isDestroyed": true
+          },
+          "phone": {
+            "name": "phone",
+            "label": "Phone",
+            "price": 100,
+            "isUsable": false,
+            "isStackable": false,
+            "type": 18,
+            "rarity": 1,
+            "weight": 1,
+            "durability": 1814400,
+            "isDestroyed": false
+          },
+          "radio": {
+            "name": "radio",
+            "label": "Encrypted Radio",
+            "description": "Encrypted Communication Device for Emergency Services",
+            "price": 725,
+            "isUsable": true,
+            "isStackable": false,
+            "type": 3,
+            "rarity": 2,
+            "weight": 1,
+            "durability": 5184000,
+            "isDestroyed": true
+          },
+          "lockpick": {
+            "name": "lockpick",
+            "label": "Lockpick",
+            "price": 200,
+            "isUsable": true,
+            "isStackable": 50,
+            "type": 3,
+            "rarity": 2,
+            "weight": 0.5,
+            "durability": 1209600
+          },
+          "repairkit": {
+            "name": "repairkit",
+            "label": "Repair Kit",
+            "description": "Fixes a vehicles engine so it can be driven again.",
+            "price": 350,
+            "isUsable": true,
+            "isStackable": 4,
+            "type": 3,
+            "rarity": 1,
+            "weight": 0.25,
+            "durability": 604800,
+            "isDestroyed": true
+          },
+          "copperwire": {
+            "name": "copperwire",
+            "label": "Copper Wire",
+            "price": 10,
+            "isUsable": false,
+            "isStackable": 10000,
+            "type": 4,
+            "rarity": 1,
+            "weight": 0,
+            "durability": 7776000,
+            "isDestroyed": true
+          },
+          "scrapmetal": {
+            "name": "scrapmetal",
+            "label": "Scrap Metal",
+            "price": 10,
+            "isUsable": false,
+            "isStackable": 10000,
+            "type": 4,
+            "rarity": 1,
+            "weight": 0,
+            "durability": 7776000,
+            "isDestroyed": true
+          },
+          "plastic": {
+            "name": "plastic",
+            "label": "Plastic",
+            "price": 10,
+            "isUsable": false,
+            "isStackable": 10000,
+            "type": 4,
+            "rarity": 1,
+            "weight": 0,
+            "durability": 7776000,
+            "isDestroyed": true
+          },
+          "rubber": {
+            "name": "rubber",
+            "label": "Rubber",
+            "price": 10,
+            "isUsable": false,
+            "isStackable": 10000,
+            "type": 4,
+            "rarity": 1,
+            "weight": 0,
+            "durability": 7776000,
+            "isDestroyed": true
+          },
+          "electronic_parts": {
+            "name": "electronic_parts",
+            "label": "Electronic Parts",
+            "price": 250,
+            "isUsable": false,
+            "isStackable": 10000,
+            "type": 4,
+            "rarity": 1,
+            "weight": 0,
+            "durability": 7776000,
+            "isDestroyed": true
+          },
+          "ironbar": {
+            "name": "ironbar",
+            "label": "Iron Bar",
+            "price": 2500,
+            "isUsable": false,
+            "isStackable": 10000,
+            "type": 4,
+            "rarity": 1,
+            "weight": 0,
+            "durability": 7776000,
+            "isDestroyed": true
+          },
+          "goldbar": {
+            "name": "goldbar",
+            "label": "Gold Bar",
+            "price": 500,
+            "isUsable": false,
+            "isStackable": 10000,
+            "type": 4,
+            "rarity": 3,
+            "weight": 0.25,
+            "durability": 7776000,
+            "isDestroyed": true
+          },
+          "armor": {
+            "name": "armor",
+            "label": "Body Armor",
+            "price": 750,
+            "isUsable": true,
+            "isStackable": 5,
+            "type": 1,
+            "rarity": 1,
+            "weight": 8,
+            "durability": 604800,
+            "isDestroyed": true
+          },
+          "fishing_rod": {
+            "name": "fishing_rod",
+            "label": "Fishing Rod",
+            "description": "Catch the Fishies",
+            "price": 900,
+            "isUsable": true,
+            "isStackable": false,
+            "type": 3,
+            "rarity": 1,
+            "weight": 3.5,
+            "durability": 2592000,
+            "isDestroyed": true
+          },
+          "cigarette": {
+            "name": "cigarette",
+            "label": "Cigarette",
+            "price": 3,
+            "isUsable": true,
+            "isStackable": 30,
+            "type": 1,
+            "rarity": 1,
+            "weight": 0.1,
+            "durability": 864000,
+            "isDestroyed": true
+          },
+          "ATTCH_PISTOL_SILENCER": {
+            "name": "ATTCH_PISTOL_SILENCER",
+            "label": "Pistol Suppressor",
+            "price": 15000,
+            "isUsable": true,
+            "isStackable": false,
+            "type": 16,
+            "rarity": 3,
+            "weight": 2,
+            "durability": 5184000,
+            "isDestroyed": false,
+            "component": {
+              "type": "muzzle",
+              "strings": {
+                "WEAPON_GLOCK19_CIV": "COMPONENT_GLOCK19_CIV_SUPP_05",
+                "WEAPON_COMBATPISTOL": "COMPONENT_AT_PI_SUPP",
+                "WEAPON_FN509": "COMPONENT_FN509_SUPP_01",
+                "WEAPON_PISTOL50": "COMPONENT_AT_AR_SUPP_02"
+              }
+            }
+          },
+          "schematic_pistol_ammo": {
+            "name": "schematic_pistol_ammo",
+            "label": "Schematic: Pistol Ammo",
+            "price": 5000,
+            "isUsable": false,
+            "isStackable": false,
+            "type": 17,
+            "rarity": 1,
+            "weight": 0,
+            "durability": 1814400,
+            "iconOverride": "schematic",
+            "schematic": "pistol_ammo"
+          },
+          "govid": {
+            "name": "govid",
+            "label": "Government ID",
+            "price": 0,
+            "isUsable": true,
+            "isStackable": false,
+            "type": 5,
+            "rarity": 1,
+            "weight": 0
+          },
+          "thermite": {
+            "name": "thermite",
+            "label": "Thermite Charge",
+            "price": 200,
+            "isUsable": true,
+            "isStackable": 5,
+            "type": 19,
+            "rarity": 1,
+            "weight": 2.5,
+            "durability": 5184000,
+            "isDestroyed": true
+          },
+          "moneybag": {
+            "name": "moneybag",
+            "label": "Bag of Cash",
+            "price": 10000,
+            "isUsable": true,
+            "isStackable": false,
+            "type": 14,
+            "rarity": 1,
+            "weight": 3,
+            "durability": 1209600,
+            "isDestroyed": true
+          },
+          "AMMO_SMG": {
+            "name": "AMMO_SMG",
+            "label": "SMG Ammo",
+            "price": 300,
+            "isUsable": true,
+            "isStackable": 10,
+            "type": 9,
+            "rarity": 1,
+            "weight": 0.1,
+            "durability": 2592000,
+            "isDestroyed": true
+          },
+          "ruby": {
+            "name": "ruby",
+            "label": "Ruby",
+            "price": 2250,
+            "isUsable": false,
+            "isStackable": false,
+            "type": 11,
+            "rarity": 3,
+            "weight": 0.5,
+            "isDestroyed": false
+          },
+          "diamond": {
+            "name": "diamond",
+            "label": "Diamond",
+            "price": 3000,
+            "isUsable": false,
+            "isStackable": false,
+            "type": 11,
+            "rarity": 4,
+            "weight": 0.5,
+            "isDestroyed": false
+          }
+        }
+      }
+    },
+    {
+      "type": "ITEMS_LOADED",
+      "data": {}
+    },
+    {
+      "type": "SET_SCHEMS",
+      "data": {
+        "pistol_ammo": {
+          "result": {
+            "name": "AMMO_PISTOL",
+            "count": 10
+          },
+          "items": [
+            {
+              "name": "copperwire",
+              "count": 100
+            },
+            {
+              "name": "scrapmetal",
+              "count": 100
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "UPDATE_SETTINGS",
+      "data": {
+        "settings": {
+          "muted": false,
+          "useBank": true
+        }
+      }
+    },
+    {
+      "type": "SET_PLAYER_INVENTORY",
+      "data": {
+        "size": 30,
+        "name": "Lachlan Brooks",
+        "inventory": [
+          {
+            "id": 10007,
+            "Slot": 1,
+            "Name": "WEAPON_PISTOL",
+            "Count": 1,
+            "Owner": "4127",
+            "invType": 1,
+            "CreateDate": "$now-604800",
+            "MetaData": "{\"SerialNumber\":\"SA-20931-PL\",\"ammo\":12,\"WeaponComponents\":{\"muzzle\":{\"item\":\"ATTCH_PISTOL_SILENCER\"}}}"
+          },
+          {
+            "id": 10014,
+            "Slot": 2,
+            "Name": "AMMO_PISTOL",
+            "Count": 8,
+            "Owner": "4127",
+            "invType": 1,
+            "CreateDate": "$now-86400",
+            "MetaData": "{}"
+          },
+          {
+            "id": 10021,
+            "Slot": 3,
+            "Name": "water",
+            "Count": 6,
+            "Owner": "4127",
+            "invType": 1,
+            "CreateDate": "$now-86400",
+            "MetaData": "{}"
+          },
+          {
+            "id": 10028,
+            "Slot": 4,
+            "Name": "sandwich",
+            "Count": 3,
+            "Owner": "4127",
+            "invType": 1,
+            "CreateDate": "$now-300000",
+            "MetaData": "{}"
+          },
+          {
+            "id": 10035,
+            "Slot": 5,
+            "Name": "bandage",
+            "Count": 4,
+            "Owner": "4127",
+            "invType": 1,
+            "CreateDate": "$now-86400",
+            "MetaData": "{}"
+          },
+          {
+            "id": 10042,
+            "Slot": 6,
+            "Name": "phone",
+            "Count": 1,
+            "Owner": "4127",
+            "invType": 1,
+            "CreateDate": "$now-86400",
+            "MetaData": "{}"
+          },
+          {
+            "id": 10049,
+            "Slot": 7,
+            "Name": "radio",
+            "Count": 1,
+            "Owner": "4127",
+            "invType": 1,
+            "CreateDate": "$now-5000000",
+            "MetaData": "{}"
+          },
+          {
+            "id": 10056,
+            "Slot": 8,
+            "Name": "lockpick",
+            "Count": 12,
+            "Owner": "4127",
+            "invType": 1,
+            "CreateDate": "$now-86400",
+            "MetaData": "{}"
+          },
+          {
+            "id": 10063,
+            "Slot": 9,
+            "Name": "repairkit",
+            "Count": 2,
+            "Owner": "4127",
+            "invType": 1,
+            "CreateDate": "$now-700000",
+            "MetaData": "{}"
+          },
+          {
+            "id": 10070,
+            "Slot": 10,
+            "Name": "govid",
+            "Count": 1,
+            "Owner": "4127",
+            "invType": 1,
+            "CreateDate": "$now-86400",
+            "MetaData": "{\"StateID\":4127,\"DOB\":\"1994-03-08\",\"PassportID\":\"P4127-0093\"}"
+          },
+          {
+            "id": 10091,
+            "Slot": 13,
+            "Name": "copperwire",
+            "Count": 240,
+            "Owner": "4127",
+            "invType": 1,
+            "CreateDate": "$now-86400",
+            "MetaData": "{}"
+          },
+          {
+            "id": 10098,
+            "Slot": 14,
+            "Name": "scrapmetal",
+            "Count": 80,
+            "Owner": "4127",
+            "invType": 1,
+            "CreateDate": "$now-86400",
+            "MetaData": "{}"
+          },
+          {
+            "id": 10105,
+            "Slot": 15,
+            "Name": "goldbar",
+            "Count": 2,
+            "Owner": "4127",
+            "invType": 1,
+            "CreateDate": "$now-86400",
+            "MetaData": "{}"
+          },
+          {
+            "id": 10133,
+            "Slot": 19,
+            "Name": "cigarette",
+            "Count": 18,
+            "Owner": "4127",
+            "invType": 1,
+            "CreateDate": "$now-86400",
+            "MetaData": "{}"
+          }
+        ],
+        "invType": 1,
+        "capacity": 200,
+        "owner": 4127,
+        "isWeaponEligble": true,
+        "qualifications": [],
+        "loaded": true
+      }
+    },
+    {
+      "type": "SET_SECONDARY_INVENTORY",
+      "data": {
+        "size": 20,
+        "name": "Trunk",
+        "class": 1,
+        "model": 1349725314,
+        "capacity": 200,
+        "shop": false,
+        "playerShop": false,
+        "modifyShop": false,
+        "free": false,
+        "action": false,
+        "inventory": [
+          {
+            "id": 501,
+            "Slot": 1,
+            "Name": "armor",
+            "Count": 1,
+            "Owner": "VIN4K2",
+            "invType": 4,
+            "CreateDate": "$now-100000",
+            "MetaData": "{}"
+          },
+          {
+            "id": 502,
+            "Slot": 2,
+            "Name": "repairkit",
+            "Count": 1,
+            "Owner": "VIN4K2",
+            "invType": 4,
+            "CreateDate": "$now-900000",
+            "MetaData": "{}"
+          },
+          {
+            "id": 503,
+            "Slot": 3,
+            "Name": "fishing_rod",
+            "Count": 1,
+            "Owner": "VIN4K2",
+            "invType": 4,
+            "CreateDate": "$now-400000",
+            "MetaData": "{}"
+          },
+          {
+            "id": 504,
+            "Slot": 4,
+            "Name": "plastic",
+            "Count": 1200,
+            "Owner": "VIN4K2",
+            "invType": 4,
+            "CreateDate": "$now-4000",
+            "MetaData": "{}"
+          },
+          {
+            "id": 505,
+            "Slot": 5,
+            "Name": "rubber",
+            "Count": 640,
+            "Owner": "VIN4K2",
+            "invType": 4,
+            "CreateDate": "$now-4000",
+            "MetaData": "{}"
+          },
+          {
+            "id": 506,
+            "Slot": 8,
+            "Name": "moneybag",
+            "Count": 1,
+            "Owner": "VIN4K2",
+            "invType": 4,
+            "CreateDate": "$now-4000",
+            "MetaData": "{}"
+          },
+          {
+            "id": 507,
+            "Slot": 9,
+            "Name": "ironbar",
+            "Count": 35,
+            "Owner": "VIN4K2",
+            "invType": 4,
+            "CreateDate": "$now-4000",
+            "MetaData": "{}"
+          }
+        ],
+        "invType": 4,
+        "owner": "VIN4K2",
+        "loaded": true,
+        "slotOverride": false,
+        "capacityOverride": false
+      }
+    },
+    {
+      "type": "SET_MODE",
+      "data": {
+        "mode": "inventory"
+      }
+    },
+    {
+      "type": "SHOW_SECONDARY_INVENTORY",
+      "data": {}
+    },
+    {
+      "type": "APP_SHOW",
+      "data": {}
+    },
+    {
+      "type": "USE_ITEM_PLAYER",
+      "data": {
+        "originSlot": 5
+      }
+    },
+    {
+      "type": "USE_IN_PROGRESS",
+      "data": {
+        "state": true
+      }
+    }
+  ]
+}

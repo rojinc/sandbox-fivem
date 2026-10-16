@@ -1,6 +1,6 @@
 /** Item definitions and crafting schematics sent by Lua. */
 export const catalog = $state({
-    /** name -> ItemDef. Replaced wholesale (never deep-mutated) so it stays a plain object. */
+    /** name -> ItemDef. Always replaced with a new object, so readers update on SET_ITEMS and ADD_ITEM. */
     items: {},
     loaded: false,
     /** schematicId -> { result: { name, count }, items: [{ name, count }] } */

@@ -24,8 +24,9 @@ keys, so the UI reads them with `Object.values()`.
 Lua owns focus. `Inventory:Client:Open` calls `SetNuiFocus(true, true)` after
 `APP_SHOW`; `Inventory.Close:All()` sends `APP_HIDE` and calls
 `SetNuiFocus(false, false)`. The UI never calls `SetNuiFocus`. Escape and F2
-call `Close` while the inventory is open (and are declined otherwise). No key
-hints are shown anywhere.
+(the old UI's keys) first put back a held item or close the add-to-shop form,
+otherwise they call `Close`; both are declined while the inventory is hidden.
+No key hints are shown anywhere.
 
 ## Lua -> UI messages
 
@@ -144,6 +145,6 @@ also clears itself after 10 seconds so a lost reply cannot freeze a slot.
 
 ## Lua changes
 
-- `client/crafting.lua` `Crafting:Craft`: the callback indexed `state.error`
+- `client/crafting.lua:218-228` `Crafting:Craft`: the callback indexed `state.error`
   on a `nil`/`false` answer from the server and never answered the UI; it now
   answers `false` (with the error notification) in that case too.

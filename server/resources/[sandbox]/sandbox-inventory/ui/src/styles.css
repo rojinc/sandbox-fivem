@@ -1,0 +1,17 @@
+/*
+ * Inventory-wide styles. Everything else lives in the components and the kit.
+ * Number fields drop the browser spinners: the amount is typed.
+ */
+:root {
+    /* The kit's dialog backdrop (Modal), so the world stays visible behind the inventory. */
+    --inv-scrim: rgba(8, 9, 10, 0.55);
+}
+
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

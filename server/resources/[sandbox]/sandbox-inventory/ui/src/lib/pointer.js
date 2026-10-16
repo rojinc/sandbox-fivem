@@ -101,6 +101,11 @@ export function windowPointerUp(e) {
     setTimeout(() => (suppressClick = false), 0);
 }
 
+/** Any press that does not land on a slot puts back an item held from a right click. */
+export function windowPointerDown(e) {
+    if (ui.held?.sticky && !e.target?.closest?.('button.slot')) cancelHold();
+}
+
 /** A press on the dimmed background: drop whatever is held and clear the selection. */
 export function backgroundPointerDown(e) {
     if (e.target !== e.currentTarget) return;

@@ -5,7 +5,7 @@
      * The item picture, trying each source in turn (custom image, icon, then
      * the placeholder). When none loads, the item name stands in for it.
      */
-    let { instance, def, size = 56 } = $props();
+    let { instance, def, size = 56, fallback = true, textWidth = size + 28 } = $props();
 
     const sources = $derived(imageSources(instance, def));
     let failed = $state(0);
@@ -24,8 +24,8 @@
 
 {#if src}
     <img class="img" {src} alt="" draggable="false" style:width="{size}px" style:height="{size}px" onerror={() => (failed += 1)} />
-{:else}
-    <span class="name" style:max-width="{size + 24}px">{itemLabel(instance, def)}</span>
+{:else if fallback}
+    <span class="name" lang="en" style:max-width="{textWidth}px">{itemLabel(instance, def)}</span>
 {/if}
 
 <style>
@@ -44,7 +44,8 @@
         line-height: 1.2;
         text-align: center;
         color: var(--au-muted);
-        word-break: break-word;
+        hyphens: auto;
+        overflow-wrap: break-word;
         pointer-events: none;
     }
 </style>

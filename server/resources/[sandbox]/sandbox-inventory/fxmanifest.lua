@@ -15,7 +15,8 @@ url("https://authenticrp.com")
 ui_page("ui/dist/index.html")
 
 files({
-	"ui/dist/*.*",
+	"ui/dist/index.html",
+	"ui/dist/assets/*",
 	"ui/images/items/*.webp",
 })
 
