@@ -11,7 +11,7 @@
       "data": {
         "template": {
           "id": "announce",
-          "html": "<div><b>📣 {0}</b><br>{1}</div>"
+          "html": "<div><b>{0}</b><br>{1}</div>"
         }
       }
     },

@@ -1,5 +1,4 @@
 <script>
-    import { fly } from 'svelte/transition';
     import { Button, Field, Select, TextInput, Checkbox, Icon, fetchNui, uid } from '@sandbox/ui-kit';
     import { radar, applySettings, settingsPayload } from '../../state/radar.svelte.js';
     import { POSITIONS, POSITION_ORDER } from '../../positions.js';
@@ -18,8 +17,8 @@
         { value: 'opp', label: 'Opposite lane' },
     ];
     const antennas = [
-        { key: 'frontRadar', label: 'Front antenna' },
-        { key: 'rearRadar', label: 'Rear antenna' },
+        { key: 'frontRadar', label: 'Front' },
+        { key: 'rearRadar', label: 'Rear' },
     ];
 
     const settings = $derived(radar.settings);
@@ -58,7 +57,7 @@
 
 {#if radar.remoteOpen}
     <div class="remote">
-        <div class="remote__panel" role="dialog" aria-labelledby={titleId} transition:fly={{ y: 24, duration: 200 }}>
+        <div class="remote__panel" role="dialog" aria-labelledby={titleId}>
             <div class="remote__head">
                 <div class="remote__heading">
                     <strong class="remote__eyebrow">Radar</strong>
@@ -114,7 +113,6 @@
                             inputmode="numeric"
                             width="140px"
                             block={false}
-                            mono
                             bind:value={fastText}
                             onchange={commitFast}
                             onblur={commitFast}
@@ -136,7 +134,7 @@
             </form>
 
             <div class="remote__actions">
-                <Button icon="check" onclick={close}>Done</Button>
+                <Button onclick={close}>Close remote</Button>
             </div>
         </div>
     </div>
@@ -150,14 +148,13 @@
         transform: translateX(-50%);
         pointer-events: auto;
     }
-    /* Dialog surface, as the kit Modal draws it: page colour, 1px line, 8px radius. */
+    /* Dialog surface as the kit Modal draws it: page colour, 2px ink frame, square, no shadow. */
     .remote__panel {
-        width: 480px;
+        width: 520px;
         background: var(--au-bg);
         color: var(--au-text);
-        border: 1px solid var(--au-border);
+        border: 2px solid var(--au-ink);
         border-radius: var(--au-radius-lg);
-        box-shadow: var(--au-shadow-2);
     }
     .remote__head {
         display: flex;
@@ -171,30 +168,29 @@
     }
     .remote__eyebrow {
         display: block;
-        margin-bottom: 2px;
-        font-size: 12px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--au-action);
+        font-size: var(--au-fs-xs);
+        font-weight: 800;
     }
     .remote__title {
         margin: 0;
-        font-size: 20px;
+        font-size: var(--au-fs-md);
     }
     .remote__subline {
         margin-top: 2px;
-        font-size: 13px;
+        font-size: var(--au-fs-xs);
         color: var(--au-muted);
     }
     .remote__close {
-        display: flex;
-        margin: -4px -8px 0 0;
-        padding: 4px;
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        margin: -10px -14px 0 0;
         border: 0;
-        border-radius: var(--au-radius);
+        border-radius: 0;
         background: transparent;
         color: var(--au-muted);
-        font-size: 20px;
+        font-size: 22px;
         cursor: pointer;
     }
     .remote__close:hover {
@@ -203,16 +199,15 @@
     }
     .remote__body {
         padding: 16px 24px 0;
-        font-size: 14px;
+        font-size: var(--au-fs-xs);
     }
     .remote__section + .remote__section {
-        padding-top: 12px;
-        border-top: 1px solid var(--au-border);
+        margin-top: 16px;
     }
     .remote__section h3 {
         margin: 0 0 8px;
-        font-size: 16px;
-        font-weight: 500;
+        font-size: var(--au-fs-sm);
+        font-weight: 700;
     }
     .remote__body :global(.au-field) {
         margin-bottom: 12px;
@@ -230,17 +225,15 @@
     }
     .antenna legend {
         padding: 0;
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--au-muted);
+        font-size: var(--au-fs-xs);
+        font-weight: 700;
     }
     .antenna__check {
         margin: 4px 0 8px;
     }
     .remote__actions {
         display: flex;
-        justify-content: flex-end;
         gap: 8px;
-        padding: 4px 24px 20px;
+        padding: 4px 24px 24px;
     }
 </style>

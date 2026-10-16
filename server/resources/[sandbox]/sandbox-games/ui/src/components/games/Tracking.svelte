@@ -1,7 +1,6 @@
 <script>
     import Frame from '../Frame.svelte';
-    import Readout from '../Readout.svelte';
-    import { game, control } from '../../state/game.svelte.js';
+        import { game, control } from '../../state/game.svelte.js';
     import { Phases, useRaf, useTimeout } from '../../lib/runes.svelte.js';
     import { clamp, countdownOf, shuffle, toNumber } from '../../lib/random.js';
     import { legPos, newLeg } from '../../lib/motion.js';
@@ -29,7 +28,7 @@
         ['var(--au-bg-alt-shade)', 'var(--au-text)'],
     ];
 
-    const { params, succeed, fail } = control();
+    const { params, succeed, fail, timeUp } = control();
     const targetCount = clamp(Math.floor(toNumber(params.difficulty, 5)), 1, 30);
     const delay = Math.max(0, toNumber(params.delay, 2500));
     const limit = Math.max(100, toNumber(params.limit, 20000));
@@ -60,7 +59,7 @@
             if (!preview) {
                 time += dt;
                 if (time > limit) {
-                    fail();
+                    timeUp();
                     return;
                 }
             }
@@ -80,25 +79,24 @@
             entered = target.id;
             if (target.id >= targetCount) succeed(false);
         } else {
-            fail();
+            fail({}, 'Wrong square');
         }
     }
 </script>
 
 <Frame
     title="Tracking"
-    status={preview ? 'Remember the order' : 'Click them in order'}
+    status={preview ? 'Remember the order of the squares' : 'Click the squares in order, from 1'}
     left={limit - time}
     total={limit}
     running={!preview}
     {phases}
     flush
-    stageIcon="target"
     successText="Verification complete"
     failText="Verification failed"
 >
-    {#snippet meta()}
-        <Readout label="Tracked" value="{entered}/{targetCount}" />
+    {#snippet facts()}
+        {entered} of {targetCount} found
     {/snippet}
     <div class="tr-field" style:width="{FIELD_W}px" style:height="{FIELD_H}px">
         {#each targets as t (t.id)}
@@ -135,8 +133,8 @@
         padding: 0;
         display: grid;
         place-items: center;
-        border-radius: var(--au-radius);
-        border: 1px solid var(--au-border-strong);
+        border-radius: 0;
+        border: 2px solid var(--au-border);
         font-size: var(--au-fs-xl);
         font-weight: 500;
         cursor: default;

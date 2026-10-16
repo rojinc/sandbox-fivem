@@ -46,27 +46,27 @@ export function buildDobIso(year, month, day) {
 
 export function validateName(value, label) {
     const v = String(value ?? '');
-    if (!v) return `${label} is required.`;
-    if (v.length < NAME_MIN) return `${label} must be at least ${NAME_MIN} letters.`;
-    if (v.length > NAME_MAX) return `${label} must be ${NAME_MAX} characters or fewer.`;
-    if (!NAME_RE.test(v)) return `${label} can only contain letters, apostrophes and hyphens.`;
+    if (!v) return `Enter a ${label.toLowerCase()}`;
+    if (v.length < NAME_MIN) return `${label} must be ${NAME_MIN} letters or more`;
+    if (v.length > NAME_MAX) return `${label} must be ${NAME_MAX} characters or fewer`;
+    if (!NAME_RE.test(v)) return `${label} can only include letters, apostrophes and hyphens`;
     return null;
 }
 
 export function validateDob({ year, month, day }, now = new Date()) {
-    if (year === '' || month === '' || day === '') return 'Pick a day, month and year.';
+    if (year === '' || month === '' || day === '') return 'Choose the day, month and year of birth';
     const d = new Date(Number(year), Number(month), Number(day));
-    if (Number.isNaN(d.getTime()) || d.getDate() !== Number(day)) return 'That day does not exist in the chosen month.';
+    if (Number.isNaN(d.getTime()) || d.getDate() !== Number(day)) return 'Choose a day that exists in that month';
     const age = yearsBetween(d, now);
-    if (age < MIN_AGE) return `Characters must be at least ${MIN_AGE} years old.`;
-    if (age > MAX_AGE) return `Characters cannot be older than ${MAX_AGE}.`;
+    if (age < MIN_AGE) return `Choose a date of birth that makes your character ${MIN_AGE} or older`;
+    if (age > MAX_AGE) return `Choose a date of birth that makes your character ${MAX_AGE} or younger`;
     return null;
 }
 
 export function validateBio(value) {
     const v = String(value ?? '').trim();
-    if (!v) return 'Write a short biography.';
-    if (v.length > BIO_MAX) return `Keep the biography under ${BIO_MAX} characters.`;
+    if (!v) return 'Write a short biography of your character';
+    if (v.length > BIO_MAX) return `Biography must be ${BIO_MAX} characters or fewer`;
     return null;
 }
 
@@ -81,6 +81,6 @@ export function validateForm(values, now = new Date()) {
     if (last) errors.last = last;
     if (dob) errors.dob = dob;
     if (bio) errors.bio = bio;
-    if (values.gender !== 0 && values.gender !== 1) errors.gender = 'Choose a gender.';
+    if (values.gender !== 0 && values.gender !== 1) errors.gender = 'Choose a gender';
     return errors;
 }

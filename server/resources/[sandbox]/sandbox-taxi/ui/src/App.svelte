@@ -2,10 +2,10 @@
     import { meter } from './state/meter.svelte.js';
     import TaxiMeter from './components/meter/TaxiMeter.svelte';
 
-    // Chrome is sized in px for a 1920-wide screen; the root zooms so 1440p and 4K keep the same proportions.
+    // Chrome is sized in px for 1920x1080; the root zooms so 1440p and 4K keep the same proportions.
     let zoom = $state(1);
     $effect(() => {
-        const update = () => (zoom = Math.max(1, window.innerWidth / 1920));
+        const update = () => (zoom = Math.max(1, Math.min(window.innerWidth / 1920, window.innerHeight / 1080)));
         update();
         window.addEventListener('resize', update);
         return () => window.removeEventListener('resize', update);

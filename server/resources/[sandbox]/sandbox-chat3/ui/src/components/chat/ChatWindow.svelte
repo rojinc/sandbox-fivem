@@ -42,7 +42,7 @@
 
     // Chrome is sized in px for 1080p; scale the column up on larger screens so the log stays readable.
     $effect(() => {
-        const apply = () => (zoom = Math.min(2, Math.max(1, window.innerWidth / 1920)));
+        const apply = () => (zoom = Math.min(2, Math.max(1, Math.min(window.innerWidth / 1920, window.innerHeight / 1080))));
         apply();
         window.addEventListener('resize', apply);
         return () => window.removeEventListener('resize', apply);
@@ -53,7 +53,7 @@
 
 <div class="chat" class:is-interactive={screen.inputting} style="zoom:{zoom}">
     {#if visible}
-        <div class="chat__log" in:fade={{ duration: 200 }} out:fade={{ duration: 320 }}>
+        <div class="chat__log" out:fade={{ duration: 320 }}>
             <MessageLog bind:this={log} interactive={screen.inputting} />
         </div>
     {/if}
@@ -67,7 +67,7 @@
         position: absolute;
         top: 24px;
         left: 24px;
-        width: 560px;
+        width: 600px;
         display: flex;
         flex-direction: column;
         gap: 12px;
@@ -76,13 +76,11 @@
     .chat.is-interactive {
         pointer-events: auto;
     }
-    /* --au-bg (#181a1d) at 82 %, so the world shows faintly through the log. */
+    /* --au-bg (#181a1d) at 82 %, as asked, so the world shows faintly through the log. Square, no shadow. */
     .chat__log {
         background: rgba(24, 26, 29, 0.82);
         color: var(--au-text);
-        border: 1px solid var(--au-border);
         border-radius: var(--au-radius-lg);
-        box-shadow: var(--au-shadow-1);
         overflow: hidden;
     }
 </style>

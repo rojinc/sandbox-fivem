@@ -1,8 +1,7 @@
 <script>
-    import { Button, Icon, TextInput } from '@sandbox/ui-kit';
+    import { Button, Field, Icon, TextInput } from '@sandbox/ui-kit';
     import Frame from '../Frame.svelte';
-    import Readout from '../Readout.svelte';
-    import { game, control } from '../../state/game.svelte.js';
+        import { game, control } from '../../state/game.svelte.js';
     import { Phases, useInterval, useRaf, useTimeout } from '../../lib/runes.svelte.js';
     import { clamp, countdownOf, pick, shuffle, toNumber } from '../../lib/random.js';
     import { play, startTick, stopTick } from '../../lib/sounds.js';
@@ -35,9 +34,9 @@
         { color: '#ff69b4', answer: ['pink'] },
         { color: '#00ff8a', answer: ['mint'] },
     ];
-    const COLOR_LIST = 'red, green, blue, purple, orange, yellow, white, cyan, grey, pink, mint';
+    const COLOR_HINT = 'Use red, green, blue, purple, orange, yellow, white, cyan, grey, pink or mint.';
 
-    const { params, succeed, fail } = control();
+    const { params, succeed, fail, timeUp } = control();
     const shuffles = Math.max(0, Math.floor(toNumber(params.timer, 5)));
     const limit = toNumber(params.limit, 7500);
     const delay = Math.max(0, toNumber(params.delay, 1500));
@@ -87,7 +86,7 @@
     useRaf(
         (t) => {
             time = t;
-            if (limit && t > limit) fail();
+            if (limit && t > limit) timeUp();
         },
         () => phases.playing && input && !over && correct < needed,
     );
@@ -110,25 +109,24 @@
                 document.getElementById(inputId)?.focus();
             }
         } else {
-            fail();
+            fail({}, `That icon was ${selected.color.answer[0]}`);
         }
     }
 </script>
 
 <Frame
     title="Icon decryption"
-    status={input ? 'Name the colour' : shuffleCount < shuffles ? 'Remember the colours' : 'Last layout'}
-    width={480}
+    status={input ? 'Name the colour this icon had' : shuffleCount < shuffles ? 'Remember the colour of each icon' : 'Final layout'}
+    width={520}
     left={limit > 0 ? limit - (input ? time : 0) : null}
     total={limit}
     running={input}
     {phases}
-    stageIcon="lock-code"
     successText="Verification complete"
     failText="Verification failed"
 >
-    {#snippet meta()}
-        {#if input}<Readout label="Decrypted" value="{correct}/{needed}" />{/if}
+    {#snippet facts()}
+        {#if input}{correct} of {needed} named{/if}
     {/snippet}
     <div class="ic-body">
         {#if !input}
@@ -144,11 +142,14 @@
                 <div class="ic-subject">
                     {#if selected}<Icon icon={selected.icon} size={80} stroke={1.5} />{/if}
                 </div>
-                <form class="ic-form" {onsubmit}>
-                    <TextInput id={inputId} bind:value placeholder="Colour name" disabled={over} autocomplete="off" spellcheck="false" />
-                    <Button type="submit" disabled={over}>Submit</Button>
+                <form {onsubmit}>
+                    <Field id={inputId} label="Colour of this icon" hint={COLOR_HINT}>
+                        <div class="ic-row">
+                            <TextInput id={inputId} bind:value disabled={over} autocomplete="off" spellcheck="false" />
+                            <Button type="submit" disabled={over}>Check colour</Button>
+                        </div>
+                    </Field>
                 </form>
-                <p class="ic-colours">{COLOR_LIST}</p>
             </div>
         {/if}
     </div>
@@ -156,7 +157,7 @@
 
 <style>
     .ic-body {
-        min-height: 296px;
+        min-height: 328px;
     }
 
     .ic-grid {
@@ -168,39 +169,37 @@
     .ic-tile {
         display: grid;
         place-items: center;
-        height: 64px;
-        border-radius: var(--au-radius);
+        height: 72px;
         background: var(--au-bg-sunk);
-        border: 1px solid var(--au-border);
+        border: 2px solid var(--au-border);
     }
 
     .ic-ask {
         display: flex;
         flex-direction: column;
-        align-items: stretch;
-        gap: var(--au-s3);
+        gap: var(--au-s4);
     }
 
     .ic-subject {
         display: grid;
         place-items: center;
-        height: 168px;
-        border-radius: var(--au-radius);
+        height: 136px;
         background: var(--au-bg-sunk);
-        border: 1px solid var(--au-border);
+        border: 2px solid var(--au-border);
         color: var(--au-text);
     }
 
-    .ic-form {
+    .ic-ask :global(.au-field) {
+        margin: 0;
+    }
+
+    .ic-row {
         display: flex;
+        align-items: flex-start;
         gap: var(--au-s2);
     }
 
-    .ic-colours {
-        margin: 0;
-        max-width: none;
-        font-size: var(--au-fs-xxs);
-        color: var(--au-hint);
-        text-align: center;
+    .ic-row :global(.au-input) {
+        flex: 1;
     }
 </style>

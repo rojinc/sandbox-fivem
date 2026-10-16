@@ -129,12 +129,10 @@
         flex-direction: column;
         gap: 12px;
     }
-    /* The strip is the kit TextInput itself (sunk dark field), lifted off the world by a shadow. */
+    /* The strip is the kit TextInput itself: a sunk dark field with its 2px ink edge. */
     .bar {
         display: flex;
         align-items: center;
-        border-radius: var(--au-radius);
-        box-shadow: var(--au-shadow-1);
     }
     .bar__input {
         flex: 1;

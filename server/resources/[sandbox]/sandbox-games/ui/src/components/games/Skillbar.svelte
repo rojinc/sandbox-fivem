@@ -10,7 +10,7 @@
      * window of `difficulty` % that starts at a random 35..35+difficulty %.
      * Running out of bar fails.
      */
-    const { params, succeed, fail } = control();
+    const { params, succeed, fail, timeUp } = control();
     const timer = Math.max(100, toNumber(params.timer, 3000));
     const difficulty = Math.max(1, toNumber(params.difficulty, 10));
     const chance = Math.floor(Math.random() * difficulty) + 35;
@@ -26,7 +26,7 @@
         (t) => {
             if (t > timer) {
                 pressed = true;
-                fail();
+                timeUp();
                 return;
             }
             elapsed = t;
@@ -59,10 +59,9 @@
 <style>
     .sb-track {
         position: relative;
-        height: 40px;
-        border-radius: var(--au-radius);
+        height: 48px;
         background: var(--au-bg-sunk);
-        border: 1px solid var(--au-border);
+        border: 2px solid var(--au-border);
         overflow: hidden;
     }
 
@@ -79,12 +78,11 @@
         display: grid;
         place-items: center;
         background: var(--au-action-soft);
-        transition: background var(--au-fast) var(--au-ease);
     }
 
     .sb-key {
         font-size: var(--au-fs-sm);
-        font-weight: 500;
+        font-weight: 700;
         color: var(--au-action);
     }
 
@@ -92,9 +90,9 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        width: 2px;
-        margin-left: -1px;
-        background: var(--au-text);
+        width: 4px;
+        margin-left: -2px;
+        background: var(--au-ink);
     }
 
     .is-ok .sb-zone {

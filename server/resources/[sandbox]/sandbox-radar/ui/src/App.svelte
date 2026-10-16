@@ -8,7 +8,7 @@
     let zoom = $state(1);
     $effect(() => {
         const update = () => {
-            zoom = Math.min(2.5, Math.max(0.75, window.innerWidth / 1920));
+            zoom = Math.min(2.5, Math.max(0.75, Math.min(window.innerWidth / 1920, window.innerHeight / 1080)));
         };
         update();
         window.addEventListener('resize', update);

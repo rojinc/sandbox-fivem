@@ -58,27 +58,24 @@
 </section>
 
 <style>
-    /* Device body: black housing, 1px edge, slight inner shadow. */
+    /*
+     * Device body: black housing, 1px edge and the slight inner shadow asked for
+     * (a device exception to the flat house style), square like the kit.
+     */
     .meter {
         width: 340px;
         padding: 8px 8px 0;
         background: var(--au-bg-sunk);
         border: 1px solid var(--au-border);
         border-radius: var(--au-radius-lg);
-        box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.04),
-            inset 0 -3px 8px rgba(0, 0, 0, 0.55),
-            var(--au-shadow-1);
-        animation: au-rise-in var(--au-normal) var(--au-ease);
+        box-shadow: inset 0 -3px 8px rgba(0, 0, 0, 0.55);
     }
 
-    /* The backlit display window set into the body. */
+    /* The backlit display window set into the body: flat black glass. */
     .display {
         padding: 10px 14px 12px;
         background: var(--hud-black);
-        border: 1px solid #000;
         border-radius: var(--au-radius);
-        box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.9);
         color: var(--au-warning);
     }
 
@@ -181,7 +178,7 @@
         font-size: 12px;
         font-weight: 500;
         line-height: 24px;
-        letter-spacing: 0.16em;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
         color: var(--au-hint);
     }

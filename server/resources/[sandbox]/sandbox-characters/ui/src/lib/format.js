@@ -1,4 +1,28 @@
-import { formatDate, formatMoney, timeAgo } from '@sandbox/ui-kit/util';
+import { formatMoney } from '@sandbox/ui-kit/util';
+
+/** "16 October 2026" (Australian long date). */
+export function longDate(d) {
+    return d.toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+/** "2:40pm" */
+function shortTime(d) {
+    return d.toLocaleTimeString('en-AU', { hour: 'numeric', minute: '2-digit', hour12: true }).replace(/\s/g, '').toLowerCase();
+}
+
+const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
+
+/** "Just now", "25 minutes ago", "2 hours ago", "4 days ago", then the date. */
+function relative(ms, now = Date.now()) {
+    const mins = Math.max(0, Math.floor((now - ms) / 60000));
+    if (mins < 1) return 'Just now';
+    if (mins < 60) return `${plural(mins, 'minute')} ago`;
+    const hours = Math.floor(mins / 60);
+    if (hours < 24) return `${plural(hours, 'hour')} ago`;
+    const days = Math.floor(hours / 24);
+    if (days < 7) return `${plural(days, 'day')} ago`;
+    return longDate(new Date(ms));
+}
 
 /**
  * Lua tables that are empty serialise as `{}` instead of `[]`; anything
@@ -31,7 +55,7 @@ export function yearsBetween(from, to = new Date()) {
 
 export function formatDob(dob) {
     const d = parseDob(dob);
-    return d ? d.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' }) : '—';
+    return d ? longDate(d) : '—';
 }
 
 export function ageFrom(dob, now = new Date()) {
@@ -45,12 +69,13 @@ export function lastPlayed(value) {
     if (!Number.isFinite(n) || n <= 0) return { never: true, relative: 'Never played', absolute: null };
     const ms = n < 1e11 ? n * 1000 : n;
     if (!valid(new Date(ms))) return { never: true, relative: 'Never played', absolute: null };
-    return { never: false, relative: timeAgo(ms), absolute: formatDate(ms) };
+    const d = new Date(ms);
+    return { never: false, relative: relative(ms), absolute: `${longDate(d)}, ${shortTime(d)}` };
 }
 
 /**
  * Jobs: [{ Id, Name, Workplace: false | { Id, Name }, Grade?: { Id, Name, Level } }]
- * Returns the first job as "Grade · Workplace" plus how many more there are.
+ * Returns the first job's grade and workplace, plus how many more jobs there are.
  */
 export function jobSummary(jobs) {
     const list = asArray(jobs).filter((j) => j && typeof j === 'object');
@@ -130,7 +155,7 @@ export function changelogView(c) {
     const title = text(c.title ?? c.Title ?? c.name ?? c.Name ?? c.version ?? c.Version) || "What's new";
     const rawDate = c.date ?? c.Date ?? c.time ?? c.Time ?? c.createdAt;
     const d = typeof rawDate === 'number' || typeof rawDate === 'string' ? parseDob(rawDate) : null;
-    const date = d ? d.toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' }) : null;
+    const date = d ? longDate(d) : null;
     const raw = c.changes ?? c.Changes ?? c.content ?? c.Content ?? c.body ?? c.Body ?? c.description ?? c.Description ?? c.text ?? c.message ?? c.notes ?? c.Notes;
     const items = asArray(typeof raw === 'string' ? [raw] : raw)
         .map((x) => (typeof x === 'string' ? x : x && typeof x === 'object' ? text(x.text ?? x.message ?? x.title ?? x.label ?? x.description) : ''))

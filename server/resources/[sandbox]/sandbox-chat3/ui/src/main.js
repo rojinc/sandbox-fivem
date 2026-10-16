@@ -5,8 +5,8 @@ import { mount } from 'svelte';
 import { installBridge } from './bridge.js';
 import App from './App.svelte';
 
-// Lua never sends icon names. The one icon the chat draws (the "jump to latest"
-// arrow) is a built-in Tabler icon drawn by name through the kit Icon.
+// Lua never sends icon names and the chat draws no icons of its own, so nothing
+// is registered (the kit draws its Tabler set by name where a component needs one).
 installBridge();
 
 mount(App, { target: document.getElementById('app') });

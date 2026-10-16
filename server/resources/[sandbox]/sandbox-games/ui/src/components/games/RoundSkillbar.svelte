@@ -17,7 +17,7 @@
     const C = 2 * Math.PI * R;
     const NEEDLE_RAD = 0.1;
 
-    const { params, succeed, fail } = control();
+    const { params, succeed, fail, timeUp } = control();
     const rate = Math.max(0.01, toNumber(params.rate, 1));
     const difficulty = Math.max(2, toNumber(params.difficulty, 2));
     const key = params.randomKey ? pick(['1', '2', '3']) : 'e';
@@ -40,7 +40,7 @@
             deg = Math.min(360, d);
             if (d + rate > 360) {
                 pressed = true;
-                fail();
+                timeUp();
             }
         },
         () => !over,
@@ -59,14 +59,14 @@
         if (over) return false;
         if (e.repeat || pressed) return true;
         pressed = true;
-        fail();
+        fail({}, 'Wrong key');
         return true;
     });
 
     const needleDeg = (NEEDLE_RAD * 180) / Math.PI;
 </script>
 
-<Frame title="Skill check" width={232} left={fullTurnMs * (1 - deg / 360)} total={fullTurnMs} cover={false} failText="Missed">
+<Frame title="Skill check" width={240} left={fullTurnMs * (1 - deg / 360)} total={fullTurnMs} cover={false} failText="Missed">
     <div class="rs" class:is-ok={won} class:is-bad={over && !won}>
         <svg width={SIZE} height={SIZE} viewBox="0 0 {SIZE} {SIZE}" aria-hidden="true">
             <circle class="rs-track" cx={SIZE / 2} cy={SIZE / 2} r={R} fill="none" stroke-width="12" />
@@ -109,11 +109,10 @@
 
     .rs-window {
         stroke: var(--au-action);
-        transition: stroke var(--au-fast) var(--au-ease);
     }
 
     .rs-needle {
-        stroke: var(--au-text);
+        stroke: var(--au-ink);
     }
 
     .rs-key {
@@ -125,16 +124,11 @@
         width: 64px;
         height: 64px;
         margin: -32px 0 0 -32px;
-        border-radius: var(--au-radius);
-        border: 1px solid var(--au-border-strong);
-        background: var(--au-bg-alt);
+        border: 2px solid var(--au-ink);
+        background: var(--au-bg-sunk);
         font-size: var(--au-fs-xl);
-        font-weight: 500;
+        font-weight: 700;
         color: var(--au-text);
-        transition:
-            background var(--au-fast) var(--au-ease),
-            color var(--au-fast) var(--au-ease),
-            border-color var(--au-fast) var(--au-ease);
     }
 
     .is-ok .rs-window {
@@ -143,7 +137,7 @@
 
     .is-ok .rs-key {
         background: var(--au-success-bg);
-        border-color: var(--au-success-bg);
+        border-color: var(--au-success);
         color: var(--au-success);
     }
 
@@ -153,7 +147,7 @@
 
     .is-bad .rs-key {
         background: var(--au-error-bg);
-        border-color: var(--au-error-bg);
+        border-color: var(--au-error);
         color: var(--au-error);
     }
 </style>

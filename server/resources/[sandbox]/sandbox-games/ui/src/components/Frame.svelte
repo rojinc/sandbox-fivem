@@ -4,15 +4,17 @@
     import { formatLeft } from '../lib/format.js';
 
     /**
-     * The panel every game lives in: a title row (name, a muted phase word,
-     * optional readouts, the mono countdown) over the playfield. Countdown,
-     * bypass stages and the result cover the playfield.
+     * The square panel every game lives in: a title row (name and the mono
+     * countdown), an optional quiet line (what to do now, plus live facts),
+     * then the playfield. Countdown, bypass stages and the result cover the
+     * playfield.
      *
      * left / total   ms remaining and the full limit; left = null hides the clock
-     * running        false shows the clock dimmed (its phase has not started)
+     * running        false shows the clock muted (its phase has not started)
      * phases         a Phases instance; drives the stage and countdown covers
      * cover          false: no result cover, the title row shows the result instead
      * flush          playfield without padding (aim, tracking)
+     * facts          snippet with live facts for the quiet line ("1 mistake left")
      */
     let {
         title,
@@ -24,20 +26,21 @@
         phases = null,
         cover = true,
         flush = false,
-        stageIcon = 'shield-lock',
         stageTexts = STAGE_TEXT,
         successText = 'Success',
         failText = 'Failed',
         caption,
-        meta,
+        facts,
         children,
     } = $props();
 
     const result = $derived(game.result);
     const phase = $derived(phases ? phases.phase : 'play');
-    const low = $derived(running && total > 0 && left !== null && left / total <= 0.25);
-    const stageLabel = $derived(phases ? stageTexts[Math.min(phases.stage, stageTexts.length - 1)] : '');
     const won = $derived(result === 'success' || result === 'perfect');
+    const stageLabel = $derived(phases ? stageTexts[Math.min(phases.stage, stageTexts.length - 1)] : '');
+    const reasonText = $derived(game.reason === 'time' ? 'Time ran out' : game.reason === 'cancelled' ? 'Game stopped' : game.reason);
+    const resultCaption = $derived(won ? (result === 'perfect' ? 'Perfect run' : caption) : (reasonText ?? caption));
+    const showLine = $derived(phase === 'play' && !result && (status || facts));
 </script>
 
 <script module>
@@ -46,16 +49,19 @@
 
 <section class="gm-panel" style:width={width ? `${width}px` : undefined}>
     <header class="gm-head">
-        <h1 class="gm-title">{title}</h1>
-        {#if status && phase === 'play' && !result}<span class="gm-status">{status}</span>{/if}
-        <span class="gm-fill"></span>
-        {#if phase === 'play'}{@render meta?.()}{/if}
-        {#if result && !cover}
-            <span class="gm-result-tag" class:is-ok={won} class:is-bad={!won}>
-                <Icon icon={won ? 'check' : 'x'} stroke={2.25} />{won ? successText : failText}
-            </span>
-        {:else if left !== null}
-            <span class="gm-time au-mono" class:is-idle={!running || phase !== 'play'} class:is-low={low && !result}>{formatLeft(left)}</span>
+        <div class="gm-head__row">
+            <h1 class="gm-title">{title}</h1>
+            {#if result && !cover}
+                <span class="gm-result-tag" class:is-ok={won} class:is-bad={!won}>{won ? successText : (reasonText ?? failText)}</span>
+            {:else if left !== null}
+                <span class="gm-time au-mono" class:is-idle={!running || phase !== 'play'}>{formatLeft(left)}</span>
+            {/if}
+        </div>
+        {#if showLine}
+            <div class="gm-head__line">
+                {#if status}<span class="gm-status">{status}</span>{/if}
+                {#if facts}<span class="gm-facts">{@render facts()}</span>{/if}
+            </div>
         {/if}
     </header>
     <div class="gm-body" class:is-flush={flush}>
@@ -64,35 +70,28 @@
         {#if result && cover}
             <div class="gm-cover gm-cover--result">
                 <div class="gm-result" class:is-ok={won} class:is-bad={!won}>
-                    <Icon icon={won ? 'circle-check' : 'circle-x'} size={40} stroke={1.5} />
+                    <Icon icon={won ? 'check' : 'x'} size={40} stroke={2} />
                     <div class="gm-result__text">{won ? successText : failText}</div>
-                    {#if caption}<div class="gm-result__caption">{caption}</div>{/if}
-                    {#if result === 'perfect'}<div class="gm-result__caption">Perfect run</div>{/if}
+                    {#if resultCaption}<div class="gm-result__caption">{resultCaption}</div>{/if}
                 </div>
             </div>
         {:else if phase === 'stage'}
             <div class="gm-cover">
-                {#key phases.stage}
-                    <div class="gm-stage-block">
-                        {#if phases.stage === 0}
-                            <Spinner size={32} label={stageLabel} />
-                        {:else if phases.stage === 1 && stageTexts.length > 2}
-                            <Icon icon="alert-triangle" size={36} color="var(--au-warning)" />
-                        {:else}
-                            <Icon icon={stageIcon} size={36} color="var(--au-action)" />
-                        {/if}
-                        <div class="gm-stage-block__text">{stageLabel}</div>
-                    </div>
-                {/key}
+                <div class="gm-stage-block">
+                    {#if phases.stage === 0}
+                        <Spinner size={32} label={stageLabel} />
+                    {:else if phases.stage === 1 && stageTexts.length > 2}
+                        <Icon icon="alert-triangle" size={32} color="var(--au-warning)" />
+                    {/if}
+                    <div class="gm-stage-block__text" class:is-warning={phases.stage === 1 && stageTexts.length > 2}>{stageLabel}</div>
+                </div>
             </div>
         {:else if phase === 'countdown'}
             <div class="gm-cover">
-                {#key phases.count}
-                    <div class="gm-count">
-                        <div class="gm-count__label">{phases.count > 0 ? 'Starting in' : 'Start'}</div>
-                        <div class="gm-count__value au-mono">{phases.count > 0 ? phases.count : 'Go'}</div>
-                    </div>
-                {/key}
+                <div class="gm-count">
+                    <div class="gm-count__label">{phases.count > 0 ? 'Starting in' : 'Start now'}</div>
+                    <div class="gm-count__value au-mono">{phases.count > 0 ? phases.count : 'Go'}</div>
+                </div>
             </div>
         {/if}
     </div>
@@ -103,67 +102,70 @@
         position: relative;
         max-width: 96vw;
         background: var(--au-bg);
-        border: 1px solid var(--au-border);
-        border-radius: var(--au-radius-lg);
-        box-shadow: var(--au-shadow-2);
+        border: 2px solid var(--au-ink);
+        border-radius: 0;
         color: var(--au-text);
+        font-size: var(--au-fs-xs);
         overflow: hidden;
     }
 
     .gm-head {
-        display: flex;
-        align-items: center;
-        gap: var(--au-s3);
-        height: 44px;
-        padding: 0 var(--au-s4);
+        padding: var(--au-s3) var(--au-s4);
         border-bottom: 1px solid var(--au-border);
+    }
+
+    .gm-head__row {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: var(--au-s4);
         white-space: nowrap;
     }
 
     .gm-title {
         margin: 0;
-        font-size: var(--au-fs-xs);
-        font-weight: 500;
-        line-height: 1;
-    }
-
-    .gm-status {
-        font-size: var(--au-fs-xs);
-        color: var(--au-muted);
-        line-height: 1;
-    }
-
-    .gm-fill {
-        flex: 1;
+        font-size: var(--au-fs-sm);
+        font-weight: 700;
+        line-height: 1.4;
+        letter-spacing: 0;
     }
 
     .gm-time {
-        min-width: 4ch;
-        text-align: right;
-        font-size: var(--au-fs-sm);
-        font-weight: 500;
-        line-height: 1;
+        font-size: var(--au-fs-md);
+        font-weight: 700;
+        line-height: 1.2;
         color: var(--au-text);
-        transition: color var(--au-fast) var(--au-ease);
     }
 
     .gm-time.is-idle {
-        color: var(--au-hint);
+        color: var(--au-muted);
     }
 
-    .gm-time.is-low {
-        color: var(--au-error);
+    .gm-head__line {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        column-gap: var(--au-s4);
+        margin-top: 2px;
+        color: var(--au-muted);
+        line-height: 1.4;
+    }
+
+    .gm-status,
+    .gm-facts {
+        white-space: nowrap;
+    }
+
+    .gm-facts {
+        color: var(--au-text);
+        font-variant-numeric: tabular-nums;
     }
 
     .gm-result-tag {
-        display: inline-flex;
-        align-items: center;
-        gap: var(--au-s1);
-        height: 24px;
-        padding: 0 var(--au-s2);
-        border-radius: var(--au-radius);
-        font-size: var(--au-fs-xxs);
-        font-weight: 500;
+        padding: 2px var(--au-s2);
+        font-weight: 700;
+        line-height: 1.4;
     }
 
     .gm-result-tag.is-ok {
@@ -192,7 +194,6 @@
         display: grid;
         place-items: center;
         background: var(--au-bg);
-        animation: au-fade-in var(--au-fast) var(--au-ease);
     }
 
     .gm-cover--result {
@@ -215,7 +216,6 @@
         gap: var(--au-s2);
         padding: 0 var(--au-s4);
         text-align: center;
-        animation: au-rise-in var(--au-normal) var(--au-ease);
     }
 
     .gm-result.is-ok {
@@ -228,14 +228,12 @@
 
     .gm-result__text {
         font-size: var(--au-fs-md);
-        font-weight: 500;
+        font-weight: 700;
         line-height: var(--au-lh-heading);
     }
 
     .gm-result__caption {
-        margin-top: calc(-1 * var(--au-s1));
-        font-size: var(--au-fs-xs);
-        color: var(--au-muted);
+        color: var(--au-text);
     }
 
     .gm-stage-block {
@@ -245,12 +243,15 @@
         gap: var(--au-s3);
         padding: 0 var(--au-s4);
         text-align: center;
-        animation: au-rise-in var(--au-normal) var(--au-ease);
     }
 
     .gm-stage-block__text {
         font-size: var(--au-fs-sm);
-        color: var(--au-muted);
+        font-weight: 700;
+    }
+
+    .gm-stage-block__text.is-warning {
+        color: var(--au-warning);
     }
 
     .gm-count {
@@ -258,18 +259,15 @@
         flex-direction: column;
         align-items: center;
         gap: var(--au-s1);
-        animation: au-rise-in var(--au-normal) var(--au-ease);
     }
 
     .gm-count__label {
-        font-size: var(--au-fs-xs);
         color: var(--au-muted);
     }
 
     .gm-count__value {
         font-size: var(--au-fs-xxxl);
-        font-weight: 500;
+        font-weight: 700;
         line-height: 1;
-        color: var(--au-text);
     }
 </style>

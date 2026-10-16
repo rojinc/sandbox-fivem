@@ -14,7 +14,7 @@
      */
     const DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-    const { params, succeed, fail } = control();
+    const { params, succeed, fail, timeUp } = control();
     const code = String(params.total ?? params.data?.code ?? '');
     const digits = code
         .split('')
@@ -33,7 +33,7 @@
     useRaf(
         (t) => {
             time = t;
-            if (t > limit) fail();
+            if (t > limit) timeUp();
         },
         () => phases.playing && limit > 0 && !over,
     );
@@ -56,7 +56,7 @@
         const str = entered.join('');
         const ok = entered.length === digits.length && entered.every((d, i) => d === digits[i]);
         if (ok) succeed(false, { entered: str });
-        else fail({ entered: str });
+        else fail({ entered: str }, 'Wrong code');
     }
 
     onKey(DIGITS, (e) => {
@@ -80,7 +80,8 @@
 
 <Frame
     title="Keypad"
-    width={280}
+    status="Enter the access code"
+    width={300}
     left={limit > 0 ? limit - time : null}
     total={limit}
     {phases}
@@ -118,24 +119,18 @@
         margin-top: var(--au-s4);
     }
 
-    .kp-back,
-    .kp-ok {
+    .kp-back:disabled,
+    .kp-ok:disabled {
         color: var(--au-muted);
     }
 
-    .kp-back:disabled,
-    .kp-ok:disabled {
-        color: var(--au-hint);
-    }
-
     .kp-ok.is-ready {
-        background: var(--au-success-bg);
-        border-color: var(--au-success-bg);
-        color: var(--au-success);
+        background: var(--au-ink);
+        box-shadow: 0 3px 0 var(--au-bar);
+        color: var(--au-on-ink);
     }
 
     .kp-ok.is-ready:hover {
-        background: var(--au-success-bg);
-        border-color: var(--au-success);
+        background: var(--au-muted);
     }
 </style>

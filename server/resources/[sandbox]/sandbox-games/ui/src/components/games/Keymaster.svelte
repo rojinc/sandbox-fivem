@@ -1,7 +1,6 @@
 <script>
     import Frame from '../Frame.svelte';
-    import Readout from '../Readout.svelte';
-    import Alley from './KeymasterAlley.svelte';
+        import Alley from './KeymasterAlley.svelte';
     import { game, control } from '../../state/game.svelte.js';
     import { Phases, useRaf } from '../../lib/runes.svelte.js';
     import { asList, clamp, countdownOf, pick, range, shuffle, toNumber } from '../../lib/random.js';
@@ -43,15 +42,25 @@
 
     function onMiss() {
         misses += 1;
-        if (phases.playing && misses > chances) fail();
+        if (phases.playing && misses > chances) fail({}, 'Too many missed keys');
     }
 
-    const width = Math.max(360, alleys * ALLEY_W + (alleys - 1) * GAP + 34);
+    const width = Math.max(400, alleys * ALLEY_W + (alleys - 1) * GAP + 36);
+    const mistakesLeft = (n) => (n <= 0 ? 'No mistakes left' : n === 1 ? 'One mistake left' : `${n} mistakes left`);
 </script>
 
-<Frame title="Keymaster" {width} left={limit - time} total={limit} {phases} stageIcon="keyboard" successText="Verification complete" failText="Verification failed">
-    {#snippet meta()}
-        <Readout label="Mistakes left" value={Math.max(0, chances - misses)} tone={misses >= chances ? 'error' : undefined} />
+<Frame
+    title="Keymaster"
+    status="Press each key as it lands"
+    {width}
+    left={limit - time}
+    total={limit}
+    {phases}
+    successText="Verification complete"
+    failText="Verification failed"
+>
+    {#snippet facts()}
+        {mistakesLeft(chances - misses)}
     {/snippet}
     <div class="km-alleys" style:gap="{GAP}px">
         {#each order as keyIndex, i (keyIndex)}

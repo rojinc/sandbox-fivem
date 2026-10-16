@@ -1,7 +1,6 @@
 <script>
     import Frame from '../Frame.svelte';
-    import Readout from '../Readout.svelte';
-    import { game, control } from '../../state/game.svelte.js';
+        import { game, control } from '../../state/game.svelte.js';
     import { Phases, useRaf } from '../../lib/runes.svelte.js';
     import { clamp, countdownOf, toNumber } from '../../lib/random.js';
     import { legPos, newLeg } from '../../lib/motion.js';
@@ -93,18 +92,17 @@
 
 <Frame
     title="Target verification"
+    status="Click each target before it disappears"
     left={limit - time}
     total={limit}
     {phases}
     flush
-    stageIcon="crosshair"
     successText="Verification complete"
     failText="Verification failed"
     caption="{accuracy}% accuracy, {required}% needed"
 >
-    {#snippet meta()}
-        <Readout label="Accuracy" value="{accuracy}%" tone={hits + misses === 0 ? undefined : accuracy >= required ? 'success' : 'warning'} />
-        <Readout label="Needed" value="{required}%" />
+    {#snippet facts()}
+        {accuracy}% accuracy, {required}% needed
     {/snippet}
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div class="am-field" class:is-live={phases.playing && !over} style:width="{FIELD_W}px" style:height="{FIELD_H}px" onmousedown={miss}>

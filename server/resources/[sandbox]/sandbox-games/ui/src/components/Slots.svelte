@@ -4,7 +4,7 @@
     const slots = $derived(Math.max(length, values.length));
 </script>
 
-<div class="gm-slots">
+<div class="gm-slots" aria-live="polite">
     {#each { length: slots } as _, i (i)}
         <span class="gm-slot au-mono" class:is-filled={values[i] !== undefined}>
             {#if values[i] !== undefined}
@@ -17,7 +17,6 @@
 <style>
     .gm-slots {
         display: flex;
-        justify-content: center;
         gap: var(--au-s2);
     }
 
@@ -25,28 +24,21 @@
         display: grid;
         place-items: center;
         flex: 1;
-        max-width: 44px;
-        height: 48px;
-        border: 1px solid var(--au-border);
-        border-radius: var(--au-radius);
+        height: 52px;
+        border: 2px solid var(--au-border);
         background: var(--au-bg-sunk);
         font-size: var(--au-fs-lg);
-        font-weight: 500;
+        font-weight: 700;
         color: var(--au-text);
-        transition:
-            background var(--au-fast) var(--au-ease),
-            border-color var(--au-fast) var(--au-ease);
     }
 
     .gm-slot.is-filled {
-        border-color: var(--au-border-strong);
-        background: var(--au-bg-alt);
+        border-color: var(--au-ink);
     }
 
     .gm-slot__dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
+        width: 12px;
+        height: 12px;
         background: var(--au-text);
     }
 </style>

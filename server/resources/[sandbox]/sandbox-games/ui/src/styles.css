@@ -5,66 +5,75 @@
     display: grid;
     place-items: center;
     pointer-events: none;
-    animation: au-fade-in var(--au-normal) var(--au-ease);
     transition: opacity 250ms var(--au-ease);
 }
 
+/* The result fades out over 250 ms before Minigame:End (see CONTRACT.md). */
 .gm-stage.is-exiting {
     opacity: 0;
 }
 
 .gm-stage__inner {
     pointer-events: auto;
-    animation: au-rise-in var(--au-normal) var(--au-ease);
 }
 
-/* Square keys shared by the keypad, sequencer and scrambler. */
+/* Square keys for the keypad, sequencer and scrambler: the kit's secondary button look. */
 .gm-key {
     appearance: none;
     display: grid;
     place-items: center;
-    height: 48px;
+    height: 52px;
+    margin-bottom: 3px;
     padding: 0;
-    border: 1px solid var(--au-border);
-    border-radius: var(--au-radius);
+    border: 2px solid transparent;
+    border-radius: 0;
     background: var(--au-bg-alt);
+    box-shadow: 0 3px 0 var(--au-border);
     color: var(--au-text);
     font-family: var(--au-font-mono);
     font-size: var(--au-fs-md);
-    font-weight: 500;
+    font-weight: 700;
     font-variant-numeric: tabular-nums;
     cursor: pointer;
     transition:
-        background var(--au-fast) var(--au-ease),
-        border-color var(--au-fast) var(--au-ease),
+        background-color var(--au-fast) var(--au-ease),
         color var(--au-fast) var(--au-ease);
 }
 
 .gm-key:hover:not(:disabled) {
     background: var(--au-bg-alt-shade);
-    border-color: var(--au-border-strong);
 }
 
 .gm-key:active:not(:disabled) {
-    background: var(--au-border);
+    transform: translateY(3px);
+    box-shadow: none;
+}
+
+.gm-key:focus-visible {
+    outline: 3px solid transparent;
+    background: var(--au-focus);
+    color: var(--au-on-focus);
+    border-color: var(--au-focus);
 }
 
 .gm-key:disabled {
     cursor: default;
 }
 
+/* The key the game is showing you right now. */
 .gm-key.is-lit {
     background: var(--au-action);
-    border-color: var(--au-action);
+    box-shadow: 0 3px 0 var(--au-action-soft);
     color: var(--au-action-contrast);
 }
 
+/* Already pressed in the right order. */
 .gm-key.is-done {
     background: var(--au-success-bg);
-    border-color: var(--au-success-bg);
+    box-shadow: 0 3px 0 var(--au-success-bg);
     color: var(--au-success);
 }
 
 .gm-key.is-quiet {
-    color: var(--au-hint);
+    color: var(--au-muted);
 }

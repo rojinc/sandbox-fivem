@@ -15,10 +15,10 @@
     const STAGES = 1;
     const COLS = 10;
     const SHIFT_MS = 1500;
-    const CELL_W = 48;
+    const CELL_W = 52;
     const GAP = 4;
 
-    const { params, succeed, fail } = control();
+    const { params, succeed, fail, timeUp } = control();
     const size = clamp(Math.floor(toNumber(params.size, 4)), 1, 10);
     const n = size * COLS;
     const difficulty = clamp(Math.floor(toNumber(params.difficulty, 4)), 1, n);
@@ -52,7 +52,7 @@
     useRaf(
         (t) => {
             time = t;
-            if (limit && t > limit) fail();
+            if (limit && t > limit) timeUp();
         },
         () => phases.playing && !over && !submitted,
     );
@@ -73,7 +73,7 @@
         submitted = true;
         const ok = range(difficulty).every((k) => cells[(selected + k) % n].isAnswer);
         if (ok) succeed(false);
-        else fail();
+        else fail({}, 'Wrong cells selected');
         return true;
     });
 
@@ -81,7 +81,15 @@
     const width = COLS * CELL_W + (COLS - 1) * GAP + 34;
 </script>
 
-<Frame title="Pattern" {width} left={limit > 0 ? limit - time : null} total={limit} {phases} stageIcon="layout-grid" stageTexts={['Manual input required']}>
+<Frame
+    title="Pattern"
+    status="Find this sequence in the grid"
+    {width}
+    left={limit > 0 ? limit - time : null}
+    total={limit}
+    {phases}
+    stageTexts={['Manual input required']}
+>
     <div class="pt-target">
         {#each answer as t, i (i)}
             <span class="pt-chip au-mono">{t}</span>
@@ -97,7 +105,6 @@
 <style>
     .pt-target {
         display: flex;
-        justify-content: center;
         gap: var(--au-s2);
         padding-bottom: var(--au-s4);
         margin-bottom: var(--au-s4);
@@ -107,13 +114,12 @@
     .pt-chip {
         display: grid;
         place-items: center;
-        min-width: 48px;
-        height: 40px;
+        min-width: 52px;
+        height: 44px;
         padding: 0 var(--au-s2);
-        border-radius: var(--au-radius);
-        background: var(--au-bg-alt);
+        border: 2px solid var(--au-ink);
         font-size: var(--au-fs-md);
-        font-weight: 500;
+        font-weight: 700;
         color: var(--au-text);
     }
 
@@ -125,20 +131,17 @@
     .pt-cell {
         display: grid;
         place-items: center;
-        height: 36px;
-        border-radius: var(--au-radius);
-        border: 1px solid transparent;
+        height: 40px;
+        border: 2px solid transparent;
         background: var(--au-bg-shade);
-        font-size: var(--au-fs-sm);
+        font-size: var(--au-fs-xs);
         color: var(--au-muted);
-        transition:
-            background var(--au-fast) var(--au-ease),
-            color var(--au-fast) var(--au-ease);
     }
 
     .pt-cell.is-cursor {
-        background: var(--au-action-soft);
-        border-color: var(--au-action);
+        background: var(--au-bg-alt-shade);
+        border-color: var(--au-ink);
         color: var(--au-text);
+        font-weight: 700;
     }
 </style>

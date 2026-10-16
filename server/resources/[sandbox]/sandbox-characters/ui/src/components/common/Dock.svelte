@@ -7,8 +7,8 @@
      * the player's characters standing as peds left of centre (about
      * x 400-870 at 1080p), so the panel must not sit on the left.
      *
-     * Identity block on top, a scrolling body, and an optional pinned footer
-     * (`footer` snippet) for the primary action.
+     * Identity block on top (4px ink rule under it), a scrolling body, and an
+     * optional pinned footer (`footer` snippet) holding the primary action.
      */
     let { title, subline, footer, children } = $props();
 </script>
@@ -17,7 +17,7 @@
     <header class="dock__head">
         <img class="dock__logo" src={logo} alt="" draggable="false" />
         <div class="dock__identity">
-            <strong class="dock__eyebrow">Sandbox RP</strong>
+            <strong class="dock__eyebrow">SandboxRP</strong>
             <h1 class="dock__title">{title}</h1>
             {#if subline}<div class="dock__subline">{subline}</div>{/if}
         </div>
@@ -41,9 +41,8 @@
         flex-direction: column;
         border-left: 1px solid var(--au-border);
         isolation: isolate;
-        animation: au-fade-in var(--au-normal) var(--au-ease);
     }
-    /* #181a1d at 96%: the panel is solid enough to read, the scene still frames it. */
+    /* #181a1d at 96%: solid enough to read, and the scene still frames it. */
     .dock::before {
         content: '';
         position: absolute;
@@ -56,8 +55,9 @@
         display: flex;
         align-items: center;
         gap: 20px;
-        padding: 40px 40px 24px;
-        border-bottom: 1px solid var(--au-border);
+        margin: 0 32px;
+        padding: 36px 0 20px;
+        border-bottom: 4px solid var(--au-ink);
     }
     .dock__logo {
         height: 48px;
@@ -69,22 +69,19 @@
     }
     .dock__eyebrow {
         display: block;
-        color: var(--au-action);
-        font-size: var(--au-fs-xxs);
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
+        font-size: var(--au-fs-xs);
+        font-weight: 800;
     }
     .dock__title {
-        margin: 4px 0 0;
-        font-size: var(--au-fs-xl);
+        margin: 2px 0 0;
+        font-size: var(--au-fs-lg);
         font-weight: 700;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
     .dock__subline {
-        margin-top: 4px;
+        margin-top: 2px;
         color: var(--au-muted);
         font-size: var(--au-fs-xs);
     }
@@ -92,10 +89,11 @@
         flex: 1;
         min-height: 0;
         overflow: auto;
-        padding: 24px 40px 32px;
+        padding: 24px 32px 32px;
     }
     .dock__foot {
-        padding: 20px 40px 32px;
+        margin: 0 32px;
+        padding: 20px 0 32px;
         border-top: 1px solid var(--au-border);
     }
 </style>

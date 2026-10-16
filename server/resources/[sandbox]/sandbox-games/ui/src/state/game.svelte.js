@@ -15,6 +15,7 @@ export const game = $state({
     params: null,
     session: 0,
     result: null,
+    reason: null, // why a game failed: 'time' | 'cancelled' | a short sentence | null
     exiting: false,
 });
 
@@ -34,6 +35,7 @@ export function startGame(params) {
     game.params = params;
     game.session += 1;
     game.result = null;
+    game.reason = null;
     game.exiting = false;
     game.showing = true;
 }
@@ -49,6 +51,7 @@ function scheduleExit() {
             game.showing = false;
             game.params = null;
             game.result = null;
+            game.reason = null;
             game.exiting = false;
             fetchNui('Minigame:End');
         }, FADE_MS);
@@ -60,9 +63,10 @@ function scheduleExit() {
  * state: 0 fail, 1 success, 2 perfect. Extra fields are merged into the Lua
  * event payload, so callers keep them minimal.
  */
-export function finish(session, state, extra = {}) {
+export function finish(session, state, extra = {}, reason = null) {
     if (!game.showing || game.session !== session || game.result !== null) return false;
     game.result = state === 0 ? 'fail' : state === 2 ? 'perfect' : 'success';
+    game.reason = state === 0 ? reason : null;
     stopTick();
     fetchNui('Minigame:Finish', { state, ...extra });
     play(state === 0 ? 'negative' : 'positive');
@@ -74,6 +78,7 @@ export function finish(session, state, extra = {}) {
 export function cancelGame() {
     if (!game.showing || game.result !== null) return;
     game.result = 'fail';
+    game.reason = 'cancelled';
     stopTick();
     scheduleExit();
 }
@@ -90,6 +95,9 @@ export function control() {
         params,
         hasPerfect,
         succeed: (perfect = false, extra) => finish(session, perfect && hasPerfect ? 2 : 1, extra),
-        fail: (extra) => finish(session, 0, extra),
+        /** `reason` is a short sentence shown under the result ("Wrong code"). */
+        fail: (extra, reason = null) => finish(session, 0, extra ?? {}, reason),
+        /** Failed because the time limit ran out. */
+        timeUp: () => finish(session, 0, {}, 'time'),
     };
 }

@@ -1,5 +1,5 @@
 <script>
-    import { Button, TextInput } from '@sandbox/ui-kit';
+    import { Button, Field, TextInput } from '@sandbox/ui-kit';
     import Frame from '../Frame.svelte';
     import { game, control } from '../../state/game.svelte.js';
     import { Phases, useRaf, useTimeout } from '../../lib/runes.svelte.js';
@@ -78,7 +78,7 @@
         return { questions, answer: answers.join(' ') };
     }
 
-    const { params, succeed, fail } = control();
+    const { params, succeed, fail, timeUp } = control();
     const previewMs = Math.max(0, toNumber(params.timer, 5000));
     const limit = toNumber(params.limit, 30000);
     const tiles = clamp(Math.floor(toNumber(params.difficulty, 4)), 1, 8);
@@ -114,7 +114,7 @@
     useRaf(
         (t) => {
             time = t;
-            if (limit && t > limit) fail();
+            if (limit && t > limit) timeUp();
         },
         () => phases.playing && step === 'answer' && !over && !submitted,
     );
@@ -126,21 +126,21 @@
         stopTick();
         const given = value.trim().toLowerCase().replace(/\s+/g, ' ');
         if (given === answer.toLowerCase()) succeed(false);
-        else fail();
+        else fail({}, 'Wrong answer');
     }
 
-    const width = Math.max(560, tiles * TILE + (tiles - 1) * 12 + 34);
+    const width = Math.max(600, tiles * TILE + (tiles - 1) * 12 + 36);
+    const question = questions.map((q) => `the ${QUESTION_LABEL[q.question] ?? q.question} of tile ${q.position}`).join(', then ');
 </script>
 
 <Frame
     title="Visual verification"
-    status={step === 'answer' ? 'Answer the question' : 'Remember the numbers'}
+    status={step === 'answer' ? 'Answer from memory' : 'Remember where each number is'}
     {width}
     left={limit > 0 ? limit - (step === 'answer' ? time : 0) : null}
     total={limit}
     running={step === 'answer'}
     {phases}
-    stageIcon="eye"
     successText="Verification complete"
     failText="Verification failed"
 >
@@ -172,24 +172,13 @@
 
     <div class="cp-answer">
         {#if step === 'answer'}
-            <p class="cp-question">
-                Enter the
-                {#each questions as q, i (i)}
-                    <strong>{QUESTION_LABEL[q.question] ?? q.question}</strong> of tile <span class="cp-pos au-mono">{q.position}</span>{i < questions.length - 1
-                        ? ', then the '
-                        : ''}
-                {/each}
-            </p>
             <form class="cp-form" {onsubmit}>
-                <TextInput
-                    id={inputId}
-                    bind:value
-                    placeholder={numAnswers > 1 ? 'Answers in order, separated by spaces' : 'Answer'}
-                    disabled={over || submitted}
-                    autocomplete="off"
-                    spellcheck="false"
-                />
-                <Button type="submit" disabled={over || submitted}>Submit</Button>
+                <Field id={inputId} label="Type {question}" hint={numAnswers > 1 ? 'Put a space between your answers.' : undefined}>
+                    <div class="cp-row">
+                        <TextInput id={inputId} bind:value disabled={over || submitted} autocomplete="off" spellcheck="false" />
+                        <Button type="submit" disabled={over || submitted}>Check answer</Button>
+                    </div>
+                </Field>
             </form>
         {/if}
     </div>
@@ -207,15 +196,14 @@
         place-items: center;
         width: 136px;
         height: 136px;
-        border-radius: var(--au-radius);
-        border: 1px solid var(--au-border);
+        border: 2px solid var(--au-border);
         background: var(--au-bg-alt);
         overflow: hidden;
     }
 
     .cp-index {
         font-size: var(--au-fs-xxxl);
-        font-weight: 500;
+        font-weight: 700;
         line-height: 1;
         color: var(--au-text);
         transform: scale(1);
@@ -246,32 +234,21 @@
     }
 
     .cp-answer {
-        min-height: 112px;
+        min-height: 140px;
         margin-top: var(--au-s4);
     }
 
-    .cp-question {
-        max-width: none;
-        margin: 0 0 var(--au-s3);
-        font-size: var(--au-fs-xs);
-        color: var(--au-muted);
-        text-align: center;
+    .cp-form :global(.au-field) {
+        margin: 0;
     }
 
-    .cp-question strong {
-        font-weight: 500;
-        color: var(--au-text);
-    }
-
-    .cp-pos {
-        font-weight: 500;
-        color: var(--au-action);
-    }
-
-    .cp-form {
+    .cp-row {
         display: flex;
+        align-items: flex-start;
         gap: var(--au-s2);
-        max-width: 480px;
-        margin: 0 auto;
+    }
+
+    .cp-row :global(.au-input) {
+        flex: 1;
     }
 </style>

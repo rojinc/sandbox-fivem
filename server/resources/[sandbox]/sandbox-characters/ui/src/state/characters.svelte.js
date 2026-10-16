@@ -37,9 +37,9 @@ const initial = () => ({
 export const characters = $state(initial());
 
 const FAILURE_TEXT = {
-    create: 'The character could not be created. You may have reached your slot limit.',
-    delete: 'The character could not be deleted. Try again in a moment.',
-    select: 'No spawn points are available for this character right now.',
+    create: 'Your character was not created. Check you have a free slot, then try again.',
+    delete: 'Your character was not deleted. Try again in a minute.',
+    select: 'There are no spawn points for this character right now. Try again in a minute, or choose another character.',
 };
 
 /** Default highlight: the most recently played character, else the first. */

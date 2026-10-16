@@ -1,7 +1,6 @@
 <script>
     import Frame from '../Frame.svelte';
-    import Readout from '../Readout.svelte';
-    import { game, control } from '../../state/game.svelte.js';
+        import { game, control } from '../../state/game.svelte.js';
     import { Phases, useRaf } from '../../lib/runes.svelte.js';
     import { clamp, countdownOf, range, shuffle, toNumber } from '../../lib/random.js';
     import { play } from '../../lib/sounds.js';
@@ -11,7 +10,7 @@
      * then click them all within `limit` ms. `errors` wrong tiles fail. No
      * wrong tile is a perfect result.
      */
-    const { params, succeed, fail } = control();
+    const { params, succeed, fail, timeUp } = control();
     const cols = clamp(Math.floor(toNumber(params.cols, 3)), 1, 12);
     const rows = clamp(Math.floor(toNumber(params.rows, 3)), 1, 12);
     const total = cols * rows;
@@ -40,7 +39,7 @@
                 return;
             }
             time += dt;
-            if (limit && time > limit) fail();
+            if (limit && time > limit) timeUp();
         },
         () => phases.playing && !over && !done,
     );
@@ -53,10 +52,11 @@
         const f = clicked.length - s;
         if (f >= active || s >= errors) {
             if (f >= active && s < errors) succeed(s === 0);
-            else fail();
+            else fail({}, 'Too many wrong tiles');
         }
     }
 
+    const mistakesLeft = (n) => (n <= 0 ? 'No mistakes left' : n === 1 ? 'One mistake left' : `${n} mistakes left`);
     const size = clamp(Math.floor(320 / Math.max(cols, rows)), 32, 56);
     const gap = 6;
     const clickable = $derived(phases.playing && !previewing && !over && !done);
@@ -66,14 +66,14 @@
 <Frame
     title="Memory"
     status={previewing ? 'Remember the tiles' : 'Select the tiles'}
-    width={Math.max(280, cols * size + (cols - 1) * gap + 34)}
+    width={Math.max(340, cols * size + (cols - 1) * gap + 36)}
     left={limit > 0 ? limit - time : null}
     total={limit}
     running={!previewing}
     {phases}
 >
-    {#snippet meta()}
-        {#if !previewing}<Readout label="Mistakes left" value={Math.max(0, errors - 1 - strikes)} />{/if}
+    {#snippet facts()}
+        {#if !previewing}{mistakesLeft(errors - 1 - strikes)}{/if}
     {/snippet}
     <div class="mm-grid" class:is-live={clickable} style:grid-template-columns="repeat({cols}, {size}px)" style:grid-auto-rows="{size}px" style:gap="{gap}px">
         {#each cells as i (i)}
@@ -105,12 +105,12 @@
     .mm-cell {
         appearance: none;
         padding: 0;
-        border: 1px solid var(--au-border);
-        border-radius: var(--au-radius);
-        background: var(--au-bg-alt);
+        border: 2px solid transparent;
+        border-radius: 0;
+        background: var(--au-bg-alt-shade);
         cursor: default;
         transition:
-            background var(--au-fast) var(--au-ease),
+            background-color var(--au-fast) var(--au-ease),
             border-color var(--au-fast) var(--au-ease);
     }
 
@@ -119,27 +119,22 @@
     }
 
     .is-live .mm-cell:not(:disabled):hover {
-        background: var(--au-bg-alt-shade);
-        border-color: var(--au-border-strong);
+        border-color: var(--au-ink);
     }
 
     .mm-cell.is-show {
         background: var(--au-action);
-        border-color: var(--au-action);
     }
 
     .mm-cell.is-hit {
         background: var(--au-success);
-        border-color: var(--au-success);
     }
 
     .mm-cell.is-wrong {
         background: var(--au-error);
-        border-color: var(--au-error);
     }
 
     .mm-cell.is-missed {
-        background: var(--au-action-soft);
         border-color: var(--au-action);
     }
 </style>

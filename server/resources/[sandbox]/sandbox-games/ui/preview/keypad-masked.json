@@ -1,6 +1,8 @@
 {
+  "viewport": [1920, 1080],
+  "backdrop": true,
   "wait": 3600,
   "messages": [
-    { "type": "SHOW_GAME", "data": { "game": { "type": "keypad", "countdown": 2, "limit": 10000, "total": "4821", "mask": true, "data": { "code": "4821" }, "needsMouse": true, "events": { "onSuccess": "Minigame:Test:Success", "onFail": "Minigame:Test:Fail" } } } }
+    {"type": "SHOW_GAME", "data": {"game": {"type": "keypad", "countdown": 2, "limit": 10000, "total": "4821", "mask": true, "data": {"code": "4821"}, "needsMouse": true, "events": {"onSuccess": "Minigame:Test:Success", "onFail": "Minigame:Test:Fail"}}}}
   ]
 }

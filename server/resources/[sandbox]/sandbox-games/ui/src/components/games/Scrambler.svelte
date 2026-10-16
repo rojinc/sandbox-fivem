@@ -1,7 +1,6 @@
 <script>
     import Frame from '../Frame.svelte';
-    import Readout from '../Readout.svelte';
-    import { game, control } from '../../state/game.svelte.js';
+        import { game, control } from '../../state/game.svelte.js';
     import { Phases, useRaf, useTimeout } from '../../lib/runes.svelte.js';
     import { countdownOf, range, shuffle, toNumber } from '../../lib/random.js';
     import { play } from '../../lib/sounds.js';
@@ -12,7 +11,7 @@
      * wrong presses are tolerated, the next one fails. `limit` ms overall.
      * No wrong press is a perfect result.
      */
-    const { params, succeed, fail } = control();
+    const { params, succeed, fail, timeUp } = control();
     const numbers = Math.max(1, Math.floor(toNumber(params.difficulty, 8)));
     const strikesAllowed = Math.max(0, Math.floor(toNumber(params.total, 0)));
     const change = toNumber(params.timer, 0);
@@ -38,7 +37,7 @@
         (_, dt) => {
             time += dt;
             if (limit && time > limit) {
-                fail();
+                timeUp();
                 return;
             }
             if (submitting && change > 0) {
@@ -61,7 +60,7 @@
             entered += 1;
             if (entered >= numbers) succeed(strikes === 0);
         } else if (strikes >= strikesAllowed) {
-            fail();
+            fail({}, 'Too many wrong numbers');
         } else {
             play('negative');
             strikes += 1;
@@ -69,11 +68,19 @@
     }
 
     const cols = Math.min(4, numbers);
+    const mistakesLeft = (n) => (n <= 0 ? 'No mistakes left' : n === 1 ? 'One mistake left' : `${n} mistakes left`);
 </script>
 
-<Frame title="Scrambler" width={cols * 64 + (cols - 1) * 8 + 34} left={limit > 0 ? limit - time : null} total={limit} {phases}>
-    {#snippet meta()}
-        <Readout label="Mistakes left" value={strikesAllowed - strikes} tone={strikes >= strikesAllowed ? 'error' : undefined} />
+<Frame
+    title="Scrambler"
+    status="Press the numbers in order"
+    width={Math.max(320, cols * 64 + (cols - 1) * 8 + 36)}
+    left={limit > 0 ? limit - time : null}
+    total={limit}
+    {phases}
+>
+    {#snippet facts()}
+        {mistakesLeft(strikesAllowed - strikes)}
     {/snippet}
     <div class="sr-grid" style:grid-template-columns="repeat({cols}, 64px)">
         {#each layout as d (d)}

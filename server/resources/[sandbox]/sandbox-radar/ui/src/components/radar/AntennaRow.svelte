@@ -113,8 +113,6 @@
         height: 60px;
         padding: 0 10px 0 12px;
         background: var(--hud-black);
-        border: 1px solid #000;
         border-radius: var(--au-radius);
-        box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.9);
     }
 </style>

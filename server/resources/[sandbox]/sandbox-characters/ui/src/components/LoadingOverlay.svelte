@@ -1,16 +1,20 @@
 <script>
     import { Spinner } from '@sandbox/ui-kit';
-    import { app } from '../state/app.svelte.js';
+    import { app, STATE_CHARACTERS, STATE_SPAWN } from '../state/app.svelte.js';
 
-    /** Full-screen wait while Lua or the server is working (LOADING_SHOW / LOADING_HIDE). */
+    /**
+     * LOADING_SHOW / LOADING_HIDE. While the docked panel is up the wait
+     * covers only the panel, so the scene stays visible. Otherwise (welcome,
+     * first load) it is a spinner and text straight on the world.
+     */
     const message = $derived(app.loadingMessage ?? 'Loading');
+    const docked = $derived(app.state === STATE_CHARACTERS || app.state === STATE_SPAWN);
 </script>
 
 {#if app.loading}
-    <div class="loading" role="status" aria-live="polite" aria-busy="true">
+    <div class="loading" class:loading--docked={docked} role="status" aria-live="polite" aria-busy="true">
         <Spinner size={40} label={message} />
-        <div class="loading__title">{message}</div>
-        <div class="loading__sub">This only takes a moment.</div>
+        <div class="loading__title" class:au-overworld={!docked}>{message}</div>
     </div>
 {/if}
 
@@ -23,27 +27,28 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 4px;
-        animation: au-fade-in var(--au-normal) var(--au-ease);
+        gap: 16px;
     }
-    /* The page behind stays faintly visible so the wait reads as "working on this". */
-    .loading::before {
+    /* Over the panel only, with the panel's own surface so its content does not show through. */
+    .loading--docked {
+        left: auto;
+        width: 720px;
+        isolation: isolate;
+    }
+    .loading--docked::before {
         content: '';
         position: absolute;
         inset: 0;
         z-index: -1;
         background: var(--au-bg);
-        opacity: 0.96;
+        opacity: 0.94;
     }
-    .loading :global(.au-spinner) {
-        margin-bottom: 16px;
+    /* On the world the arc is ink so it reads on any scene (blue is for links). */
+    .loading:not(.loading--docked) :global(.au-spinner) {
+        border-top-color: var(--au-ink);
     }
     .loading__title {
         font-size: var(--au-fs-md);
-        font-weight: 500;
-    }
-    .loading__sub {
-        color: var(--au-muted);
-        font-size: var(--au-fs-xs);
+        font-weight: 700;
     }
 </style>

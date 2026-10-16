@@ -1,5 +1,5 @@
 <script>
-    import { Button, EmptyState, PageAlert, onKey } from '@sandbox/ui-kit';
+    import { Button, PageAlert, onKey } from '@sandbox/ui-kit';
     import { app } from '../../state/app.svelte.js';
     import { characters, select, selectedCharacter, canCreate } from '../../state/characters.svelte.js';
     import { playCharacter, deleteCharacter, createCharacter } from '../../lib/flows.js';
@@ -13,8 +13,8 @@
 
     /**
      * STATE_CHARACTERS: the roster as a table in the docked panel, news below
-     * it, and the selected character's record with Delete / Play pinned at the
-     * foot. Create and delete happen in modals.
+     * it, and the selected character's record with Play / Delete pinned at
+     * the foot. Create and delete happen in modals.
      */
     let creating = $state(false);
     let deleting = $state(null);
@@ -56,7 +56,7 @@
     {#if selected}
         <CharacterDetails character={selected} disabled={app.loading} onplay={() => playCharacter(selected)} ondelete={() => (deleting = selected)} />
     {:else}
-        <p class="pick au-muted">Select a character to play.</p>
+        <p class="pick au-muted">Select a character in the table to play.</p>
     {/if}
 {/snippet}
 
@@ -64,9 +64,11 @@
     <div class="cs-section-head">
         <h2>Your characters</h2>
         <span class="cs-meta">{slots}</span>
-        <div class="cs-push">
-            <Button variant="secondary" size="sm" icon="user-plus" disabled={!allowCreate || app.loading} onclick={() => (creating = true)}>New character</Button>
-        </div>
+        {#if allowCreate && list.length}
+            <div class="cs-push">
+                <Button variant="secondary" size="sm" disabled={app.loading} onclick={() => (creating = true)}>Create character</Button>
+            </div>
+        {/if}
     </div>
 
     <Notice />
@@ -78,12 +80,8 @@
         {/if}
     {:else}
         <div class="empty">
-            <EmptyState icon="users" title="You have no characters yet">
-                Create your first character to start playing.
-                {#snippet actions()}
-                    <Button icon="user-plus" disabled={!allowCreate || app.loading} onclick={() => (creating = true)}>Create a character</Button>
-                {/snippet}
-            </EmptyState>
+            <p>Your characters appear here. You have none yet, so create one to start playing.</p>
+            <Button disabled={!allowCreate || app.loading} onclick={() => (creating = true)}>Create character</Button>
         </div>
     {/if}
 
@@ -119,9 +117,12 @@
         max-width: none;
     }
     .empty {
-        border: 1px dashed var(--au-border-strong);
-        border-radius: var(--au-radius-lg);
-        padding: 16px 0;
+        padding: 20px 0 4px;
+    }
+    .empty p {
+        margin: 0 0 16px;
+        max-width: none;
+        color: var(--au-muted);
     }
     :global(.au-alert.limit) {
         margin: 16px 0 0;

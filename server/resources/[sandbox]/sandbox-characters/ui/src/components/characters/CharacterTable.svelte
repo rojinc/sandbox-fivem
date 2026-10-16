@@ -10,9 +10,9 @@
     <colgroup>
         <col />
         <col style="width:84px" />
-        <col style="width:150px" />
-        <col style="width:108px" />
-        <col style="width:96px" />
+        <col style="width:140px" />
+        <col style="width:140px" />
+        <col style="width:104px" />
     </colgroup>
     <thead>
         <tr>
@@ -38,7 +38,7 @@
             >
                 <td>
                     <div class="name">
-                        <span class="cs-name au-truncate">{fullName(c)}</span>
+                        <span class="au-truncate">{fullName(c)}</span>
                         {#if played.never}<Tag tone="info">New</Tag>{/if}
                     </div>
                     <div class="cs-sub">{genderLabel(c.Gender)}{#if age !== null}, {age}{/if}</div>
@@ -69,8 +69,5 @@
         align-items: center;
         gap: 8px;
         min-width: 0;
-    }
-    td {
-        font-size: var(--au-fs-xs);
     }
 </style>

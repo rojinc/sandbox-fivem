@@ -1,5 +1,4 @@
 <script>
-    import { fade } from 'svelte/transition';
     import { Icon } from '@sandbox/ui-kit';
     import { radar, hasSpeed, isFastArmed } from '../../state/radar.svelte.js';
     import { POSITIONS, DEFAULT_POSITION } from '../../positions.js';
@@ -54,7 +53,7 @@
 </script>
 
 {#if radar.visible}
-    <div class="dock" style={pos.style} transition:fade={{ duration: 200 }}>
+    <div class="dock" style={pos.style}>
         <section class="unit" style="transform:scale({scale});transform-origin:{pos.origin}" aria-label="Speed radar">
             <div class="unit__face">
                 <div class="unit__antennas">
@@ -103,7 +102,7 @@
     .dock {
         position: absolute;
     }
-    /* Housing: black body, 1px edge, slight inner shadow. */
+    /* Housing: square black body with a 1px edge (a device, drawn as one). */
     .unit {
         width: 640px;
         padding: 4px 14px 0;
@@ -111,11 +110,6 @@
         border: 1px solid var(--au-border);
         border-radius: var(--au-radius-lg);
         color: var(--au-text);
-        box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.04),
-            inset 0 -3px 8px rgba(0, 0, 0, 0.55),
-            var(--au-shadow-1);
-        transition: transform var(--au-slow) var(--au-ease);
     }
     .unit__face {
         display: grid;
@@ -146,9 +140,7 @@
         flex: 1;
         max-height: 120px;
         background: var(--hud-black);
-        border: 1px solid #000;
         border-radius: var(--au-radius);
-        box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.9);
     }
     .unit__flags {
         display: flex;
@@ -161,16 +153,16 @@
         display: flex;
         align-items: center;
         gap: 8px;
-        min-height: 32px;
-        padding: 4px 10px;
+        min-height: 36px;
+        padding: 6px 10px;
         background: var(--au-error-bg);
         border-radius: var(--au-radius);
         color: var(--au-error);
-        font-size: 14px;
-        line-height: 20px;
+        font-size: 16px;
+        line-height: 24px;
     }
     .flag :global(.au-icon) {
-        font-size: 16px;
+        font-size: 20px;
     }
     .flag__text {
         display: flex;

@@ -11,7 +11,7 @@
      * ms. Press the key while it is within `difficulty` bars of the target;
      * exactly on the target is a perfect result. `limit` ms of sweeping fails.
      */
-    const { params, succeed, fail, hasPerfect } = control();
+    const { params, succeed, fail, timeUp, hasPerfect } = control();
     const total = Math.max(2, Math.floor(toNumber(params.total, 20)));
     const difficulty = Math.max(0, Math.floor(toNumber(params.difficulty, 0)));
     const step = Math.max(10, toNumber(params.timer, 100));
@@ -37,7 +37,7 @@
             if (over || pressed) return;
             if (limit && time > limit) {
                 pressed = true;
-                fail();
+                timeUp();
                 return;
             }
             const next = current + dir;
@@ -83,8 +83,7 @@
         flex: 1;
         display: grid;
         place-items: center;
-        border-radius: var(--au-radius);
-        border: 1px solid transparent;
+        border: 2px solid transparent;
         background: var(--au-bg-alt);
     }
 
@@ -97,18 +96,18 @@
     }
 
     .sc-bar.is-lit {
-        background: var(--au-text);
-        border-color: var(--au-text);
+        background: var(--au-ink);
+        border-color: var(--au-ink);
     }
 
     .sc-key {
         font-size: var(--au-fs-sm);
-        font-weight: 500;
+        font-weight: 700;
         color: var(--au-action);
     }
 
     .sc-bar.is-lit .sc-key {
-        color: var(--au-action-contrast);
+        color: var(--au-on-ink);
     }
 
     .is-ok .sc-bar.is-lit {

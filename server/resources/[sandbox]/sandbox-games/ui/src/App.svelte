@@ -19,7 +19,7 @@
     // Escape gives up: the game fails through the normal path, so Lua always releases focus.
     onKey('Escape', () => {
         if (!game.showing || game.result !== null) return false;
-        finish(game.session, 0);
+        finish(game.session, 0, {}, 'cancelled');
         return true;
     });
 

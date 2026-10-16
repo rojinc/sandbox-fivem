@@ -1,8 +1,8 @@
 /*
  * Character select: a console panel docked right over the game scene (the
- * characters stand as peds on the left). Designed in px at 1920x1080;
+ * characters stand as peds left of centre). Designed in px at 1920x1080;
  * App.svelte zooms .cs-root for other resolutions. Everything outside the
- * panel stays transparent.
+ * panel stays transparent. Text is 16px minimum.
  */
 .cs-root {
     position: fixed;
@@ -12,7 +12,7 @@
     color: var(--au-text);
 }
 
-/* Record tables: rows are selected (surface only, no edge rule), double-click plays. */
+/* Record tables: the selected row gets the selected surface and bold (kit), no edge rule. */
 .cs-table {
     table-layout: fixed;
 }
@@ -28,51 +28,38 @@
 }
 .cs-table th:first-child,
 .cs-table td:first-child {
-    padding-left: 12px;
+    padding-left: 8px;
 }
 .cs-table th:last-child,
 .cs-table td:last-child {
-    padding-right: 12px;
-}
-.cs-table tbody tr {
-    transition: background var(--au-fast) var(--au-ease);
+    padding-right: 8px;
 }
 .cs-table tbody tr.is-selected,
 .cs-table tbody tr.is-selected:hover {
     background: var(--au-bg-alt-shade);
 }
-.cs-name {
-    font-size: var(--au-fs-sm);
-    font-weight: 500;
-    color: var(--au-text);
-}
 .cs-sub {
-    margin-top: 2px;
-    color: var(--au-hint);
-    font-size: 13px;
+    color: var(--au-muted);
+    font-weight: 400;
 }
 
-/* Section heading: title, muted meta, actions on the right. */
+/* Section heading: title, muted meta, one action on the right. */
 .cs-section-head {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: 12px;
-    min-height: 40px;
     margin-bottom: 12px;
 }
 .cs-section-head h2 {
     margin: 0;
     font-size: var(--au-fs-md);
-    font-weight: 500;
 }
 .cs-section-head .cs-meta {
     color: var(--au-muted);
-    font-size: var(--au-fs-xs);
 }
 .cs-section-head .cs-push {
     margin-left: auto;
-    display: flex;
-    gap: 8px;
+    align-self: center;
 }
 
 /* Plain text sections below the list (no boxes, no edge bars). */
@@ -82,19 +69,17 @@
     border-top: 1px solid var(--au-border);
 }
 .cs-note + .cs-note {
-    margin-top: 28px;
+    margin-top: 24px;
 }
 .cs-note h2 {
-    margin: 0 0 8px;
+    margin: 0 0 4px;
     font-size: var(--au-fs-sm);
-    font-weight: 700;
 }
 .cs-note p,
 .cs-note ul,
 .cs-note .cs-note__body {
     margin: 0;
     max-width: none;
-    font-size: var(--au-fs-xs);
     color: var(--au-muted);
 }
 .cs-note ul {
@@ -104,18 +89,14 @@
     margin-top: 4px;
 }
 .cs-note .cs-note__date {
-    margin: -4px 0 8px;
-    color: var(--au-hint);
-    font-size: 13px;
+    margin: 0 0 8px;
 }
 .cs-note b,
 .cs-note strong {
     color: var(--au-text);
-    font-weight: 500;
 }
 
-/* Pinned footer record: what the primary button will act on. */
+/* Muted label above a value in the pinned footer. */
 .cs-label {
-    color: var(--au-hint);
-    font-size: 13px;
+    color: var(--au-muted);
 }

@@ -16,16 +16,19 @@
     const cfx = $derived(isCfxMessage(message));
     const kind = $derived(kindOf(message.type));
 
-    /** Author line for the sandbox kinds: name, state id, phone, reply target. */
+    /**
+     * Author line for the sandbox kinds: the name, then each fact on its own
+     * (state id, phone, reply target) rather than one dot-separated string.
+     */
     const author = $derived.by(() => {
         const a = message.author;
-        if (!a || typeof a !== 'object') return { name: null, meta: null };
-        if (a.Anonymous) return { name: 'Anonymous', meta: a.SID !== undefined ? `#${a.SID}` : null };
-        const bits = [];
-        if (a.SID !== undefined) bits.push(`#${a.SID}`);
-        if (a.Phone) bits.push(String(a.Phone));
-        if (a.Reply !== undefined) bits.push(`to #${a.Reply}`);
-        return { name: [a.First, a.Last].filter(Boolean).join(' ') || null, meta: bits.join(' · ') || null };
+        if (!a || typeof a !== 'object') return { name: null, facts: [] };
+        if (a.Anonymous) return { name: 'Anonymous', facts: a.SID !== undefined ? [{ text: `#${a.SID}`, id: true }] : [] };
+        const facts = [];
+        if (a.SID !== undefined) facts.push({ text: `#${a.SID}`, id: true });
+        if (a.Phone) facts.push({ text: String(a.Phone), id: true });
+        if (a.Reply !== undefined) facts.push({ text: `replying to #${a.Reply}`, id: false });
+        return { name: [a.First, a.Last].filter(Boolean).join(' ') || null, facts };
     });
 
     // Body as sanitised HTML. Plain-text kinds are escaped first so a "<b>" typed by a player stays text.
@@ -41,7 +44,7 @@
         {#if !cfx}
             <Tag tone={kind.tone} solid={kind.solid}>{kind.label}</Tag>
             {#if author.name}<span class="msg__name">{author.name}</span>{/if}
-            {#if author.meta}<span class="msg__meta au-mono au-muted">{author.meta}</span>{/if}
+            {#each author.facts as f (f.text)}<span class="msg__fact au-muted" class:au-mono={f.id}>{f.text}</span>{/each}
         {/if}
         <span class="msg__body" class:msg__body--pre={!cfx || Boolean(message.multiline)}>{@html html}</span>
     </div>
@@ -55,7 +58,7 @@
         column-gap: 12px;
         align-items: start;
         padding: 6px 12px;
-        border-bottom: 1px solid rgba(51, 55, 60, 0.6);
+        border-bottom: 1px solid var(--au-border);
         font-size: var(--au-fs-xs);
         line-height: var(--au-lh);
     }
@@ -67,17 +70,14 @@
         overflow-wrap: anywhere;
     }
     .msg__line :global(.au-tag) {
-        height: 20px;
         margin-right: 8px;
-        padding: 0 6px;
-        line-height: 20px;
         vertical-align: 1px;
     }
     .msg__name {
         font-weight: 700;
         margin-right: 6px;
     }
-    .msg__meta {
+    .msg__fact {
         margin-right: 8px;
     }
     .msg__body--pre {
@@ -103,9 +103,8 @@
         border-radius: var(--au-radius);
     }
     .msg__time {
-        font-size: var(--au-fs-xxs);
-        line-height: 21px;
-        color: var(--au-hint);
+        font-size: var(--au-fs-xs);
+        line-height: var(--au-lh);
         white-space: nowrap;
     }
 </style>

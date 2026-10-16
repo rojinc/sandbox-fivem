@@ -11,7 +11,7 @@
      * repeat the sequence within `limit` ms. Correct within the first 25 % of
      * the time is a perfect result.
      */
-    const { params, succeed, fail } = control();
+    const { params, succeed, fail, timeUp } = control();
     const length = Math.max(1, Math.floor(toNumber(params.difficulty, 4)));
     const flash = Math.max(50, toNumber(params.timer, 300));
     const limit = toNumber(params.limit, 0);
@@ -41,7 +41,7 @@
     useRaf(
         (t) => {
             time = t;
-            if (limit && t > limit) fail();
+            if (limit && t > limit) timeUp();
         },
         () => phases.playing && submitting && !over && entered.length < length,
     );
@@ -52,7 +52,7 @@
         entered = [...entered, d];
         if (entered.length === length) {
             if (entered.every((v, i) => v === sequence[i])) succeed(limit > 0 && (time / limit) * 100 <= 25);
-            else fail();
+            else fail({}, 'The order did not match');
         }
     }
 
@@ -62,13 +62,12 @@
 
 <Frame
     title="Sequence"
-    status={submitting ? 'Repeat it' : 'Watch'}
-    width={296}
+    status={submitting ? 'Press the keys in the same order' : 'Watch the keys light up'}
+    width={320}
     left={limit > 0 ? limit - (submitting ? time : 0) : null}
     total={limit}
     running={submitting}
     {phases}
-    failText="Wrong sequence"
 >
     <Slots {length} values={entered} {mask} />
     <div class="sq-pad">

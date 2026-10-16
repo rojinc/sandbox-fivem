@@ -1,6 +1,8 @@
 {
+  "viewport": [1920, 1080],
+  "backdrop": true,
   "wait": 15300,
   "messages": [
-    { "type": "SHOW_GAME", "data": { "game": { "type": "icons", "countdown": 1, "timer": 5, "limit": 7500, "delay": 1500, "difficulty": 8, "difficulty2": 4, "needsMouse": true, "events": { "onSuccess": "Minigame:Test:Success", "onFail": "Minigame:Test:Fail" } } } }
+    {"type": "SHOW_GAME", "data": {"game": {"type": "icons", "countdown": 1, "timer": 5, "limit": 7500, "delay": 1500, "difficulty": 8, "difficulty2": 4, "needsMouse": true, "events": {"onSuccess": "Minigame:Test:Success", "onFail": "Minigame:Test:Fail"}}}}
   ]
 }

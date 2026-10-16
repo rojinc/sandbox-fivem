@@ -1,0 +1,8 @@
+{
+  "viewport": [2560, 1440],
+  "backdrop": true,
+  "wait": 6000,
+  "messages": [
+    {"type": "SHOW_GAME", "data": {"game": {"type": "memory", "countdown": 1, "timer": 3000, "limit": 9000, "cols": 5, "rows": 5, "errors": 2, "difficulty": 6, "total": 25, "needsMouse": true, "events": {"onSuccess": "Minigame:Test:Success", "onFail": "Minigame:Test:Fail", "onPerfect": "Minigame:Test:Perfect"}}}}
+  ]
+}

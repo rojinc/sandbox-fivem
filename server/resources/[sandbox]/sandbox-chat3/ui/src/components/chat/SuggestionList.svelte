@@ -14,7 +14,7 @@
 
 <div class="sugg" role="listbox" aria-label="Matching commands">
     {#if shown.length === 0}
-        <div class="sugg__note au-muted">No matching commands</div>
+        <div class="sugg__note au-muted">No command matches what you typed. Type / on its own to see every command you can use.</div>
     {:else}
         {#each shown as s, i (s.name)}
             {@const active = i === 0}
@@ -31,19 +31,19 @@
             </div>
         {/each}
         {#if extra > 0}
-            <div class="sugg__note au-muted">{extra} more. Keep typing to narrow the list.</div>
+            <div class="sugg__note au-muted">{extra} more {extra === 1 ? 'command' : 'commands'}. Keep typing to narrow the list.</div>
         {/if}
     {/if}
 </div>
 
 <style>
+    /* A menu: page colour with a 2px ink frame, square, no shadow. */
     .sugg {
         background: var(--au-bg);
         color: var(--au-text);
-        border: 1px solid var(--au-border);
+        border: 2px solid var(--au-ink);
         border-radius: var(--au-radius-lg);
-        box-shadow: var(--au-shadow-1);
-        padding: 4px;
+        padding: 0;
         font-size: var(--au-fs-xs);
         line-height: var(--au-lh);
     }
@@ -52,23 +52,24 @@
         align-items: baseline;
         gap: 8px;
         min-width: 0;
-        padding: 4px 8px;
-        border-radius: var(--au-radius);
+        padding: 6px 12px;
     }
-    /* Selection is the raised surface only: no edge bar. */
+    /* Selection is the selected surface plus bold: no edge bar. */
     .sugg__row.is-active {
-        background: var(--au-bg-alt);
+        background: var(--au-bg-alt-shade);
     }
     .sugg__name {
-        font-weight: 700;
         flex-shrink: 0;
+    }
+    .sugg__row.is-active .sugg__name {
+        font-weight: 700;
     }
     .sugg__param {
         color: var(--au-muted);
         flex-shrink: 0;
     }
     .sugg__param.is-current {
-        color: var(--au-action);
+        color: var(--au-text);
         font-weight: 700;
     }
     .sugg__help {
@@ -76,6 +77,6 @@
         min-width: 0;
     }
     .sugg__note {
-        padding: 4px 8px;
+        padding: 6px 12px;
     }
 </style>

@@ -1,6 +1,8 @@
 {
+  "viewport": [1920, 1080],
+  "backdrop": true,
   "wait": 4900,
   "messages": [
-    { "type": "SHOW_GAME", "data": { "game": { "type": "sequencer", "countdown": 1, "timer": 500, "limit": 7500, "difficulty": 4, "mask": true, "needsMouse": true, "events": { "onSuccess": "Minigame:Test:Success", "onFail": "Minigame:Test:Fail", "onPerfect": "Minigame:Test:Perfect" } } } }
+    {"type": "SHOW_GAME", "data": {"game": {"type": "sequencer", "countdown": 1, "timer": 500, "limit": 7500, "difficulty": 4, "mask": true, "needsMouse": true, "events": {"onSuccess": "Minigame:Test:Success", "onFail": "Minigame:Test:Fail", "onPerfect": "Minigame:Test:Perfect"}}}}
   ]
 }

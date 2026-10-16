@@ -91,9 +91,8 @@
         width: 112px;
         height: 100%;
         overflow: hidden;
-        border-radius: var(--au-radius);
         background: var(--au-bg-sunk);
-        border: 1px solid var(--au-border);
+        border: 2px solid var(--au-border);
     }
 
     .km-zone {
@@ -112,35 +111,30 @@
         width: 44px;
         height: 44px;
         margin-left: -22px;
-        border-radius: var(--au-radius);
         font-size: var(--au-fs-md);
-        font-weight: 500;
+        font-weight: 700;
     }
 
     .km-cap {
-        background: var(--au-text);
-        color: var(--au-action-contrast);
+        background: var(--au-ink);
+        color: var(--au-on-ink);
     }
 
     .km-receptor {
         bottom: 8px;
-        border: 1px solid var(--au-action);
+        border: 2px solid var(--au-action);
         color: var(--au-action);
-        transition:
-            background var(--au-fast) var(--au-ease),
-            color var(--au-fast) var(--au-ease),
-            border-color var(--au-fast) var(--au-ease);
     }
 
     .km-receptor.is-hit {
         background: var(--au-success);
         border-color: var(--au-success);
-        color: var(--au-action-contrast);
+        color: var(--au-on-ink);
     }
 
     .km-receptor.is-miss {
         background: var(--au-error);
         border-color: var(--au-error);
-        color: var(--au-action-contrast);
+        color: var(--au-on-ink);
     }
 </style>

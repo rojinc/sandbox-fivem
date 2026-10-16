@@ -57,7 +57,7 @@
 <div class="log">
     <div class="log__scroll" bind:this={scroller} onscroll={onScroll} role="log" aria-label="Chat messages">
         {#if chat.messages.length === 0}
-            <div class="log__empty au-muted">No messages yet.</div>
+            <div class="log__empty au-muted">Messages from players and the server show here.</div>
         {:else}
             {#each chat.messages as message (message.id)}
                 <Message {message} templates={chat.templates} />
@@ -66,7 +66,7 @@
     </div>
     {#if interactive && !pinned && unread > 0}
         <div class="log__jump">
-            <Button size="sm" icon="arrow-down" onclick={() => scrollToBottom(true)}>{unread} new</Button>
+            <Button size="sm" onclick={() => scrollToBottom(true)}>Show {unread} new {unread === 1 ? 'message' : 'messages'}</Button>
         </div>
     {/if}
 </div>
@@ -76,7 +76,7 @@
         position: relative;
     }
     .log__scroll {
-        max-height: 320px;
+        max-height: 360px;
         overflow-y: auto;
         overflow-x: hidden;
         overscroll-behavior: contain;

@@ -1,6 +1,8 @@
 {
+  "viewport": [1920, 1080],
+  "backdrop": true,
   "wait": 15900,
   "messages": [
-    { "type": "SHOW_GAME", "data": { "game": { "type": "keymaster", "countdown": 1, "timer": [2000, 4000], "limit": 40000, "difficulty": 3, "chances": 5, "shuffled": false, "randomKey": true, "needsMouse": true, "events": { "onSuccess": "Minigame:Test:Success", "onFail": "Minigame:Test:Fail" } } } }
+    {"type": "SHOW_GAME", "data": {"game": {"type": "keymaster", "countdown": 1, "timer": [2000, 4000], "limit": 40000, "difficulty": 3, "chances": 5, "shuffled": false, "randomKey": true, "needsMouse": true, "events": {"onSuccess": "Minigame:Test:Success", "onFail": "Minigame:Test:Fail"}}}}
   ]
 }

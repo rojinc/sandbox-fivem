@@ -2,7 +2,7 @@
     import { Button } from '@sandbox/ui-kit';
     import { ageFrom, formatDob, formatSid, fullName, genderLabel } from '../../lib/format.js';
 
-    /** The selected row's record with Delete / Play, pinned at the foot of the panel. */
+    /** The selected row's record with Play / Delete, pinned at the foot of the panel. */
     let { character, disabled = false, onplay, ondelete } = $props();
 
     const age = $derived(ageFrom(character.DOB));
@@ -10,7 +10,7 @@
 
 <section class="rec" aria-label="Selected character">
     <div class="rec__name">
-        <h3>{fullName(character)}</h3>
+        <h2>{fullName(character)}</h2>
         <span class="au-mono au-muted">{formatSid(character.SID)}</span>
     </div>
     <dl class="rec__facts">
@@ -28,8 +28,8 @@
         </div>
     </dl>
     <div class="rec__actions">
-        <Button variant="secondary" size="lg" icon="trash" onclick={ondelete} {disabled}>Delete</Button>
-        <Button size="lg" icon="player-play" onclick={onplay} {disabled}>Play</Button>
+        <Button size="lg" onclick={onplay} {disabled}>Play as {character.First || 'this character'}</Button>
+        <Button variant="secondary" size="lg" onclick={ondelete} {disabled}>Delete character</Button>
     </div>
 </section>
 
@@ -40,20 +40,18 @@
         gap: 12px;
         min-width: 0;
     }
-    .rec__name h3 {
+    .rec__name h2 {
         margin: 0;
         font-size: var(--au-fs-md);
-        font-weight: 500;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
     .rec__facts {
         display: grid;
-        grid-template-columns: 1fr 1.4fr 1fr;
+        grid-template-columns: 1fr 1.6fr 1fr;
         gap: 16px;
         margin: 12px 0 20px;
-        font-size: var(--au-fs-xs);
     }
     .rec__facts dd {
         margin: 2px 0 0;
@@ -61,8 +59,5 @@
     .rec__actions {
         display: flex;
         gap: 12px;
-    }
-    .rec__actions :global(.au-btn--primary) {
-        flex: 1;
     }
 </style>
