@@ -85,7 +85,7 @@
     </dl>
     <div class="ph-actions">
         <Button variant="secondary" onclick={startEdit}>Edit contact</Button>
-        <Button variant="tertiary" onclick={() => (confirmDelete = true)}>Delete contact</Button>
+        <Button variant="danger" onclick={() => (confirmDelete = true)}>Delete contact</Button>
     </div>
 </AppPage>
 

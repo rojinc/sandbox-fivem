@@ -1,0 +1,803 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "backdrop": true,
+  "settle": 400,
+  "wait": 900,
+  "mocks": {},
+  "messages": [
+    {
+      "type": "SET_APPS",
+      "data": {
+        "phone": {
+          "name": "phone",
+          "label": "Phone",
+          "storeLabel": "Phone",
+          "icon": "phone",
+          "color": "#21a500",
+          "canUninstall": false,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": ""
+        },
+        "messages": {
+          "name": "messages",
+          "label": "Messages",
+          "storeLabel": "Messages",
+          "icon": "comment",
+          "color": "#ff0000",
+          "canUninstall": false,
+          "store": true,
+          "hidden": false,
+          "unread": 2,
+          "params": ""
+        },
+        "contacts": {
+          "name": "contacts",
+          "label": "Contacts",
+          "storeLabel": "Contacts",
+          "icon": "address-book",
+          "color": "#ff6a00",
+          "canUninstall": false,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": ""
+        },
+        "store": {
+          "name": "store",
+          "label": "App Store",
+          "storeLabel": "App Store",
+          "icon": "hippo",
+          "color": "#ad8d1a",
+          "canUninstall": false,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": ""
+        },
+        "settings": {
+          "name": "settings",
+          "label": "Settings",
+          "storeLabel": "Settings",
+          "icon": "gear",
+          "color": "#18191e",
+          "canUninstall": false,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": ""
+        },
+        "email": {
+          "name": "email",
+          "label": "Email",
+          "storeLabel": "Email",
+          "icon": "envelope",
+          "color": "#10909c",
+          "canUninstall": false,
+          "store": true,
+          "hidden": false,
+          "unread": 1,
+          "params": ""
+        },
+        "bank": {
+          "name": "bank",
+          "label": "Fleeca",
+          "storeLabel": "Fleeca",
+          "icon": "bank",
+          "color": "#268f3a",
+          "canUninstall": true,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": ""
+        },
+        "loans": {
+          "name": "loans",
+          "label": "Loans",
+          "storeLabel": "Loans",
+          "icon": [
+            "far",
+            "money-check-dollar"
+          ],
+          "color": "#30a60f",
+          "canUninstall": true,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": ""
+        },
+        "twitter": {
+          "name": "twitter",
+          "label": "Spammer",
+          "storeLabel": "Spammer",
+          "icon": [
+            "far",
+            "face-awesome"
+          ],
+          "color": "#c4b404",
+          "canUninstall": true,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": ""
+        },
+        "chatter": {
+          "name": "chatter",
+          "label": "Chatter",
+          "storeLabel": "Chatter",
+          "icon": [
+            "fab",
+            "rocketchat"
+          ],
+          "color": "#2d2835",
+          "canUninstall": true,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": ""
+        },
+        "adverts": {
+          "name": "adverts",
+          "label": "Ads",
+          "storeLabel": "Ads",
+          "icon": [
+            "fab",
+            "adversal"
+          ],
+          "color": "#870b30",
+          "canUninstall": true,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": ""
+        },
+        "documents": {
+          "name": "documents",
+          "label": "Documents",
+          "storeLabel": "Documents",
+          "icon": "file-lines",
+          "color": "#820366",
+          "canUninstall": true,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": ""
+        },
+        "garage": {
+          "name": "garage",
+          "label": "Garage",
+          "storeLabel": "Garage",
+          "icon": "car-garage",
+          "color": "#50ba13",
+          "canUninstall": true,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": ""
+        },
+        "comanager": {
+          "name": "comanager",
+          "label": "BizWiz",
+          "storeLabel": "BizWiz",
+          "icon": "briefcase",
+          "color": "#db5004",
+          "canUninstall": false,
+          "store": false,
+          "hidden": false,
+          "unread": 0,
+          "params": ""
+        },
+        "labor": {
+          "name": "labor",
+          "label": "Jobs",
+          "storeLabel": "Jobs",
+          "icon": [
+            "fad",
+            "pickaxe"
+          ],
+          "color": "#05737d",
+          "canUninstall": true,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": ""
+        },
+        "crypto": {
+          "name": "crypto",
+          "label": "DigiDollar",
+          "storeLabel": "DigiDollar",
+          "icon": [
+            "far",
+            "circle-dollar"
+          ],
+          "color": "#354f34",
+          "canUninstall": true,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": ""
+        },
+        "homemanage": {
+          "name": "homemanage",
+          "label": "Properties",
+          "storeLabel": "Properties",
+          "icon": "house-signal",
+          "color": "#362a4f",
+          "canUninstall": true,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": ""
+        },
+        "pingem": {
+          "name": "pingem",
+          "label": "FINDR",
+          "storeLabel": "FINDR",
+          "icon": "map-pin",
+          "color": "#e3db02",
+          "canUninstall": true,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": ""
+        },
+        "calculator": {
+          "name": "calculator",
+          "label": "Calculator",
+          "storeLabel": "Calculator",
+          "icon": "calculator-simple",
+          "color": "#E95200",
+          "canUninstall": true,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": ""
+        },
+        "services": {
+          "name": "services",
+          "label": "Services",
+          "storeLabel": "Services",
+          "icon": "clipboard-list",
+          "color": "#E95200",
+          "canUninstall": true,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": ""
+        },
+        "media": {
+          "name": "media",
+          "label": "Media",
+          "storeLabel": "Media",
+          "icon": "photo-film",
+          "color": "#59E5F7",
+          "canUninstall": true,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": ""
+        },
+        "music": {
+          "name": "music",
+          "label": "Music",
+          "storeLabel": "Music",
+          "icon": "cloud-music",
+          "color": "#63e6be",
+          "canUninstall": true,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": ""
+        },
+        "redline": {
+          "name": "redline",
+          "label": "Redline",
+          "storeLabel": "Redline",
+          "icon": [
+            "far",
+            "gauge-simple-high"
+          ],
+          "color": "#9d1614",
+          "canUninstall": true,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": "",
+          "restricted": {
+            "state": "RACE_DONGLE"
+          }
+        },
+        "chopper": {
+          "name": "chopper",
+          "label": "Chopper",
+          "storeLabel": "Chopper",
+          "icon": "axe",
+          "color": "#8800c7",
+          "canUninstall": true,
+          "store": true,
+          "hidden": false,
+          "unread": 0,
+          "params": "",
+          "restricted": {
+            "state": "ACCESS_CHOPPER"
+          }
+        }
+      }
+    },
+    {
+      "type": "SET_TIME",
+      "data": {
+        "hour": 14,
+        "minute": 5
+      }
+    },
+    {
+      "type": "SET_POSITION",
+      "data": {
+        "x": 1000,
+        "y": 250
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "player",
+        "data": {
+          "Source": 12,
+          "SID": 4021,
+          "User": "b7f2c19a",
+          "First": "Mara",
+          "Last": "Kovac",
+          "Phone": "555-201-4477",
+          "Mugshot": "",
+          "PhoneCase": "default",
+          "States": [
+            "PHONE",
+            "PHONE_VPN"
+          ],
+          "Jobs": [
+            {
+              "Id": "police",
+              "Name": "Police",
+              "Workplace": {
+                "Id": "lspd",
+                "Name": "Los Santos Police Department"
+              },
+              "Grade": {
+                "Id": "officer",
+                "Name": "Officer"
+              }
+            }
+          ],
+          "Licenses": {
+            "Drivers": {
+              "Active": true,
+              "Points": 2
+            },
+            "Weapons": {
+              "Active": false
+            },
+            "Hunting": {
+              "Active": true
+            },
+            "Fishing": {
+              "Active": false,
+              "Suspended": true
+            }
+          },
+          "Alias": {
+            "email": "mara.kovac@sandbox.rp",
+            "chatter": "mkovac"
+          },
+          "Profiles": {
+            "twitter": {
+              "name": "marak",
+              "picture": ""
+            }
+          },
+          "Apps": {
+            "installed": [
+              "phone",
+              "messages",
+              "contacts",
+              "store",
+              "settings",
+              "email",
+              "bank",
+              "loans",
+              "twitter",
+              "chatter",
+              "adverts",
+              "documents",
+              "garage",
+              "comanager",
+              "labor",
+              "crypto",
+              "homemanage",
+              "calculator",
+              "services",
+              "music"
+            ],
+            "home": [
+              "email",
+              "bank",
+              "adverts",
+              "documents",
+              "garage",
+              "twitter",
+              "chatter",
+              "loans",
+              "labor",
+              "crypto",
+              "homemanage",
+              "calculator",
+              "services",
+              "music",
+              "store",
+              "settings",
+              "comanager"
+            ],
+            "dock": [
+              "phone",
+              "messages",
+              "contacts"
+            ]
+          },
+          "PhoneSettings": {
+            "wallpaper": "wallpaper8",
+            "ringtone": "ringtone1.ogg",
+            "texttone": "text1.ogg",
+            "colors": {
+              "accent": "#1a7cc1"
+            },
+            "zoom": 75,
+            "volume": 80,
+            "notifications": true,
+            "appNotifications": {
+              "twitter": true
+            }
+          },
+          "PhonePermissions": {
+            "redline": {
+              "create": false
+            }
+          },
+          "Reputations": {}
+        }
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "contacts",
+        "data": [
+          {
+            "id": 1,
+            "name": "Dex Morrow",
+            "number": "555-301-8820",
+            "avatar": "",
+            "color": "#1a7cc1",
+            "favorite": true
+          },
+          {
+            "id": 2,
+            "name": "Priya Natarajan",
+            "number": "555-118-0042",
+            "avatar": "",
+            "color": "#268f3a",
+            "favorite": true
+          },
+          {
+            "id": 3,
+            "name": "Ash Calloway",
+            "number": "555-640-2291",
+            "avatar": "",
+            "color": "#870b30",
+            "favorite": false
+          },
+          {
+            "id": 4,
+            "name": "Bennys Original Motorworks",
+            "number": "555-900-1200",
+            "avatar": "",
+            "color": "#db5004",
+            "favorite": false
+          },
+          {
+            "id": 5,
+            "name": "Jonah Whitlock",
+            "number": "555-772-3008",
+            "avatar": "",
+            "color": "#362a4f",
+            "favorite": false
+          },
+          {
+            "id": 6,
+            "name": "Lucia Ferrante",
+            "number": "555-482-7316",
+            "avatar": "",
+            "color": "#10909c",
+            "favorite": false
+          },
+          {
+            "id": 7,
+            "name": "Tow yard",
+            "number": "555-010-4545",
+            "avatar": "",
+            "color": "#50ba13",
+            "favorite": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "calls",
+        "data": [
+          {
+            "id": 11,
+            "owner": "555-201-4477",
+            "number": "555-301-8820",
+            "time": "$now-600",
+            "duration": 184,
+            "method": true,
+            "limited": false,
+            "anonymous": false,
+            "unread": false
+          },
+          {
+            "id": 12,
+            "owner": "555-201-4477",
+            "number": "555-640-2291",
+            "time": "$now-3600",
+            "duration": -1,
+            "method": false,
+            "limited": false,
+            "anonymous": false,
+            "unread": true
+          },
+          {
+            "id": 13,
+            "owner": "555-201-4477",
+            "number": "555-888-0199",
+            "time": "$now-7200",
+            "duration": 42,
+            "method": false,
+            "limited": false,
+            "anonymous": false,
+            "unread": false
+          },
+          {
+            "id": 14,
+            "owner": "555-201-4477",
+            "number": "555-000-0000",
+            "time": "$now-86400",
+            "duration": -1,
+            "method": false,
+            "limited": true,
+            "anonymous": true,
+            "unread": false
+          },
+          {
+            "id": 15,
+            "owner": "555-201-4477",
+            "number": "555-118-0042",
+            "time": "$now-90000",
+            "duration": -1,
+            "method": true,
+            "limited": false,
+            "anonymous": false,
+            "unread": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "emails",
+        "data": [
+          {
+            "id": 41,
+            "owner": 4021,
+            "sender": "loans@dynasty8.com",
+            "subject": "Your loan offer for 0112 Vespucci Canals",
+            "body": "<p>Mara Kovac,</p><p>Your down payment of <b>$45,000</b> (20%) is due today. The remaining $180,000 is paid over 12 weeks at $15,000 a week.</p><p>Accept this offer within 5 minutes.</p>",
+            "time": "$now-120",
+            "unread": true,
+            "flags": {
+              "hyperlink": {
+                "event": "RealEstate:Server:AcceptLoan"
+              }
+            },
+            "expires": "$now+280"
+          },
+          {
+            "id": 40,
+            "owner": 4021,
+            "sender": "dispatch@lspd.gov",
+            "subject": "Shift roster for this week",
+            "body": "<p>You are rostered for day shifts Monday to Thursday.</p>",
+            "time": "$now-7200",
+            "unread": true
+          },
+          {
+            "id": 39,
+            "owner": 4021,
+            "sender": "jobs@sandbox.rp",
+            "subject": "Pickup point for your delivery",
+            "body": "<p>Collect the packages from the warehouse at the docks.</p>",
+            "time": "$now-172800",
+            "unread": false,
+            "flags": {
+              "location": {
+                "x": 1200.5,
+                "y": -3100.2,
+                "z": 5.9
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "adverts",
+        "data": {
+          "0": {},
+          "12": {
+            "id": 12,
+            "author": "Mara Kovac",
+            "number": "555-201-4477",
+            "time": "$nowMs-2699000",
+            "title": "Selling a Sultan RS, low miles",
+            "price": "68000",
+            "categories": [
+              "Want-To-Sell"
+            ],
+            "full": "<p>Sultan RS in white. 4,200 miles, full service history, new tyres.</p><p>Test drives at Legion Square after 6pm.</p>"
+          },
+          "31": {
+            "id": 31,
+            "author": "Dex Morrow",
+            "number": "555-301-8820",
+            "time": "$nowMs-299000",
+            "title": "Mechanic available tonight",
+            "price": "",
+            "categories": [
+              "Services"
+            ],
+            "full": "<p>Mobile repairs anywhere in the city. Call or text.</p>"
+          },
+          "44": {
+            "id": 44,
+            "author": "Priya Natarajan",
+            "number": "555-118-0042",
+            "time": "$nowMs-1199000",
+            "title": "Hiring two cooks at Bean Machine",
+            "price": "",
+            "categories": [
+              "Help Wanted"
+            ],
+            "full": "<p>Weekend shifts. Paid weekly.</p>"
+          },
+          "52": {
+            "id": 52,
+            "author": "Jonah Whitlock",
+            "number": "555-772-3008",
+            "time": "$nowMs-5399000",
+            "title": "Buying fishing rods in bulk",
+            "price": "150",
+            "categories": [
+              "Want-To-Buy"
+            ],
+            "full": "<p>Paying $150 each for up to 20 rods.</p>"
+          }
+        }
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "myDocuments",
+        "data": [
+          {
+            "id": 71,
+            "sid": 4021,
+            "time": "$now-3600",
+            "title": "Vehicle sale agreement",
+            "content": "<p>Mara Kovac sells one Sultan RS (plate 46KJL201) to Dex Morrow for $68,000.</p><p>Payment in full on handover.</p>",
+            "signature_required": false
+          },
+          {
+            "id": 72,
+            "sid": 5110,
+            "time": "$now-600",
+            "title": "Tenancy agreement, Apartment 4B",
+            "content": "<p>The tenant agrees to pay $2,500 each week, in advance.</p>",
+            "sharer": 5110,
+            "sharer_name": "Lucia Ferrante",
+            "shared_date": "$now-600",
+            "signature_required": true,
+            "signed": null
+          }
+        ]
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "garages",
+        "data": {
+          "impound": {
+            "label": "Davis impound lot"
+          },
+          "legion": {
+            "label": "Legion Square garage"
+          },
+          "pillbox": {
+            "label": "Pillbox Hill garage"
+          }
+        }
+      }
+    },
+    {
+      "type": "CHATTER_SET_GROUPS",
+      "data": {
+        "groups": [
+          {
+            "id": 5,
+            "label": "Night shift",
+            "icon": null,
+            "owner": 4021,
+            "joined_date": "$now-259200",
+            "last_message": "$now-900"
+          },
+          {
+            "id": 8,
+            "label": "Car meet Sunday",
+            "icon": null,
+            "owner": 5001,
+            "joined_date": "$now-86400",
+            "last_message": "$now-7200"
+          }
+        ]
+      }
+    },
+    {
+      "type": "CHATTER_SET_INVITES",
+      "data": {
+        "invites": {
+          "9": {
+            "group": 9,
+            "label": "Fishing club",
+            "sender": 5110,
+            "timestamp": "$now-600"
+          }
+        }
+      }
+    },
+    {
+      "type": "NOTIF_ADD",
+      "data": {
+        "notification": {
+          "title": "Dex Morrow",
+          "description": "Meet at the pier at 9? Bring the paperwork.",
+          "time": "$now",
+          "duration": 6000,
+          "app": "messages",
+          "action": {
+            "view": "convo/555-301-8820"
+          },
+          "show": true
+        }
+      }
+    }
+  ]
+}

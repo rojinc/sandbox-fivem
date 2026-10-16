@@ -45,7 +45,7 @@
     const box = $derived.by(() => {
         if (!phone.visible) {
             // Closed: docked column, below the edge; peek far enough to show the notifications.
-            const peek = popupHeight > 0 ? Math.min(h, (scr[1] + 40 + popupHeight + 12) * k) : 0;
+            const peek = popupHeight > 0 ? Math.min(h, (scr[1] + 40 + popupHeight + 8) * k) : 0;
             return { left: dock.left, top: peek > 0 ? vh - peek : vh + 24 };
         }
         if (!phone.position) return dock;

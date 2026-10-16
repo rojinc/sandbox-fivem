@@ -598,6 +598,192 @@
       }
     },
     {
+      "type": "SET_DATA",
+      "data": {
+        "type": "emails",
+        "data": [
+          {
+            "id": 41,
+            "owner": 4021,
+            "sender": "loans@dynasty8.com",
+            "subject": "Your loan offer for 0112 Vespucci Canals",
+            "body": "<p>Mara Kovac,</p><p>Your down payment of <b>$45,000</b> (20%) is due today. The remaining $180,000 is paid over 12 weeks at $15,000 a week.</p><p>Accept this offer within 5 minutes.</p>",
+            "time": "$now-120",
+            "unread": true,
+            "flags": {
+              "hyperlink": {
+                "event": "RealEstate:Server:AcceptLoan"
+              }
+            },
+            "expires": "$now+280"
+          },
+          {
+            "id": 40,
+            "owner": 4021,
+            "sender": "dispatch@lspd.gov",
+            "subject": "Shift roster for this week",
+            "body": "<p>You are rostered for day shifts Monday to Thursday.</p>",
+            "time": "$now-7200",
+            "unread": true
+          },
+          {
+            "id": 39,
+            "owner": 4021,
+            "sender": "jobs@sandbox.rp",
+            "subject": "Pickup point for your delivery",
+            "body": "<p>Collect the packages from the warehouse at the docks.</p>",
+            "time": "$now-172800",
+            "unread": false,
+            "flags": {
+              "location": {
+                "x": 1200.5,
+                "y": -3100.2,
+                "z": 5.9
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "adverts",
+        "data": {
+          "0": {},
+          "12": {
+            "id": 12,
+            "author": "Mara Kovac",
+            "number": "555-201-4477",
+            "time": "$nowMs-2699000",
+            "title": "Selling a Sultan RS, low miles",
+            "price": "68000",
+            "categories": [
+              "Want-To-Sell"
+            ],
+            "full": "<p>Sultan RS in white. 4,200 miles, full service history, new tyres.</p><p>Test drives at Legion Square after 6pm.</p>"
+          },
+          "31": {
+            "id": 31,
+            "author": "Dex Morrow",
+            "number": "555-301-8820",
+            "time": "$nowMs-299000",
+            "title": "Mechanic available tonight",
+            "price": "",
+            "categories": [
+              "Services"
+            ],
+            "full": "<p>Mobile repairs anywhere in the city. Call or text.</p>"
+          },
+          "44": {
+            "id": 44,
+            "author": "Priya Natarajan",
+            "number": "555-118-0042",
+            "time": "$nowMs-1199000",
+            "title": "Hiring two cooks at Bean Machine",
+            "price": "",
+            "categories": [
+              "Help Wanted"
+            ],
+            "full": "<p>Weekend shifts. Paid weekly.</p>"
+          },
+          "52": {
+            "id": 52,
+            "author": "Jonah Whitlock",
+            "number": "555-772-3008",
+            "time": "$nowMs-5399000",
+            "title": "Buying fishing rods in bulk",
+            "price": "150",
+            "categories": [
+              "Want-To-Buy"
+            ],
+            "full": "<p>Paying $150 each for up to 20 rods.</p>"
+          }
+        }
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "myDocuments",
+        "data": [
+          {
+            "id": 71,
+            "sid": 4021,
+            "time": "$now-3600",
+            "title": "Vehicle sale agreement",
+            "content": "<p>Mara Kovac sells one Sultan RS (plate 46KJL201) to Dex Morrow for $68,000.</p><p>Payment in full on handover.</p>",
+            "signature_required": false
+          },
+          {
+            "id": 72,
+            "sid": 5110,
+            "time": "$now-600",
+            "title": "Tenancy agreement, Apartment 4B",
+            "content": "<p>The tenant agrees to pay $2,500 each week, in advance.</p>",
+            "sharer": 5110,
+            "sharer_name": "Lucia Ferrante",
+            "shared_date": "$now-600",
+            "signature_required": true,
+            "signed": null
+          }
+        ]
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "garages",
+        "data": {
+          "impound": {
+            "label": "Davis impound lot"
+          },
+          "legion": {
+            "label": "Legion Square garage"
+          },
+          "pillbox": {
+            "label": "Pillbox Hill garage"
+          }
+        }
+      }
+    },
+    {
+      "type": "CHATTER_SET_GROUPS",
+      "data": {
+        "groups": [
+          {
+            "id": 5,
+            "label": "Night shift",
+            "icon": null,
+            "owner": 4021,
+            "joined_date": "$now-259200",
+            "last_message": "$now-900"
+          },
+          {
+            "id": 8,
+            "label": "Car meet Sunday",
+            "icon": null,
+            "owner": 5001,
+            "joined_date": "$now-86400",
+            "last_message": "$now-7200"
+          }
+        ]
+      }
+    },
+    {
+      "type": "CHATTER_SET_INVITES",
+      "data": {
+        "invites": {
+          "9": {
+            "group": 9,
+            "label": "Fishing club",
+            "sender": 5110,
+            "timestamp": "$now-600"
+          }
+        }
+      }
+    },
+    {
       "type": "PHONE_VISIBLE",
       "data": {}
     }

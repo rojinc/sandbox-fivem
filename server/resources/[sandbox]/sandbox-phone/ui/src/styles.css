@@ -126,3 +126,8 @@ button.ph-row:focus-visible {
 body {
     background: transparent;
 }
+
+/* Kit tags are 14px; on the phone every text is 16px or more. */
+.device__inner .au-tag.au-tag {
+    font-size: var(--au-fs-xs);
+}

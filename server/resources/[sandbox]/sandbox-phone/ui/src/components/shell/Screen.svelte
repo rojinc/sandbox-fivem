@@ -20,7 +20,9 @@
     const r = $derived(parse());
     const apps = $derived(myApps());
     const wallpaper = $derived(wallpaperSrc(data.player?.PhoneSettings?.wallpaper));
-    const onHome = $derived(phone.limited ? false : r.home);
+    // Closed: a lock screen (wallpaper, clock, notifications) so the peek shows nothing behind the notifications.
+    const locked = $derived(!phone.visible);
+    const onHome = $derived(locked || (phone.limited ? false : r.home));
     const PhoneApp = $derived(REGISTRY.phone);
     const View = $derived(r.app && apps[r.app] ? (REGISTRY[r.app] ?? NotAvailable) : null);
 </script>
@@ -30,7 +32,9 @@
     <div class="screen__col">
         <StatusBar overlay={onHome} />
         <div class="screen__view">
-            {#if phone.limited}
+            {#if locked}
+                <div class="screen__lock"></div>
+            {:else if phone.limited}
                 <PhoneApp app={apps.phone ?? { name: 'phone', label: 'Phone' }} segs={r.app === 'phone' ? r.segs : []} />
             {:else if r.home}
                 <HomeScreen />
@@ -44,7 +48,7 @@
                 <NotAvailable app={{ label: 'App not installed' }} />
             {/if}
         </div>
-        {#if !phone.limited}
+        {#if !phone.limited && !locked}
             {#if onHome}
                 <button type="button" class="screen__nav" onclick={() => navigate('/apps')}>All apps</button>
             {:else}

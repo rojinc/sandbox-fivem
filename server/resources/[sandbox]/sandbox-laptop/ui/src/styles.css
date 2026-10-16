@@ -1,0 +1,238 @@
+/*
+ * Laptop-wide styles. The device and its windows are laid out in px at
+ * 1920x1080 and zoomed as a whole (LaptopDevice), so these stay in px.
+ * Window content follows the console style: 16px text, tables for records,
+ * definition rows for one record, kit forms.
+ */
+
+/* A scrolling page inside a window */
+.pane {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    padding: var(--au-s6);
+    font-size: var(--au-fs-xs);
+}
+
+.pane > :last-child {
+    margin-bottom: 0;
+}
+
+/* Section heading inside a window: 22px bold, keyword first */
+.heading {
+    margin: 0 0 var(--au-s3);
+    font-size: var(--au-fs-md);
+    line-height: 1.3;
+}
+
+.subheading {
+    margin: 0 0 var(--au-s2);
+    font-size: var(--au-fs-sm);
+}
+
+.section + .section {
+    margin-top: var(--au-s8);
+}
+
+.lead {
+    margin: 0 0 var(--au-s4);
+    color: var(--au-muted);
+    max-width: 44em;
+}
+
+/* Heading on the left, actions on the right */
+.section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--au-s4);
+    margin-bottom: var(--au-s3);
+}
+
+.section-head .heading {
+    margin: 0;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: var(--au-s2);
+    flex-wrap: wrap;
+}
+
+.actions--end {
+    justify-content: flex-end;
+}
+
+/* Tables: the kit table with right-aligned figures and a cell for row actions */
+.au-table td.cell-actions,
+.au-table th.cell-actions {
+    text-align: right;
+    white-space: nowrap;
+    width: 1%;
+}
+
+.au-table td {
+    vertical-align: middle;
+}
+
+.au-table tr.is-clickable:hover {
+    background: var(--au-bg-alt);
+}
+
+.au-table td.cell-strong {
+    font-weight: 700;
+}
+
+.au-table caption.au-hidden {
+    padding: 0;
+}
+
+/* A row's main link: a button that reads as a link */
+.row-link {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--au-action);
+    font: inherit;
+    font-weight: 700;
+    text-align: left;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+    cursor: pointer;
+}
+
+.row-link:hover {
+    color: var(--au-action-hover);
+    text-decoration-thickness: 3px;
+}
+
+.row-link:focus-visible {
+    outline: 3px solid transparent;
+    background: var(--au-focus);
+    color: var(--au-on-focus);
+    box-shadow: 0 -2px var(--au-focus), 0 4px var(--au-on-focus);
+    text-decoration: none;
+}
+
+/* Definition rows for one record */
+.facts {
+    display: grid;
+    grid-template-columns: minmax(10em, max-content) 1fr;
+    margin: 0 0 var(--au-s6);
+    border-top: 1px solid var(--au-border);
+}
+
+.facts > div {
+    display: contents;
+}
+
+.facts dt,
+.facts dd {
+    margin: 0;
+    padding: var(--au-s3) var(--au-s4) var(--au-s3) 0;
+    border-bottom: 1px solid var(--au-border);
+}
+
+.facts dt {
+    font-weight: 700;
+}
+
+.facts dd {
+    font-variant-numeric: tabular-nums;
+}
+
+/* Two-thirds and one-third */
+.split {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: var(--au-s8);
+    align-items: start;
+}
+
+.split--even {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+/* Loading, empty and error blocks inside a page */
+.state {
+    padding: var(--au-s6) 0;
+    color: var(--au-muted);
+}
+
+.state strong {
+    display: block;
+    color: var(--au-text);
+    margin-bottom: var(--au-s1);
+}
+
+.state p {
+    margin: 0 0 var(--au-s3);
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    gap: var(--au-s3);
+    padding: var(--au-s6) 0;
+    color: var(--au-muted);
+}
+
+/* User-written HTML (documents, notices) */
+.user-html {
+    max-width: 48em;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+    user-select: text;
+}
+
+.user-html > :first-child {
+    margin-top: 0;
+}
+
+.user-html > :last-child {
+    margin-bottom: 0;
+}
+
+.user-html h1,
+.user-html h2,
+.user-html h3,
+.user-html h4 {
+    font-size: var(--au-fs-sm);
+    margin: var(--au-s4) 0 var(--au-s2);
+}
+
+.user-html img {
+    max-width: 100%;
+    height: auto;
+    margin: var(--au-s3) 0;
+}
+
+.user-html table {
+    border-collapse: collapse;
+    margin: var(--au-s3) 0;
+}
+
+.user-html td,
+.user-html th {
+    border: 1px solid var(--au-border);
+    padding: var(--au-s1) var(--au-s2);
+}
+
+.user-html blockquote {
+    margin: var(--au-s3) 0;
+    padding-left: var(--au-s4);
+    border-left: 4px solid var(--au-border);
+}
+
+/* Modal forms */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 var(--au-s4);
+}
+
+.form-grid > .wide {
+    grid-column: 1 / -1;
+}

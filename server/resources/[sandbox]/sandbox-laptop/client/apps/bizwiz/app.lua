@@ -30,7 +30,7 @@ RegisterNUICallback("BusinessDocumentView", function(data, cb)
 end)
 
 RegisterNUICallback("BusinessDocumentDelete", function(data, cb)
-	Callbacks:ServerCallback("Laptop:BizWiz:Document:Delete", data.id, cb)
+	Callbacks:ServerCallback("Laptop:BizWiz:Document:Delete", data, cb)
 end)
 
 -- Receipts
@@ -52,7 +52,7 @@ RegisterNUICallback("BusinessReceiptView", function(data, cb)
 end)
 
 RegisterNUICallback("BusinessReceiptDelete", function(data, cb)
-	Callbacks:ServerCallback("Laptop:BizWiz:Receipt:Delete", data.id, cb)
+	Callbacks:ServerCallback("Laptop:BizWiz:Receipt:Delete", data, cb)
 end)
 
 RegisterNUICallback("BusinessReceiptDeleteAll", function(data, cb)
