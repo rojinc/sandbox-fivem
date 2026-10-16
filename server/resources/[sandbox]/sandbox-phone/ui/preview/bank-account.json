@@ -52,7 +52,7 @@
           "Name": "Pillbox Medical",
           "Description": "Treatment on 15 October",
           "Amount": 1500,
-          "Timestamp": 1792192309
+          "Timestamp": "$now-2565"
         }
       ]
     },
@@ -63,28 +63,28 @@
           "Title": "Transfer from Dex Morrow",
           "Description": "Parts for the Sultan",
           "Amount": 2400,
-          "Timestamp": 1792190509000
+          "Timestamp": "$nowMs-4365000"
         },
         {
           "Id": 2,
           "Title": "Bean Machine",
           "Description": "Card payment",
           "Amount": -18.5,
-          "Timestamp": 1792186909000
+          "Timestamp": "$nowMs-7965000"
         },
         {
           "Id": 3,
           "Title": "LSPD wages",
           "Description": "Weekly pay",
           "Amount": 3850,
-          "Timestamp": 1792107709000
+          "Timestamp": "$nowMs-87165000"
         },
         {
           "Id": 4,
           "Title": "Fuel, Xero Gas",
           "Description": "Card payment",
           "Amount": -96.2,
-          "Timestamp": 1792104109000
+          "Timestamp": "$nowMs-90765000"
         }
       ],
       "more": false

@@ -12,19 +12,19 @@
       {
         "id": 33,
         "message": "Anyone covering the 10pm?",
-        "timestamp": 1792193209,
+        "timestamp": "$now-1665",
         "author": 5001
       },
       {
         "id": 32,
         "message": "I can take it if someone swaps Thursday.",
-        "timestamp": 1792192909,
+        "timestamp": "$now-1965",
         "author": 4021
       },
       {
         "id": 31,
         "message": "Roster is up on the board.",
-        "timestamp": 1792190109,
+        "timestamp": "$now-4765",
         "author": 5110
       }
     ]

@@ -14,7 +14,7 @@
         "owner": "555-201-4477",
         "number": "555-301-8820",
         "method": 0,
-        "time": 1792193869,
+        "time": "$now-1005",
         "message": "Meet at the pier at 9? Bring the paperwork."
       },
       {
@@ -22,7 +22,7 @@
         "owner": "555-201-4477",
         "number": "555-301-8820",
         "method": 1,
-        "time": 1792193509,
+        "time": "$now-1365",
         "message": "Sure. Which pier, Del Perro or Vespucci?"
       },
       {
@@ -30,7 +30,7 @@
         "owner": "555-201-4477",
         "number": "555-301-8820",
         "method": 0,
-        "time": 1792193449,
+        "time": "$now-1425",
         "message": "Can we go over the contract tonight?"
       },
       {
@@ -38,7 +38,7 @@
         "owner": "555-201-4477",
         "number": "555-301-8820",
         "method": 0,
-        "time": 1792104109,
+        "time": "$now-90765",
         "message": "The quote is here: https://docs.sandbox.rp/quote/4471"
       },
       {
@@ -46,7 +46,7 @@
         "owner": "555-201-4477",
         "number": "555-301-8820",
         "method": 1,
-        "time": 1792103509,
+        "time": "$now-91365",
         "message": "Got it. I will send the quote in the morning."
       },
       {
@@ -54,7 +54,7 @@
         "owner": "555-201-4477",
         "number": "555-301-8820",
         "method": 0,
-        "time": 1792103109,
+        "time": "$now-91765",
         "message": "Hey, it is Dex from the garage."
       }
     ]

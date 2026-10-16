@@ -11,7 +11,7 @@
     "Twitter:GetTweets": [
       {
         "id": 3,
-        "time": 1792193809,
+        "time": "$now-1065",
         "source": 31,
         "SID": 5001,
         "author": {
@@ -27,7 +27,7 @@
       },
       {
         "id": 2,
-        "time": 1792192609,
+        "time": "$now-2265",
         "source": -1,
         "SID": -1,
         "author": {
@@ -43,7 +43,7 @@
       },
       {
         "id": 1,
-        "time": 1792190109,
+        "time": "$now-4765",
         "source": 44,
         "SID": 5110,
         "author": {

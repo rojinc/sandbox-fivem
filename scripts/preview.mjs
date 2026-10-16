@@ -120,7 +120,8 @@ function serve(dir) {
 }
 
 /**
- * Scenario values may use time tokens so countdowns and timed buffs render:
+ * Scenario values (messages and mocks) may use time tokens so countdowns,
+ * timed buffs and relative dates render:
  *   "$now"        -> current unix time in seconds      "$now+90"   -> 90 s from now
  *   "$nowMs"      -> current time in milliseconds      "$nowMs-5000"
  */
@@ -173,7 +174,7 @@ async function main() {
             },
             { res: resource },
         );
-        const mocks = scenario.mocks ?? {};
+        const mocks = resolveTimeTokens(scenario.mocks ?? {});
         await page.route(/^https:\/\/[a-z0-9-]+\/.*/i, (route) => {
             const cb = new URL(route.request().url()).pathname.slice(1);
             route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(mocks[cb] ?? {}) });

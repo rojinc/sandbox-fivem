@@ -18,7 +18,8 @@ Lua owns focus. `Laptop:Open()` sends `LAPTOP_VISIBLE` then `SetNuiFocus(true, t
 `Laptop:Close()` sends `CLEAR_HISTORY` and `ALERTS_RESET` (plus
 `LAPTOP_NOT_VISIBLE_FORCED` first when forced) and calls `SetNuiFocus(false, false)`.
 The UI never calls `SetNuiFocus`. To close, the UI hides itself and calls `CloseLaptop`
-(Escape, F3, or the "Close laptop" button in the taskbar). Escape is ignored while a
+(Escape, F3, or the "Close laptop" button in the taskbar). Escape goes through the kit's
+`onKey`, which acts on key-up so the release never reaches the game; it is ignored while a
 dialog is open (the dialog takes it).
 
 Close flow: `CloseLaptop` -> Lua `Laptop:Close()` -> `CLEAR_HISTORY` -> the UI hides,
@@ -151,8 +152,21 @@ BizWiz (`client/apps/bizwiz/*.lua`). Permissions are job permissions on `JobPerm
 | `ViewVehicleFleet` | `{}` | `[{ VIN, Make, Model, RegisteredPlate, RegistrationDate, Storage { Name } }]` or `false` |
 | `TrackFleetVehicle` | `{ vehicle: VIN }` | `true` / `false` (Lua sets a waypoint) |
 | `CasinoGetBigWins` | `{}` | `[{ Type, Prize, Winner { SID, First, Last }, Time }]` or `false` |
-| `PDMGetStock`, `PDMRunCredit { term }`, `PDMStartSale`, `DealershipStartTestDrive`, `PDMGetDealerData`, `PDMSaveDealerData { data }`, `PDMGetHistory { value, category, page }`, `PDMGetOwner { VIN }` | | Dealership pages, see `client/apps/bizwiz/dealers.lua`. Not ported yet (pages show "not available yet"). |
-| `Dyn8SearchProperties`, `Dyn8MarkProperty`, `Dyn8StartSale`, `Dyn8StartTransfer`, `Dyn8RunCredit { term }`, `Dyn8ChangePropertyLocations`, `Dyn8ShowPropertyLocations`, `Dyn8CopyID`, `Dyn8ToggleBlips` | | Dynasty 8 pages, see `client/apps/bizwiz/realestate.lua`. Not ported yet. |
+| `PDMGetStock` | `{}` | `{ stock [{ _id, vehicle, modelType, data { make, model, class, category, price }, quantity, lastPurchase? }], dealerData { profitPercentage, commission }, interest }` or `false` |
+| `PDMStartSale` | `{ type: 'full' \| 'loan', SID (number), downpayment (percent), weeks, vehicle }` | `{ success, message }` |
+| `DealershipStartTestDrive` | `{ type: 'testdrive', vehicle, modelType }` | `{ success, message }` |
+| `PDMRunCredit` / `Dyn8RunCredit` | `{ term: State ID (number) }` | `{ SID, name, price (or false), score }` or `false` |
+| `PDMGetDealerData` | `{}` | `{ profitPercentage, commission, ... }` or `false` |
+| `PDMSaveDealerData` | `{ data: { ...dealerData, profitPercentage, commission } }` (5, 10 or 15) | the saved data or `false` |
+| `PDMGetHistory` | `{ value, category, page }` | `{ data [{ _id, type, salePrice, commission, seller, buyer, vehicle { VIN, data }, time }], more }` (6 a page) or `false` |
+| `PDMGetOwner` | `{ VIN }` | vehicle with `OwnerName`, or `false` |
+| `Dyn8SearchProperties` | `{}` | `{ properties [{ _id, label, type, sold, price, upgrades { interior, storage?, garage? }, owner? }], upgrades }` (Lua reads the client property cache) |
+| `Dyn8StartSale` | `{ type, SID (number), downpayment, weeks, property }` | `{ success, message }` |
+| `Dyn8StartTransfer` | `{ SID (number), property }` | `{ success, message }` |
+| `Dyn8MarkProperty` / `Dyn8CopyID` | the property `_id` (a bare string) | `true` / `false` |
+| `Dyn8ShowPropertyLocations` | `{ property }` | `true` / `false` (markers for 30 s) |
+| `Dyn8ChangePropertyLocations` | `{ property, location: 'front' \| 'garage' \| 'backdoor' }` | `true` / `false` (moves it to where the player stands) |
+| `Dyn8ToggleBlips` | `{}` | `'ok'` |
 
 Document and receipt permissions: `TABLET_VIEW_DOCUMENT`, `TABLET_CREATE_DOCUMENT`,
 `TABLET_PIN_DOCUMENT`, `TABLET_DELETE_DOCUMENT`, `TABLET_CREATE_RECEIPT`,
@@ -174,6 +188,8 @@ display and on save.
 - The boosting contract market tab: disabled in the old UI and has no callbacks.
 - The accent colour setting: the console theme has one palette, so the colour had nothing
   left to tint. `LaptopSettings.colors` is left as stored.
+- The old LS UNDG "VIN scratch" button sent `scratch: false` (a typo); the dialog now sends the
+  choice, though the server ignores it and no contract has a scratch price.
 - SupplyMate and Terminal: not in the server's app list (`server/startup.lua`), so they can
   never be opened; they render "not available yet" if they ever are. Interwebz and Files are
   `fake` apps (empty in the old UI) and render the same page.

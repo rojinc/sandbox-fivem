@@ -44,6 +44,11 @@
   list menu, the inventory with shops and the crafting bench, and the phone
   (drawn inside the player's case, 21 apps; Dyn8, Properties, Redline,
   Blueline and Music say they are not available yet).
+- The laptop rebuilt in Svelte: desktop, windows and taskbar inside the
+  laptop lid, LS UNDG (boosting, market, chop lists, reputation), Teams,
+  every BizWiz page and Settings. Deleting a BizWiz document or receipt
+  works again (the id never reached the server). Wallpapers are re-encoded
+  as WebP; the largest went from 8.5 MB to 220 KB.
 - Key hints and keyboard guides are gone from every screen, and from the
   Lua notices that only listed keys: customs camera, scene placement, selfie
   and evidence cameras, fishing, bike carry and emote effects. Interaction
@@ -51,4 +56,4 @@
 - Escape closes interfaces on key-up, so the release no longer opens the
   pause menu after focus returns to the game.
 - `scripts/build-all.mjs`, `scripts/preview.mjs` (headless Chromium renders of
-  scenario files), `scripts/luacheck.py`, `DESIGN.md`, `docs/NUI-GUIDE.md`.
+  scenario files; `$now` tokens work in messages and mocks), `scripts/luacheck.py`, `DESIGN.md`, `docs/NUI-GUIDE.md`.

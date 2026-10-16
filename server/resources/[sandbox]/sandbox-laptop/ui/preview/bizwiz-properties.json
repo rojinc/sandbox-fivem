@@ -1,0 +1,520 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "backdrop": true,
+  "settle": 400,
+  "wait": 900,
+  "mocks": {
+    "Dyn8SearchProperties": {
+      "properties": [
+        {
+          "_id": "62518e75841f5a4cb4eb3b41",
+          "label": "3 Hillcrest Avenue",
+          "type": "house",
+          "sold": false,
+          "price": 245000,
+          "upgrades": {
+            "interior": "house_2"
+          }
+        },
+        {
+          "_id": "62518e75841f5a4cb4eb3b42",
+          "label": "14 Mirror Park Boulevard",
+          "type": "house",
+          "sold": true,
+          "price": 180000,
+          "upgrades": {
+            "interior": "house_1",
+            "storage": 2
+          },
+          "owner": {
+            "SID": 2210,
+            "First": "Dev",
+            "Last": "Okafor"
+          }
+        },
+        {
+          "_id": "62518e75841f5a4cb4eb3b43",
+          "label": "Unit 2, Elysian Fields",
+          "type": "warehouse",
+          "sold": false,
+          "price": 410000,
+          "upgrades": {}
+        },
+        {
+          "_id": "62518e75841f5a4cb4eb3b44",
+          "label": "Suite 9, Arcadius",
+          "type": "office",
+          "sold": true,
+          "price": 520000,
+          "upgrades": {
+            "interior": "office_1"
+          },
+          "owner": {
+            "SID": 4120,
+            "First": "Sam",
+            "Last": "Reyes"
+          }
+        }
+      ],
+      "upgrades": {
+        "house": {
+          "interior": {
+            "name": "Interior",
+            "levels": [
+              {
+                "id": "house_1",
+                "name": "Starter apartment",
+                "info": {
+                  "description": "One bedroom"
+                }
+              },
+              {
+                "id": "house_2",
+                "name": "Family home",
+                "info": {
+                  "description": "Three bedrooms and a yard"
+                }
+              }
+            ]
+          },
+          "storage": {
+            "name": "Storage",
+            "levels": [
+              {
+                "name": "Storage Level 1",
+                "info": "50 Slots | 500 Capacity"
+              },
+              {
+                "name": "Storage Level 2",
+                "info": "100 Slots | 1000 Capacity"
+              }
+            ]
+          },
+          "garage": {
+            "name": "Garage",
+            "levels": [
+              {
+                "name": "Garage Level 1",
+                "info": "2 Parking Spaces"
+              }
+            ]
+          }
+        },
+        "office": {
+          "interior": {
+            "name": "Interior",
+            "levels": [
+              {
+                "id": "office_1",
+                "name": "Open plan office",
+                "info": {
+                  "description": "Desks for 8"
+                }
+              }
+            ]
+          },
+          "storage": {
+            "name": "Storage",
+            "levels": [
+              {
+                "name": "Storage Level 1",
+                "info": "50 Slots | 500 Capacity"
+              }
+            ]
+          },
+          "garage": {
+            "name": "Garage",
+            "levels": []
+          }
+        }
+      }
+    }
+  },
+  "messages": [
+    {
+      "type": "SET_APPS",
+      "data": {
+        "lsunderground": {
+          "name": "lsunderground",
+          "storeLabel": "LS UNDG",
+          "label": "LS UNDG",
+          "icon": "user-secret",
+          "color": "#E95200",
+          "params": ":tab?",
+          "hidden": false,
+          "canUninstall": true,
+          "store": true,
+          "unread": 0,
+          "restricted": {
+            "state": [
+              "ACCESS_LSUNDERGROUND",
+              "PHONE_VPN",
+              "RACE_DONGLE"
+            ]
+          }
+        },
+        "teams": {
+          "name": "teams",
+          "storeLabel": "Teams",
+          "label": "Teams",
+          "icon": "people-group",
+          "color": "#00FF8A",
+          "hidden": false,
+          "canUninstall": true,
+          "store": true,
+          "unread": 0
+        },
+        "bizwiz": {
+          "name": "bizwiz",
+          "storeLabel": "BizWiz",
+          "label": "BizWiz",
+          "icon": "business-time",
+          "color": "#135dd8",
+          "hidden": false,
+          "canUninstall": true,
+          "store": true,
+          "unread": 0
+        },
+        "settings": {
+          "name": "settings",
+          "storeLabel": "Settings",
+          "label": "Settings",
+          "icon": "gear",
+          "color": "#18191e",
+          "params": "",
+          "canUninstall": false,
+          "store": true,
+          "unread": 0,
+          "requirements": []
+        },
+        "internet": {
+          "name": "internet",
+          "storeLabel": "Interwebz",
+          "label": "Interwebz",
+          "icon": "spider-web",
+          "color": "#1db5e7",
+          "params": "",
+          "canUninstall": false,
+          "store": true,
+          "unread": 0,
+          "requirements": [],
+          "fake": true
+        },
+        "files": {
+          "name": "files",
+          "storeLabel": "Files",
+          "label": "Files",
+          "icon": "folder-open",
+          "color": "#D8A71E",
+          "params": "",
+          "canUninstall": false,
+          "store": true,
+          "unread": 0,
+          "requirements": [],
+          "fake": true
+        }
+      }
+    },
+    {
+      "type": "SET_TIME",
+      "data": {
+        "hour": 21,
+        "minute": 37
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "player",
+        "data": {
+          "Source": 7,
+          "SID": 1042,
+          "First": "Mia",
+          "Last": "Thornton",
+          "Phone": "555-0142",
+          "Jobs": [
+            {
+              "Id": "realestate",
+              "Name": "Dynasty 8",
+              "Workplace": {
+                "Id": "dyn8",
+                "Name": "Dynasty 8"
+              },
+              "Grade": {
+                "Id": "agent",
+                "Name": "Agent"
+              }
+            }
+          ],
+          "States": [
+            "LAPTOP",
+            "PHONE_VPN",
+            "ACCESS_LSUNDERGROUND",
+            "RACE_DONGLE"
+          ],
+          "Profiles": {
+            "redline": {
+              "name": "Nightjar"
+            }
+          },
+          "Reputations": {
+            "Racing": 8800,
+            "Chopping": 26500,
+            "Boosting": 8200
+          },
+          "LaptopApps": {
+            "home": [
+              "settings",
+              "files",
+              "internet",
+              "bizwiz",
+              "teams",
+              "lsunderground"
+            ],
+            "installed": [
+              "settings",
+              "files",
+              "internet",
+              "bizwiz",
+              "teams",
+              "lsunderground"
+            ]
+          },
+          "LaptopSettings": {
+            "wallpaper": "wallpaper",
+            "texttone": "notification.ogg",
+            "colors": {
+              "accent": "#1a7cc1"
+            },
+            "zoom": 75,
+            "volume": 100,
+            "notifications": true,
+            "appNotifications": []
+          },
+          "LaptopPermissions": {
+            "lsunderground": {
+              "admin": false
+            },
+            "redline": {
+              "create": false
+            }
+          },
+          "BoostingContracts": [
+            {
+              "id": 41,
+              "owner": {
+                "SID": 1042,
+                "Alias": "Nightjar"
+              },
+              "vehicle": {
+                "vehicle": "zentorno",
+                "label": "Pegassi Zentorno",
+                "make": "Pegassi",
+                "model": "Zentorno",
+                "class": "A",
+                "classLevel": 4,
+                "tracker": 2
+              },
+              "prices": {
+                "standard": {
+                  "price": 40,
+                  "coin": "VRM"
+                }
+              },
+              "expires": "$now+15840"
+            },
+            {
+              "id": 42,
+              "owner": {
+                "SID": 1042,
+                "Alias": "Nightjar"
+              },
+              "vehicle": {
+                "vehicle": "sultan",
+                "label": "Karin Sultan",
+                "make": "Karin",
+                "model": "Sultan",
+                "class": "C",
+                "classLevel": 2,
+                "tracker": 0
+              },
+              "prices": {
+                "standard": {
+                  "price": 14,
+                  "coin": "VRM"
+                }
+              },
+              "expires": "$now+9300"
+            },
+            {
+              "id": 43,
+              "owner": {
+                "SID": 1042,
+                "Alias": "Nightjar"
+              },
+              "vehicle": {
+                "vehicle": "elegy2",
+                "label": "Annis Elegy RH8",
+                "make": "Annis",
+                "model": "Elegy RH8",
+                "class": "B",
+                "classLevel": 3,
+                "rare": true,
+                "tracker": 1
+              },
+              "prices": {
+                "standard": {
+                  "price": 22,
+                  "coin": "VRM"
+                }
+              },
+              "expires": "$now+3020"
+            },
+            {
+              "id": 44,
+              "owner": {
+                "SID": 1042,
+                "Alias": "Nightjar"
+              },
+              "vehicle": {
+                "vehicle": "blista",
+                "label": "Dinka Blista",
+                "make": "Dinka",
+                "model": "Blista",
+                "class": "D",
+                "classLevel": 1,
+                "tracker": 0
+              },
+              "prices": {
+                "standard": {
+                  "price": 8,
+                  "coin": "VRM"
+                }
+              },
+              "expires": "$now+17100"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "onDuty",
+        "data": "realestate"
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "JobPermissions",
+        "data": {
+          "realestate": {
+            "TABLET_VIEW_DOCUMENT": true,
+            "JOB_SELL": true
+          }
+        }
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "businessLogo",
+        "data": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZDhhNzFlIi8+PHBhdGggZD0iTTE0IDQ2VjE4aDh2MTFoMjBWMThoOHYyOGgtOFYzNkgyMnYxMHoiIGZpbGw9IiMxODFhMWQiLz48L3N2Zz4="
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "businessPages",
+        "data": [
+          {
+            "id": "Dashboard",
+            "label": "Dashboard"
+          },
+          {
+            "id": "Search/Document",
+            "label": "Documents",
+            "permission": "TABLET_VIEW_DOCUMENT"
+          },
+          {
+            "id": "View/Document",
+            "hidden": true
+          },
+          {
+            "id": "Create/Notice",
+            "hidden": true
+          },
+          {
+            "id": "Dynasty/Credit",
+            "label": "Run Credit Check",
+            "permission": "JOB_SELL"
+          },
+          {
+            "id": "Dynasty/Properties",
+            "label": "Properties",
+            "permission": "JOB_SELL"
+          }
+        ]
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "businessNotices",
+        "data": [
+          {
+            "_id": "n1",
+            "job": "hayes",
+            "time": "$nowMs-2700000",
+            "title": "Repair prices from Monday",
+            "description": "<p>Full repairs go up to <b>$1,250</b>. Regular repairs stay at $600. Write the new prices on every receipt.</p>",
+            "author": {
+              "SID": 1042,
+              "First": "Mia",
+              "Last": "Thornton"
+            }
+          },
+          {
+            "_id": "n2",
+            "job": "hayes",
+            "time": "$nowMs-90000000",
+            "title": "Tow truck keys",
+            "description": "<p>Keys go back in the lockbox at the end of every shift.</p>",
+            "author": {
+              "SID": 2210,
+              "First": "Dev",
+              "Last": "Okafor"
+            }
+          },
+          {
+            "_id": "n3",
+            "job": "hayes",
+            "time": "$nowMs-260000000",
+            "title": "Weekend roster",
+            "description": "<ul><li>Saturday: Dev and Lena</li><li>Sunday: Mia</li></ul>",
+            "author": {
+              "SID": 1042,
+              "First": "Mia",
+              "Last": "Thornton"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "LAPTOP_VISIBLE",
+      "data": {}
+    },
+    {
+      "type": "PREVIEW_OPEN",
+      "data": {
+        "app": "bizwiz",
+        "page": "Dynasty/Properties"
+      }
+    }
+  ]
+}

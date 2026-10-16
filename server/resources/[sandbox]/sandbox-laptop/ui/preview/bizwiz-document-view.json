@@ -11,7 +11,7 @@
       "_id": "d1",
       "title": "Customer vehicle intake procedure",
       "pinned": true,
-      "time": 1791334197684,
+      "time": "$nowMs-860216088",
       "author": {
         "SID": 1042,
         "First": "Mia",
@@ -19,7 +19,7 @@
       },
       "notes": "<h2>Before you start</h2><p>Check the vehicle in with the customer present. Note every scratch on the intake form.</p><ol><li>Photograph all four sides.</li><li>Record the plate and mileage.</li><li>Agree the price <b>before</b> any work.</li></ol><p style=\"color:red;font-size:40px\">Pasted styles are removed.</p>",
       "lastUpdated": {
-        "Time": 1792107797684,
+        "Time": "$nowMs-86616088",
         "SID": 2210,
         "First": "Dev",
         "Last": "Okafor"

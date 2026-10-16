@@ -1,0 +1,522 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "backdrop": true,
+  "settle": 400,
+  "wait": 900,
+  "mocks": {
+    "PDMGetStock": {
+      "stock": [
+        {
+          "_id": "s0",
+          "dealership": "pdm",
+          "vehicle": "faggio",
+          "modelType": "automobile",
+          "data": {
+            "make": "Pegassi",
+            "model": "Faggio",
+            "class": "M",
+            "category": "motorcycles",
+            "price": 16000
+          },
+          "quantity": 10
+        },
+        {
+          "_id": "s1",
+          "dealership": "pdm",
+          "vehicle": "seminole",
+          "modelType": "automobile",
+          "data": {
+            "make": "Canis",
+            "model": "Seminole",
+            "class": "C",
+            "category": "suv",
+            "price": 23750
+          },
+          "quantity": 10,
+          "lastPurchase": "$now-3817"
+        },
+        {
+          "_id": "s2",
+          "dealership": "pdm",
+          "vehicle": "panto",
+          "modelType": "automobile",
+          "data": {
+            "make": "Benefactor",
+            "model": "Panto",
+            "class": "C",
+            "category": "compact",
+            "price": 21000
+          },
+          "quantity": 5
+        },
+        {
+          "_id": "s3",
+          "dealership": "pdm",
+          "vehicle": "gresley",
+          "modelType": "automobile",
+          "data": {
+            "make": "Bravado",
+            "model": "Gresley",
+            "class": "B",
+            "category": "suv",
+            "price": 37500
+          },
+          "quantity": 14,
+          "lastPurchase": "$now-260217"
+        },
+        {
+          "_id": "s4",
+          "dealership": "pdm",
+          "vehicle": "faction",
+          "modelType": "automobile",
+          "data": {
+            "make": "Willard",
+            "model": "Faction",
+            "class": "B",
+            "category": "muscle",
+            "price": 55700
+          },
+          "quantity": 3,
+          "lastPurchase": "$now-90217"
+        },
+        {
+          "_id": "s5",
+          "dealership": "pdm",
+          "vehicle": "speedo",
+          "modelType": "automobile",
+          "data": {
+            "make": "Vapid",
+            "model": "Speedo",
+            "class": "D",
+            "category": "van",
+            "price": 38500
+          },
+          "quantity": 0,
+          "lastPurchase": "$now-500217"
+        },
+        {
+          "_id": "s6",
+          "dealership": "pdm",
+          "vehicle": "washington",
+          "modelType": "automobile",
+          "data": {
+            "make": "Albany",
+            "model": "Washington",
+            "class": "B",
+            "category": "sedans",
+            "price": 37750
+          },
+          "quantity": 4
+        }
+      ],
+      "dealerData": {
+        "profitPercentage": 10,
+        "commission": 15
+      },
+      "interest": 15
+    }
+  },
+  "messages": [
+    {
+      "type": "SET_APPS",
+      "data": {
+        "lsunderground": {
+          "name": "lsunderground",
+          "storeLabel": "LS UNDG",
+          "label": "LS UNDG",
+          "icon": "user-secret",
+          "color": "#E95200",
+          "params": ":tab?",
+          "hidden": false,
+          "canUninstall": true,
+          "store": true,
+          "unread": 0,
+          "restricted": {
+            "state": [
+              "ACCESS_LSUNDERGROUND",
+              "PHONE_VPN",
+              "RACE_DONGLE"
+            ]
+          }
+        },
+        "teams": {
+          "name": "teams",
+          "storeLabel": "Teams",
+          "label": "Teams",
+          "icon": "people-group",
+          "color": "#00FF8A",
+          "hidden": false,
+          "canUninstall": true,
+          "store": true,
+          "unread": 0
+        },
+        "bizwiz": {
+          "name": "bizwiz",
+          "storeLabel": "BizWiz",
+          "label": "BizWiz",
+          "icon": "business-time",
+          "color": "#135dd8",
+          "hidden": false,
+          "canUninstall": true,
+          "store": true,
+          "unread": 0
+        },
+        "settings": {
+          "name": "settings",
+          "storeLabel": "Settings",
+          "label": "Settings",
+          "icon": "gear",
+          "color": "#18191e",
+          "params": "",
+          "canUninstall": false,
+          "store": true,
+          "unread": 0,
+          "requirements": []
+        },
+        "internet": {
+          "name": "internet",
+          "storeLabel": "Interwebz",
+          "label": "Interwebz",
+          "icon": "spider-web",
+          "color": "#1db5e7",
+          "params": "",
+          "canUninstall": false,
+          "store": true,
+          "unread": 0,
+          "requirements": [],
+          "fake": true
+        },
+        "files": {
+          "name": "files",
+          "storeLabel": "Files",
+          "label": "Files",
+          "icon": "folder-open",
+          "color": "#D8A71E",
+          "params": "",
+          "canUninstall": false,
+          "store": true,
+          "unread": 0,
+          "requirements": [],
+          "fake": true
+        }
+      }
+    },
+    {
+      "type": "SET_TIME",
+      "data": {
+        "hour": 21,
+        "minute": 37
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "player",
+        "data": {
+          "Source": 7,
+          "SID": 1042,
+          "First": "Mia",
+          "Last": "Thornton",
+          "Phone": "555-0142",
+          "Jobs": [
+            {
+              "Id": "pdm",
+              "Name": "Premium Deluxe Motorsport",
+              "Workplace": {
+                "Id": "pdm",
+                "Name": "Premium Deluxe Motorsport"
+              },
+              "Grade": {
+                "Id": "sales",
+                "Name": "Sales manager"
+              }
+            }
+          ],
+          "States": [
+            "LAPTOP",
+            "PHONE_VPN",
+            "ACCESS_LSUNDERGROUND",
+            "RACE_DONGLE"
+          ],
+          "Profiles": {
+            "redline": {
+              "name": "Nightjar"
+            }
+          },
+          "Reputations": {
+            "Racing": 8800,
+            "Chopping": 26500,
+            "Boosting": 8200
+          },
+          "LaptopApps": {
+            "home": [
+              "settings",
+              "files",
+              "internet",
+              "bizwiz",
+              "teams",
+              "lsunderground"
+            ],
+            "installed": [
+              "settings",
+              "files",
+              "internet",
+              "bizwiz",
+              "teams",
+              "lsunderground"
+            ]
+          },
+          "LaptopSettings": {
+            "wallpaper": "wallpaper",
+            "texttone": "notification.ogg",
+            "colors": {
+              "accent": "#1a7cc1"
+            },
+            "zoom": 75,
+            "volume": 100,
+            "notifications": true,
+            "appNotifications": []
+          },
+          "LaptopPermissions": {
+            "lsunderground": {
+              "admin": false
+            },
+            "redline": {
+              "create": false
+            }
+          },
+          "BoostingContracts": [
+            {
+              "id": 41,
+              "owner": {
+                "SID": 1042,
+                "Alias": "Nightjar"
+              },
+              "vehicle": {
+                "vehicle": "zentorno",
+                "label": "Pegassi Zentorno",
+                "make": "Pegassi",
+                "model": "Zentorno",
+                "class": "A",
+                "classLevel": 4,
+                "tracker": 2
+              },
+              "prices": {
+                "standard": {
+                  "price": 40,
+                  "coin": "VRM"
+                }
+              },
+              "expires": "$now+15840"
+            },
+            {
+              "id": 42,
+              "owner": {
+                "SID": 1042,
+                "Alias": "Nightjar"
+              },
+              "vehicle": {
+                "vehicle": "sultan",
+                "label": "Karin Sultan",
+                "make": "Karin",
+                "model": "Sultan",
+                "class": "C",
+                "classLevel": 2,
+                "tracker": 0
+              },
+              "prices": {
+                "standard": {
+                  "price": 14,
+                  "coin": "VRM"
+                }
+              },
+              "expires": "$now+9300"
+            },
+            {
+              "id": 43,
+              "owner": {
+                "SID": 1042,
+                "Alias": "Nightjar"
+              },
+              "vehicle": {
+                "vehicle": "elegy2",
+                "label": "Annis Elegy RH8",
+                "make": "Annis",
+                "model": "Elegy RH8",
+                "class": "B",
+                "classLevel": 3,
+                "rare": true,
+                "tracker": 1
+              },
+              "prices": {
+                "standard": {
+                  "price": 22,
+                  "coin": "VRM"
+                }
+              },
+              "expires": "$now+3020"
+            },
+            {
+              "id": 44,
+              "owner": {
+                "SID": 1042,
+                "Alias": "Nightjar"
+              },
+              "vehicle": {
+                "vehicle": "blista",
+                "label": "Dinka Blista",
+                "make": "Dinka",
+                "model": "Blista",
+                "class": "D",
+                "classLevel": 1,
+                "tracker": 0
+              },
+              "prices": {
+                "standard": {
+                  "price": 8,
+                  "coin": "VRM"
+                }
+              },
+              "expires": "$now+17100"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "onDuty",
+        "data": "pdm"
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "JobPermissions",
+        "data": {
+          "pdm": {
+            "TABLET_VIEW_DOCUMENT": true,
+            "dealership_sell": true,
+            "dealership_manage": true,
+            "JOB_MANAGEMENT": true
+          }
+        }
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "businessLogo",
+        "data": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZDhhNzFlIi8+PHBhdGggZD0iTTE0IDQ2VjE4aDh2MTFoMjBWMThoOHYyOGgtOFYzNkgyMnYxMHoiIGZpbGw9IiMxODFhMWQiLz48L3N2Zz4="
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "businessPages",
+        "data": [
+          {
+            "id": "Dashboard",
+            "label": "Dashboard"
+          },
+          {
+            "id": "Search/Document",
+            "label": "Documents",
+            "permission": "TABLET_VIEW_DOCUMENT"
+          },
+          {
+            "id": "View/Document",
+            "hidden": true
+          },
+          {
+            "id": "Create/Document",
+            "hidden": true
+          },
+          {
+            "id": "Create/Notice",
+            "hidden": true
+          },
+          {
+            "id": "PDM/Sales",
+            "label": "Vehicle Stock",
+            "permission": "dealership_sell"
+          },
+          {
+            "id": "PDM/Credit",
+            "label": "Run Credit Check",
+            "permission": "dealership_sell"
+          },
+          {
+            "id": "PDM/Manage",
+            "label": "Manage Dealership",
+            "permission": "JOB_MANAGEMENT"
+          },
+          {
+            "id": "PDM/SalesHistory",
+            "label": "Sales History",
+            "permission": "dealership_manage"
+          }
+        ]
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "type": "businessNotices",
+        "data": [
+          {
+            "_id": "n1",
+            "job": "hayes",
+            "time": "$nowMs-2700000",
+            "title": "Repair prices from Monday",
+            "description": "<p>Full repairs go up to <b>$1,250</b>. Regular repairs stay at $600. Write the new prices on every receipt.</p>",
+            "author": {
+              "SID": 1042,
+              "First": "Mia",
+              "Last": "Thornton"
+            }
+          },
+          {
+            "_id": "n2",
+            "job": "hayes",
+            "time": "$nowMs-90000000",
+            "title": "Tow truck keys",
+            "description": "<p>Keys go back in the lockbox at the end of every shift.</p>",
+            "author": {
+              "SID": 2210,
+              "First": "Dev",
+              "Last": "Okafor"
+            }
+          },
+          {
+            "_id": "n3",
+            "job": "hayes",
+            "time": "$nowMs-260000000",
+            "title": "Weekend roster",
+            "description": "<ul><li>Saturday: Dev and Lena</li><li>Sunday: Mia</li></ul>",
+            "author": {
+              "SID": 1042,
+              "First": "Mia",
+              "Last": "Thornton"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "LAPTOP_VISIBLE",
+      "data": {}
+    },
+    {
+      "type": "PREVIEW_OPEN",
+      "data": {
+        "app": "bizwiz",
+        "page": "PDM/Sales"
+      }
+    }
+  ]
+}

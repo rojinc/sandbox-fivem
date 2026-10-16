@@ -1,7 +1,8 @@
 /**
  * BizWiz page ids (as Lua's businessPages lists them) -> page component,
  * the nav label the UI shows, and which nav entry a hidden page belongs to.
- * Pages missing from PAGES show "not available yet".
+ * Every page the server config lists has a component; an unknown id shows
+ * "not available yet".
  */
 import Notices from './pages/Notices.svelte';
 import NoticeEdit from './pages/NoticeEdit.svelte';
@@ -18,6 +19,10 @@ import Fleet from './pages/Fleet.svelte';
 import BigWins from './pages/BigWins.svelte';
 import PdmCredit from './pages/PdmCredit.svelte';
 import Dyn8Credit from './pages/Dyn8Credit.svelte';
+import VehicleStock from './pages/VehicleStock.svelte';
+import DealershipSettings from './pages/DealershipSettings.svelte';
+import SalesHistory from './pages/SalesHistory.svelte';
+import Properties from './pages/Properties.svelte';
 
 export const PAGES = {
     Dashboard: Notices,
@@ -35,6 +40,10 @@ export const PAGES = {
     'Casino/BigWins': BigWins,
     'PDM/Credit': PdmCredit,
     'Dynasty/Credit': Dyn8Credit,
+    'PDM/Sales': VehicleStock,
+    'PDM/Manage': DealershipSettings,
+    'PDM/SalesHistory': SalesHistory,
+    'Dynasty/Properties': Properties,
 };
 
 export const PARENT = {

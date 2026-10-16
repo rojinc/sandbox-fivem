@@ -52,7 +52,7 @@
           "Name": "Pillbox Medical",
           "Description": "Treatment on 15 October",
           "Amount": 1500,
-          "Timestamp": 1792192309
+          "Timestamp": "$now-2565"
         }
       ]
     }

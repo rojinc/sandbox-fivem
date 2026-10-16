@@ -94,7 +94,7 @@
       {
         "id": 3,
         "owner": 7,
-        "expires": 1792195992,
+        "expires": "$now+1578",
         "team": true,
         "event": "Laptop:Server:Teams:InviteRequest",
         "label": "New Join Request",
@@ -107,7 +107,7 @@
       {
         "id": 4,
         "owner": 7,
-        "expires": 1792195457,
+        "expires": "$now+1043",
         "team": true,
         "event": "Laptop:Server:LSUnderground:Boosting:ActionRequest",
         "label": "Boosting Contract",

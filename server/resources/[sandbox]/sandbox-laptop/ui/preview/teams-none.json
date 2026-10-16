@@ -65,7 +65,7 @@
       {
         "id": 9,
         "owner": 1042,
-        "expires": 1792195877,
+        "expires": "$now+1463",
         "team": false,
         "event": "Laptop:Server:Teams:Invite",
         "label": "New Team Invite",

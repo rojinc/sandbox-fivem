@@ -54,7 +54,7 @@
           "Type": 0,
           "Fine": 750,
           "TimeHold": {
-            "ExpiresAt": 1792197709
+            "ExpiresAt": "$now+2835"
           }
         },
         "Mileage": 30500,
