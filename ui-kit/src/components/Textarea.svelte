@@ -7,7 +7,7 @@
 <style>
     .au-textarea {
         padding: var(--au-s2) var(--au-s3);
-        border: 1px solid var(--au-input-border);
+        border: 2px solid var(--au-input-border);
         border-radius: var(--au-radius);
         background: var(--au-input-bg);
         color: var(--au-input-text);
@@ -16,7 +16,9 @@
         resize: vertical;
     }
     .au-textarea:focus {
-        border-color: var(--au-action);
+        outline: 3px solid var(--au-focus);
+        outline-offset: 0;
+        box-shadow: inset 0 0 0 2px var(--au-ink);
     }
     .au-textarea--block {
         display: block;

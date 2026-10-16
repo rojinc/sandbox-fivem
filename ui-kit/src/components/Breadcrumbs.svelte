@@ -29,8 +29,8 @@
         margin: 0 0 var(--au-s3);
         padding: 0;
         list-style: none;
-        font-size: 13px;
-        color: var(--au-hint);
+        font-size: var(--au-fs-xs);
+        color: var(--au-muted);
     }
     .au-breadcrumbs__item {
         display: inline-flex;
@@ -45,12 +45,14 @@
         border: 0;
         padding: 0;
         background: transparent;
-        color: var(--au-muted);
+        color: var(--au-action);
         cursor: pointer;
         font: inherit;
+        text-decoration: underline;
+        text-underline-offset: 0.18em;
     }
     .au-breadcrumbs__link:hover {
-        color: var(--au-action);
+        text-decoration-thickness: 3px;
     }
     [aria-current='page'] {
         color: var(--au-text);

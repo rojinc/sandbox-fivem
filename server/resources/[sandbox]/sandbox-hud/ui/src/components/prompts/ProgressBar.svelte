@@ -82,23 +82,21 @@
         margin-bottom: 7px;
     }
     .bar__label {
-        font-size: 15px;
-        font-weight: 500;
+        font-size: 16px;
+        font-weight: 700;
     }
     .bar__time {
-        font-size: 13px;
+        font-size: 16px;
         color: rgba(255, 255, 255, 0.75);
         flex-shrink: 0;
     }
     .bar__track {
-        height: 4px;
-        border-radius: 2px;
+        height: 6px;
         background: rgba(0, 0, 0, 0.45);
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
         overflow: hidden;
     }
     .bar__fill {
         height: 100%;
-        border-radius: 2px;
     }
 </style>

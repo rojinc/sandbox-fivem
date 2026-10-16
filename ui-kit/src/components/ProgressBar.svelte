@@ -32,31 +32,28 @@
         font-size: var(--au-fs-xs);
     }
     .au-progress__label {
-        font-weight: 500;
+        font-weight: 700;
     }
     .au-progress__value {
         color: var(--au-muted);
-        font-size: 13px;
+        font-variant-numeric: tabular-nums;
     }
     .au-overworld .au-progress__value {
         color: rgba(255, 255, 255, 0.8);
     }
     .au-progress__track {
-        height: 4px;
-        border-radius: 2px;
+        height: 6px;
         background: rgba(255, 255, 255, 0.12);
         overflow: hidden;
     }
     .au-progress--sm .au-progress__track {
-        height: 2px;
+        height: 4px;
     }
     .au-progress--lg .au-progress__track {
-        height: 6px;
-        border-radius: 3px;
+        height: 8px;
     }
     .au-progress__fill {
         height: 100%;
-        border-radius: inherit;
         transition: width var(--au-normal) var(--au-ease);
     }
     .au-progress__fill.is-indeterminate {

@@ -28,8 +28,8 @@
     }
     .prompt {
         max-width: 560px;
-        font-size: 17px;
-        font-weight: 500;
+        font-size: 18px;
+        font-weight: 700;
         text-align: center;
     }
     .prompt :global(.au-kbd) {

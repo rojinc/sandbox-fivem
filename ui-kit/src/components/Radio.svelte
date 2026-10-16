@@ -16,7 +16,7 @@
         display: inline-flex;
         align-items: center;
         gap: var(--au-s3);
-        min-height: 28px;
+        min-height: 36px;
         cursor: pointer;
         font-size: var(--au-fs-xs);
     }
@@ -32,9 +32,9 @@
     }
     .au-radio__dot {
         flex-shrink: 0;
-        width: 20px;
-        height: 20px;
-        border: 1px solid var(--au-border-strong);
+        width: 28px;
+        height: 28px;
+        border: 2px solid var(--au-ink);
         border-radius: 50%;
         background: var(--au-input-bg);
         position: relative;
@@ -42,20 +42,21 @@
     .au-radio__dot::after {
         content: '';
         position: absolute;
-        inset: 4px;
+        inset: 5px;
         border-radius: 50%;
-        background: var(--au-action);
+        background: var(--au-ink);
         transform: scale(0);
         transition: transform var(--au-fast) var(--au-ease);
     }
     .au-radio__input:checked + .au-radio__dot {
-        border-color: var(--au-action);
+        border-color: var(--au-ink);
     }
     .au-radio__input:checked + .au-radio__dot::after {
         transform: scale(1);
     }
     .au-radio__input:focus-visible + .au-radio__dot {
-        outline: 2px solid var(--au-focus);
-        outline-offset: 2px;
+        outline: 3px solid var(--au-focus);
+        outline-offset: 0;
+        box-shadow: 0 0 0 5px var(--au-ink);
     }
 </style>

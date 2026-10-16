@@ -49,7 +49,6 @@
         place-items: center;
         padding: var(--au-s6);
         z-index: 1000;
-        animation: au-fade-in var(--au-normal) var(--au-ease);
     }
     .au-modal--backdrop {
         background: rgba(8, 9, 10, 0.6);
@@ -61,10 +60,8 @@
         flex-direction: column;
         background: var(--au-bg);
         color: var(--au-text);
-        border: 1px solid var(--au-border);
-        border-radius: var(--au-radius-lg);
-        box-shadow: var(--au-shadow-2);
-        animation: au-rise-in var(--au-normal) var(--au-ease);
+        border: 2px solid var(--au-ink);
+        border-radius: 0;
     }
     .au-modal__head {
         display: flex;
@@ -78,11 +75,8 @@
     }
     .au-modal__eyebrow {
         display: block;
-        color: var(--au-action);
-        font-size: var(--au-fs-xxs);
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        margin-bottom: 2px;
+        font-size: var(--au-fs-xs);
+        font-weight: 800;
     }
     .au-modal__title {
         margin: 0;
@@ -92,12 +86,14 @@
         border: 0;
         background: transparent;
         color: var(--au-muted);
-        font-size: 20px;
-        padding: 4px;
-        margin: -4px -8px 0 0;
-        border-radius: var(--au-radius);
+        font-size: 22px;
+        width: 44px;
+        height: 44px;
+        margin: -10px -14px 0 0;
+        border-radius: 0;
         cursor: pointer;
-        display: flex;
+        display: grid;
+        place-items: center;
     }
     .au-modal__close:hover {
         color: var(--au-text);

@@ -1,6 +1,8 @@
 /*
- * Design tokens: one dark theme (page #181a1d), Roboto, 4px grid.
- * See /DESIGN.md. Components only read the semantic tokens below.
+ * Design tokens: the Datum house standard mapped onto the project palette
+ * (page #181a1d, Roboto). Square corners, no shadows, ink (light) primary
+ * buttons, blue for links only, gold focus. See /DESIGN.md.
+ * Components only read the semantic tokens below.
  * The --au-light-* / --au-dark-* names are kept as aliases so older code
  * renders on the same dark palette.
  */
@@ -10,8 +12,8 @@
     --au-unit: 4px;
     --au-font: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
     --au-font-mono: 'Roboto Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-    --au-radius: 4px;
-    --au-radius-lg: 8px;
+    --au-radius: 0;
+    --au-radius-lg: 0;
     --au-maxwidth: 42em;
 
     --au-s1: 4px;
@@ -25,12 +27,12 @@
     --au-s12: 48px;
     --au-s16: 64px;
 
-    --au-fs-xxs: 12px;
-    --au-fs-xs: 14px;
-    --au-fs-sm: 16px;
-    --au-fs-md: 20px;
-    --au-fs-lg: 24px;
-    --au-fs-xl: 32px;
+    --au-fs-xxs: 14px;
+    --au-fs-xs: 16px;
+    --au-fs-sm: 18px;
+    --au-fs-md: 22px;
+    --au-fs-lg: 28px;
+    --au-fs-xl: 36px;
     --au-fs-xxl: 40px;
     --au-fs-xxxl: 48px;
     --au-lh: 1.5;
@@ -41,40 +43,44 @@
     --au-slow: 320ms;
     --au-ease: cubic-bezier(0.2, 0, 0, 1);
 
-    --au-shadow-1: 0 2px 8px rgba(0, 0, 0, 0.35);
-    --au-shadow-2: 0 16px 40px rgba(0, 0, 0, 0.5);
+    --au-shadow-1: none;
+    --au-shadow-2: none;
 
     /* surfaces, darkest to lightest */
     --au-bg-sunk: #121416;
     --au-bg: #181a1d;
-    --au-bg-shade: #1e2124;
+    --au-bg-shade: #1f2226;
     --au-bg-alt: #25282c;
     --au-bg-alt-shade: #2d3136;
 
-    /* lines */
-    --au-border: #33373c;
-    --au-border-strong: #474c53;
+    /* lines: --au-border is a divider only; --au-border-strong (ink) is the edge of controls */
+    --au-border: #3b4047;
+    --au-border-strong: #f1f3f5;
 
     /* text */
-    --au-text: #e9ebee;
-    --au-muted: #a1a7ae;
-    --au-hint: #7f868e;
+    --au-text: #f1f3f5;
+    --au-muted: #b4bcc4;
+    --au-hint: #b4bcc4;
 
-    /* action and focus */
-    --au-action: #6cb6ff;
-    --au-action-hover: #93c9ff;
+    /* links (blue is for links only) and focus (gold, with ink text on it) */
+    --au-action: #8cbcff;
+    --au-action-hover: #c4ddff;
     --au-action-contrast: #0d1117;
     --au-action-soft: #172f47;
-    --au-focus: #c390f9;
+    --au-focus: #ffcd00;
+    --au-on-focus: #0f141a;
+    --au-ink: var(--au-text);
+    --au-on-ink: #181a1d;
+    --au-bar: #8b949e;
 
     /* states: a foreground and a tinted background each */
-    --au-error: #ff7b72;
-    --au-error-bg: #431c1c;
-    --au-success: #3ecf8e;
-    --au-success-bg: #173a2b;
-    --au-warning: #f2b84b;
-    --au-warning-bg: #3d3115;
-    --au-info: #6cb6ff;
+    --au-error: #ff8f85;
+    --au-error-bg: #3a1a18;
+    --au-success: #4fd18b;
+    --au-success-bg: #14301f;
+    --au-warning: #ffc266;
+    --au-warning-bg: #352812;
+    --au-info: #8cbcff;
     --au-info-bg: #172f47;
 
     /* inputs */

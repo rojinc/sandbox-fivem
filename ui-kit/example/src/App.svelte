@@ -28,7 +28,7 @@
 
 <div class="stage">
     <div class="page">
-        <AppShell eyebrow="LSPD" title="Mobile data terminal" subline="Unit 12 · Mission Row" {navItems} navActive={nav} onnav={(id) => (nav = id)} asideWidth="220px">
+        <AppShell eyebrow="LSPD" title="Mobile data terminal" subline="Unit 12, Mission Row station" {navItems} navActive={nav} onnav={(id) => (nav = id)} asideWidth="220px">
             {#snippet actions()}
                 <Button variant="secondary" size="sm" icon="bell">Alerts</Button>
                 <Button variant="tertiary" size="sm" icon="logout">Sign out</Button>
@@ -81,7 +81,7 @@
                     <Tabs items={[{ id: 'details', label: 'Details' }, { id: 'evidence', label: 'Evidence', badge: 2 }, { id: 'charges', label: 'Charges' }]} bind:active={tab} />
                     <div class="tabbody">
                         <Field label="Officer" id="officer" hint="Shown on the report header"><TextInput id="officer" bind:value={name} /></Field>
-                        <Field label="Vehicle plate" id="plate" error={plate ? '' : 'Enter the plate shown on the vehicle'} required>
+                        <Field label="Vehicle plate" id="plate" error={plate ? '' : 'Enter the plate shown on the vehicle'}>
                             <TextInput id="plate" bind:value={plate} placeholder="ABC 123" mono width="200px" block={false} />
                         </Field>
                         <Field label="Department" id="dept">

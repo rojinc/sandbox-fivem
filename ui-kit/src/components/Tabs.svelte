@@ -32,40 +32,42 @@
         display: inline-flex;
         align-items: center;
         gap: var(--au-s2);
-        padding: var(--au-s2) 0 10px;
+        min-height: 44px;
+        padding: 0;
         border: 0;
-        border-bottom: 2px solid transparent;
         background: transparent;
         color: var(--au-muted);
         font: inherit;
         font-size: var(--au-fs-xs);
-        font-weight: 500;
+        font-weight: 700;
         white-space: nowrap;
         cursor: pointer;
-        margin-bottom: -1px;
-        transition:
-            color var(--au-fast) var(--au-ease),
-            border-color var(--au-fast) var(--au-ease);
     }
     .au-tabs__tab:hover {
         color: var(--au-text);
+        text-decoration: underline;
+        text-decoration-thickness: 3px;
+        text-underline-offset: 0.3em;
     }
     .au-tabs__tab.is-active {
         color: var(--au-text);
-        border-bottom-color: var(--au-action);
+        box-shadow: inset 0 -4px var(--au-ink);
+    }
+    .au-tabs__tab:focus-visible {
+        outline: 3px solid transparent;
+        background: var(--au-focus);
+        color: var(--au-on-focus);
     }
     .au-tabs__tab:disabled {
         opacity: 0.45;
         cursor: not-allowed;
     }
     .au-tabs__badge {
-        min-width: 18px;
-        padding: 0 5px;
-        border-radius: 9px;
+        padding: 0 6px;
         background: var(--au-bg-alt-shade);
         color: var(--au-text);
-        font-size: 11px;
-        line-height: 18px;
-        text-align: center;
+        font-size: var(--au-fs-xxs);
+        line-height: 1.5;
+        font-variant-numeric: tabular-nums;
     }
 </style>

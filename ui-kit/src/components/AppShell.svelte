@@ -53,8 +53,6 @@
         background: var(--au-bg);
         color: var(--au-text);
         border: 1px solid var(--au-border);
-        border-radius: var(--au-radius-lg);
-        box-shadow: var(--au-shadow-2);
         overflow: hidden;
     }
     .au-shell__body {

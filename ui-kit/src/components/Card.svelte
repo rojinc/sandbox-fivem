@@ -32,7 +32,7 @@
         width: 100%;
         text-align: left;
         border: 1px solid var(--au-border);
-        border-radius: var(--au-radius-lg);
+        border-radius: 0;
         background: var(--au-bg-shade);
         color: var(--au-text);
         font: inherit;
@@ -49,17 +49,17 @@
         background: var(--au-bg-alt);
     }
     .au-card--selected {
-        border-color: var(--au-action);
+        border: 2px solid var(--au-ink);
     }
     .au-card__header {
         padding: var(--au-s3) var(--au-s4) 0;
     }
     .au-card__title {
-        font-weight: 500;
+        font-weight: 700;
     }
     .au-card__subtitle {
         color: var(--au-muted);
-        font-size: 13px;
+        font-size: var(--au-fs-xs);
     }
     .au-card--padded .au-card__body {
         padding: var(--au-s3) var(--au-s4) var(--au-s4);

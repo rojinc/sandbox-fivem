@@ -31,11 +31,9 @@
     }
     .au-sidenav__title {
         padding: 0 var(--au-s3) var(--au-s2);
-        color: var(--au-hint);
-        font-size: var(--au-fs-xxs);
-        font-weight: 500;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
+        color: var(--au-text);
+        font-size: var(--au-fs-xs);
+        font-weight: 700;
     }
     .au-sidenav__list {
         list-style: none;
@@ -47,19 +45,18 @@
     }
     .au-sidenav__list--sub .au-sidenav__link {
         padding-left: 40px;
-        font-size: 13px;
     }
     .au-sidenav__link {
         display: flex;
         align-items: center;
         gap: var(--au-s3);
         width: 100%;
-        height: 36px;
+        min-height: 40px;
         padding: 0 var(--au-s3);
         border: 0;
-        border-radius: var(--au-radius);
+        border-radius: 0;
         background: transparent;
-        color: var(--au-muted);
+        color: var(--au-text);
         text-align: left;
         cursor: pointer;
         font: inherit;
@@ -70,12 +67,9 @@
         color: var(--au-text);
     }
     .au-sidenav__link.is-active {
-        background: var(--au-bg-alt);
+        background: var(--au-bg-alt-shade);
         color: var(--au-text);
-        font-weight: 500;
-    }
-    .au-sidenav__link.is-active .au-sidenav__icon {
-        color: var(--au-action);
+        font-weight: 700;
     }
     .au-sidenav__link:disabled {
         opacity: 0.45;
@@ -93,13 +87,11 @@
         white-space: nowrap;
     }
     .au-sidenav__badge {
-        min-width: 18px;
-        padding: 0 5px;
-        border-radius: 9px;
+        padding: 0 6px;
         background: var(--au-bg-alt-shade);
         color: var(--au-text);
-        font-size: 11px;
-        line-height: 18px;
-        text-align: center;
+        font-size: var(--au-fs-xxs);
+        line-height: 1.5;
+        font-variant-numeric: tabular-nums;
     }
 </style>

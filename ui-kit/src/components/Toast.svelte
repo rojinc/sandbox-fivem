@@ -29,12 +29,10 @@
         gap: 10px;
         width: 340px;
         padding: 10px 14px;
-        border-radius: var(--au-radius-lg);
-        background: #26292e;
+        background: #2a2e33;
         color: #f1f3f5;
         font-size: var(--au-fs-xs);
         line-height: 1.4;
-        box-shadow: var(--au-shadow-1);
     }
     .au-toast--info {
         background: #1d3f5e;
@@ -71,7 +69,7 @@
         padding-top: 1px;
     }
     .au-toast__title {
-        font-weight: 500;
+        font-weight: 700;
     }
     .au-toast__pin {
         font-size: 14px;

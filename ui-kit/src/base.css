@@ -53,19 +53,23 @@ h6 {
 
 h1 {
     font-size: var(--au-fs-xl);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
 }
 h2 {
     font-size: var(--au-fs-lg);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
 }
 h3 {
     font-size: var(--au-fs-md);
+    line-height: 1.3;
 }
-h4 {
-    font-size: var(--au-fs-sm);
-}
+h4,
 h5,
 h6 {
-    font-size: var(--au-fs-xs);
+    font-size: var(--au-fs-sm);
+    line-height: 1.4;
 }
 
 p {
@@ -81,12 +85,13 @@ ol {
 
 a {
     color: var(--au-action);
-    text-decoration: none;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
 }
 a:hover {
     color: var(--au-action-hover);
-    text-decoration: underline;
-    text-underline-offset: 3px;
+    text-decoration-thickness: 3px;
 }
 
 button,
@@ -121,12 +126,19 @@ table {
 }
 :focus-visible {
     outline: 3px solid var(--au-focus);
-    outline-offset: 2px;
+    outline-offset: 0;
+}
+a:focus-visible {
+    outline: 3px solid transparent;
+    color: var(--au-on-focus);
+    background: var(--au-focus);
+    box-shadow: 0 -2px var(--au-focus), 0 4px var(--au-on-focus);
+    text-decoration: none;
 }
 
 ::selection {
-    background: var(--au-action);
-    color: var(--au-action-contrast);
+    background: var(--au-focus);
+    color: var(--au-on-focus);
 }
 
 ::-webkit-scrollbar {
@@ -137,7 +149,7 @@ table {
     background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-    background: var(--au-border-strong);
+    background: #4a5058;
     border: 3px solid transparent;
     background-clip: padding-box;
     border-radius: 6px;
@@ -216,6 +228,9 @@ table {
     color: var(--au-muted);
 }
 .au-dl dd {
+    font-variant-numeric: tabular-nums;
+}
+.au-dl dd {
     margin: 0;
 }
 
@@ -224,6 +239,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     font-size: var(--au-fs-xs);
+    font-variant-numeric: tabular-nums;
 }
 .au-table caption {
     text-align: left;
@@ -233,12 +249,9 @@ table {
 .au-table th {
     text-align: left;
     padding: var(--au-s2) var(--au-s3);
-    border-bottom: 1px solid var(--au-border-strong);
-    color: var(--au-muted);
-    font-size: var(--au-fs-xxs);
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    border-bottom: 2px solid var(--au-ink);
+    color: var(--au-text);
+    font-weight: 700;
     white-space: nowrap;
 }
 .au-table td {
@@ -265,6 +278,10 @@ table {
 }
 .au-table tr.is-selected {
     background: var(--au-bg-alt-shade);
+}
+.au-table tr.is-selected td:first-child,
+.au-table tr.is-selected th:first-child {
+    font-weight: 700;
 }
 .au-table tr.is-clickable {
     cursor: pointer;

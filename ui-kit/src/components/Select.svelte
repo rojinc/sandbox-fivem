@@ -27,9 +27,9 @@
     }
     .au-select {
         width: 100%;
-        height: 40px;
+        height: 44px;
         padding: 0 var(--au-s10) 0 var(--au-s3);
-        border: 1px solid var(--au-input-border);
+        border: 2px solid var(--au-input-border);
         border-radius: var(--au-radius);
         background: var(--au-input-bg);
         color: var(--au-input-text);
@@ -39,16 +39,18 @@
         cursor: pointer;
     }
     .au-select:focus {
-        border-color: var(--au-action);
+        outline: 3px solid var(--au-focus);
+        outline-offset: 0;
+        box-shadow: inset 0 0 0 2px var(--au-ink);
     }
     .au-select option {
         background: var(--au-bg-shade);
         color: var(--au-text);
     }
     .au-select--sm {
-        height: 32px;
+        height: 36px;
         padding: 0 var(--au-s8) 0 var(--au-s2);
-        font-size: 13px;
+        font-size: var(--au-fs-xs);
     }
     .au-select--invalid {
         border-color: var(--au-error);

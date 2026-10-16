@@ -1,6 +1,4 @@
 <script>
-    import Icon from './Icon.svelte';
-
     /** Label + hint + error for one control. Pass the same `id` to the control. */
     let { label, hint, error, id, required = false, class: className = '', children } = $props();
 </script>
@@ -10,10 +8,10 @@
         <label class="au-field__label" for={id}>{label}{#if required}<span class="au-field__required" aria-hidden="true">*</span>{/if}</label>
     {/if}
     {#if hint}<div class="au-field__hint" id={id ? `${id}-hint` : undefined}>{hint}</div>{/if}
-    <div class="au-field__control" class:is-invalid={Boolean(error)}>{@render children?.()}</div>
     {#if error}
-        <div class="au-field__error" id={id ? `${id}-error` : undefined} role="alert"><Icon icon="alert-circle" />{error}</div>
+        <div class="au-field__error" id={id ? `${id}-error` : undefined} role="alert"><span class="au-hidden">Error:</span> {error}</div>
     {/if}
+    <div class="au-field__control" class:is-invalid={Boolean(error)}>{@render children?.()}</div>
 </div>
 
 <style>
@@ -24,7 +22,7 @@
     .au-field__label {
         display: block;
         font-size: var(--au-fs-xs);
-        font-weight: 500;
+        font-weight: 700;
         margin-bottom: var(--au-s1);
     }
     .au-field__required {
@@ -32,8 +30,8 @@
         margin-left: 2px;
     }
     .au-field__hint {
-        color: var(--au-hint);
-        font-size: 13px;
+        color: var(--au-muted);
+        font-size: var(--au-fs-xs);
         margin-bottom: var(--au-s2);
     }
     .au-field__control.is-invalid :global(input),
@@ -42,11 +40,9 @@
         border-color: var(--au-error);
     }
     .au-field__error {
-        display: flex;
-        align-items: center;
-        gap: 6px;
         color: var(--au-error);
-        font-size: 13px;
-        margin-top: var(--au-s1);
+        font-size: var(--au-fs-xs);
+        font-weight: 700;
+        margin-bottom: var(--au-s2);
     }
 </style>

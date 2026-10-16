@@ -10,7 +10,7 @@
         display: inline-block;
         min-width: 1.5em;
         padding: 0 0.4em;
-        border: 1px solid var(--au-border-strong);
+        border: 1px solid #5a6068;
         border-radius: var(--au-radius);
         background: var(--au-bg-alt);
         color: var(--au-text);

@@ -21,29 +21,28 @@
 
 <style>
     .au-input {
-        height: 40px;
+        height: 44px;
         padding: 0 var(--au-s3);
-        border: 1px solid var(--au-input-border);
+        border: 2px solid var(--au-input-border);
         border-radius: var(--au-radius);
         background: var(--au-input-bg);
         color: var(--au-input-text);
         font-size: var(--au-fs-xs);
         transition: border-color var(--au-fast) var(--au-ease);
     }
-    .au-input:hover {
-        border-color: #5a6068;
-    }
     .au-input:focus {
-        border-color: var(--au-action);
+        outline: 3px solid var(--au-focus);
+        outline-offset: 0;
+        box-shadow: inset 0 0 0 2px var(--au-ink);
     }
     .au-input--block {
         display: block;
         width: 100%;
     }
     .au-input--sm {
-        height: 32px;
+        height: 36px;
         padding: 0 var(--au-s2);
-        font-size: 13px;
+        font-size: var(--au-fs-xs);
     }
     .au-input::placeholder {
         color: var(--au-input-placeholder);

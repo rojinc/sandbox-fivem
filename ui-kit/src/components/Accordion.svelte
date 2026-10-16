@@ -30,12 +30,15 @@
         color: var(--au-text);
         font: inherit;
         font-size: var(--au-fs-xs);
-        font-weight: 500;
+        font-weight: 700;
         text-align: left;
         cursor: pointer;
+        min-height: 44px;
     }
     .au-accordion__title:hover {
-        color: var(--au-action);
+        text-decoration: underline;
+        text-decoration-thickness: 3px;
+        text-underline-offset: 0.3em;
     }
     .au-accordion__chev {
         display: flex;
@@ -47,7 +50,7 @@
     }
     .au-accordion__body {
         padding: 0 0 var(--au-s4);
-        color: var(--au-muted);
+        color: var(--au-text);
         font-size: var(--au-fs-xs);
     }
 </style>

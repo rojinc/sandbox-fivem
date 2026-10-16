@@ -11,9 +11,10 @@
         align-items: center;
         gap: var(--au-s4);
         padding: var(--au-s3) var(--au-s6);
-        border-top: 1px solid var(--au-border);
-        color: var(--au-hint);
-        font-size: 13px;
+        border-top: 4px solid var(--au-ink);
+        background: var(--au-bg-shade);
+        color: var(--au-muted);
+        font-size: var(--au-fs-xs);
     }
     .au-footer :global(.au-icon) {
         font-size: 15px;

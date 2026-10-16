@@ -11,7 +11,6 @@
 <style>
     .au-callout {
         background: var(--au-bg-shade);
-        border-radius: var(--au-radius-lg);
         padding: var(--au-s4) var(--au-s5);
         margin: 0 0 var(--au-s4);
     }
@@ -20,7 +19,7 @@
         font-size: var(--au-fs-sm);
     }
     .au-callout__body {
-        color: var(--au-muted);
+        color: var(--au-text);
         font-size: var(--au-fs-xs);
     }
     .au-callout__body :global(p:last-child) {

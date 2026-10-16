@@ -66,9 +66,7 @@
         min-width: 200px;
         padding: 4px;
         background: var(--au-bg);
-        border: 1px solid var(--au-border);
-        border-radius: var(--au-radius-lg);
-        box-shadow: var(--au-shadow-2);
+        border: 2px solid var(--au-ink);
     }
     .eye__item {
         display: flex;
@@ -81,8 +79,8 @@
         background: transparent;
         color: var(--au-text);
         font: inherit;
-        font-size: 14px;
-        font-weight: 500;
+        font-size: 16px;
+        font-weight: 700;
         text-align: left;
         white-space: nowrap;
         cursor: pointer;

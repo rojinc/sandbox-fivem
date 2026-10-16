@@ -124,8 +124,8 @@
         line-height: 1;
     }
     .label__text {
-        font-size: 13px;
-        font-weight: 500;
+        font-size: 16px;
+        font-weight: 700;
         margin-top: 6px;
         line-height: 1.2;
     }

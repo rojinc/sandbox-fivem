@@ -22,7 +22,7 @@
         align-items: center;
         gap: var(--au-s4);
         padding: var(--au-s5) var(--au-s6) var(--au-s4);
-        border-bottom: 1px solid var(--au-border);
+        border-bottom: 4px solid var(--au-ink);
     }
     .au-header--compact {
         padding: var(--au-s4) var(--au-s5) var(--au-s3);
@@ -38,13 +38,11 @@
     }
     .au-header__eyebrow {
         display: block;
-        color: var(--au-action);
-        font-size: var(--au-fs-xxs);
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
+        font-size: var(--au-fs-xs);
+        font-weight: 800;
     }
     .au-header__title {
-        margin: 2px 0 0;
+        margin: 0;
         font-size: var(--au-fs-md);
         white-space: nowrap;
         overflow: hidden;
@@ -52,7 +50,7 @@
     }
     .au-header__subline {
         color: var(--au-muted);
-        font-size: 13px;
+        font-size: var(--au-fs-xs);
         margin-top: 2px;
     }
     .au-header__actions {

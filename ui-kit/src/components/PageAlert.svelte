@@ -27,7 +27,6 @@
         align-items: flex-start;
         gap: var(--au-s3);
         padding: var(--au-s3) var(--au-s4);
-        border-radius: var(--au-radius-lg);
         background: var(--tone-bg);
         color: var(--au-text);
         margin: 0 0 var(--au-s4);
@@ -65,10 +64,7 @@
         min-width: 0;
     }
     .au-alert__title {
-        font-weight: 500;
-    }
-    .au-alert__body {
-        color: rgba(233, 235, 238, 0.85);
+        font-weight: 700;
     }
     .au-alert__body :global(p:last-child) {
         margin-bottom: 0;

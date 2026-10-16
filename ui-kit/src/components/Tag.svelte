@@ -7,16 +7,16 @@
 
 <style>
     .au-tag {
-        --fg: var(--au-muted);
+        --fg: var(--au-text);
         --bg: var(--au-bg-alt);
         display: inline-flex;
         align-items: center;
         gap: 4px;
-        height: 22px;
-        padding: 0 8px;
-        border-radius: var(--au-radius);
+        padding: 2px 8px;
+        border-radius: 0;
         font-size: var(--au-fs-xxs);
-        font-weight: 500;
+        line-height: 1.4;
+        font-weight: 700;
         white-space: nowrap;
         color: var(--fg);
         background: var(--bg);
