@@ -1,0 +1,8 @@
+{
+    "viewport": [1920, 1080],
+    "backdrop": true,
+    "messages": [
+        { "type": "SET_CONFIG", "data": { "config": { "layout": "center", "statusType": "bars", "buffsAnchor": "minimap", "vehicle": "default" } } },
+        { "type": "TOGGLE_SETTINGS", "data": { "state": true } }
+    ]
+}

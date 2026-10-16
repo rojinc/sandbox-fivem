@@ -119,6 +119,25 @@ function serve(dir) {
     });
 }
 
+/**
+ * Scenario values may use time tokens so countdowns and timed buffs render:
+ *   "$now"        -> current unix time in seconds      "$now+90"   -> 90 s from now
+ *   "$nowMs"      -> current time in milliseconds      "$nowMs-5000"
+ */
+function resolveTimeTokens(value) {
+    if (typeof value === 'string') {
+        const m = /^\$(now|nowMs)([+-]\d+)?$/.exec(value);
+        if (!m) return value;
+        const base = m[1] === 'now' ? Math.floor(Date.now() / 1000) : Date.now();
+        return base + (m[2] ? Number(m[2]) : 0);
+    }
+    if (Array.isArray(value)) return value.map(resolveTimeTokens);
+    if (value && typeof value === 'object') {
+        return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, resolveTimeTokens(v)]));
+    }
+    return value;
+}
+
 function loadScenarios() {
     const single = opt('scenario');
     if (single) return [{ name: path.basename(single, '.json'), ...JSON.parse(readFileSync(single, 'utf8')) }];
@@ -161,12 +180,14 @@ async function main() {
         });
 
         await page.goto(`http://127.0.0.1:${port}/`, { waitUntil: 'load' });
+        // backdrop: true paints the kit's dark stand-in for the game world so over-world text reads as it will in game.
+        if (scenario.backdrop) await page.evaluate(() => document.body.classList.add('nui-dev'));
         await page.waitForTimeout(scenario.settle ?? 400);
 
         for (const msg of scenario.messages ?? []) {
             if (msg.delay) await page.waitForTimeout(msg.delay);
             // { raw: {...} } posts the object verbatim (FiveM loadscreen events use eventName, not type).
-            const payload = msg.raw ?? { type: msg.type, data: msg.data ?? {} };
+            const payload = resolveTimeTokens(msg.raw ?? { type: msg.type, data: msg.data ?? {} });
             await page.evaluate((data) => window.dispatchEvent(new MessageEvent('message', { data })), payload);
         }
         await page.waitForTimeout(scenario.wait ?? 700);

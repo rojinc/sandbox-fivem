@@ -1,0 +1,29 @@
+{
+    "viewport": [1920, 1080],
+    "backdrop": true,
+    "messages": [
+        { "type": "UPDATE_MM_POS", "data": { "position": { "leftX": 0.0107, "rightX": 0.1514, "topY": 0.7978, "bottomY": 0.9741, "width": 0.1406, "height": 0.1762 } } },
+        { "type": "SET_CONFIG", "data": { "config": { "layout": "default", "statusType": "bars", "transparentBg": true, "largeBars": false, "vehicle": "default", "showRPM": true, "hideCrossStreet": false, "hideCompassBg": false, "buffsAnchor": "compass", "buffsAnchor2": true, "minimapAnchor": true, "maskRadio": false, "condenseAlignment": "left", "circleNumbers": false } } },
+        { "type": "SHOW_HUD", "data": { "hp": 72, "maxHp": 100, "armor": 45 } },
+        { "type": "REGISTER_STATUS", "data": { "status": { "name": "PLAYER_HUNGER", "max": 100, "value": 63, "icon": "drumstick-bite", "color": "#ca5fe8", "flash": true, "options": { "hideZero": false, "order": 5 } } } },
+        { "type": "REGISTER_STATUS", "data": { "status": { "name": "PLAYER_THIRST", "max": 100, "value": 22, "icon": "glass-water", "color": "#07bdf0", "flash": true, "options": { "hideZero": false, "order": 6 } } } },
+        { "type": "REGISTER_STATUS", "data": { "status": { "name": "PLAYER_STRESS", "max": 100, "value": 8, "icon": "brain", "color": "#de3333", "flash": true, "options": { "hideZero": true, "order": 4 } } } },
+        { "type": "REGISTER_STATUS", "data": { "status": { "name": "radio-freq", "max": 100, "value": "333.3", "icon": "walkie-talkie", "color": "#4f9cff", "flash": false, "options": { "hideZero": false, "order": 7, "force": "numbers" } } } },
+        { "type": "REGISTER_BUFF", "data": { "id": "prog_mod", "data": { "icon": "mug-hot", "color": "#D6451A", "duration": -1, "type": "timed" } } },
+        { "type": "REGISTER_BUFF", "data": { "id": "armor_ticks", "data": { "icon": "dumbbell", "color": "#4056b3", "duration": -1, "type": "timed" } } },
+        { "type": "REGISTER_BUFF", "data": { "id": "VAL", "data": { "icon": "crown", "color": "#f5b82e", "duration": -1, "type": "value" } } },
+        { "type": "REGISTER_BUFF", "data": { "id": "WANTED", "data": { "icon": "star", "color": "#f0475a", "duration": -1, "type": "permanent" } } },
+        { "type": "BUFF_APPLIED_UNIQUE", "data": { "instance": { "buff": "prog_mod", "val": 120, "startTime": "$now-40", "options": {} } } },
+        { "type": "BUFF_APPLIED_UNIQUE", "data": { "instance": { "buff": "armor_ticks", "val": 60, "startTime": "$now-10", "options": {} } } },
+        { "type": "BUFF_APPLIED_UNIQUE", "data": { "instance": { "buff": "VAL", "val": 64, "options": {} } } },
+        { "type": "BUFF_APPLIED_UNIQUE", "data": { "instance": { "buff": "WANTED", "override": "S+", "val": 0, "options": {} } } },
+        { "type": "UPDATE_LOCATION", "data": { "location": { "main": "Alta St", "cross": "Forum Dr", "area": "Rancho", "direction": "W" } } },
+        { "type": "SET_VOIP_LEVEL", "data": { "level": 2, "talking": 1 } },
+        { "type": "ADD_ALERT", "data": { "notification": { "_id": "radio", "type": "info", "message": "Tuned to <b>333.3</b> MHz", "duration": -1, "icon": "walkie-talkie" } } },
+        { "type": "ADD_ALERT", "data": { "notification": { "type": "success", "message": "Vehicle locked", "duration": 9000 } } },
+        { "type": "ADD_ALERT", "data": { "notification": { "type": "warning", "message": "Low fuel, find a station soon", "duration": 9000, "icon": "gas-pump" } } },
+        { "type": "ADD_ALERT", "data": { "notification": { "type": "error", "message": "You don't have enough cash", "duration": 9000 } } },
+        { "type": "ADD_ACTION", "data": { "id": "door", "message": "{key}E{/key} Open the door" } },
+        { "type": "START_PROGRESS", "data": { "duration": 12000, "label": "Searching the dumpster" } }
+    ]
+}

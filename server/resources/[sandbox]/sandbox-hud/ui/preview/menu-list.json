@@ -1,0 +1,32 @@
+{
+    "viewport": [1920, 1080],
+    "backdrop": true,
+    "messages": [
+        { "type": "UPDATE_MM_POS", "data": { "position": { "leftX": 0.0107, "rightX": 0.1514, "topY": 0.7978, "bottomY": 0.9741, "width": 0.1406, "height": 0.1762 } } },
+        { "type": "SET_CONFIG", "data": { "config": { "layout": "default", "statusType": "bars" } } },
+        { "type": "SHOW_HUD", "data": { "hp": 100, "maxHp": 100, "armor": 0 } },
+        { "type": "UPDATE_LOCATION", "data": { "location": { "main": "Innocence Blvd", "cross": "Alta St", "area": "Pillbox Hill", "direction": "N" } } },
+        {
+            "type": "SET_LIST_MENU",
+            "data": {
+                "menus": {
+                    "main": {
+                        "label": "Garage",
+                        "headerAction": { "icon": "rotate", "event": "Garage:Refresh", "label": "Refresh" },
+                        "items": [
+                            { "label": "2021 Sultan RS", "description": "Plate <b>8ABC123</b> · Stored", "event": "Garage:Take", "data": { "vin": "1" } },
+                            { "label": "Bati 801", "description": "Plate <b>MOTO2</b> · Out", "disabled": true },
+                            { "label": "Kuruma", "description": "Plate <b>LOCKED1</b> · Impounded", "actions": [ { "icon": "circle-info", "event": "Garage:Info", "label": "Details" }, { "icon": "money-bill", "event": "Garage:Pay", "label": "Pay fee" } ], "data": { "vin": "3" } },
+                            { "label": "Transfer ownership", "description": "Give a vehicle to another player", "submenu": "transfer" },
+                            { "label": "Close garage", "event": "Garage:Close" }
+                        ]
+                    },
+                    "transfer": {
+                        "label": "Transfer ownership",
+                        "items": [ { "label": "Sultan RS", "description": "Transfer to a nearby player", "event": "Garage:Transfer", "data": { "vin": "1" } } ]
+                    }
+                }
+            }
+        }
+    ]
+}

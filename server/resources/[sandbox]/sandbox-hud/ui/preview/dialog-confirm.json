@@ -1,0 +1,18 @@
+{
+    "viewport": [1920, 1080],
+    "backdrop": true,
+    "messages": [
+        {
+            "type": "SHOW_CONFIRM",
+            "data": {
+                "title": "Sell this vehicle?",
+                "description": "You will receive <b>$18,500</b> for the <b>Sultan RS</b>. This cannot be undone.",
+                "yes": "Dealership:Sell:Yes",
+                "no": "Dealership:Sell:No",
+                "data": { "vin": "1" },
+                "denyLabel": "Keep it",
+                "acceptLabel": "Sell"
+            }
+        }
+    ]
+}

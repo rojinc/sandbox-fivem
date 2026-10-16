@@ -19,10 +19,6 @@ server_scripts({
 ui_page("ui/dist/index.html")
 files({
 	"ui/dist/index.html",
-	"ui/dist/*.png",
-	"ui/dist/*.webp",
-	"ui/dist/*.js",
-	"ui/dist/*.mp3",
-	"ui/dist/*.ttf",
+	"ui/dist/assets/*",
 	"stream/int3232302352.gfx",
 })

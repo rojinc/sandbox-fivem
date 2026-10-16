@@ -1,0 +1,22 @@
+{
+    "viewport": [1920, 1080],
+    "backdrop": true,
+    "messages": [
+        { "type": "UPDATE_MM_POS", "data": { "position": { "leftX": 0.0107, "rightX": 0.1514, "topY": 0.7978, "bottomY": 0.9741, "width": 0.1406, "height": 0.1762 } } },
+        { "type": "SET_CONFIG", "data": { "config": { "layout": "condensed", "statusType": "circles", "condenseAlignment": "compass", "circleNumbers": true, "vehicle": "simple" } } },
+        { "type": "SHOW_HUD", "data": { "hp": 88, "maxHp": 100, "armor": 25, "fuel": 15 } },
+        { "type": "REGISTER_STATUS", "data": { "status": { "name": "PLAYER_HUNGER", "max": 100, "value": 41, "icon": "drumstick-bite", "color": "#ca5fe8", "flash": true, "options": { "hideZero": false, "order": 5 } } } },
+        { "type": "REGISTER_STATUS", "data": { "status": { "name": "PLAYER_THIRST", "max": 100, "value": 77, "icon": "glass-water", "color": "#07bdf0", "flash": true, "options": { "hideZero": false, "order": 6 } } } },
+        { "type": "REGISTER_STATUS", "data": { "status": { "name": "radio-freq", "max": 100, "value": "420.2", "icon": "walkie-talkie", "color": "#4f9cff", "flash": false, "options": { "order": 7, "force": "numbers" } } } },
+        { "type": "REGISTER_BUFF", "data": { "id": "heal_ticks", "data": { "icon": "suitcase-medical", "color": "#3ddc84", "duration": -1, "type": "timed" } } },
+        { "type": "BUFF_APPLIED_UNIQUE", "data": { "instance": { "buff": "heal_ticks", "val": 90, "startTime": "$now-20", "options": {} } } },
+        { "type": "UPDATE_LOCATION", "data": { "location": { "main": "Mirror Park Blvd", "cross": "Nikola Pl", "area": "Mirror Park", "direction": "S" } } },
+        { "type": "SET_VOIP_LEVEL", "data": { "level": 2, "talking": 2 } },
+        { "type": "SHOW_VEHICLE", "data": {} },
+        { "type": "UPDATE_IGNITION", "data": { "ignition": true } },
+        { "type": "UPDATE_SPEED", "data": { "speed": 42 } },
+        { "type": "UPDATE_FUEL", "data": { "fuel": 15 } },
+        { "type": "UPDATE_SEATBELT", "data": { "seatbelt": false } },
+        { "type": "UPDATE_ENGINELIGHT", "data": { "checkEngine": false } }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "viewport": [1920, 1080],
+    "backdrop": true,
+    "messages": [
+        { "type": "SET_INTERACTION_LAYER", "data": { "layer": 0 } },
+        { "type": "SHOW_INTERACTION_MENU", "data": { "toggle": true } },
+        {
+            "type": "SET_INTERACTION_MENU_ITEMS",
+            "data": {
+                "items": [
+                    { "id": "id_card", "label": "Show ID", "icon": "id-card", "data": true },
+                    { "id": "vehicle", "label": "Vehicle", "icon": "car", "data": true },
+                    { "id": "emotes", "label": "Emotes", "icon": "hands", "data": true },
+                    { "id": "phone", "label": "Phone", "icon": "mobile-screen", "data": true },
+                    { "id": "housing", "label": "Housing", "icon": "house", "data": true },
+                    { "id": "settings", "label": "Settings", "icon": "gear", "data": true },
+                    { "id": "job", "label": "Job", "icon": "briefcase", "data": true }
+                ]
+            }
+        }
+    ]
+}

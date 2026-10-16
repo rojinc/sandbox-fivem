@@ -242,7 +242,9 @@ export function createSandboxTheme({ accent = colors.accent, overrides = {} } = 
                 },
             },
             MuiDialogTitle: {
-                styleOverrides: { root: { fontSize: 16, fontWeight: 600, padding: '18px 20px 8px' } },
+                styleOverrides: {
+                    root: { fontSize: 16, fontWeight: 600, letterSpacing: 0, textTransform: 'none', padding: '18px 20px 8px' },
+                },
             },
             MuiDialogContent: {
                 styleOverrides: { root: { padding: '8px 20px 16px' } },
