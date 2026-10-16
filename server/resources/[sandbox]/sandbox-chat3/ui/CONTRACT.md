@@ -61,7 +61,9 @@ client; `time` is carried but not displayed.
 ```
 
 `args` are escaped before they are dropped into the template, so a player
-cannot inject markup; `color` becomes a 3px rule on the left of the line.
+cannot inject markup; `color` tints the first argument (the author), as the
+stock cfx chat does, lifted towards white when it would be too dark to read on
+the log (`readableRgb` in `src/lib/template.js`).
 `args` entries may carry `^0`-`^9` colour codes and `^*`, `^_`, `^~`, `^=`,
 `^r` style codes (`src/lib/colorize.js`). Built-in templates: `default` =
 `<b>{0}</b>: {1}`, `defaultAlt` = `{0}`, `print` = `<pre>{0}</pre>`; one
@@ -102,6 +104,8 @@ http(s)/data URLs, so `nui://` images from resource themes do not render
   handler is registered only while the strip exists, so other surfaces keep
   their keys.
 * Pointer events are on only while inputting; otherwise the chat is click-through.
+* No key hints are drawn (the old Tab / Enter / Esc legend beside the input was
+  removed in the dark restyle); the keys above still work.
 * The log fades 2.5 s after the input closes; a line arriving while the chat is
   closed shows the log for 6 s.
 

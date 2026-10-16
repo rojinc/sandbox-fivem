@@ -127,7 +127,7 @@
     .bar-wrap {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 12px;
     }
     /* The strip is the kit TextInput itself (sunk dark field), lifted off the world by a shadow. */
     .bar {

@@ -8,11 +8,11 @@
 
 <table class="au-table au-table--hover cs-table" aria-label="Your characters">
     <colgroup>
-        <col style="width:30%" />
-        <col style="width:12%" />
         <col />
-        <col style="width:16%" />
-        <col style="width:12%" />
+        <col style="width:84px" />
+        <col style="width:150px" />
+        <col style="width:108px" />
+        <col style="width:96px" />
     </colgroup>
     <thead>
         <tr>
@@ -41,13 +41,15 @@
                         <span class="cs-name au-truncate">{fullName(c)}</span>
                         {#if played.never}<Tag tone="info">New</Tag>{/if}
                     </div>
-                    <div class="sub">{genderLabel(c.Gender)}{#if age !== null}, {age}{/if}</div>
+                    <div class="cs-sub">{genderLabel(c.Gender)}{#if age !== null}, {age}{/if}</div>
                 </td>
                 <td class="au-mono">{formatSid(c.SID)}</td>
                 <td>
                     {#if job.employed}
-                        <div class="au-truncate">{job.label}{#if job.extra > 0}<span class="au-muted">{` and ${job.extra} more`}</span>{/if}</div>
-                        {#if job.detail}<div class="sub au-truncate">{job.detail}</div>{/if}
+                        <div class="au-truncate" title={job.detail ? `${job.label}, ${job.detail}` : job.label}>
+                            {job.label}{#if job.extra > 0}<span class="au-muted">{` +${job.extra}`}</span>{/if}
+                        </div>
+                        {#if job.detail}<div class="cs-sub au-truncate">{job.detail}</div>{/if}
                     {:else}
                         <span class="au-muted">Unemployed</span>
                     {/if}
@@ -62,19 +64,11 @@
 </table>
 
 <style>
-    table {
-        table-layout: fixed;
-    }
     .name {
         display: flex;
         align-items: center;
         gap: 8px;
         min-width: 0;
-    }
-    .sub {
-        margin-top: 2px;
-        color: var(--au-hint);
-        font-size: 13px;
     }
     td {
         font-size: var(--au-fs-xs);

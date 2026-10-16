@@ -112,11 +112,11 @@
     }
     .knob.is-live .knob__half:hover::before,
     .powerkey:hover::before {
-        opacity: 0.16;
+        opacity: 0.2;
     }
     .knob.is-live .knob__half:active::before,
     .powerkey:active::before {
-        opacity: 0.28;
+        opacity: 0.32;
     }
     .knob:not(.is-live) .knob__half {
         cursor: default;

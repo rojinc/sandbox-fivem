@@ -1,32 +1,38 @@
 /*
- * Character select: a full-screen console page over the game. Designed in
- * px at 1920x1080; App.svelte zooms .cs-root for other resolutions.
+ * Character select: a console panel docked right over the game scene (the
+ * characters stand as peds on the left). Designed in px at 1920x1080;
+ * App.svelte zooms .cs-root for other resolutions. Everything outside the
+ * panel stays transparent.
  */
 .cs-root {
     position: fixed;
     top: 0;
     left: 0;
     overflow: hidden;
-    background: var(--au-bg);
     color: var(--au-text);
 }
 
 /* Record tables: rows are selected (surface only, no edge rule), double-click plays. */
+.cs-table {
+    table-layout: fixed;
+}
 .cs-table th,
 .cs-table td {
     vertical-align: middle;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .cs-table td {
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .cs-table th:first-child,
 .cs-table td:first-child {
-    padding-left: 16px;
+    padding-left: 12px;
 }
 .cs-table th:last-child,
 .cs-table td:last-child {
-    padding-right: 16px;
+    padding-right: 12px;
 }
 .cs-table tbody tr {
     transition: background var(--au-fast) var(--au-ease);
@@ -40,14 +46,19 @@
     font-weight: 500;
     color: var(--au-text);
 }
+.cs-sub {
+    margin-top: 2px;
+    color: var(--au-hint);
+    font-size: 13px;
+}
 
-/* Section heading inside a column: title, muted meta, actions on the right. */
+/* Section heading: title, muted meta, actions on the right. */
 .cs-section-head {
     display: flex;
     align-items: center;
     gap: 12px;
     min-height: 40px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 }
 .cs-section-head h2 {
     margin: 0;
@@ -64,9 +75,14 @@
     gap: 8px;
 }
 
-/* Plain text sections in the right column (no boxes, no rules). */
+/* Plain text sections below the list (no boxes, no edge bars). */
+.cs-notes {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--au-border);
+}
 .cs-note + .cs-note {
-    margin-top: 40px;
+    margin-top: 28px;
 }
 .cs-note h2 {
     margin: 0 0 8px;
@@ -85,7 +101,7 @@
     padding-left: 20px;
 }
 .cs-note li + li {
-    margin-top: 6px;
+    margin-top: 4px;
 }
 .cs-note .cs-note__date {
     margin: -4px 0 8px;
@@ -96,4 +112,10 @@
 .cs-note strong {
     color: var(--au-text);
     font-weight: 500;
+}
+
+/* Pinned footer record: what the primary button will act on. */
+.cs-label {
+    color: var(--au-hint);
+    font-size: 13px;
 }

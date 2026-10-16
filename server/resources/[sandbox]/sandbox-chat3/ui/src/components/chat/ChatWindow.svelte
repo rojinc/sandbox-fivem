@@ -70,7 +70,7 @@
         width: 560px;
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 12px;
         pointer-events: none;
     }
     .chat.is-interactive {
