@@ -1,0 +1,9 @@
+{
+  "viewport": [1920, 1080],
+  "backdrop": true,
+  "messages": [
+    { "type": "UPDATE_SETTINGS", "data": { "scale": 100, "location": 8, "fastSpeed": 75, "frontRadar": { "lane": true, "transmit": false }, "rearRadar": { "lane": false, "transmit": false } } },
+    { "type": "RADAR_SHOW" },
+    { "type": "UPDATE_DATA", "delay": 100, "data": { "patrolSpeed": 27 } }
+  ]
+}

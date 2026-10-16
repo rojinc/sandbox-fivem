@@ -1,0 +1,22 @@
+/*
+ * sandbox-radar: the unit and its remote float over the game world. The root
+ * is laid out on a 1920x1080 frame and zoomed to the real viewport (App.svelte)
+ * so 1440p and 4K keep the 1080p proportions; settings.scale sits on top.
+ */
+.radar-root {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* Small uppercase caption above a readout (Target, Fast, Patrol). */
+.radar-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--au-muted);
+}

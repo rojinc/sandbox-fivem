@@ -1,0 +1,23 @@
+{
+  "viewport": [1920, 1080],
+  "backdrop": true,
+  "messages": [
+    { "type": "UPDATE_SETTINGS", "data": { "scale": 100, "location": 1, "fastSpeed": 75, "frontRadar": { "lane": true, "transmit": true }, "rearRadar": { "lane": true, "transmit": true } } },
+    { "type": "RADAR_SHOW" },
+    { "type": "UPDATE_DATA", "delay": 100, "data": {
+      "patrolSpeed": 58,
+      "frontRadar": { "speed": 104, "direction": "down", "plate": "8GTB294", "class": "S" },
+      "frontFast": { "speed": 104, "plate": "8GTB294", "fast": true, "locked": false, "flag": false, "class": "S" },
+      "rearRadar": { "speed": 38, "direction": "up", "plate": "71PZL880", "class": "C" }
+    } },
+    { "type": "UPDATE_DATA", "delay": 100, "data": {
+      "frontFast": { "speed": 104, "plate": "8GTB294", "fast": true, "locked": true, "flag": false, "class": "S" },
+      "rearFast": { "locked": true }
+    } },
+    { "type": "UPDATE_DATA", "delay": 100, "data": {
+      "patrolSpeed": 63,
+      "frontRadar": { "speed": 71, "direction": "down", "plate": "8GTB294", "class": "S" },
+      "rearRadar": { "speed": 36, "direction": "up", "plate": "71PZL880", "class": "C" }
+    } }
+  ]
+}

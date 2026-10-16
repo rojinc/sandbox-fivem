@@ -1,0 +1,17 @@
+{
+  "viewport": [2560, 1440],
+  "backdrop": true,
+  "mocks": { "UpdateSettings": "OK", "CloseRemote": "OK" },
+  "messages": [
+    { "type": "UPDATE_SETTINGS", "data": { "scale": 100, "location": 3, "fastSpeed": 75, "frontRadar": { "lane": true, "transmit": true }, "rearRadar": { "lane": false, "transmit": true } } },
+    { "type": "RADAR_SHOW" },
+    { "type": "UPDATE_DATA", "delay": 100, "data": {
+      "patrolSpeed": 62,
+      "frontRadar": { "speed": 88, "direction": "down", "plate": "8GTB294", "class": "S" },
+      "frontFast": { "speed": 96, "plate": "8GTB294", "fast": true, "locked": true, "flag": false, "class": "S" },
+      "rearRadar": { "speed": 40, "direction": "up", "plate": "71PZL880", "class": "C" },
+      "rearFast": { "locked": true }
+    } },
+    { "type": "REMOTE_SHOW", "delay": 100 }
+  ]
+}

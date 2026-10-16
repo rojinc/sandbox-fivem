@@ -1,0 +1,14 @@
+{
+  "viewport": [1920, 1080],
+  "backdrop": true,
+  "messages": [
+    { "type": "UPDATE_SETTINGS", "data": { "scale": 100, "location": 1, "fastSpeed": 75, "frontRadar": { "lane": true, "transmit": true }, "rearRadar": { "lane": true, "transmit": true } } },
+    { "type": "RADAR_SHOW" },
+    { "type": "UPDATE_DATA", "delay": 100, "data": {
+      "patrolSpeed": 44,
+      "frontRadar": { "speed": 81, "direction": "down", "plate": "STLN 441", "class": "C" },
+      "frontFast": { "speed": 81, "plate": "STLN 441", "fast": true, "locked": false, "flag": "Vehicle Reported Stolen", "class": "C" },
+      "rearRadar": { "speed": 29, "direction": "up", "plate": "YT3 0091", "class": "D" }
+    } }
+  ]
+}

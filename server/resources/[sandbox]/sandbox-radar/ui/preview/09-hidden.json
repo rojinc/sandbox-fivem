@@ -1,0 +1,13 @@
+{
+  "viewport": [1920, 1080],
+  "backdrop": true,
+  "messages": [
+    { "type": "UPDATE_SETTINGS", "data": { "scale": 100, "location": 1, "fastSpeed": 75, "frontRadar": { "lane": true, "transmit": true }, "rearRadar": { "lane": true, "transmit": true } } },
+    { "type": "RADAR_SHOW" },
+    { "type": "UPDATE_DATA", "delay": 100, "data": { "patrolSpeed": 41, "frontRadar": { "speed": 48, "direction": "down", "plate": "46EEK572", "class": "B" } } },
+    { "type": "REMOTE_SHOW", "delay": 50 },
+    { "type": "RADAR_HIDE", "delay": 200 },
+    { "type": "REMOTE_HIDE" },
+    { "type": "RESET_RADAR", "delay": 100 }
+  ]
+}

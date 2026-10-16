@@ -1,0 +1,15 @@
+{
+  "viewport": [1920, 1080],
+  "backdrop": true,
+  "messages": [
+    { "type": "UPDATE_SETTINGS", "data": { "scale": 85, "location": 6, "fastSpeed": 60, "frontRadar": { "lane": true, "transmit": true }, "rearRadar": { "lane": false, "transmit": true } } },
+    { "type": "RADAR_SHOW" },
+    { "type": "UPDATE_DATA", "delay": 100, "data": {
+      "patrolSpeed": 73,
+      "frontRadar": { "speed": 61, "direction": "up", "plate": "9QRX231", "class": "D" },
+      "frontFast": { "speed": 66, "plate": "9QRX231", "fast": true, "locked": false, "flag": false, "class": "D" },
+      "rearRadar": [],
+      "rearFast": { "speed": 78, "plate": "ABC 123", "fast": true, "locked": false, "flag": false, "class": "A" }
+    } }
+  ]
+}

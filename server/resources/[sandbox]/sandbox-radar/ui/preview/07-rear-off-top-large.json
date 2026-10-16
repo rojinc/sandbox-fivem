@@ -1,0 +1,13 @@
+{
+  "viewport": [1920, 1080],
+  "backdrop": true,
+  "messages": [
+    { "type": "UPDATE_SETTINGS", "data": { "scale": 125, "location": 4, "fastSpeed": 20, "frontRadar": { "lane": false, "transmit": true }, "rearRadar": { "lane": true, "transmit": false } } },
+    { "type": "RADAR_SHOW" },
+    { "type": "UPDATE_DATA", "delay": 100, "data": {
+      "patrolSpeed": 12,
+      "frontRadar": { "speed": 64, "direction": "down", "plate": "DEV 7781", "class": "B" }
+    } },
+    { "type": "REMOTE_SHOW", "delay": 100 }
+  ]
+}
