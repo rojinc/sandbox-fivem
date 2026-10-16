@@ -5,7 +5,7 @@
  * documented in ../../CONTRACT.md.
  */
 
-/** Steps shown in the checklist, in the order the game runs them. */
+/** Steps shown in the step row, in the order the game runs them. */
 export const STEPS = [
     { id: 'data', label: 'Game data' },
     { id: 'world', label: 'World' },
@@ -15,7 +15,7 @@ export const STEPS = [
 
 const STEP_INDEX = Object.fromEntries(STEPS.map((s, i) => [s.id, i]));
 
-/** Init-function types the game emits, mapped to a checklist step. */
+/** Init-function types the game emits, mapped to a step. */
 const INIT_TYPE_STEP = {
     INIT_CORE: 'data',
     INIT_BEFORE_MAP_LOADED: 'world',
@@ -163,24 +163,7 @@ export function applyLoadEvent(msg) {
     return true;
 }
 
-/** Short status for the tag in the header band. */
-export function statusLabel(state = loading) {
-    if (state.finished) return 'Almost there';
-    switch (state.step) {
-        case -1:
-            return 'Connecting';
-        case 0:
-            return 'Loading data';
-        case 1:
-            return 'Building the world';
-        case 2:
-            return 'Joining session';
-        default:
-            return 'Finishing up';
-    }
-}
-
-/** 'done' | 'active' | 'pending' for checklist step `index`. */
+/** 'done' | 'active' | 'pending' for step `index`. */
 export function stepStatus(state, index) {
     if (index < state.step) return 'done';
     if (index === state.step) return 'active';

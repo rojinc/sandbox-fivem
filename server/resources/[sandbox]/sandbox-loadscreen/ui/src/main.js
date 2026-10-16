@@ -5,8 +5,7 @@ import { installBridge } from './bridge.js';
 import App from './App.svelte';
 
 // The loading screen only receives FiveM's native loadscreen events (window
-// 'message' with `eventName`); nothing sends icon names, so the one icon it
-// draws is imported where it is used instead of registering the whole set.
+// 'message' with `eventName`); see src/bridge.js and ../CONTRACT.md.
 installBridge();
 
 mount(App, { target: document.getElementById('app') });

@@ -1,11 +1,8 @@
 <script>
-    import { Header, Tag } from '@sandbox/ui-kit';
-    import { loading, statusLabel } from './state/loading.svelte.js';
     import Backdrop from './components/Backdrop.svelte';
-    import StatusCard from './components/StatusCard.svelte';
-    import TipCard from './components/TipCard.svelte';
-    import ProgressRail from './components/ProgressRail.svelte';
-    import wordmark from './assets/wordmark.webp';
+    import Identity from './components/Identity.svelte';
+    import Status from './components/Status.svelte';
+    import Tips from './components/Tips.svelte';
 
     /**
      * Everything is designed in px for 1920x1080. Wider screens zoom the whole
@@ -25,29 +22,18 @@
         window.addEventListener('resize', update);
         return () => window.removeEventListener('resize', update);
     });
-
-    const status = $derived(statusLabel(loading));
 </script>
 
 <div class="ls-root">
     <Backdrop />
 
     <div class="ls-frame" style="zoom:{zoom};width:{viewport.w / zoom}px;height:{viewport.h / zoom}px">
-        <Header title="Loading Los Santos" subline="Sandbox Roleplay" class="ls-header">
-            {#snippet brand()}
-                <img class="ls-wordmark" src={wordmark} alt="Sandbox Roleplay" draggable="false" />
-            {/snippet}
-            {#snippet actions()}
-                <Tag tone={loading.finished ? 'success' : 'action'}>{status}</Tag>
-            {/snippet}
-        </Header>
+        <Identity />
 
         <div class="ls-bottom">
-            <StatusCard />
-            <TipCard />
+            <Status />
+            <Tips />
         </div>
-
-        <ProgressRail fraction={loading.fraction} />
     </div>
 </div>
 
@@ -56,7 +42,8 @@
         position: fixed;
         inset: 0;
         overflow: hidden;
-        background: var(--au-dark-bg-alt-shade);
+        background: var(--au-bg);
+        color: var(--au-text);
         pointer-events: none;
         user-select: none;
     }
@@ -67,20 +54,12 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-    }
-    .ls-frame :global(.ls-header) {
-        padding: 20px 48px;
-    }
-    .ls-wordmark {
-        height: 56px;
-        width: auto;
-        margin-right: 8px;
+        padding: 40px 48px 48px;
     }
     .ls-bottom {
         display: flex;
         align-items: flex-end;
         justify-content: space-between;
-        gap: 48px;
-        padding: 0 48px 48px;
+        gap: 64px;
     }
 </style>

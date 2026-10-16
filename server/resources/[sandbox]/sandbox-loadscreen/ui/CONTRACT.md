@@ -8,8 +8,9 @@ manifest sets `loadscreen_manual_shutdown 'yes'`.
 Nothing in this resource sends `SendNUIMessage` and nothing registers a NUI
 callback. The screen is driven entirely by the game's native loading-screen
 events plus optional handover data. It is a Svelte 5 app on `@sandbox/ui-kit`
-(GOLD look): `src/bridge.js` listens on `window` and mutates the rune state in
-`src/state/loading.svelte.js`; the components only read that state.
+(dark console look, see /DESIGN.md): `src/bridge.js` listens on `window` and
+mutates the rune state in `src/state/loading.svelte.js`; the components only
+read that state.
 
 ## Game → UI: native events
 
@@ -25,20 +26,20 @@ Reference: https://docs.fivem.net/docs/scripting-manual/nui-development/loading-
 
 | `eventName`              | Fields                                            | What the UI does with it |
 | ------------------------ | ------------------------------------------------- | ------------------------ |
-| `loadProgress`           | `loadFraction: number` (0..1)                     | Big bar + percentage in the status card and the rail along the bottom edge. Kept monotonic (never moves back). |
-| `onLogLine`              | `message: string`                                 | Shown as the mono detail line under the checklist. |
+| `loadProgress`           | `loadFraction: number` (0..1)                     | Large mono percentage and the progress bar in the bottom-left status block. Kept monotonic (never moves back). |
+| `onLogLine`              | `message: string`                                 | Shown as the mono detail line under the headline. |
 | `startDataFileEntries`   | `count: number`                                   | Step "Game data" becomes active; headline "Loading game data" (unless an init batch is running); detail "N data file entries". |
 | `onDataFileEntry`        | `name: string`, `type: number`, `isNew: boolean`  | Detail line shows `name`. |
 | `performMapLoadFunction` | `idx: number`                                     | Headline "Loading the map" (unless an init batch is running); detail "map load function N". |
 | `endDataFileEntries`     | –                                                 | Ignored (counted as activity only). |
 | `startInitFunction`      | `type: string`                                    | Headline and active step from `type` (see below); clears the batch counter. |
-| `startInitFunctionOrder` | `type: string`, `order: number`, `count: number`  | Same as above, plus an `invoked / count` counter for this batch. |
+| `startInitFunctionOrder` | `type: string`, `order: number`, `count: number`  | Same as above, plus an `invoked / count` counter after the detail line. |
 | `initFunctionInvoking`   | `type: string`, `name: string`, `idx: number`     | Detail line shows the function `name`. |
 | `initFunctionInvoked`    | `type: string`, `name: string`                    | Increments the batch counter when `type` matches the current batch. |
-| `endInitFunction`        | `type: string`                                    | For `INIT_SESSION`: everything is loaded; step "Server sync", headline "Syncing with the server", bar turns green, header tag "Almost there". Other types are ignored. |
+| `endInitFunction`        | `type: string`                                    | For `INIT_SESSION`: everything is loaded; step "Server sync", headline "Syncing with the server", bar turns green. Other types are ignored. |
 
 Any other `eventName`, or a message without one, is ignored. The first
-recognised event moves the checklist from "connecting" (no active step) to
+recognised event moves the step row from "connecting" (no active step) to
 "Game data".
 
 ### Init-function `type` values
@@ -52,14 +53,10 @@ recognised event moves the checklist from "connecting" (no active step) to
 | `MAP`                      | Game data | Loading the map          |
 | anything else              | Game data | "Loading " + prettified type |
 
-Steps never move backwards: the checklist is `Game data → World → Session →
-Server sync`. "Server sync" is the state after `endInitFunction INIT_SESSION`
-while the screen waits for Lua to shut it down.
-
-### Header tag (`statusLabel`)
-
-`Connecting` (no event yet) → `Loading data` → `Building the world` →
-`Joining session` → `Almost there` (finished).
+Steps never move backwards: the row is `Game data → World → Session →
+Server sync`. Done steps are white with a check, the active one is in the
+action colour, pending ones are muted. "Server sync" is the state after
+`endInitFunction INIT_SESSION` while the screen waits for Lua to shut it down.
 
 ## Handover data (`window.nuiHandoverData`)
 
@@ -70,14 +67,16 @@ and tolerates their absence:
 
 | Key               | Type   | Shown as |
 | ----------------- | ------ | -------- |
-| `name`            | string | "Welcome back, {name}" instead of "Welcome to Los Santos". |
-| `priority`        | number | A solid warning "Priority N" tag next to the welcome line when > 0. |
-| `priorityMessage` | string | A short line under the headline when `priority` > 0. |
+| `name`            | string | A "Welcome back, {name}" line above the stage headline. |
+| `priority`        | number | A small warning "Priority N" tag on that line when > 0 (the line reads "Welcome back" when there is a priority but no name). |
+| `priorityMessage` | string | A muted line under the welcome line when `priority` > 0. |
+
+With no `name` and no `priority` the welcome line is not drawn at all.
 
 At the time of writing the call that sends them is **commented out** in
 `sandbox-queue/server/server.lua` (`ply.Deferrals.handover({ name, priority,
-priorityMessage })`), so in production the screen shows the generic welcome.
-Re-enabling that block lights the personalised variant without UI changes.
+priorityMessage })`), so in production no welcome line is shown.
+Re-enabling that block lights the personalised line without UI changes.
 
 ### Preview-only message
 
@@ -99,11 +98,22 @@ stays up, which is why the "Server sync" state exists.
 
 ## Layout
 
-Designed in px for 1920x1080: navy header band (wordmark, "Loading Los Santos",
-status tag), white status card bottom-left (welcome line, stage headline,
-`ProgressBar` lg with the percentage, four-step checklist, mono detail line),
-rules/tips callout bottom-right rotating every 9 s, 6 px teal rail along the
-bottom edge. The frame is zoomed 1.3x from 2200 px wide and 1.9x from 3400 px
+Designed in px for 1920x1080. The backdrop photo (`src/assets/backdrop.webp`)
+fills the screen under one flat layer of `--au-bg-sunk` at 55 % opacity (no
+gradient). Nothing has a panel: every block is text on the photo with the
+`.au-overworld` text shadow.
+
+- Top left (`Identity.svelte`): the wordmark at 48 px, then "SANDBOX RP" in
+  bold action blue over the plain heading "Loading Los Santos".
+- Bottom left (`Status.svelte`, 720 px): optional welcome line, stage headline
+  (32 px) with the percentage (48 px mono) on its right, mono detail line with
+  the batch counter, kit `ProgressBar` size lg, then the step row
+  (`Steps.svelte`).
+- Bottom right (`Tips.svelte`, 480 px): one rule or tip from `src/lib/tips.js`
+  as a bold title over two muted lines, fading to the next every 9 s. No box,
+  no counter, no key names (bodies are kept short enough for two lines).
+
+The frame is zoomed 1.3x from 2200 px wide and 1.9x from 3400 px
 (`App.svelte`), so 1440p and 4K keep the 1080p proportions.
 
 ## Previewing
