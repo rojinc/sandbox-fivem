@@ -123,17 +123,36 @@ export function debugData(messages, delay = 100) {
 /**
  * Run `fn` when one of `keys` is pressed. Lua normally drops NUI focus in the
  * callback this triggers, so the UI never calls SetNuiFocus itself.
+ *
+ * Escape is handled on key-up, not key-down: if the UI closed (and Lua
+ * dropped focus) on key-down, the key-up would reach the game and open the
+ * pause menu. Every other key fires on key-down.
+ *
+ * A handler that returns false declines the key (its surface is not open),
+ * so typing elsewhere keeps working.
  */
 export function onKey(keys, fn, { prevent = true } = {}) {
     const list = [].concat(keys);
-    const listener = (e) => {
+    const onDown = (e) => {
         if (!list.includes(e.key)) return;
-        // A handler that returns false declines the key (its surface is not open), so typing elsewhere keeps working.
+        if (e.key === 'Escape') {
+            if (prevent) e.preventDefault();
+            return;
+        }
         if (fn(e) === false) return;
         if (prevent) e.preventDefault();
     };
-    window.addEventListener('keydown', listener);
-    const off = () => window.removeEventListener('keydown', listener);
+    const onUp = (e) => {
+        if (e.key !== 'Escape' || !list.includes('Escape')) return;
+        if (fn(e) === false) return;
+        if (prevent) e.preventDefault();
+    };
+    window.addEventListener('keydown', onDown);
+    window.addEventListener('keyup', onUp);
+    const off = () => {
+        window.removeEventListener('keydown', onDown);
+        window.removeEventListener('keyup', onUp);
+    };
     try {
         onDestroy(off);
     } catch {

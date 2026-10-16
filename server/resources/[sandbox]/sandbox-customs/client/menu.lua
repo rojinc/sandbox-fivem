@@ -82,7 +82,6 @@ function OpenVehicleCustoms(canInstallPerformance, costMultiplier, settings)
 		CUSTOMS_OPEN = false
 	end, true)
 
-	customsMenu.Add:Text("Press SHIFT to Toggle Control of the Camera", { "pad", "code", "center", "textLarge" })
 	costElementId =
 		customsMenu.Add:Text("Current Total: $0", { "pad", "center", "code", "textLarge", "colorSuccess", "bold" })
 
@@ -95,7 +94,7 @@ function OpenVehicleCustoms(canInstallPerformance, costMultiplier, settings)
 
 		local newCost = CalculateCustomsCost(changingData, costMultiplier)
 		Notification.Persistent:Standard("veh_customs", "Current Total: $" .. newCost)
-		customsMenu.Update:Item(costElementId, "Current Total: $" .. newCost, {}, true)
+		customsMenu.Update:Item(costElementId, "Current Total: $" .. newCost, {})
 	end
 
 	-- PAINT STUFF

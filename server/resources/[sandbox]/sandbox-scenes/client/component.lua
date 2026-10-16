@@ -273,7 +273,7 @@ AddEventHandler("Scenes:Client:OpenOptionsMenu", function(values, data)
 	end, true)
 
 	_creationMenu.Add:Text(
-		"The Scene Will Be Created Where Your Camera is Pointed<br>Press SHIFT to Toggle Control of the Camera",
+		"The scene is placed where your camera is pointing.",
 		{ "pad", "code", "center", "textLarge" }
 	)
 
