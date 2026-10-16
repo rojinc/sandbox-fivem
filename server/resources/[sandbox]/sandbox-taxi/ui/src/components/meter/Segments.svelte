@@ -34,6 +34,6 @@
     }
     .seg__ghost {
         color: var(--au-warning-bg);
-        opacity: 0.55;
+        opacity: 0.45;
     }
 </style>

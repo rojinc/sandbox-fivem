@@ -4,9 +4,10 @@ Source of truth: `client/client.lua`, `client/remote.lua`, `client/settings.lua`
 `client/helicam.lua`, `client/sound.lua`, `client/utils.lua` and `server/server.lua` never talk to the NUI.
 
 Every `SendNUIMessage({ type, data })` below is routed by `ui/src/bridge.js` into the rune state in
-`ui/src/state/radar.svelte.js`. Two surfaces: the **radar unit** (`components/radar/RadarUnit.svelte`, dark
-palette, docked by `settings.location`, sized by `settings.scale`, never focused) and the **remote**
-(`components/remote/Remote.svelte`, a light GOLD form docked bottom centre, focused by Lua).
+`ui/src/state/radar.svelte.js`. Two surfaces: the **radar unit** (`components/radar/RadarUnit.svelte`, drawn
+as a dash-mounted unit: black housing, recessed LED windows with red target, amber fast and green patrol
+digits, faceplate lamps; docked by `settings.location`, sized by `settings.scale`, never focused) and the
+**remote** (`components/remote/Remote.svelte`, a dark kit form panel docked bottom centre, focused by Lua).
 
 ## Lua -> UI (`SendNUIMessage`), 7 types
 
@@ -41,13 +42,14 @@ rearFast    : same
 * Fast readings are sticky in Lua (highest reading per antenna) until the operator locks and unlocks. Only
   readings `>= settings.fastSpeed` count, and only when `settings.fastSpeed > 20`.
 * Lock (`radar_lock`, `LockRadar`): `{ frontFast = {...locked = true}, rearFast = {...locked = true} }`. An
-  antenna with no fast reading arrives as `{ locked = true }` with no `speed`; the UI shows the Locked tag
-  with a blank readout.
+  antenna with no fast reading arrives as `{ locked = true }` with no `speed`; the UI lights that
+  antenna's LOCK lamp and leaves its fast window blank.
 * Unlock (`UnlockRadar`): `{ frontFast = {}, rearFast = {} }`.
 * Empty Lua tables cross the msgpack -> JSON bridge as `[]`; `applyData()` normalises arrays to `{}`.
 * `flag`: `GlobalState.RadarFlaggedPlates[plate] ~= nil`, so a boolean today. The UI renders a flagged state
   for any truthy value and uses a string as the reason, so the moment Lua sends the reason it is shown. Every
-  flagged plate in any record gets one `PageAlert` (error, compact) row inside the unit.
+  flagged plate in any record gets one lit warning line inside the unit (error-tinted background, no edge
+  bar), and the plate itself turns red under its window.
 * An antenna whose `transmit` setting is off renders blank whatever Lua last sent for it.
 
 ### `UPDATE_SETTINGS` payload (`RADAR_SETTINGS`, persisted in KVP `RADAR_SETTINGS`)
@@ -94,8 +96,9 @@ fixed option lists.
 * The root layer is `pointer-events: none`; only the remote re-enables pointer events.
 * Escape -> `fetchNui('CloseRemote')` while the remote is open; declined (handler returns `false`) while it
   is closed so other inputs keep working. The close button and Done do the same.
-* Default keybinds shown as hints (`Keybinds:Add`, client.lua; players can rebind): `radar_lock` NUMPAD `*`,
-  `radar_remote` NUMPAD `/`, `radar_toggle` NUMPAD `-`. `heli_toggle` and `heli_rappell` have no UI.
+* Keybinds (`Keybinds:Add`, client.lua; players can rebind): `radar_lock` NUMPAD `*`, `radar_remote`
+  NUMPAD `/`, `radar_toggle` NUMPAD `-`. The UI shows no key hints (Lua never sends the bound keys).
+  `heli_toggle` and `heli_rappell` have no UI.
 
 ## Preview scenarios (`ui/preview`)
 
@@ -111,3 +114,4 @@ held readings, 09 show then hide then reset (renders nothing), 10 remote at 2560
 * `fast.direction`: fast records never carry a direction.
 * The React build's redux store, MUI sliders / toggle buttons, `react-router`, `react-toastify`, Inter and
   JetBrains Mono fonts, `bg.png` / `bgr.png`, Segment7 font, Google Fonts.
+* The key-hint strip under the unit and in the remote footer (dropped in the dark restyle).

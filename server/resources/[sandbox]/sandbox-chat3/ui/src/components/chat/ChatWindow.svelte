@@ -7,8 +7,8 @@
     import InputBar from './InputBar.svelte';
 
     /**
-     * Top-left chat: the navy log panel, which fades out when idle, plus the
-     * input strip and command list while Lua has handed us focus.
+     * Top-left chat: one dark translucent log panel, which fades out when idle,
+     * plus the input strip and command list while Lua has handed us focus.
      */
 
     /** How long the log lingers after the input closes. */
@@ -51,7 +51,7 @@
     const visible = $derived(showing || previewing);
 </script>
 
-<div class="chat au-dark" class:is-interactive={screen.inputting} style="zoom:{zoom}">
+<div class="chat" class:is-interactive={screen.inputting} style="zoom:{zoom}">
     {#if visible}
         <div class="chat__log" in:fade={{ duration: 200 }} out:fade={{ duration: 320 }}>
             <MessageLog bind:this={log} interactive={screen.inputting} />
@@ -76,11 +76,13 @@
     .chat.is-interactive {
         pointer-events: auto;
     }
+    /* --au-bg (#181a1d) at 82 %, so the world shows faintly through the log. */
     .chat__log {
-        background: var(--au-bg);
+        background: rgba(24, 26, 29, 0.82);
         color: var(--au-text);
-        border-radius: var(--au-radius);
-        box-shadow: var(--au-shadow-2);
+        border: 1px solid var(--au-border);
+        border-radius: var(--au-radius-lg);
+        box-shadow: var(--au-shadow-1);
         overflow: hidden;
     }
 </style>

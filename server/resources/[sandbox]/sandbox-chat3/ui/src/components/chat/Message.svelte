@@ -1,14 +1,15 @@
 <script>
     import { Tag } from '@sandbox/ui-kit';
     import { kindOf } from '../../lib/kinds.js';
-    import { isCfxMessage, renderCfxMessage, rgbString } from '../../lib/template.js';
+    import { isCfxMessage, renderCfxMessage } from '../../lib/template.js';
     import { chatHtml, escapeHtml, looksLikeHtml } from '../../lib/html.js';
     import { colorize } from '../../lib/colorize.js';
     import { formatTime } from '../../lib/format.js';
 
     /**
      * One line of the log: a sandbox-format message (channel tag, author, body)
-     * or a stock cfx message (template + args, optional colour as a left rule).
+     * or a stock cfx message (template + args; its colour tints the author, as
+     * the stock cfx chat does).
      */
     let { message, templates } = $props();
 
@@ -33,10 +34,9 @@
         const text = String(message.message ?? '').trim();
         return chatHtml(colorize(kind.html && looksLikeHtml(text) ? text : escapeHtml(text)));
     });
-    const tint = $derived(cfx ? rgbString(message.color) : null);
 </script>
 
-<div class="msg" style={tint ? `border-left-color:${tint}` : undefined}>
+<div class="msg">
     <div class="msg__line">
         {#if !cfx}
             <Tag tone={kind.tone} solid={kind.solid}>{kind.label}</Tag>
@@ -54,9 +54,8 @@
         grid-template-columns: minmax(0, 1fr) auto;
         column-gap: 12px;
         align-items: start;
-        padding: 6px 12px 6px 9px;
-        border-left: 3px solid transparent;
-        border-bottom: 1px solid var(--au-bg-alt);
+        padding: 6px 12px;
+        border-bottom: 1px solid rgba(51, 55, 60, 0.6);
         font-size: var(--au-fs-xs);
         line-height: var(--au-lh);
     }
@@ -68,9 +67,10 @@
         overflow-wrap: anywhere;
     }
     .msg__line :global(.au-tag) {
-        margin-right: 6px;
+        height: 20px;
+        margin-right: 8px;
         padding: 0 6px;
-        line-height: 1.25;
+        line-height: 20px;
         vertical-align: 1px;
     }
     .msg__name {
@@ -103,7 +103,9 @@
         border-radius: var(--au-radius);
     }
     .msg__time {
-        font-size: var(--au-fs-xs);
+        font-size: var(--au-fs-xxs);
+        line-height: 21px;
+        color: var(--au-hint);
         white-space: nowrap;
     }
 </style>

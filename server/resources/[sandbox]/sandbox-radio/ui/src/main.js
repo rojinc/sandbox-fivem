@@ -6,7 +6,6 @@ import { debugData, isEnvBrowser } from '@sandbox/ui-kit/nui';
 import { installBridge } from './bridge.js';
 import App from './App.svelte';
 
-// Icons are imported as definitions where they are used; Lua never sends icon names to this UI.
 installBridge();
 
 // `vite` dev server: open the handset with sample data so it can be designed in a browser.

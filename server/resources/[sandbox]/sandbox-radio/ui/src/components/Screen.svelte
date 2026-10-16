@@ -348,9 +348,6 @@
         cursor: pointer;
         transition: background var(--au-fast) var(--au-ease), color var(--au-fast) var(--au-ease);
     }
-    .softkey + .softkey {
-        border-left: 1px solid var(--lcd-line);
-    }
     .softkey:hover:not(:disabled) {
         background: var(--au-bg-alt);
     }

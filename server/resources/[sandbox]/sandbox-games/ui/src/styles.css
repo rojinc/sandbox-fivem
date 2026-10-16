@@ -1,0 +1,70 @@
+/* Layer that centres the one game on screen; only the panel takes the mouse. */
+.gm-stage {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+    animation: au-fade-in var(--au-normal) var(--au-ease);
+    transition: opacity 250ms var(--au-ease);
+}
+
+.gm-stage.is-exiting {
+    opacity: 0;
+}
+
+.gm-stage__inner {
+    pointer-events: auto;
+    animation: au-rise-in var(--au-normal) var(--au-ease);
+}
+
+/* Square keys shared by the keypad, sequencer and scrambler. */
+.gm-key {
+    appearance: none;
+    display: grid;
+    place-items: center;
+    height: 48px;
+    padding: 0;
+    border: 1px solid var(--au-border);
+    border-radius: var(--au-radius);
+    background: var(--au-bg-alt);
+    color: var(--au-text);
+    font-family: var(--au-font-mono);
+    font-size: var(--au-fs-md);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+    transition:
+        background var(--au-fast) var(--au-ease),
+        border-color var(--au-fast) var(--au-ease),
+        color var(--au-fast) var(--au-ease);
+}
+
+.gm-key:hover:not(:disabled) {
+    background: var(--au-bg-alt-shade);
+    border-color: var(--au-border-strong);
+}
+
+.gm-key:active:not(:disabled) {
+    background: var(--au-border);
+}
+
+.gm-key:disabled {
+    cursor: default;
+}
+
+.gm-key.is-lit {
+    background: var(--au-action);
+    border-color: var(--au-action);
+    color: var(--au-action-contrast);
+}
+
+.gm-key.is-done {
+    background: var(--au-success-bg);
+    border-color: var(--au-success-bg);
+    color: var(--au-success);
+}
+
+.gm-key.is-quiet {
+    color: var(--au-hint);
+}

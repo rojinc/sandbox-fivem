@@ -40,9 +40,10 @@
     .sugg {
         background: var(--au-bg);
         color: var(--au-text);
-        border-radius: var(--au-radius);
-        box-shadow: var(--au-shadow-2);
-        padding: 4px 0;
+        border: 1px solid var(--au-border);
+        border-radius: var(--au-radius-lg);
+        box-shadow: var(--au-shadow-1);
+        padding: 4px;
         font-size: var(--au-fs-xs);
         line-height: var(--au-lh);
     }
@@ -51,12 +52,12 @@
         align-items: baseline;
         gap: 8px;
         min-width: 0;
-        padding: 4px 12px 4px 9px;
-        border-left: 3px solid transparent;
+        padding: 4px 8px;
+        border-radius: var(--au-radius);
     }
+    /* Selection is the raised surface only: no edge bar. */
     .sugg__row.is-active {
-        background: var(--au-bg-shade);
-        border-left-color: var(--au-action);
+        background: var(--au-bg-alt);
     }
     .sugg__name {
         font-weight: 700;
@@ -75,6 +76,6 @@
         min-width: 0;
     }
     .sugg__note {
-        padding: 4px 12px;
+        padding: 4px 8px;
     }
 </style>

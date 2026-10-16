@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte';
-    import { TextInput, Kbd, fetchNui, onEscape } from '@sandbox/ui-kit';
+    import { TextInput, fetchNui, onEscape } from '@sandbox/ui-kit';
     import { chat, pushHistory } from '../../state/chat.svelte.js';
     import { screen, closeInput } from '../../state/screen.svelte.js';
     import { isCommand, matchSuggestions, paramIndex } from '../../lib/suggestions.js';
@@ -26,7 +26,6 @@
     const command = $derived(isCommand(value));
     const matches = $derived(matchSuggestions(chat.suggestions, value));
     const pIdx = $derived(paramIndex(value));
-    const canComplete = $derived(command && matches.length > 0 && pIdx < 0 && matches[0].name !== value);
 
     const focusInput = () => wrap?.querySelector('input')?.focus();
 
@@ -107,7 +106,6 @@
         <div class="bar__input">
             <TextInput
                 id="chat-input"
-                size="sm"
                 bind:value={screen.draft}
                 placeholder="Say something, or type / for a command"
                 aria-label="Chat message"
@@ -118,14 +116,6 @@
                 onkeydown={onKeyDown}
                 onblur={onBlur}
             />
-        </div>
-        <div class="bar__hints au-muted">
-            {#if canComplete}
-                <span><Kbd>Tab</Kbd> complete</span>
-            {:else if value.trim() !== ''}
-                <span><Kbd>Enter</Kbd> send</span>
-            {/if}
-            <span><Kbd>Esc</Kbd> close</span>
         </div>
     </div>
     {#if command}
@@ -139,27 +129,15 @@
         flex-direction: column;
         gap: 8px;
     }
+    /* The strip is the kit TextInput itself (sunk dark field), lifted off the world by a shadow. */
     .bar {
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 8px 12px;
-        background: var(--au-bg-alt);
         border-radius: var(--au-radius);
-        box-shadow: var(--au-shadow-2);
+        box-shadow: var(--au-shadow-1);
     }
     .bar__input {
         flex: 1;
         min-width: 0;
-    }
-    .bar__hints {
-        display: flex;
-        gap: 12px;
-        flex-shrink: 0;
-        font-size: var(--au-fs-xs);
-        white-space: nowrap;
-    }
-    .bar__hints :global(.au-kbd) {
-        margin-right: 4px;
     }
 </style>

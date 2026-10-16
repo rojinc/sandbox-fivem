@@ -1,13 +1,18 @@
 <script>
     import { fade } from 'svelte/transition';
-    import { Tag, PageAlert } from '@sandbox/ui-kit';
+    import { Icon } from '@sandbox/ui-kit';
     import { radar, hasSpeed, isFastArmed } from '../../state/radar.svelte.js';
     import { POSITIONS, DEFAULT_POSITION } from '../../positions.js';
     import AntennaRow from './AntennaRow.svelte';
-    import SpeedReadout from './SpeedReadout.svelte';
-    import KeyHints from './KeyHints.svelte';
+    import LedDigits from './LedDigits.svelte';
+    import Lamp from './Lamp.svelte';
 
-    /** The in-car radar unit: docked by settings.location, sized by settings.scale. Never takes focus. */
+    /**
+     * The dash-mounted radar unit: a black housing with a front and a rear antenna
+     * row, the patrol speed window, lit warning lines for flagged plates and a
+     * lamp strip along the bottom lip. Docked by settings.location, sized by
+     * settings.scale. Never takes focus.
+     */
     const settings = $derived(radar.settings);
     const data = $derived(radar.data);
 
@@ -20,7 +25,7 @@
     const anyXmit = $derived(Boolean(settings.frontRadar?.transmit || settings.rearRadar?.transmit));
     const tracking = $derived(hasSpeed(data.frontRadar) || hasSpeed(data.rearRadar));
 
-    /** One alert row per flagged plate in any record (fast records carry `flag`; live ones may in future). */
+    /** One warning line per flagged plate in any record (fast records carry `flag`; live ones may in future). */
     const flagged = $derived.by(() => {
         const rows = new Map();
         for (const rec of [data.frontFast, data.rearFast, data.frontRadar, data.rearRadar]) {
@@ -32,69 +37,64 @@
         return [...rows].map(([plate, reason]) => ({ plate, reason }));
     });
 
+    /** The one status word lit on the lamp strip. */
     const status = $derived(
         flagged.length
-            ? { tone: 'error', text: 'Flagged plate in beam' }
+            ? { tone: 'red', text: 'Flagged plate' }
             : locked
-              ? { tone: 'error', text: 'Fast reading locked' }
+              ? { tone: 'red', text: 'Locked' }
               : anyFast
-                ? { tone: 'warning', text: 'Fast reading held' }
+                ? { tone: 'amber', text: 'Fast held' }
                 : !anyXmit
-                  ? { tone: 'default', text: 'Antennas off' }
+                  ? { tone: 'muted', text: 'Antennas off' }
                   : tracking
-                    ? { tone: 'success', text: 'Tracking' }
-                    : { tone: 'default', text: 'Standby' },
-    );
-
-    const hints = $derived(
-        [
-            anyFast || locked ? { key: 'Num *', label: locked ? 'Release' : 'Lock' } : null,
-            { key: 'Num /', label: 'Remote' },
-            { key: 'Num -', label: 'Hide' },
-        ].filter(Boolean),
+                    ? { tone: 'green', text: 'Tracking' }
+                    : { tone: 'white', text: 'Standby' },
     );
 </script>
 
 {#if radar.visible}
     <div class="dock" style={pos.style} transition:fade={{ duration: 200 }}>
-        <section class="unit au-dark" style="transform:scale({scale});transform-origin:{pos.origin}" aria-label="Speed radar">
-            <header class="unit__head">
-                <div class="unit__title">
-                    <span class="unit__name">Speed radar</span>
-                    <span class="unit__model au-muted">Prowler 2X</span>
-                </div>
-                <div class="unit__lamps">
-                    <Tag tone={armed ? 'warning' : 'default'}>{armed ? `Fast alert ${settings.fastSpeed} mph` : 'Fast alert off'}</Tag>
-                    {#if locked}<Tag tone="error" solid>Locked</Tag>{/if}
-                </div>
-            </header>
-
-            <div class="unit__body">
+        <section class="unit" style="transform:scale({scale});transform-origin:{pos.origin}" aria-label="Speed radar">
+            <div class="unit__face">
                 <div class="unit__antennas">
                     <AntennaRow name="Front" settings={settings.frontRadar} target={data.frontRadar} fast={data.frontFast} fastSpeed={settings.fastSpeed} />
                     <AntennaRow name="Rear" settings={settings.rearRadar} target={data.rearRadar} fast={data.rearFast} fastSpeed={settings.fastSpeed} />
                 </div>
                 <div class="unit__patrol">
                     <span class="radar-label">Patrol</span>
-                    <SpeedReadout value={typeof data.patrolSpeed === 'number' ? data.patrolSpeed : 0} size={44} />
-                    <span class="unit__mph au-muted">mph</span>
+                    <div class="patrol-win">
+                        <LedDigits value={typeof data.patrolSpeed === 'number' ? data.patrolSpeed : 0} tone="green" size={48} />
+                    </div>
+                    <span class="radar-label">mph</span>
                 </div>
             </div>
 
             {#if flagged.length}
-                <div class="unit__alerts">
+                <div class="unit__flags">
                     {#each flagged as f (f.plate)}
-                        <PageAlert type="error" compact>
-                            <strong>Flagged plate</strong> <span class="au-mono unit__plate">{f.plate}</span>: {f.reason}
-                        </PageAlert>
+                        <div class="flag" role="alert">
+                            <Icon icon="alert-triangle" />
+                            <span class="flag__text">
+                                <strong>Flagged plate</strong>
+                                <span class="au-mono flag__plate">{f.plate}</span>
+                                <span class="flag__reason">{f.reason}</span>
+                            </span>
+                        </div>
                     {/each}
                 </div>
             {/if}
 
-            <footer class="unit__foot">
-                <Tag tone={status.tone} solid={status.tone !== 'default'}>{status.text}</Tag>
-                <KeyHints {hints} />
-            </footer>
+            <div class="unit__strip">
+                <span class="unit__model" aria-hidden="true">Prowler 2X</span>
+                <span class="unit__lamps">
+                    <span class="unit__alert">
+                        <Lamp on={armed} tone="amber">Fast alert</Lamp>
+                        <span class="unit__alert-value au-mono" class:is-on={armed}>{armed ? `${settings.fastSpeed} MPH` : 'OFF'}</span>
+                    </span>
+                    <span class="unit__status" role="status"><Lamp on tone={status.tone}>{status.text}</Lamp></span>
+                </span>
+            </div>
         </section>
     </div>
 {/if}
@@ -103,48 +103,24 @@
     .dock {
         position: absolute;
     }
+    /* Housing: black body, 1px edge, slight inner shadow. */
     .unit {
         width: 640px;
-        background: var(--au-bg);
+        padding: 4px 14px 0;
+        background: var(--au-bg-sunk);
+        border: 1px solid var(--au-border);
+        border-radius: var(--au-radius-lg);
         color: var(--au-text);
-        border-radius: var(--au-radius);
-        box-shadow: var(--au-shadow-2);
-        overflow: hidden;
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.04),
+            inset 0 -3px 8px rgba(0, 0, 0, 0.55),
+            var(--au-shadow-1);
         transition: transform var(--au-slow) var(--au-ease);
     }
-    .unit__head {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        min-height: 44px;
-        padding: 8px 16px;
-        background: var(--au-bg-alt-shade);
-    }
-    .unit__title {
-        display: flex;
-        align-items: baseline;
-        gap: 8px;
-        min-width: 0;
-    }
-    .unit__name {
-        font-size: 16px;
-        font-weight: 700;
-        white-space: nowrap;
-    }
-    .unit__model {
-        font-size: 14px;
-        white-space: nowrap;
-    }
-    .unit__lamps {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        flex-shrink: 0;
-    }
-    .unit__body {
+    .unit__face {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) 120px;
+        grid-template-columns: minmax(0, 1fr) 128px;
+        gap: 14px;
     }
     .unit__antennas {
         display: flex;
@@ -152,45 +128,104 @@
         min-width: 0;
     }
     .unit__antennas > :global(* + *) {
-        border-top: 1px solid var(--au-bg-alt-shade);
+        border-top: 1px solid var(--au-border);
     }
     .unit__patrol {
         display: flex;
         flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        gap: 6px;
+        padding: 10px 0;
+        text-align: center;
+    }
+    .patrol-win {
+        display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
-        padding: 12px;
-        background: var(--au-bg-shade);
-        border-left: 1px solid var(--au-bg-alt-shade);
+        flex: 1;
+        max-height: 120px;
+        background: var(--hud-black);
+        border: 1px solid #000;
+        border-radius: var(--au-radius);
+        box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.9);
     }
-    .unit__mph {
-        font-size: 14px;
-        line-height: 1;
-    }
-    .unit__alerts {
+    .unit__flags {
         display: flex;
         flex-direction: column;
+        gap: 6px;
+        padding: 2px 0 10px;
+    }
+    /* Lit warning line: tinted, no edge bar. */
+    .flag {
+        display: flex;
+        align-items: center;
         gap: 8px;
-        padding: 8px 12px;
-        border-top: 1px solid var(--au-bg-alt-shade);
+        min-height: 32px;
+        padding: 4px 10px;
+        background: var(--au-error-bg);
+        border-radius: var(--au-radius);
+        color: var(--au-error);
         font-size: 14px;
+        line-height: 20px;
     }
-    .unit__alerts :global(.au-alert) {
-        margin: 0;
+    .flag :global(.au-icon) {
+        font-size: 16px;
     }
-    .unit__plate {
+    .flag__text {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        min-width: 0;
+    }
+    .flag__plate {
         font-weight: 700;
-        letter-spacing: 0.04em;
+        letter-spacing: 0.06em;
     }
-    .unit__foot {
+    .flag__reason {
+        min-width: 0;
+        color: var(--au-text);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    /* Bottom lip: printed model name and the lamp strip. */
+    .unit__strip {
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 16px;
-        min-height: 40px;
-        padding: 6px 16px;
-        background: var(--au-bg-alt);
-        font-size: 14px;
+        height: 32px;
+        margin: 0 -14px;
+        padding: 0 14px;
+        border-top: 1px solid var(--au-border);
+    }
+    .unit__model {
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--au-hint);
+    }
+    .unit__lamps {
+        display: inline-flex;
+        align-items: center;
+        gap: 20px;
+    }
+    .unit__alert,
+    .unit__status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .unit__alert-value {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 16px;
+        letter-spacing: 0.04em;
+        color: var(--au-hint);
+    }
+    .unit__alert-value.is-on {
+        color: var(--au-warning);
     }
 </style>

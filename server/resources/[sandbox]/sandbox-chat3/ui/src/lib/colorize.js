@@ -3,7 +3,7 @@
  *   ^0..^9  colours      ^*  bold      ^_  underline
  *   ^~      strike       ^=  underline + strike      ^r  reset
  * The output is HTML; run it through chatHtml() before rendering. The
- * colours are the stock set lifted enough to read on the navy log panel.
+ * colours are the stock set lifted enough to read on the dark log panel.
  */
 export const CODE_COLORS = {
     0: '#ffffff',

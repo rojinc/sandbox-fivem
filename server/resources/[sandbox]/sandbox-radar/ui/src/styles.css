@@ -10,13 +10,13 @@
     pointer-events: none;
 }
 
-/* Small uppercase caption above a readout (Target, Fast, Patrol). */
+/* Legend printed on the unit's faceplate above a window (Target, Fast, Patrol). */
 .radar-label {
     display: inline-block;
     font-size: 12px;
     font-weight: 700;
-    line-height: 1;
-    letter-spacing: 0.08em;
+    line-height: 16px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--au-muted);
 }

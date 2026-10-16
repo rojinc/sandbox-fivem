@@ -27,4 +27,17 @@ export function place({ x, y, w, h }) {
     return `left:${px(x)};top:${px(y)};width:${px(w)};height:${px(h)}`;
 }
 
-export const frameSize = `width:${px(FRAME.w)};height:${px(FRAME.h)}`;
+export const frameSize = `width:${px(FRAME.w)};height:${px(FRAME.h)};--frame-w:${px(FRAME.w)};--frame-h:${px(FRAME.h)}`;
+
+/** Left or right half of a part (the knobs turn down on the left half, up on the right). */
+export function half({ x, y, w, h }, side) {
+    return { x: side > 0 ? x + w / 2 : x, y, w: w / 2, h };
+}
+
+/**
+ * place() plus the offset that lines the frame image up under the element, so a highlight
+ * masked with the image's alpha lights only the metal of a knob, never the world behind it.
+ */
+export function placeMasked(rect) {
+    return `${place(rect)};--mask-x:${px(-rect.x)};--mask-y:${px(-rect.y)}`;
+}

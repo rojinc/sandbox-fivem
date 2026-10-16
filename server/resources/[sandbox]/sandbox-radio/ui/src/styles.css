@@ -1,4 +1,4 @@
-/* Click-through layer over the game world; only the handset itself takes pointer events. */
+/* Click-through layer over the game world; only the handset's screen and parts take pointer events. */
 .radio-root {
     position: absolute;
     inset: 0;
@@ -6,10 +6,11 @@
     pointer-events: none;
 }
 
-/* The handset is laid out in px for 1080p; App.svelte zooms the dock with the viewport width. */
+/* Held up in the bottom-right corner, resting on the bottom edge like the original handset.
+   Laid out in px for 1080p; App.svelte zooms the dock with the viewport. */
 .radio-dock {
     position: absolute;
-    right: 24px;
-    bottom: 24px;
-    pointer-events: auto;
+    right: 40px;
+    bottom: 0;
+    pointer-events: none;
 }

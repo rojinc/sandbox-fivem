@@ -1,7 +1,6 @@
 <script>
     import { tick, untrack } from 'svelte';
     import { Button } from '@sandbox/ui-kit';
-    import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
     import { chat } from '../../state/chat.svelte.js';
     import Message from './Message.svelte';
 
@@ -67,7 +66,7 @@
     </div>
     {#if interactive && !pinned && unread > 0}
         <div class="log__jump">
-            <Button size="sm" icon={faArrowDown} onclick={() => scrollToBottom(true)}>{unread} new</Button>
+            <Button size="sm" icon="arrow-down" onclick={() => scrollToBottom(true)}>{unread} new</Button>
         </div>
     {/if}
 </div>

@@ -1,197 +1,132 @@
 <script>
-    import { tick } from 'svelte';
-    import { Button, Tag, TextInput, Kbd, fetchNui, uid } from '@sandbox/ui-kit';
-    import { faPowerOff, faXmark } from '@fortawesome/free-solid-svg-icons';
-    import { radio, tuneRequested } from '../state/radio.svelte.js';
-    import { parseEntry } from '../lib/entry.js';
-    import { rangeFor, inRange } from '../lib/ranges.js';
+    import frameUrl from '../assets/radio_frame.webp';
+    import { PARTS, place, placeMasked, half, frameSize } from '../lib/frame.js';
+    import { radio } from '../state/radio.svelte.js';
+    import { volume, clicks, togglePower } from '../lib/actions.js';
     import Screen from './Screen.svelte';
 
-    /** The floating handset (client/main.lua OpenRadio). Mounted only while APP_SHOW is in effect. */
-    const inputId = uid('freq');
-    let entry = $state('');
-
-    const parsed = $derived(parseEntry(entry));
-    const range = $derived(rangeFor(radio.type));
-    const outOfRange = $derived(parsed !== null && !inRange(radio.type, parsed));
-    const canTune = $derived(radio.power && parsed !== null && radio.pending === null);
-    const atTop = $derived(Boolean(range) && radio.frequency >= range.max);
-
-    const status = $derived.by(() => {
-        if (!radio.power) return { text: 'Off', tone: 'default', solid: false };
-        if (radio.pending !== null) return { text: 'Tuning', tone: 'info', solid: true };
-        if (radio.notice?.kind === 'refused') return { text: 'Refused', tone: 'error', solid: true };
-        if (radio.notice?.kind === 'tuned') return { text: 'Tuned', tone: 'success', solid: true };
-        if (radio.frequency > 0) return { text: 'Receiving', tone: 'success', solid: true };
-        return { text: 'No channel', tone: 'default', solid: false };
-    });
-
-    // Typing goes straight into the frequency box when the handset opens.
-    $effect(() => {
-        tick().then(() => document.getElementById(inputId)?.focus());
-    });
-    $effect(() => {
-        if (!radio.power) entry = '';
-    });
-
-    function tuneTo(target) {
-        if (!radio.power || target === null || target === undefined) return;
-        entry = '';
-        if (Math.abs(target - radio.frequency) < 0.05) return; // Lua would not answer: nothing to wait for
-        tuneRequested(target);
-        fetchNui('SetChannel', { frequency: target });
+    /**
+     * The handset (client/main.lua OpenRadio): the display sits behind the cut-out of the
+     * frame image and the physical parts are hotspots over the picture. Tall knob: volume,
+     * short knob: click sound, bottom pill: power. Each knob turns with the mouse wheel;
+     * clicking its left half turns it down, the right half up.
+     */
+    const WHEEL_GAP = 90; // ms between wheel notches, so a trackpad flick is not twenty requests
+    let lastWheel = 0;
+    function turn(e, fn) {
+        const now = performance.now();
+        if (!e.deltaY || now - lastWheel < WHEEL_GAP) return;
+        lastWheel = now;
+        fn(e.deltaY < 0 ? 1 : -1);
     }
 
-    /** Channel up/down by one, like Lua's CycleRadioChannel but kept inside this radio's range. */
-    function step(dir) {
-        if (!radio.power) return;
-        const min = range?.min ?? 1;
-        const max = range?.max ?? 9999;
-        if (radio.frequency <= 0) {
-            if (dir > 0) tuneTo(min);
-            return;
-        }
-        let target = Math.round((radio.frequency + dir) * 10) / 10;
-        if (target < min) target = 0; // stepping below the range leaves the channel
-        if (target > max) return;
-        tuneTo(target);
-    }
-
-    const close = () => fetchNui('Close');
-    const togglePower = () => fetchNui('TogglePower');
-    const volume = (dir) => radio.power && fetchNui(dir > 0 ? 'VolumeUp' : 'VolumeDown');
-    const clicks = (dir) => fetchNui(dir > 0 ? 'ClickVolumeUp' : 'ClickVolumeDown');
+    // Clicking a part keeps the caret in the frequency entry, so typing digits still works.
+    const keepFocus = (e) => e.preventDefault();
 </script>
 
-<section class="handset au-dark" aria-label="Handheld radio">
-    <header class="handset__head">
-        <h2 class="handset__title au-truncate">{radio.typeName}</h2>
-        <Tag tone={status.tone} solid={status.solid}>{status.text}</Tag>
-        <Button size="sm" variant="tertiary" icon={faXmark} aria-label="Close radio" title="Close (Esc)" onclick={close} />
-    </header>
+{#snippet knob(part, label, onturn, live)}
+    <div class="knob" class:is-live={live} role="group" aria-label={label.group} onwheel={(e) => turn(e, onturn)}>
+        {#each [-1, 1] as dir (dir)}
+            <button
+                type="button"
+                class="knob__half"
+                style={placeMasked(half(part, dir))}
+                title={dir > 0 ? label.up : label.down}
+                aria-label={dir > 0 ? label.up : label.down}
+                onmousedown={keepFocus}
+                onclick={() => onturn(dir)}
+            ></button>
+        {/each}
+    </div>
+{/snippet}
 
-    <Screen />
-
-    <div class="handset__keys" role="group" aria-label="Channel and volume">
-        <Button size="sm" variant="secondary" block disabled={!radio.power || radio.frequency <= 0} onclick={() => step(-1)}>Channel down</Button>
-        <Button size="sm" variant="secondary" block disabled={!radio.power || atTop} onclick={() => step(1)}>Channel up</Button>
-        <Button size="sm" variant="secondary" block disabled={!radio.power} onclick={() => volume(-1)}>Volume down</Button>
-        <Button size="sm" variant="secondary" block disabled={!radio.power} onclick={() => volume(1)}>Volume up</Button>
-        <Button size="sm" variant="secondary" block onclick={() => clicks(-1)}>Clicks quieter</Button>
-        <Button size="sm" variant="secondary" block onclick={() => clicks(1)}>Clicks louder</Button>
+<section class="handset" style="{frameSize};--frame-url:url({frameUrl})" aria-label={radio.typeName}>
+    <div class="handset__screen" style={place(PARTS.screen)}>
+        <Screen />
     </div>
 
-    <form
-        class="entry"
-        onsubmit={(e) => {
-            e.preventDefault();
-            tuneTo(parsed);
-        }}
-    >
-        <label class="entry__label" for={inputId}>Frequency</label>
-        <div class="entry__row">
-            <TextInput
-                id={inputId}
-                size="sm"
-                mono
-                inputmode="decimal"
-                autocomplete="off"
-                spellcheck="false"
-                placeholder={range ? `${range.min}–${range.max}` : 'No radio'}
-                disabled={!radio.power}
-                invalid={outOfRange}
-                aria-describedby="{inputId}-hint"
-                bind:value={entry}
-            />
-            <Button size="sm" type="submit" disabled={!canTune}>Tune</Button>
-        </div>
-        <div class="entry__hint" class:is-warning={outOfRange} id="{inputId}-hint">
-            {#if outOfRange}
-                Outside this radio's range ({range.min}–{range.max}). The radio will refuse it.
-            {:else if !radio.power}
-                Turn the radio on to tune.
-            {:else}
-                One decimal place. Enter tunes.
-            {/if}
-        </div>
-    </form>
+    <img class="handset__frame" src={frameUrl} alt="" draggable="false" />
 
-    <footer class="handset__foot">
-        <Button size="sm" variant="secondary" icon={faPowerOff} aria-pressed={radio.power} onclick={togglePower}>
-            {radio.power ? 'Power off' : 'Power on'}
-        </Button>
-        <span class="handset__hints au-hint"><Kbd>↑</Kbd><Kbd>↓</Kbd> volume <Kbd>Esc</Kbd> close</span>
-    </footer>
+    {@render knob(PARTS.clickKnob, { group: 'Click sound', down: 'Click sound quieter', up: 'Click sound louder' }, clicks, true)}
+    {@render knob(PARTS.volumeKnob, { group: 'Volume', down: 'Volume down', up: 'Volume up' }, volume, radio.power)}
+
+    <button
+        type="button"
+        class="powerkey"
+        style={place(PARTS.powerKey)}
+        title={radio.power ? 'Power off' : 'Power on'}
+        aria-label="Power"
+        aria-pressed={radio.power}
+        onmousedown={keepFocus}
+        onclick={togglePower}
+    ></button>
 </section>
 
 <style>
     .handset {
-        display: flex;
-        flex-direction: column;
-        gap: var(--au-s3);
-        width: 336px;
-        padding: var(--au-s4);
-        background: var(--au-bg);
-        color: var(--au-text);
-        border-radius: var(--au-radius);
-        box-shadow: var(--au-shadow-2);
+        position: relative;
+        pointer-events: none;
     }
-    .handset__head {
-        display: flex;
-        align-items: center;
-        gap: var(--au-s2);
-        min-height: 34px;
+    .handset__screen {
+        position: absolute;
+        pointer-events: auto;
     }
-    .handset__title {
-        flex: 1;
-        min-width: 0;
+    /* The picture sits over the display; clicks pass through it to the screen and the hotspots. */
+    .handset__frame {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        user-select: none;
+    }
+
+    /* Hotspots over the knobs and the power key: invisible until hovered. */
+    .knob {
+        display: contents;
+    }
+    .knob__half,
+    .powerkey {
+        position: absolute;
         margin: 0;
-        font-size: var(--au-fs-sm);
+        padding: 0;
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        pointer-events: auto;
     }
-    .handset__keys {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: var(--au-s2);
+    .knob__half::before,
+    .powerkey::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: #fff;
+        opacity: 0;
+        transition: opacity var(--au-fast) var(--au-ease);
     }
-    .entry {
-        margin: 0;
+    /* Lit through the frame's own alpha, so only the metal of the knob brightens. */
+    .knob__half::before {
+        -webkit-mask: var(--frame-url) no-repeat var(--mask-x) var(--mask-y) / var(--frame-w) var(--frame-h);
+        mask: var(--frame-url) no-repeat var(--mask-x) var(--mask-y) / var(--frame-w) var(--frame-h);
     }
-    .entry__label {
-        display: block;
-        font-weight: 700;
-        font-size: var(--au-fs-xs);
-        margin-bottom: var(--au-s1);
+    .knob.is-live .knob__half:hover::before,
+    .powerkey:hover::before {
+        opacity: 0.16;
     }
-    .entry__row {
-        display: flex;
-        gap: var(--au-s2);
+    .knob.is-live .knob__half:active::before,
+    .powerkey:active::before {
+        opacity: 0.28;
     }
-    .entry__row :global(.au-input) {
-        flex: 1;
-        min-width: 0;
-        width: auto;
+    .knob:not(.is-live) .knob__half {
+        cursor: default;
     }
-    .entry__hint {
-        margin-top: var(--au-s1);
-        font-size: var(--au-fs-xs);
-        color: var(--au-hint);
-        min-height: 21px;
+    .powerkey {
+        border-radius: 999px;
     }
-    .entry__hint.is-warning {
-        color: var(--au-warning);
-    }
-    .handset__foot {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: var(--au-s2);
-        padding-top: var(--au-s3);
-        border-top: 1px solid var(--au-bg-alt-shade);
-    }
-    .handset__hints {
-        display: inline-flex;
-        align-items: center;
-        gap: var(--au-s1);
-        white-space: nowrap;
+    .knob__half:focus-visible,
+    .powerkey:focus-visible {
+        outline: 2px solid var(--au-focus);
+        outline-offset: 0;
     }
 </style>

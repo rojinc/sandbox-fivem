@@ -6,7 +6,7 @@ import { debugData, mockNui } from '@sandbox/ui-kit/nui';
 import { installBridge } from './bridge.js';
 import App from './App.svelte';
 
-// Icons are imported as definitions where they are used; Lua never sends icon names.
+// Icons are drawn by Tabler name through the kit Icon; Lua never sends icon names.
 installBridge();
 
 // Browser-only sample traffic so `vite` on port 3012 shows a live unit. No-op in game.

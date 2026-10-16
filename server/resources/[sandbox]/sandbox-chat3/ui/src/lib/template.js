@@ -15,10 +15,13 @@ export function isCfxMessage(message) {
 
 /**
  * Render a cfx-style message to (unsanitised) HTML: arguments are escaped,
- * dropped into the template, then colour codes become styled spans.
+ * dropped into the template, then colour codes become styled spans. A
+ * `color` tints the first argument (the author), as the stock cfx chat does.
  */
 export function renderCfxMessage(message, templates = DEFAULT_TEMPLATES) {
     const args = (message.args ?? []).map((a) => escapeHtml(a));
+    const tint = readableRgb(message.color);
+    if (tint && args.length > 0) args[0] = `<span style="color:${tint}">${args[0]}</span>`;
     let template = message.template;
     if (typeof template !== 'string' && message.templateId !== undefined) template = templates?.[message.templateId];
     if (typeof template !== 'string') {
@@ -43,4 +46,25 @@ export function rgbString(color) {
     }
     if ([r, g, b].some((v) => typeof v !== 'number')) return null;
     return `rgb(${r}, ${g}, ${b})`;
+}
+
+/** Relative luminance of an sRGB colour (0..1). */
+function luminance([r, g, b]) {
+    const lin = (v) => {
+        const c = v / 255;
+        return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+    };
+    return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+}
+
+/**
+ * A script's `color` as a CSS colour that stays legible on the dark log: dark
+ * colours are mixed towards white until they reach about 4.5:1 on #181a1d.
+ */
+export function readableRgb(color) {
+    const css = rgbString(color);
+    if (!css) return null;
+    let rgb = css.match(/\d+/g).map((v) => Math.min(255, Math.max(0, Number(v))));
+    for (let i = 0; i < 10 && luminance(rgb) < 0.22; i += 1) rgb = rgb.map((v) => Math.round(v + (255 - v) * 0.2));
+    return `rgb(${rgb.join(', ')})`;
 }
