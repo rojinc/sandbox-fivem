@@ -1,7 +1,7 @@
 <script>
     import { uid } from '../util.js';
 
-    /** bind:group like a native radio: <Radio bind:group={choice} value="a" label="A" /> */
+    /** <Radio bind:group={choice} value="a" label="A" /> */
     let { group = $bindable(), value, label, name, id = uid('rd'), disabled = false, class: className = '', children, ...rest } = $props();
 </script>
 
@@ -14,14 +14,14 @@
 <style>
     .au-radio {
         display: inline-flex;
-        align-items: flex-start;
+        align-items: center;
         gap: var(--au-s3);
-        min-height: 32px;
+        min-height: 28px;
         cursor: pointer;
-        line-height: 1.5;
+        font-size: var(--au-fs-xs);
     }
     .au-radio--disabled {
-        opacity: 0.5;
+        opacity: 0.45;
         cursor: not-allowed;
     }
     .au-radio__input {
@@ -32,18 +32,17 @@
     }
     .au-radio__dot {
         flex-shrink: 0;
-        width: 28px;
-        height: 28px;
-        border: 3px solid var(--au-input-border);
+        width: 20px;
+        height: 20px;
+        border: 1px solid var(--au-border-strong);
         border-radius: 50%;
         background: var(--au-input-bg);
         position: relative;
-        transition: border-color var(--au-fast) var(--au-ease);
     }
     .au-radio__dot::after {
         content: '';
         position: absolute;
-        inset: 5px;
+        inset: 4px;
         border-radius: 50%;
         background: var(--au-action);
         transform: scale(0);
@@ -56,10 +55,7 @@
         transform: scale(1);
     }
     .au-radio__input:focus-visible + .au-radio__dot {
-        outline: 3px solid var(--au-focus);
+        outline: 2px solid var(--au-focus);
         outline-offset: 2px;
-    }
-    .au-radio__label {
-        padding-top: 2px;
     }
 </style>

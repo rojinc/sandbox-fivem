@@ -6,7 +6,7 @@
 </script>
 
 <div class="box" class:is-bare={bare} class:is-grow={grow} style="min-width:{minWidth}">
-    <span class="box__icon hud-shadow"><Icon {icon} /></span>
+    <span class="box__icon hud-shadow"><Icon {icon} stroke={2.2} /></span>
     <span class="box__label hud-text">{label}</span>
 </div>
 

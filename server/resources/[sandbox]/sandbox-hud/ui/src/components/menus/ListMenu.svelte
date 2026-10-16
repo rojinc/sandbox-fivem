@@ -1,6 +1,6 @@
 <script>
     import { fly } from 'svelte/transition';
-    import { Icon, RichText, Kbd, fetchNui, onKey } from '@sandbox/ui-kit';
+    import { Icon, RichText, fetchNui, onKey } from '@sandbox/ui-kit';
     import { ui } from '../../state/ui.svelte.js';
 
     /** Right-hand list menu with submenus (client/list.lua). */
@@ -47,7 +47,7 @@
 
 {#if list.showing && menu}
     <div class="menu hud-ui" transition:fly={{ x: 40, duration: 200 }} role="menu" aria-label={menu.label ?? 'Menu'}>
-        <div class="menu__head au-dark">
+        <div class="menu__head">
             {#if list.stack.length}
                 <button type="button" class="menu__iconbtn" aria-label="Back" onclick={back}><Icon icon="arrow-left" /></button>
             {/if}
@@ -107,12 +107,6 @@
             {/each}
             {#if !items.length}<div class="menu__empty">Nothing here</div>{/if}
         </div>
-        <div class="menu__foot">
-            <span><Kbd>↑</Kbd><Kbd>↓</Kbd> choose</span>
-            <span><Kbd>Enter</Kbd> select</span>
-            {#if list.stack.length}<span><Kbd>⌫</Kbd> back</span>{/if}
-            <span><Kbd>Esc</Kbd> close</span>
-        </div>
     </div>
 {/if}
 
@@ -121,28 +115,28 @@
         position: absolute;
         right: 12vw;
         top: 18vh;
-        width: 400px;
+        width: 380px;
         max-height: 64vh;
         display: flex;
         flex-direction: column;
-        background: var(--au-light-bg);
-        color: var(--au-light-text);
-        border-radius: var(--au-radius);
+        background: var(--au-bg);
+        color: var(--au-text);
+        border: 1px solid var(--au-border);
+        border-radius: var(--au-radius-lg);
         box-shadow: var(--au-shadow-2);
         overflow: hidden;
     }
     .menu__head {
         display: flex;
         align-items: center;
-        gap: 6px;
-        padding: 10px 10px 10px 16px;
-        background: var(--au-dark-bg);
-        color: #fff;
+        gap: 4px;
+        padding: 12px 10px 10px 16px;
+        border-bottom: 1px solid var(--au-border);
     }
     .menu__title {
         flex: 1;
         font-size: 16px;
-        font-weight: 700;
+        font-weight: 500;
     }
     .menu__iconbtn {
         width: 32px;
@@ -150,34 +144,33 @@
         border: 0;
         border-radius: var(--au-radius);
         background: transparent;
-        color: #fff;
+        color: var(--au-muted);
         display: grid;
         place-items: center;
         cursor: pointer;
-        font-size: 14px;
+        font-size: 17px;
     }
     .menu__iconbtn:hover {
-        background: var(--au-dark-bg-alt);
+        background: var(--au-bg-alt);
     }
     .menu__list {
         overflow-y: auto;
-        padding: 4px 0;
+        padding: 6px;
     }
     .row {
         display: flex;
         align-items: center;
         gap: 12px;
-        padding: 9px 14px 9px 12px;
+        padding: 8px 10px;
         min-height: 44px;
-        border-left: 4px solid transparent;
+        border-radius: var(--au-radius);
         transition: background var(--au-fast) var(--au-ease);
     }
     .row.is-clickable {
         cursor: pointer;
     }
     .row.is-selected {
-        background: var(--au-light-bg-shade);
-        border-left-color: var(--au-light-action);
+        background: var(--au-bg-alt);
     }
     .row.is-disabled {
         opacity: 0.45;
@@ -187,18 +180,19 @@
         min-width: 0;
     }
     .row__label {
-        font-size: 15px;
-        font-weight: 700;
+        font-size: 14px;
+        font-weight: 500;
     }
     .row__desc {
         font-size: 13px;
-        color: var(--au-light-muted);
+        color: var(--au-muted);
         line-height: 1.35;
         margin-top: 1px;
     }
     .row__chev {
-        color: var(--au-light-muted);
-        font-size: 12px;
+        color: var(--au-muted);
+        font-size: 15px;
+        display: flex;
     }
     .row__actions {
         display: flex;
@@ -207,35 +201,23 @@
     .row__action {
         width: 32px;
         height: 32px;
-        border: 2px solid var(--au-light-action);
+        border: 1px solid var(--au-border-strong);
         border-radius: var(--au-radius);
         background: transparent;
-        color: var(--au-light-action);
+        color: var(--au-text);
         display: grid;
         place-items: center;
         cursor: pointer;
-        font-size: 13px;
+        font-size: 16px;
     }
     .row__action:hover {
-        background: var(--au-light-action);
-        color: #fff;
+        background: var(--au-bg-alt-shade);
+        color: var(--au-action);
     }
     .menu__empty {
         padding: 24px;
         text-align: center;
-        color: var(--au-light-muted);
+        color: var(--au-muted);
         font-size: 14px;
-    }
-    .menu__foot {
-        display: flex;
-        gap: 14px;
-        padding: 8px 14px;
-        background: var(--au-light-bg-shade);
-        border-top: 1px solid var(--au-light-bg-alt-shade);
-        font-size: 12px;
-        color: var(--au-light-muted);
-    }
-    .menu__foot :global(.au-kbd) {
-        margin-right: 3px;
     }
 </style>

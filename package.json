@@ -15,7 +15,8 @@
     "build": "node scripts/build-all.mjs",
     "preview": "node scripts/preview.mjs",
     "clean": "node scripts/build-all.mjs --clean",
-    "luacheck": "python3 -I scripts/luacheck.py server/resources"
+    "luacheck": "python3 -I scripts/luacheck.py server/resources",
+    "icons": "node scripts/gen-icons.mjs"
   },
   "devDependencies": {
     "playwright": "1.64.1"

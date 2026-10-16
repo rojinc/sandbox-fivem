@@ -29,8 +29,8 @@
         width: 25vw;
         height: 50vh;
         padding: 10px;
-        border-radius: var(--au-radius);
-        background: var(--au-light-bg);
+        border-radius: var(--au-radius-lg);
+        background: var(--au-bg);
         box-shadow: var(--au-shadow-2);
     }
     img {

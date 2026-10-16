@@ -1,5 +1,5 @@
 <script>
-    /** Rectangular GOLD tag. `tone`: default | action | success | warning | error | info. */
+    /** Small status label. tone: default | action | success | warning | error | info. `solid` fills it. */
     let { tone = 'default', solid = false, class: className = '', children } = $props();
 </script>
 
@@ -7,43 +7,43 @@
 
 <style>
     .au-tag {
-        --tag-color: var(--au-border);
-        display: inline-block;
-        padding: 1px var(--au-s2);
-        border: 1px solid var(--tag-color);
+        --fg: var(--au-muted);
+        --bg: var(--au-bg-alt);
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        height: 22px;
+        padding: 0 8px;
         border-radius: var(--au-radius);
-        font-size: var(--au-fs-xs);
-        line-height: 1.5;
+        font-size: var(--au-fs-xxs);
+        font-weight: 500;
         white-space: nowrap;
-        color: var(--au-text);
-        background: transparent;
+        color: var(--fg);
+        background: var(--bg);
     }
-    .au-tag--action {
-        --tag-color: var(--au-action);
+    .au-tag--action,
+    .au-tag--info {
+        --fg: var(--au-info);
+        --bg: var(--au-info-bg);
     }
     .au-tag--success {
-        --tag-color: var(--au-success);
+        --fg: var(--au-success);
+        --bg: var(--au-success-bg);
     }
     .au-tag--warning {
-        --tag-color: var(--au-warning);
+        --fg: var(--au-warning);
+        --bg: var(--au-warning-bg);
     }
     .au-tag--error {
-        --tag-color: var(--au-error);
-    }
-    .au-tag--info {
-        --tag-color: var(--au-info);
+        --fg: var(--au-error);
+        --bg: var(--au-error-bg);
     }
     .au-tag--solid {
-        background: var(--tag-color);
-        border-color: var(--tag-color);
-        color: #fff;
-        font-weight: 700;
+        color: var(--au-action-contrast);
+        background: var(--fg);
     }
     .au-tag--default.au-tag--solid {
-        background: var(--au-bg-alt-shade);
         color: var(--au-text);
-    }
-    .au-tag--warning.au-tag--solid {
-        color: #313131;
+        background: var(--au-bg-alt-shade);
     }
 </style>

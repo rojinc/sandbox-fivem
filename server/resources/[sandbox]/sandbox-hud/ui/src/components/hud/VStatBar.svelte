@@ -8,7 +8,7 @@
 
 <div class="vbar" class:is-low={low} aria-label={label} title={label}>
     <span class="vbar__track hud-shadow"><span class="vbar__fill" style="height:{pct}%;background:{color}"></span></span>
-    <span class="vbar__icon hud-shadow" style="color:{iconColor ?? (pct <= 0 ? 'var(--hud-red)' : 'var(--hud-white)')}"><Icon {icon} /></span>
+    <span class="vbar__icon hud-shadow" style="color:{iconColor ?? (pct <= 0 ? 'var(--hud-red)' : 'var(--hud-white)')}"><Icon {icon} stroke={2.2} /></span>
 </div>
 
 <style>
@@ -36,7 +36,7 @@
         transition: height 220ms var(--au-ease);
     }
     .vbar__icon {
-        font-size: 0.8em;
+        font-size: 1em;
         line-height: 1;
         display: flex;
     }

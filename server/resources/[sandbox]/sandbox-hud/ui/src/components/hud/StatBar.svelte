@@ -7,7 +7,7 @@
 </script>
 
 <div class="bar" class:is-low={low}>
-    <span class="bar__icon hud-shadow" style="color:{Number(value) <= 0 ? 'var(--hud-red)' : 'var(--hud-white)'}"><Icon {icon} /></span>
+    <span class="bar__icon hud-shadow" style="color:{Number(value) <= 0 ? 'var(--hud-red)' : 'var(--hud-white)'}"><Icon {icon} filled /></span>
     <span class="bar__value hud-text" style="color:{color}">{Math.round(Number(value) || 0)}</span>
     <span class="bar__track hud-shadow"><span class="bar__fill" style="width:{pct}%;background:{color}"></span></span>
 </div>

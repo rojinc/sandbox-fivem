@@ -1,17 +1,16 @@
 <script>
-    import { scale } from 'svelte/transition';
-    import { Icon, RichText } from '@sandbox/ui-kit';
+    import { fade } from 'svelte/transition';
+    import { RichText } from '@sandbox/ui-kit';
     import { ui } from '../../state/ui.svelte.js';
 
-    /** The newest key prompt ("{key}E{/key} Open door"), bottom centre. */
+    /** The newest key prompt ("{key}E{/key} Open door"), as text on the world. */
     const action = $derived(ui.actions.length ? ui.actions[ui.actions.length - 1] : null);
 </script>
 
 {#if action}
     <div class="wrap">
         {#key action.id}
-            <div class="prompt" transition:scale={{ duration: 160, start: 0.92 }}>
-                <span class="prompt__icon"><Icon icon="circle-info" /></span>
+            <div class="prompt au-overworld" transition:fade={{ duration: 140 }}>
                 <RichText text={action.message ?? ''} />
             </div>
         {/key}
@@ -28,22 +27,18 @@
         justify-content: center;
     }
     .prompt {
-        display: flex;
-        align-items: center;
-        gap: 10px;
         max-width: 560px;
-        padding: 8px 16px 8px 12px;
-        border-left: 6px solid var(--au-light-action);
-        border-radius: var(--au-radius);
-        background: var(--au-light-bg);
-        color: var(--au-light-text);
-        font-size: 15px;
+        font-size: 17px;
         font-weight: 500;
-        box-shadow: var(--au-shadow-1);
+        text-align: center;
     }
-    .prompt__icon {
-        color: var(--au-light-action);
-        font-size: 14px;
-        display: flex;
+    .prompt :global(.au-kbd) {
+        min-width: 1.7em;
+        margin: 0 0.35em 0 0;
+        background: rgba(24, 26, 29, 0.9);
+        border-color: rgba(255, 255, 255, 0.35);
+        color: #fff;
+        text-shadow: none;
+        font-weight: 700;
     }
 </style>

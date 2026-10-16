@@ -17,7 +17,7 @@
             <Icon icon={eye.icon || 'circle'} />
         </div>
         {#if eye.menuOpen && eye.menu.length}
-            <div class="eye__menu au-dark hud-ui" transition:fade={{ duration: 120 }} role="menu">
+            <div class="eye__menu hud-ui" transition:fade={{ duration: 120 }} role="menu">
                 {#each eye.menu as b, i (i)}
                     <button
                         type="button"
@@ -28,7 +28,7 @@
                             pick(b);
                         }}
                     >
-                        <span class="eye__icon">{#if b.icon}<Icon icon={b.icon} fixedWidth />{/if}</span>
+                        <span class="eye__icon">{#if b.icon}<Icon icon={b.icon} />{/if}</span>
                         <span>{b.text}</span>
                     </button>
                 {/each}
@@ -56,7 +56,7 @@
             color 160ms;
     }
     .eye__reticle.has-target {
-        color: var(--au-dark-action);
+        color: var(--au-action);
         font-size: 26px;
     }
     .eye__menu {
@@ -64,9 +64,10 @@
         left: 54px;
         top: 0;
         min-width: 200px;
-        padding: 4px 0;
-        background: var(--au-dark-bg);
-        border-radius: var(--au-radius);
+        padding: 4px;
+        background: var(--au-bg);
+        border: 1px solid var(--au-border);
+        border-radius: var(--au-radius-lg);
         box-shadow: var(--au-shadow-2);
     }
     .eye__item {
@@ -74,11 +75,11 @@
         align-items: center;
         gap: 10px;
         width: 100%;
-        padding: 9px 14px;
+        padding: 8px 10px;
         border: 0;
-        border-left: 4px solid transparent;
+        border-radius: var(--au-radius);
         background: transparent;
-        color: #fff;
+        color: var(--au-text);
         font: inherit;
         font-size: 14px;
         font-weight: 500;
@@ -87,12 +88,12 @@
         cursor: pointer;
     }
     .eye__item:hover {
-        background: var(--au-dark-bg-alt);
-        border-left-color: var(--au-dark-action);
+        background: var(--au-bg-alt);
     }
     .eye__icon {
         width: 18px;
-        color: var(--au-dark-muted);
-        font-size: 13px;
+        display: flex;
+        color: var(--au-muted);
+        font-size: 16px;
     }
 </style>

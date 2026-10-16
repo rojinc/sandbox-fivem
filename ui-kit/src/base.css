@@ -81,13 +81,12 @@ ol {
 
 a {
     color: var(--au-action);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    text-decoration-thickness: 1px;
+    text-decoration: none;
 }
 a:hover {
-    text-decoration-thickness: 2px;
     color: var(--au-action-hover);
+    text-decoration: underline;
+    text-underline-offset: 3px;
 }
 
 button,
@@ -135,12 +134,13 @@ table {
     height: 10px;
 }
 ::-webkit-scrollbar-track {
-    background: var(--au-bg-alt);
+    background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-    background: var(--au-border);
-    border: 2px solid var(--au-bg-alt);
-    border-radius: 5px;
+    background: var(--au-border-strong);
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    border-radius: 6px;
 }
 
 /* --------------------------------------------------------------- utilities */
@@ -213,7 +213,7 @@ table {
     margin: 0 0 var(--au-s4);
 }
 .au-dl dt {
-    font-weight: 700;
+    color: var(--au-muted);
 }
 .au-dl dd {
     margin: 0;
@@ -233,13 +233,17 @@ table {
 .au-table th {
     text-align: left;
     padding: var(--au-s2) var(--au-s3);
-    border-bottom: 3px solid var(--au-text);
-    font-weight: 700;
+    border-bottom: 1px solid var(--au-border-strong);
+    color: var(--au-muted);
+    font-size: var(--au-fs-xxs);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     white-space: nowrap;
 }
 .au-table td {
     padding: var(--au-s2) var(--au-s3);
-    border-bottom: 1px solid var(--au-bg-alt-shade);
+    border-bottom: 1px solid var(--au-border);
     vertical-align: top;
 }
 .au-table--striped tbody tr:nth-child(even) {
@@ -254,8 +258,10 @@ table {
 }
 .au-table .is-numeric {
     text-align: right;
-    font-family: var(--au-font-mono);
     font-variant-numeric: tabular-nums;
+}
+.au-table td.is-numeric {
+    font-family: var(--au-font-mono);
 }
 .au-table tr.is-selected {
     background: var(--au-bg-alt-shade);
@@ -264,14 +270,15 @@ table {
     cursor: pointer;
 }
 
-/* The dark page variant: same chrome on the navy palette */
-.au-dark .au-table th {
-    border-bottom-color: var(--au-border);
+/* Text placed straight on the game world or a photo */
+.au-overworld {
+    color: #fff;
+    text-shadow: var(--au-text-shadow);
 }
 
 /* Preview/dev stand-in for the game world behind over-world UI */
 body.nui-dev {
-    background: #30363c;
+    background: #3a4046;
 }
 
 /* Keyframes shared by components */

@@ -90,7 +90,7 @@
         gap: 6px;
     }
     .count {
-        color: var(--au-dark-action);
+        color: #fff;
         font-weight: 700;
     }
 </style>

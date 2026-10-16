@@ -1,11 +1,10 @@
 <script>
     import Icon from './Icon.svelte';
-    import { faCircleInfo, faCircleCheck, faTriangleExclamation, faCircleExclamation, faXmark } from '@fortawesome/free-solid-svg-icons';
 
-    /** GOLD page alert. type: info | success | warning | error. */
+    /** Message on a tinted background. type: info | success | warning | error | neutral. */
     let { type = 'info', title, icon, compact = false, onclose, class: className = '', children } = $props();
 
-    const ICONS = { info: faCircleInfo, success: faCircleCheck, warning: faTriangleExclamation, error: faCircleExclamation };
+    const ICONS = { info: 'info-circle', success: 'circle-check', warning: 'alert-triangle', error: 'alert-circle', neutral: 'bell' };
     const kind = $derived(ICONS[type] ? type : 'info');
 </script>
 
@@ -16,52 +15,60 @@
         {#if children}<div class="au-alert__body">{@render children()}</div>{/if}
     </div>
     {#if onclose}
-        <button type="button" class="au-alert__close" aria-label="Dismiss" onclick={onclose}><Icon icon={faXmark} /></button>
+        <button type="button" class="au-alert__close" aria-label="Dismiss" onclick={onclose}><Icon icon="x" /></button>
     {/if}
 </div>
 
 <style>
     .au-alert {
-        --alert-color: var(--au-info);
+        --tone: var(--au-info);
+        --tone-bg: var(--au-info-bg);
         display: flex;
         align-items: flex-start;
         gap: var(--au-s3);
-        padding: var(--au-s4) var(--au-s5);
-        border-left: 8px solid var(--alert-color);
-        background: var(--au-bg-shade);
+        padding: var(--au-s3) var(--au-s4);
+        border-radius: var(--au-radius-lg);
+        background: var(--tone-bg);
         color: var(--au-text);
         margin: 0 0 var(--au-s4);
+        font-size: var(--au-fs-xs);
     }
     .au-alert--compact {
         padding: var(--au-s2) var(--au-s3);
-        border-left-width: 6px;
         gap: var(--au-s2);
     }
     .au-alert--success {
-        --alert-color: var(--au-success);
+        --tone: var(--au-success);
+        --tone-bg: var(--au-success-bg);
     }
     .au-alert--warning {
-        --alert-color: var(--au-warning);
+        --tone: var(--au-warning);
+        --tone-bg: var(--au-warning-bg);
     }
     .au-alert--error {
-        --alert-color: var(--au-error);
+        --tone: var(--au-error);
+        --tone-bg: var(--au-error-bg);
+    }
+    .au-alert--neutral {
+        --tone: var(--au-muted);
+        --tone-bg: var(--au-bg-alt);
     }
     .au-alert__icon {
-        color: var(--alert-color);
-        font-size: 22px;
-        line-height: 1;
-        padding-top: 2px;
-    }
-    .au-alert--compact .au-alert__icon {
+        color: var(--tone);
         font-size: 18px;
+        line-height: 1;
+        display: flex;
+        padding-top: 1px;
     }
     .au-alert__content {
         flex: 1;
         min-width: 0;
     }
     .au-alert__title {
-        font-weight: 700;
-        margin-bottom: 2px;
+        font-weight: 500;
+    }
+    .au-alert__body {
+        color: rgba(233, 235, 238, 0.85);
     }
     .au-alert__body :global(p:last-child) {
         margin-bottom: 0;
@@ -71,13 +78,12 @@
         background: transparent;
         color: var(--au-muted);
         cursor: pointer;
-        padding: 2px 4px;
+        padding: 2px;
         border-radius: var(--au-radius);
-        font-size: 18px;
-        line-height: 1;
+        font-size: 16px;
+        display: flex;
     }
     .au-alert__close:hover {
         color: var(--au-text);
-        background: var(--au-bg-alt);
     }
 </style>

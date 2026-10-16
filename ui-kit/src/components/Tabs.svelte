@@ -1,7 +1,7 @@
 <script>
     import Icon from './Icon.svelte';
 
-    /** Secondary navigation inside a page. items: [{ id, label, icon?, badge?, disabled? }]. */
+    /** items: [{ id, label, icon?, badge?, disabled? }] */
     let { items = [], active = $bindable(), onchange, class: className = '', label = 'Sections' } = $props();
 
     function pick(item) {
@@ -13,15 +13,7 @@
 
 <div class="au-tabs {className}" role="tablist" aria-label={label}>
     {#each items as item (item.id)}
-        <button
-            type="button"
-            role="tab"
-            class="au-tabs__tab"
-            class:is-active={active === item.id}
-            aria-selected={active === item.id}
-            disabled={item.disabled}
-            onclick={() => pick(item)}
-        >
+        <button type="button" role="tab" class="au-tabs__tab" class:is-active={active === item.id} aria-selected={active === item.id} disabled={item.disabled} onclick={() => pick(item)}>
             {#if item.icon}<Icon icon={item.icon} />{/if}
             <span>{item.label}</span>
             {#if item.badge !== undefined && item.badge !== null}<span class="au-tabs__badge">{item.badge}</span>{/if}
@@ -32,20 +24,22 @@
 <style>
     .au-tabs {
         display: flex;
-        gap: var(--au-s1);
-        border-bottom: 1px solid var(--au-bg-alt-shade);
+        gap: var(--au-s5);
+        border-bottom: 1px solid var(--au-border);
         overflow-x: auto;
     }
     .au-tabs__tab {
         display: inline-flex;
         align-items: center;
         gap: var(--au-s2);
-        padding: var(--au-s2) var(--au-s3) 6px;
+        padding: var(--au-s2) 0 10px;
         border: 0;
-        border-bottom: 4px solid transparent;
+        border-bottom: 2px solid transparent;
         background: transparent;
         color: var(--au-muted);
-        font-weight: 700;
+        font: inherit;
+        font-size: var(--au-fs-xs);
+        font-weight: 500;
         white-space: nowrap;
         cursor: pointer;
         margin-bottom: -1px;
@@ -55,24 +49,23 @@
     }
     .au-tabs__tab:hover {
         color: var(--au-text);
-        background: var(--au-bg-shade);
     }
     .au-tabs__tab.is-active {
         color: var(--au-text);
         border-bottom-color: var(--au-action);
     }
     .au-tabs__tab:disabled {
-        opacity: 0.5;
+        opacity: 0.45;
         cursor: not-allowed;
     }
     .au-tabs__badge {
-        min-width: 20px;
-        padding: 0 6px;
-        border-radius: 10px;
-        background: var(--au-action);
-        color: var(--au-action-contrast);
-        font-size: 12px;
-        line-height: 20px;
+        min-width: 18px;
+        padding: 0 5px;
+        border-radius: 9px;
+        background: var(--au-bg-alt-shade);
+        color: var(--au-text);
+        font-size: 11px;
+        line-height: 18px;
         text-align: center;
     }
 </style>

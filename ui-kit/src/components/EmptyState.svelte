@@ -1,7 +1,7 @@
 <script>
     import Icon from './Icon.svelte';
 
-    /** What a list shows when there is nothing in it. */
+    /** What a list shows when it has nothing in it. */
     let { icon, title = 'Nothing here yet', class: className = '', children, actions } = $props();
 </script>
 
@@ -17,19 +17,18 @@
         padding: var(--au-s8) var(--au-s4);
         text-align: center;
         color: var(--au-muted);
-        border: 1px dashed var(--au-border);
-        border-radius: var(--au-radius);
+        font-size: var(--au-fs-xs);
     }
     .au-empty__icon {
-        font-size: 28px;
+        font-size: 24px;
         margin-bottom: var(--au-s2);
+        color: var(--au-hint);
     }
     .au-empty__title {
-        font-weight: 700;
+        font-weight: 500;
         color: var(--au-text);
     }
     .au-empty__body {
-        font-size: var(--au-fs-xs);
         margin-top: var(--au-s1);
     }
     .au-empty__actions {

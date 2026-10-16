@@ -65,7 +65,7 @@
             {#each wheel.items as item, i (`l-${item.id ?? i}`)}
                 {@const [x, y] = polar((OUTER + INNER) / 2, i * step)}
                 <div class="label" class:is-active={hover === i} style="left:{x}px;top:{y}px">
-                    <div class="label__icon"><Icon icon={item.icon ?? 'question'} /></div>
+                    <div class="label__icon"><Icon icon={item.icon ?? 'help'} stroke={1.6} /></div>
                     {#if item.label}<div class="label__text">{item.label}</div>{/if}
                 </div>
             {/each}
@@ -82,7 +82,7 @@
         inset: 0;
         display: grid;
         place-items: center;
-        background: rgba(5, 12, 16, 0.35);
+        background: rgba(8, 9, 10, 0.35);
     }
     .wheel__disc {
         position: relative;
@@ -93,8 +93,8 @@
         inset: 0;
     }
     .slice {
-        fill: rgba(19, 94, 112, 0.92);
-        stroke: rgba(255, 255, 255, 0.12);
+        fill: rgba(24, 26, 29, 0.94);
+        stroke: rgba(255, 255, 255, 0.08);
         stroke-width: 1;
         cursor: pointer;
         filter: url(#wheel-shadow);
@@ -104,8 +104,8 @@
         outline: none;
     }
     .slice.is-active {
-        fill: rgba(97, 218, 255, 0.35);
-        stroke: var(--au-dark-action);
+        fill: rgba(37, 40, 44, 0.97);
+        stroke: var(--au-action);
     }
     .label {
         position: absolute;
@@ -117,7 +117,7 @@
         transition: color 120ms;
     }
     .label.is-active {
-        color: #fff;
+        color: var(--au-action);
     }
     .label__icon {
         font-size: 24px;
@@ -125,10 +125,9 @@
     }
     .label__text {
         font-size: 13px;
-        font-weight: 700;
+        font-weight: 500;
         margin-top: 6px;
         line-height: 1.2;
-        text-shadow: var(--hud-shadow);
     }
     .center {
         position: absolute;
@@ -136,9 +135,9 @@
         top: 50%;
         transform: translate(-50%, -50%);
         border-radius: 50%;
-        border: 3px solid var(--au-dark-action);
-        background: var(--au-dark-bg);
-        color: #fff;
+        border: 1px solid var(--au-border-strong);
+        background: var(--au-bg);
+        color: var(--au-text);
         font-size: 26px;
         display: grid;
         place-items: center;
@@ -148,7 +147,7 @@
             color 160ms;
     }
     .center:hover {
-        background: var(--au-dark-action);
-        color: var(--au-dark-bg);
+        background: var(--au-bg-alt);
+        color: var(--au-action);
     }
 </style>

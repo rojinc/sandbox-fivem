@@ -1,19 +1,19 @@
 /*
- * Design tokens. Values follow the GOLD design system (Australian Government
- * Design System) palette and 4px grid; see /DESIGN.md.
- *
- * Components only ever read the semantic tokens (--au-text, --au-bg, ...).
- * Add the `au-dark` class to any subtree to switch it to the dark palette.
+ * Design tokens: one dark theme (page #181a1d), Roboto, 4px grid.
+ * See /DESIGN.md. Components only read the semantic tokens below.
+ * The --au-light-* / --au-dark-* names are kept as aliases so older code
+ * renders on the same dark palette.
  */
 :root {
+    color-scheme: dark;
+
     --au-unit: 4px;
     --au-font: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-    --au-font-mono: 'Roboto Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    --au-font-mono: 'Roboto Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
     --au-radius: 4px;
     --au-radius-lg: 8px;
     --au-maxwidth: 42em;
 
-    /* spacing (multiples of the 4px unit) */
     --au-s1: 4px;
     --au-s2: 8px;
     --au-s3: 12px;
@@ -25,7 +25,7 @@
     --au-s12: 48px;
     --au-s16: 64px;
 
-    /* type scale */
+    --au-fs-xxs: 12px;
     --au-fs-xs: 14px;
     --au-fs-sm: 16px;
     --au-fs-md: 20px;
@@ -36,67 +36,78 @@
     --au-lh: 1.5;
     --au-lh-heading: 1.25;
 
-    /* motion */
     --au-fast: 120ms;
     --au-normal: 200ms;
     --au-slow: 320ms;
     --au-ease: cubic-bezier(0.2, 0, 0, 1);
 
-    /* elevation */
-    --au-shadow-1: 0 2px 8px rgba(0, 0, 0, 0.18);
-    --au-shadow-2: 0 12px 32px rgba(0, 0, 0, 0.32);
+    --au-shadow-1: 0 2px 8px rgba(0, 0, 0, 0.35);
+    --au-shadow-2: 0 16px 40px rgba(0, 0, 0, 0.5);
 
-    /* system colours (one job each) */
-    --au-error: #d60000;
-    --au-success: #0b996c;
-    --au-warning: #f69900;
-    --au-info: #00bfe9;
+    /* surfaces, darkest to lightest */
+    --au-bg-sunk: #121416;
+    --au-bg: #181a1d;
+    --au-bg-shade: #1e2124;
+    --au-bg-alt: #25282c;
+    --au-bg-alt-shade: #2d3136;
 
-    /* light palette */
-    --au-light-text: #313131;
-    --au-light-muted: #636363;
-    --au-light-hint: #6f777b;
-    --au-light-border: #808080;
-    --au-light-bg: #ffffff;
-    --au-light-bg-shade: #f5f5f5;
-    --au-light-bg-alt: #ebebeb;
-    --au-light-bg-alt-shade: #e0e0e0;
-    --au-light-action: #00698f;
-    --au-light-action-hover: #00435c;
-    --au-light-action-contrast: #ffffff;
-    --au-light-focus: #9263de;
+    /* lines */
+    --au-border: #33373c;
+    --au-border-strong: #474c53;
 
-    /* dark palette */
-    --au-dark-text: #ffffff;
-    --au-dark-muted: #b5cfd6;
-    --au-dark-hint: #b5cfd6;
-    --au-dark-border: #8fb2ba;
-    --au-dark-bg: #135e70;
-    --au-dark-bg-shade: #10505f;
-    --au-dark-bg-alt: #0d414d;
-    --au-dark-bg-alt-shade: #0a323c;
-    --au-dark-action: #61daff;
-    --au-dark-action-hover: #9be8ff;
-    --au-dark-action-contrast: #135e70;
-    --au-dark-focus: #c390f9;
+    /* text */
+    --au-text: #e9ebee;
+    --au-muted: #a1a7ae;
+    --au-hint: #7f868e;
 
-    /* semantic (light by default) */
-    --au-text: var(--au-light-text);
-    --au-muted: var(--au-light-muted);
-    --au-hint: var(--au-light-hint);
-    --au-border: var(--au-light-border);
-    --au-bg: var(--au-light-bg);
-    --au-bg-shade: var(--au-light-bg-shade);
-    --au-bg-alt: var(--au-light-bg-alt);
-    --au-bg-alt-shade: var(--au-light-bg-alt-shade);
-    --au-action: var(--au-light-action);
-    --au-action-hover: var(--au-light-action-hover);
-    --au-action-contrast: var(--au-light-action-contrast);
-    --au-focus: var(--au-light-focus);
-    --au-input-bg: #ffffff;
-    --au-input-text: #313131;
-    --au-input-border: #808080;
-    --au-input-placeholder: #6f777b;
+    /* action and focus */
+    --au-action: #6cb6ff;
+    --au-action-hover: #93c9ff;
+    --au-action-contrast: #0d1117;
+    --au-action-soft: #172f47;
+    --au-focus: #c390f9;
+
+    /* states: a foreground and a tinted background each */
+    --au-error: #ff7b72;
+    --au-error-bg: #431c1c;
+    --au-success: #3ecf8e;
+    --au-success-bg: #173a2b;
+    --au-warning: #f2b84b;
+    --au-warning-bg: #3d3115;
+    --au-info: #6cb6ff;
+    --au-info-bg: #172f47;
+
+    /* inputs */
+    --au-input-bg: var(--au-bg-sunk);
+    --au-input-text: var(--au-text);
+    --au-input-border: var(--au-border-strong);
+    --au-input-placeholder: var(--au-hint);
+
+    /* aliases kept for older code */
+    --au-light-text: var(--au-text);
+    --au-light-muted: var(--au-muted);
+    --au-light-hint: var(--au-hint);
+    --au-light-border: var(--au-border);
+    --au-light-bg: var(--au-bg);
+    --au-light-bg-shade: var(--au-bg-shade);
+    --au-light-bg-alt: var(--au-bg-alt);
+    --au-light-bg-alt-shade: var(--au-bg-alt-shade);
+    --au-light-action: var(--au-action);
+    --au-light-action-hover: var(--au-action-hover);
+    --au-light-action-contrast: var(--au-action-contrast);
+    --au-light-focus: var(--au-focus);
+    --au-dark-text: var(--au-text);
+    --au-dark-muted: var(--au-muted);
+    --au-dark-hint: var(--au-hint);
+    --au-dark-border: var(--au-border);
+    --au-dark-bg: var(--au-bg);
+    --au-dark-bg-shade: var(--au-bg-shade);
+    --au-dark-bg-alt: var(--au-bg-alt);
+    --au-dark-bg-alt-shade: var(--au-bg-alt-shade);
+    --au-dark-action: var(--au-action);
+    --au-dark-action-hover: var(--au-action-hover);
+    --au-dark-action-contrast: var(--au-action-contrast);
+    --au-dark-focus: var(--au-focus);
 
     /* HUD readout colours (minimal-hud palette) */
     --hud-white: #f2f2f2;
@@ -110,43 +121,13 @@
     --hud-cyan: #00d4ff;
     --hud-teal: #63e6be;
     --hud-shadow: 0 1.2px 1.2px rgba(0, 0, 0, 1);
+
+    /* text over the game world or a photo, with no panel behind it */
+    --au-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9), 0 0 12px rgba(0, 0, 0, 0.45);
 }
 
-.au-dark {
-    --au-text: var(--au-dark-text);
-    --au-muted: var(--au-dark-muted);
-    --au-hint: var(--au-dark-hint);
-    --au-border: var(--au-dark-border);
-    --au-bg: var(--au-dark-bg);
-    --au-bg-shade: var(--au-dark-bg-shade);
-    --au-bg-alt: var(--au-dark-bg-alt);
-    --au-bg-alt-shade: var(--au-dark-bg-alt-shade);
-    --au-action: var(--au-dark-action);
-    --au-action-hover: var(--au-dark-action-hover);
-    --au-action-contrast: var(--au-dark-action-contrast);
-    --au-focus: var(--au-dark-focus);
-    --au-input-bg: #ffffff;
-    --au-input-text: #313131;
-    --au-input-border: #ffffff;
-    --au-input-placeholder: #6f777b;
-    color: var(--au-text);
-}
-
+/* There is one theme; these classes are kept so older markup still works. */
+.au-dark,
 .au-light {
-    --au-text: var(--au-light-text);
-    --au-muted: var(--au-light-muted);
-    --au-hint: var(--au-light-hint);
-    --au-border: var(--au-light-border);
-    --au-bg: var(--au-light-bg);
-    --au-bg-shade: var(--au-light-bg-shade);
-    --au-bg-alt: var(--au-light-bg-alt);
-    --au-bg-alt-shade: var(--au-light-bg-alt-shade);
-    --au-action: var(--au-light-action);
-    --au-action-hover: var(--au-light-action-hover);
-    --au-action-contrast: var(--au-light-action-contrast);
-    --au-focus: var(--au-light-focus);
-    --au-input-bg: #ffffff;
-    --au-input-text: #313131;
-    --au-input-border: #808080;
     color: var(--au-text);
 }

@@ -4,9 +4,9 @@
     import { ui } from '../../state/ui.svelte.js';
 
     /**
-     * Timed action bar. Runs from START_PROGRESS for `duration` ms, then tells
-     * Lua (Progress:Finish). Cancel/fail from Lua or finish from here linger
-     * briefly with a state label before the bar hides itself.
+     * Timed action bar, drawn straight on the world (no panel). Runs from
+     * START_PROGRESS for `duration` ms, then tells Lua (Progress:Finish).
+     * Cancel/fail from Lua or finish from here linger briefly, then hide.
      */
     const LINGER_MS = 1200;
     const progress = $derived(ui.progress);
@@ -41,22 +41,22 @@
 
     const settled = $derived(progress.state !== 'running');
     const pct = $derived(progress.duration > 0 ? Math.min(100, (elapsed / progress.duration) * 100) : 0);
-    const tone = $derived(progress.state === 'finished' ? 'var(--au-success)' : settled ? 'var(--au-error)' : 'var(--au-light-action)');
+    const tone = $derived(progress.state === 'finished' ? 'var(--hud-green)' : settled ? 'var(--hud-red)' : '#fff');
     const text = $derived(
-        progress.state === 'finished' ? 'Finished' : progress.state === 'failed' ? 'Failed' : progress.state === 'cancelled' ? 'Cancelled' : progress.label || 'Working…',
+        progress.state === 'finished' ? 'Done' : progress.state === 'failed' ? 'Failed' : progress.state === 'cancelled' ? 'Cancelled' : progress.label || 'Working',
     );
     const seconds = $derived(progress.duration > 0 ? `${Math.max(0, Math.ceil((progress.duration - elapsed) / 1000))}s` : '');
 </script>
 
 {#if progress.showing}
     <div class="wrap">
-        <div class="card" transition:fade={{ duration: 160 }} role="progressbar" aria-valuenow={Math.round(pct)} aria-valuemin="0" aria-valuemax="100" aria-label={text}>
-            <div class="card__meta">
-                <span class="card__label au-truncate" style={settled ? `color:${tone}` : ''}>{text}</span>
-                {#if !settled}<span class="card__time au-mono">{seconds}</span>{/if}
+        <div class="bar au-overworld" transition:fade={{ duration: 160 }} role="progressbar" aria-valuenow={Math.round(pct)} aria-valuemin="0" aria-valuemax="100" aria-label={text}>
+            <div class="bar__meta">
+                <span class="bar__label au-truncate" style={settled ? `color:${tone}` : ''}>{text}</span>
+                {#if !settled}<span class="bar__time au-mono">{seconds}</span>{/if}
             </div>
-            <div class="card__track">
-                <div class="card__fill" style="width:{settled ? 100 : pct}%;background:{tone};transition:{settled ? 'width 200ms var(--au-ease), background 200ms' : 'none'}"></div>
+            <div class="bar__track">
+                <div class="bar__fill" style="width:{settled ? 100 : pct}%;background:{tone};transition:{settled ? 'width 200ms var(--au-ease), background 200ms' : 'none'}"></div>
             </div>
         </div>
     </div>
@@ -67,42 +67,38 @@
         position: absolute;
         left: 0;
         right: 0;
-        bottom: 17vh;
+        bottom: 15vh;
         display: flex;
         justify-content: center;
     }
-    .card {
-        width: 380px;
-        padding: 10px 14px 12px;
-        border-radius: var(--au-radius);
-        background: var(--au-light-bg);
-        color: var(--au-light-text);
-        box-shadow: var(--au-shadow-1);
+    .bar {
+        width: 340px;
     }
-    .card__meta {
+    .bar__meta {
         display: flex;
         justify-content: space-between;
         align-items: baseline;
         gap: 12px;
-        margin-bottom: 8px;
+        margin-bottom: 7px;
     }
-    .card__label {
-        font-size: 14px;
-        font-weight: 700;
+    .bar__label {
+        font-size: 15px;
+        font-weight: 500;
     }
-    .card__time {
-        font-size: 12px;
-        color: var(--au-light-muted);
+    .bar__time {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.75);
         flex-shrink: 0;
     }
-    .card__track {
-        height: 8px;
-        border-radius: var(--au-radius);
-        background: var(--au-light-bg-alt-shade);
+    .bar__track {
+        height: 4px;
+        border-radius: 2px;
+        background: rgba(0, 0, 0, 0.45);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
         overflow: hidden;
     }
-    .card__fill {
+    .bar__fill {
         height: 100%;
-        border-radius: var(--au-radius);
+        border-radius: 2px;
     }
 </style>

@@ -2,7 +2,7 @@
     import { Icon } from '@sandbox/ui-kit';
 
     /** Four-segment bar (armour), filled left to right. */
-    let { icon = 'shield-halved', value = 0, max = 100, color = 'var(--hud-blue)', segments = 4 } = $props();
+    let { icon = 'shield', value = 0, max = 100, color = 'var(--hud-blue)', segments = 4 } = $props();
     const fills = $derived.by(() => {
         const pct = Math.max(0, Math.min(100, (Number(value) / (Number(max) || 100)) * 100));
         const size = 100 / segments;
@@ -11,7 +11,7 @@
 </script>
 
 <div class="seg">
-    <span class="seg__icon hud-shadow"><Icon {icon} /></span>
+    <span class="seg__icon hud-shadow"><Icon {icon} filled /></span>
     <span class="seg__value hud-text" style="color:{color}">{Math.round(Number(value) || 0)}</span>
     <span class="seg__track hud-shadow">
         {#each fills as fill, i (i)}

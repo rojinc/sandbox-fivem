@@ -37,7 +37,7 @@
                     {#if buff.override}
                         <span class="buff__text hud-text" class:is-long={String(buff.override).length > 2}>{buff.override}</span>
                     {:else}
-                        <Icon icon={def.icon} />
+                        <Icon icon={def.icon} stroke={2.2} />
                     {/if}
                 </span>
                 <span class="buff__track">

@@ -1,5 +1,5 @@
 <script>
-    /** Bordered GOLD card for an object (a record, an item, a person). */
+    /** A record, item or person shown as one unit. */
     let { title, subtitle, clickable = false, selected = false, padded = true, onclick, class: className = '', header, footer, children, ...rest } = $props();
 </script>
 
@@ -32,8 +32,8 @@
         width: 100%;
         text-align: left;
         border: 1px solid var(--au-border);
-        border-radius: var(--au-radius);
-        background: var(--au-bg);
+        border-radius: var(--au-radius-lg);
+        background: var(--au-bg-shade);
         color: var(--au-text);
         font: inherit;
         padding: 0;
@@ -46,33 +46,29 @@
             background var(--au-fast) var(--au-ease);
     }
     .au-card--clickable:hover {
-        border-color: var(--au-action);
-        background: var(--au-bg-shade);
+        background: var(--au-bg-alt);
     }
     .au-card--selected {
         border-color: var(--au-action);
-        box-shadow: inset 0 0 0 2px var(--au-action);
     }
     .au-card__header {
-        padding: var(--au-s3) var(--au-s4);
-        border-bottom: 1px solid var(--au-bg-alt-shade);
+        padding: var(--au-s3) var(--au-s4) 0;
     }
     .au-card__title {
-        font-weight: 700;
+        font-weight: 500;
     }
     .au-card__subtitle {
         color: var(--au-muted);
-        font-size: var(--au-fs-xs);
+        font-size: 13px;
     }
     .au-card--padded .au-card__body {
-        padding: var(--au-s4);
+        padding: var(--au-s3) var(--au-s4) var(--au-s4);
     }
     .au-card__body {
         flex: 1;
     }
     .au-card__footer {
         padding: var(--au-s3) var(--au-s4);
-        border-top: 1px solid var(--au-bg-alt-shade);
-        background: var(--au-bg-shade);
+        border-top: 1px solid var(--au-border);
     }
 </style>

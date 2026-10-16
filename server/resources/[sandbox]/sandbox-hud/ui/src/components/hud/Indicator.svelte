@@ -14,7 +14,7 @@
 
 <div class="ind" class:is-alert={alert} aria-label={label} title={label}>
     <span class="ind__icon hud-shadow" style="color:{alert ? 'var(--hud-red)' : 'rgba(255,255,255,0.9)'}">
-        {#if custom}{@render custom()}{:else}<Icon {icon} />{/if}
+        {#if custom}{@render custom()}{:else}<Icon {icon} stroke={2} />{/if}
     </span>
     <span class="ind__track hud-shadow"><span class="ind__fill" style="width:{pct}%;background:{fill}"></span></span>
 </div>
@@ -28,7 +28,7 @@
         width: 2.4em;
     }
     .ind__icon {
-        font-size: 1.1em;
+        font-size: 1.3em;
         line-height: 1;
         display: flex;
         height: 1.1em;

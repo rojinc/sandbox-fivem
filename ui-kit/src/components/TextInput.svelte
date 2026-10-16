@@ -1,19 +1,6 @@
 <script>
-    /** GOLD text input. bind:value; `invalid` paints the error border. */
-    let {
-        value = $bindable(''),
-        type = 'text',
-        id,
-        placeholder,
-        disabled = false,
-        invalid = false,
-        block = true,
-        mono = false,
-        size = 'md',
-        width,
-        class: className = '',
-        ...rest
-    } = $props();
+    /** Text input. bind:value; `invalid` paints the error border. */
+    let { value = $bindable(''), type = 'text', id, placeholder, disabled = false, invalid = false, block = true, mono = false, size = 'md', width, class: className = '', ...rest } = $props();
 </script>
 
 <input
@@ -34,25 +21,29 @@
 
 <style>
     .au-input {
-        min-height: 44px;
-        padding: var(--au-s2) var(--au-s3);
-        border: 3px solid var(--au-input-border);
+        height: 40px;
+        padding: 0 var(--au-s3);
+        border: 1px solid var(--au-input-border);
         border-radius: var(--au-radius);
         background: var(--au-input-bg);
         color: var(--au-input-text);
-        font-size: var(--au-fs-sm);
-        line-height: var(--au-lh);
+        font-size: var(--au-fs-xs);
         transition: border-color var(--au-fast) var(--au-ease);
+    }
+    .au-input:hover {
+        border-color: #5a6068;
+    }
+    .au-input:focus {
+        border-color: var(--au-action);
     }
     .au-input--block {
         display: block;
         width: 100%;
     }
     .au-input--sm {
-        min-height: 36px;
-        padding: var(--au-s1) var(--au-s2);
-        font-size: var(--au-fs-xs);
-        border-width: 2px;
+        height: 32px;
+        padding: 0 var(--au-s2);
+        font-size: 13px;
     }
     .au-input::placeholder {
         color: var(--au-input-placeholder);
@@ -61,8 +52,8 @@
         border-color: var(--au-error);
     }
     .au-input:disabled {
-        background: var(--au-bg-shade);
-        color: var(--au-muted);
+        color: var(--au-hint);
+        border-color: var(--au-border);
         cursor: not-allowed;
     }
     .au-input[type='number']::-webkit-inner-spin-button,

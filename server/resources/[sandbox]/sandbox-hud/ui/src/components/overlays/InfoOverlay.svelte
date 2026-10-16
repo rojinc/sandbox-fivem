@@ -28,19 +28,19 @@
     .card {
         width: 440px;
         padding: 14px 18px;
-        border-left: 6px solid var(--au-light-action);
-        border-radius: var(--au-radius);
-        background: var(--au-light-bg);
-        color: var(--au-light-text);
+        border-radius: var(--au-radius-lg);
+        background: rgba(24, 26, 29, 0.94);
+        color: var(--au-text);
         box-shadow: var(--au-shadow-1);
     }
     .card__title {
-        font-size: 18px;
+        font-size: 17px;
+        font-weight: 500;
         margin-bottom: 4px;
     }
     .card__body {
         font-size: 14px;
-        color: var(--au-light-muted);
+        color: var(--au-muted);
         line-height: 1.5;
     }
 </style>

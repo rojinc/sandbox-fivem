@@ -1,5 +1,5 @@
 <script>
-    /** GOLD callout: a left rule in the action colour on a shaded block. */
+    /** A raised note: title and text on the shade surface. */
     let { title, class: className = '', children } = $props();
 </script>
 
@@ -10,14 +10,18 @@
 
 <style>
     .au-callout {
-        border-left: 4px solid var(--au-action);
         background: var(--au-bg-shade);
+        border-radius: var(--au-radius-lg);
         padding: var(--au-s4) var(--au-s5);
         margin: 0 0 var(--au-s4);
     }
     .au-callout__title {
-        margin-bottom: var(--au-s2);
-        font-size: var(--au-fs-md);
+        margin-bottom: var(--au-s1);
+        font-size: var(--au-fs-sm);
+    }
+    .au-callout__body {
+        color: var(--au-muted);
+        font-size: var(--au-fs-xs);
     }
     .au-callout__body :global(p:last-child) {
         margin-bottom: 0;

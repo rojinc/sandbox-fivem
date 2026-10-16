@@ -1,26 +1,16 @@
 <script>
     import Icon from './Icon.svelte';
 
-    /**
-     * GOLD side navigation. items: [{ id, label, icon?, badge?, disabled?, children? }].
-     * Selecting an item calls onselect(item).
-     */
+    /** items: [{ id, label, icon?, badge?, disabled?, children? }]; onselect(item). */
     let { title, items = [], active, onselect, class: className = '' } = $props();
 </script>
 
 {#snippet list(entries, depth)}
     <ul class="au-sidenav__list" class:au-sidenav__list--sub={depth > 0}>
         {#each entries as item (item.id ?? item.label)}
-            <li class="au-sidenav__item">
-                <button
-                    type="button"
-                    class="au-sidenav__link"
-                    class:is-active={active === item.id}
-                    aria-current={active === item.id ? 'page' : undefined}
-                    disabled={item.disabled}
-                    onclick={() => onselect?.(item)}
-                >
-                    {#if item.icon}<Icon icon={item.icon} fixedWidth />{/if}
+            <li>
+                <button type="button" class="au-sidenav__link" class:is-active={active === item.id} aria-current={active === item.id ? 'page' : undefined} disabled={item.disabled} onclick={() => onselect?.(item)}>
+                    {#if item.icon}<span class="au-sidenav__icon"><Icon icon={item.icon} /></span>{/if}
                     <span class="au-sidenav__label">{item.label}</span>
                     {#if item.badge !== undefined && item.badge !== null}<span class="au-sidenav__badge">{item.badge}</span>{/if}
                 </button>
@@ -31,52 +21,69 @@
 {/snippet}
 
 <nav class="au-sidenav {className}" aria-label={title ?? 'Section'}>
-    {#if title}<h2 class="au-sidenav__title">{title}</h2>{/if}
+    {#if title}<div class="au-sidenav__title">{title}</div>{/if}
     {@render list(items, 0)}
 </nav>
 
 <style>
+    .au-sidenav {
+        padding: 0 var(--au-s2);
+    }
     .au-sidenav__title {
-        font-size: var(--au-fs-sm);
-        padding: 0 var(--au-s4) var(--au-s2);
-        margin: 0;
-        border-bottom: 1px solid var(--au-bg-alt-shade);
+        padding: 0 var(--au-s3) var(--au-s2);
+        color: var(--au-hint);
+        font-size: var(--au-fs-xxs);
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
     }
     .au-sidenav__list {
         list-style: none;
         margin: 0;
         padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
     }
     .au-sidenav__list--sub .au-sidenav__link {
-        padding-left: var(--au-s8);
-        font-size: var(--au-fs-xs);
+        padding-left: 40px;
+        font-size: 13px;
     }
     .au-sidenav__link {
         display: flex;
         align-items: center;
-        gap: var(--au-s2);
+        gap: var(--au-s3);
         width: 100%;
-        padding: var(--au-s2) var(--au-s4);
+        height: 36px;
+        padding: 0 var(--au-s3);
         border: 0;
-        border-left: 4px solid transparent;
+        border-radius: var(--au-radius);
         background: transparent;
-        color: var(--au-text);
+        color: var(--au-muted);
         text-align: left;
         cursor: pointer;
         font: inherit;
-        line-height: 1.5;
+        font-size: var(--au-fs-xs);
     }
     .au-sidenav__link:hover {
         background: var(--au-bg-alt);
+        color: var(--au-text);
     }
     .au-sidenav__link.is-active {
-        border-left-color: var(--au-action);
         background: var(--au-bg-alt);
-        font-weight: 700;
+        color: var(--au-text);
+        font-weight: 500;
+    }
+    .au-sidenav__link.is-active .au-sidenav__icon {
+        color: var(--au-action);
     }
     .au-sidenav__link:disabled {
-        opacity: 0.5;
+        opacity: 0.45;
         cursor: not-allowed;
+    }
+    .au-sidenav__icon {
+        display: flex;
+        font-size: 16px;
     }
     .au-sidenav__label {
         flex: 1;
@@ -86,14 +93,13 @@
         white-space: nowrap;
     }
     .au-sidenav__badge {
-        min-width: 20px;
-        padding: 0 6px;
-        border-radius: 10px;
-        background: var(--au-action);
-        color: var(--au-action-contrast);
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 20px;
+        min-width: 18px;
+        padding: 0 5px;
+        border-radius: 9px;
+        background: var(--au-bg-alt-shade);
+        color: var(--au-text);
+        font-size: 11px;
+        line-height: 18px;
         text-align: center;
     }
 </style>

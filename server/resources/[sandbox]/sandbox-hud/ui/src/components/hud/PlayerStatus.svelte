@@ -34,7 +34,7 @@
 <div class="status" style="{anchor};transform:{skew}">
     <div class="status__row">
         <div class="status__left">
-            <StatBarSegmented icon="shield-halved" value={status.armor} color="var(--hud-blue)" />
+            <StatBarSegmented icon="shield" value={status.armor} color="var(--hud-blue)" />
             <StatBar icon="heart" value={hp} color={status.isDead ? 'var(--hud-red)' : 'var(--hud-green)'} low={status.isDead} />
         </div>
         <div class="status__right">

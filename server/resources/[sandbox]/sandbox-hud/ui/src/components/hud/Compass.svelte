@@ -20,7 +20,7 @@
 {#if shown}
     <div class="compass" class:is-bottom={hud.config.compassLocation === 'bottom'}>
         <CompassBox icon="compass" label={location.direction || '-'} bare={hud.config.hideCompassBg} minWidth="4.4em" />
-        <CompassBox icon="location-dot" label={street} bare={hud.config.hideCompassBg} minWidth="12em" grow />
+        <CompassBox icon="map-pin" label={street} bare={hud.config.hideCompassBg} minWidth="12em" grow />
         <CompassBox icon="map" label={location.area || '—'} bare={hud.config.hideCompassBg} minWidth="7em" />
     </div>
 {/if}

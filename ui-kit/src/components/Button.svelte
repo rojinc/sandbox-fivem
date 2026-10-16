@@ -2,8 +2,8 @@
     import Icon from './Icon.svelte';
 
     /**
-     * GOLD button. variant: primary | secondary | tertiary | danger.
-     * size: sm | md | lg. Pass `href` to render a link that looks like a button.
+     * variant: primary | secondary | tertiary | danger. size: sm | md | lg.
+     * `icon` / `iconRight` take icon names. `href` renders a link.
      */
     let {
         variant = 'primary',
@@ -22,31 +22,14 @@
 </script>
 
 {#if href}
-    <a
-        {href}
-        class="au-btn au-btn--{variant} au-btn--{size} {className}"
-        class:au-btn--block={block}
-        aria-disabled={disabled || undefined}
-        {...rest}
-    >
+    <a {href} class="au-btn au-btn--{variant} au-btn--{size} {className}" class:au-btn--block={block} aria-disabled={disabled || undefined} {...rest}>
         {#if icon}<Icon {icon} />{/if}
         {#if children}<span class="au-btn__label">{@render children()}</span>{/if}
         {#if iconRight}<Icon icon={iconRight} />{/if}
     </a>
 {:else}
-    <button
-        {type}
-        class="au-btn au-btn--{variant} au-btn--{size} {className}"
-        class:au-btn--block={block}
-        class:is-loading={loading}
-        disabled={disabled || loading}
-        {...rest}
-    >
-        {#if loading}
-            <Icon icon="circle-notch" spin />
-        {:else if icon}
-            <Icon {icon} />
-        {/if}
+    <button {type} class="au-btn au-btn--{variant} au-btn--{size} {className}" class:au-btn--block={block} class:is-loading={loading} disabled={disabled || loading} {...rest}>
+        {#if loading}<Icon icon="loader-2" class="au-btn__spin" />{:else if icon}<Icon {icon} />{/if}
         {#if children}<span class="au-btn__label">{@render children()}</span>{/if}
         {#if iconRight}<Icon icon={iconRight} />{/if}
     </button>
@@ -58,15 +41,15 @@
         align-items: center;
         justify-content: center;
         gap: var(--au-s2);
-        min-height: 44px;
-        padding: var(--au-s2) var(--au-s5);
-        border: 3px solid var(--au-action);
+        height: 40px;
+        padding: 0 var(--au-s4);
+        border: 1px solid transparent;
         border-radius: var(--au-radius);
         background: var(--au-action);
         color: var(--au-action-contrast);
-        font-weight: 700;
-        font-size: var(--au-fs-sm);
-        line-height: var(--au-lh);
+        font-size: var(--au-fs-xs);
+        font-weight: 500;
+        line-height: 1;
         text-decoration: none;
         white-space: nowrap;
         cursor: pointer;
@@ -78,56 +61,41 @@
     }
     .au-btn:hover {
         background: var(--au-action-hover);
-        border-color: var(--au-action-hover);
-        color: var(--au-action-contrast);
         text-decoration: none;
-    }
-    .au-btn:active {
-        transform: translateY(1px);
     }
     .au-btn--secondary {
         background: transparent;
-        color: var(--au-action);
+        border-color: var(--au-border-strong);
+        color: var(--au-text);
     }
     .au-btn--secondary:hover {
-        background: var(--au-action);
-        border-color: var(--au-action);
-        color: var(--au-action-contrast);
+        background: var(--au-bg-alt);
+        border-color: var(--au-border-strong);
     }
     .au-btn--tertiary {
         background: transparent;
-        border-color: transparent;
         color: var(--au-action);
-        font-weight: 400;
-        text-decoration: underline;
-        text-underline-offset: 2px;
+        padding: 0 var(--au-s2);
     }
     .au-btn--tertiary:hover {
-        background: var(--au-bg-shade);
-        border-color: transparent;
-        color: var(--au-action-hover);
-        text-decoration-thickness: 2px;
+        background: var(--au-action-soft);
     }
     .au-btn--danger {
-        background: var(--au-error);
-        border-color: var(--au-error);
-        color: #fff;
+        background: var(--au-error-bg);
+        color: #ffcfca;
     }
     .au-btn--danger:hover {
-        background: #a80000;
-        border-color: #a80000;
-        color: #fff;
+        background: #5a2525;
     }
     .au-btn--sm {
-        min-height: 34px;
-        padding: var(--au-s1) var(--au-s3);
-        font-size: var(--au-fs-xs);
-        border-width: 2px;
+        height: 32px;
+        padding: 0 var(--au-s3);
+        font-size: 13px;
     }
     .au-btn--lg {
-        min-height: 52px;
-        padding: var(--au-s3) var(--au-s8);
-        font-size: var(--au-fs-md);
+        height: 48px;
+        padding: 0 var(--au-s6);
+        font-size: var(--au-fs-sm);
     }
     .au-btn--block {
         display: flex;
@@ -135,14 +103,16 @@
     }
     .au-btn:disabled,
     .au-btn[aria-disabled='true'] {
-        opacity: 0.5;
+        opacity: 0.45;
         cursor: not-allowed;
-        transform: none;
         pointer-events: none;
     }
     .au-btn__label {
         min-width: 0;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+    .au-btn :global(.au-btn__spin) {
+        animation: au-spin 0.8s linear infinite;
     }
 </style>

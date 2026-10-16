@@ -25,10 +25,10 @@
             showGears={hud.config.showGears}
         />
         <div class="veh__row">
-            {#if !vehicle.fuelHide}<Indicator icon="gas-pump" value={vehicle.fuel} label="Fuel" />{/if}
-            {#if vehicle.nos > 0}<Indicator icon="fire-flame-curved" value={vehicle.nos} color="var(--hud-blue)" label="Nitrous" />{/if}
-            <Indicator icon="car-burst" state={!vehicle.checkEngine} alert={vehicle.checkEngine} label="Engine" />
-            <Indicator icon="lightbulb" value={vehicle.headlights >= 2 ? 100 : vehicle.headlights >= 1 ? 50 : 0} color="var(--hud-white)" label="Headlights" />
+            {#if !vehicle.fuelHide}<Indicator icon="gas-station" value={vehicle.fuel} label="Fuel" />{/if}
+            {#if vehicle.nos > 0}<Indicator icon="flame" value={vehicle.nos} color="var(--hud-blue)" label="Nitrous" />{/if}
+            <Indicator icon="engine" state={!vehicle.checkEngine} alert={vehicle.checkEngine} label="Engine" />
+            <Indicator icon="bulb" value={vehicle.headlights >= 2 ? 100 : vehicle.headlights >= 1 ? 50 : 0} color="var(--hud-white)" label="Headlights" />
             {#if !vehicle.seatbeltHide}
                 <Indicator state={vehicle.seatbelt} alert={!vehicle.seatbelt && vehicle.ignition} label="Seatbelt">
                     {#snippet custom()}
@@ -39,7 +39,7 @@
                     {/snippet}
                 </Indicator>
             {/if}
-            {#if vehicle.cruise}<Indicator icon="gauge-high" state={true} color="var(--hud-cyan)" label="Cruise control" />{/if}
+            {#if vehicle.cruise}<Indicator icon="gauge" state={true} color="var(--hud-cyan)" label="Cruise control" />{/if}
         </div>
     </div>
 {/if}

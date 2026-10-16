@@ -1,25 +1,14 @@
 <script>
-    import { resolveIcon } from '../icons.js';
+    import { resolveIcon } from '../icons/index.js';
 
     /**
-     * Font Awesome icon by name ("heart", "far fa-heart", ["fas","heart"]) or
-     * definition object (faHeart). Names resolve through the registry filled
-     * with registerIcons(); unknown names fall back to `fallback`.
+     * Tabler outline icon by name. Font Awesome names from Lua are mapped
+     * ("fas fa-gas-pump" -> gas-station). `filled` uses the solid variant when
+     * Tabler has one. `stroke` is the line weight in px at 24px.
      */
-    let {
-        icon,
-        fallback = 'circle-dot',
-        size,
-        fixedWidth = false,
-        spin = false,
-        label,
-        color,
-        class: className = '',
-        style = '',
-    } = $props();
+    let { icon, size, stroke = 1.75, filled = false, fallback = 'point', label, color, class: className = '', style = '' } = $props();
 
-    const def = $derived(resolveIcon(icon, fallback));
-    const paths = $derived(def ? [].concat(def.icon[4]) : []);
+    const def = $derived(resolveIcon(icon, { filled, fallback }));
     const css = $derived(
         [size ? `font-size:${typeof size === 'number' ? `${size}px` : size}` : '', color ? `color:${color}` : '', style]
             .filter(Boolean)
@@ -30,17 +19,20 @@
 {#if def}
     <svg
         class="au-icon {className}"
-        class:au-icon--fw={fixedWidth}
-        class:au-icon--spin={spin}
-        viewBox="0 0 {def.icon[0]} {def.icon[1]}"
+        viewBox="0 0 24 24"
+        fill={def.filled ? 'currentColor' : 'none'}
+        stroke={def.filled ? 'none' : 'currentColor'}
+        stroke-width={stroke}
+        stroke-linecap="round"
+        stroke-linejoin="round"
         role={label ? 'img' : 'presentation'}
         aria-hidden={label ? undefined : 'true'}
         aria-label={label}
         style={css || undefined}
-        data-icon={def.iconName}
+        data-icon={def.name}
     >
-        {#each paths as d, i (i)}
-            <path {d} fill="currentColor" opacity={paths.length > 1 && i === 0 ? 0.4 : 1} />
+        {#each def.nodes as [tag, attrs], i (i)}
+            <svelte:element this={tag} {...attrs} />
         {/each}
     </svg>
 {/if}
@@ -48,16 +40,9 @@
 <style>
     .au-icon {
         display: inline-block;
-        width: 1em;
-        height: 1em;
-        vertical-align: -0.125em;
-        overflow: visible;
+        width: 1.15em;
+        height: 1.15em;
+        vertical-align: -0.2em;
         flex-shrink: 0;
-    }
-    .au-icon--fw {
-        width: 1.25em;
-    }
-    .au-icon--spin {
-        animation: au-spin 1s linear infinite;
     }
 </style>

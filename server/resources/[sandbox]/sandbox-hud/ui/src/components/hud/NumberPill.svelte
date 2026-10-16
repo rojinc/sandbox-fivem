@@ -6,7 +6,7 @@
 </script>
 
 <div class="pill hud-shadow" aria-label={label} title={label}>
-    <span class="pill__icon" style="color:{color}"><Icon {icon} /></span>
+    <span class="pill__icon" style="color:{color}"><Icon {icon} stroke={2.2} /></span>
     <span class="pill__value hud-text">{value}</span>
 </div>
 
@@ -22,7 +22,7 @@
         align-self: flex-end;
     }
     .pill__icon {
-        font-size: 0.75em;
+        font-size: 0.9em;
         display: flex;
     }
     .pill__value {

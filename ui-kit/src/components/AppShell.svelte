@@ -4,10 +4,11 @@
     import Footer from './Footer.svelte';
 
     /**
-     * A full "gov page" frame: header band, main nav, optional aside, scrolling
-     * main column and a footer band. Used by the full-screen apps.
+     * Full-screen app frame: identity header, top-level nav, optional aside,
+     * scrolling main column, optional quiet footer.
      */
     let {
+        eyebrow,
         title,
         subline,
         brand,
@@ -18,9 +19,8 @@
         onnav,
         navRight,
         aside,
-        asideWidth = '240px',
+        asideWidth = '232px',
         footer,
-        dark = false,
         padded = true,
         class: className = '',
         style = '',
@@ -28,9 +28,9 @@
     } = $props();
 </script>
 
-<div class="au-shell {className}" class:au-dark={dark} {style}>
-    {#if title || brand || actions}
-        <Header {title} {subline} {brand} {actions} compact />
+<div class="au-shell {className}" {style}>
+    {#if title || brand || actions || eyebrow}
+        <Header {eyebrow} {title} {subline} {brand} {actions} compact />
     {/if}
     {#if navItems}
         <MainNav items={navItems} active={navActive} onselect={onnav} right={navRight} />
@@ -38,14 +38,10 @@
         {@render nav()}
     {/if}
     <div class="au-shell__body">
-        {#if aside}
-            <aside class="au-shell__aside" style="width:{asideWidth}">{@render aside()}</aside>
-        {/if}
+        {#if aside}<aside class="au-shell__aside" style="width:{asideWidth}">{@render aside()}</aside>{/if}
         <main class="au-shell__main" class:au-shell__main--padded={padded}>{@render children?.()}</main>
     </div>
-    {#if footer}
-        <Footer>{@render footer()}</Footer>
-    {/if}
+    {#if footer}<Footer>{@render footer()}</Footer>{/if}
 </div>
 
 <style>
@@ -56,7 +52,8 @@
         height: 100%;
         background: var(--au-bg);
         color: var(--au-text);
-        border-radius: var(--au-radius);
+        border: 1px solid var(--au-border);
+        border-radius: var(--au-radius-lg);
         box-shadow: var(--au-shadow-2);
         overflow: hidden;
     }
@@ -67,8 +64,7 @@
     }
     .au-shell__aside {
         flex-shrink: 0;
-        border-right: 1px solid var(--au-bg-alt-shade);
-        background: var(--au-bg-shade);
+        border-right: 1px solid var(--au-border);
         overflow: auto;
         padding: var(--au-s4) 0;
     }

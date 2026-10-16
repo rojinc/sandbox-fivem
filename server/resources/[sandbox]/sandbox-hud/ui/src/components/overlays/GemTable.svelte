@@ -47,13 +47,13 @@
     }
     .label {
         font-size: 12px;
-        color: var(--au-dark-muted);
+        color: var(--au-muted);
         text-transform: uppercase;
         letter-spacing: 0.08em;
     }
     .value {
         font-size: 34px;
         font-weight: 700;
-        color: var(--au-dark-action);
+        color: #fff;
     }
 </style>

@@ -26,9 +26,10 @@ export { default as RichText } from './components/RichText.svelte';
 export { default as AppShell } from './components/AppShell.svelte';
 export { default as EmptyState } from './components/EmptyState.svelte';
 export { default as Toolbar } from './components/Toolbar.svelte';
+export { default as Toast } from './components/Toast.svelte';
 
 // Runtime
 export * from './nui.js';
-export { registerIcons, resolveIcon, parseIcon, hasIcon, ICON_ALIASES } from './icons.js';
+export { resolveIcon, iconName, bareIconName, hasIcon } from './icons/index.js';
 export { sanitizeHtml, plainText } from './sanitize.js';
 export * from './util.js';
