@@ -16,7 +16,7 @@ RegisterNetEvent("__cfx_internal:serverPrint")
 
 RegisterNetEvent("_chat:messageEntered")
 
-AddEventHandler("CarPark:Shared:DependencyUpdate", RetrieveComponents)
+AddEventHandler("Chat:Shared:DependencyUpdate", RetrieveComponents)
 function RetrieveComponents()
 	Chat = exports["sandbox-base"]:FetchComponent("Chat")
 	Chat.Refresh:Commands()
@@ -52,7 +52,7 @@ AddEventHandler("Characters:Client:Spawn", function()
 end)
 
 AddEventHandler("Core:Shared:Ready", function()
-	exports["sandbox-base"]:RequestDependencies("CarPark", {
+	exports["sandbox-base"]:RequestDependencies("Chat", {
 		"Chat",
 	}, function(error)
 		if #error > 0 then
@@ -63,6 +63,9 @@ AddEventHandler("Core:Shared:Ready", function()
 end)
 
 RegisterNetEvent("Characters:Client:Logout", function()
+	-- the input may still be open; release focus so the chat can be reopened later
+	chatInputActive = false
+	SetNuiFocus(false)
 	SendNUIMessage({
 		type = "ON_SCREEN_STATE_CHANGE",
 		data = {
@@ -73,6 +76,8 @@ RegisterNetEvent("Characters:Client:Logout", function()
 end)
 
 RegisterNetEvent("UI:Client:Reset", function(apps)
+	chatInputActive = false
+	SetNuiFocus(false)
 	SendNUIMessage({
 		type = "ON_SCREEN_STATE_CHANGE",
 		data = {

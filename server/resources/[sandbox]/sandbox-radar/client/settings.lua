@@ -23,11 +23,7 @@ function GetSavedSettings()
 
     RADAR_FORCE_DISABLED = radarDisabled
 
-    if type(settingData) == "table" then
-        RADAR_SETTINGS = settingData
-    else
-        RADAR_SETTINGS = GetDefaultSettings()
-    end
+    RADAR_SETTINGS = SanitizeSettings(settingData)
 
     SendSettingsUpdate()
 end
@@ -45,8 +41,48 @@ function SendSettingsUpdate()
     })
 end
 
+local function clampNumber(value, fallback, min, max)
+    local n = tonumber(value)
+    if n == nil then
+        return fallback
+    end
+    if n < min then
+        return min
+    end
+    if n > max then
+        return max
+    end
+    return n
+end
+
+local function sanitizeRadarSide(side, fallback)
+    if type(side) ~= "table" then
+        return fallback
+    end
+    return {
+        lane = side.lane == true,
+        transmit = side.transmit == true,
+    }
+end
+
+-- The NUI can only hand back the fields the settings schema knows about;
+-- anything else is dropped and bad values fall back to the defaults.
+function SanitizeSettings(data)
+    local defaults = GetDefaultSettings()
+    if type(data) ~= "table" then
+        return defaults
+    end
+    return {
+        scale = math.floor(clampNumber(data.scale, defaults.scale, 85, 150)),
+        location = math.floor(clampNumber(data.location, defaults.location, 1, 9)),
+        fastSpeed = math.floor(clampNumber(data.fastSpeed, defaults.fastSpeed, 0, 300)),
+        frontRadar = sanitizeRadarSide(data.frontRadar, defaults.frontRadar),
+        rearRadar = sanitizeRadarSide(data.rearRadar, defaults.rearRadar),
+    }
+end
+
 RegisterNUICallback('UpdateSettings', function(data, cb)
-    SaveSettings(data)
+    SaveSettings(SanitizeSettings(data))
     cb('OK')
 end)
 

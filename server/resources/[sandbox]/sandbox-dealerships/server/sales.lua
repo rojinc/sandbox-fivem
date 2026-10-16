@@ -2,10 +2,6 @@ local _activeTestDrives = {}
 local maxActive = 10
 local _hasStartedCountdown = false
 
-RegisterNetEvent('Dealerships:Server:StartSale', function(dealership, type, data)
-    
-end)
-
 RegisterNetEvent('Vehicles:Server:TestDriveTime', function(vNet)
 	local _src = source
     local vehicle = NetworkGetEntityFromNetworkId(vNet)

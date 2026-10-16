@@ -296,7 +296,7 @@ AddEventHandler("Casino:Server:Startup", function()
 
                     UpdateRouletteGameState(roulettePlayer.Table)
 
-                    _roulette[roulettePlayer.Table].Seats[roulettePlayer.LocalChair].TotalBet += data.amount
+                    _roulette[roulettePlayer.Table].Seats[roulettePlayer.LocalChair].TotalBet += math.floor(amount)
 
                     TriggerClientEvent("Casino:Client:RouletteUpdateBets", -1, roulettePlayer.Table, _roulette[roulettePlayer.Table].Bets)
 

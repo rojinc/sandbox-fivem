@@ -54,7 +54,7 @@ function GetLocationData(data)
     cross = GetStreetNameFromHashKey(cross)
     return {
         street1 = main,
-        street2 = intersect,
+        street2 = cross,
         area = GetLabelText(GetNameOfZone(data.x, data.y, data.z)),
         x = data.x,
         y = data.y,

@@ -1,74 +1,7 @@
 _justBoughtFuckingBike = {}
 
-_bikeStands = {
-	{
-		coords = vector3(-1107.018, -1694.860, 3.4),
-		blip = {
-			sprite = 106,
-			color = 17,
-			scale = 0.5,
-		},
-		interactionPed = {
-			model = `a_m_m_fatlatin_01`,
-			heading = 335.0,
-			scenario = "WORLD_HUMAN_TENNIS_PLAYER",
-			range = 45.0,
-		},
-		vehicleSpawn = vector4(-1104.368, -1695.073, 4.360, 216.545),
-	},
-	{
-		coords = vector3(-275.791, -916.864, 30.216),
-		blip = {
-			sprite = 106,
-			color = 17,
-			scale = 0.5,
-		},
-		interactionPed = {
-			model = `a_f_y_fitness_01`,
-			heading = 72.833,
-			scenario = "WORLD_HUMAN_MUSCLE_FLEX",
-			range = 60.0,
-		},
-		vehicleSpawn = vector4(-277.524, -914.589, 31.216, 85.471),
-	},
-	{
-		coords = vector3(-1290.215, 300.094, 63.945),
-		blip = false,
-		interactionPed = {
-			model = `a_f_y_fitness_01`,
-			heading = 160.833,
-			scenario = "WORLD_HUMAN_MUSCLE_FLEX",
-			range = 40.0,
-		},
-		vehicleSpawn = vector4(-1292.238, 300.571, 64.945, 86.851),
-	},
-}
-
-_bikeStandAvailable = {
-	{
-		name = "Beach Cruiser",
-		model = `cruiser`,
-		price = 300,
-	},
-	{
-		name = "BMX",
-		model = `bmx`,
-		price = 500,
-	},
-	{
-		name = "Mountain Bike",
-		model = `scorcher`,
-		price = 800,
-	},
-	{
-		name = "Endurex Race Bike",
-		model = `tribike2`,
-		price = 1000,
-	},
-}
-
 function CreateBikeStands()
-	for k, v in ipairs(_bikeStands) do
+	for k, v in ipairs(BikeStandLocations) do
 		if v.interactionPed then
 			PedInteraction:Add(
 				"bike_stand_" .. k,
@@ -92,7 +25,7 @@ function CreateBikeStands()
 end
 
 function CreateBikeStandBlips()
-	for k, v in ipairs(_bikeStands) do
+	for k, v in ipairs(BikeStandLocations) do
 		if v.blip then
 			Blips:Add("bike_stand_" .. k, "Bicycle Stand", v.coords, v.blip.sprite, v.blip.color, v.blip.scale)
 		end
@@ -111,7 +44,7 @@ AddEventHandler("BikeStands:Client:Open", function(entityData, data)
 		},
 	}
 
-	for k, v in ipairs(_bikeStandAvailable) do
+	for k, v in ipairs(BikeStandBikes) do
 		table.insert(menuData.main.items, {
 			label = v.name,
 			description = "Purchase for $" .. v.price .. " Cash",
@@ -125,18 +58,15 @@ end)
 
 AddEventHandler("BikeStands:Client:Purchase", function(data)
 	if data and data.location and data.bike then
-		local bikeData = _bikeStandAvailable[data.bike]
-		local locationData = _bikeStands[data.location]
+		local bikeData = BikeStandBikes[data.bike]
+		local locationData = BikeStandLocations[data.location]
 		if not bikeData or not locationData then
 			return
 		end
 
 		Callbacks:ServerCallback("BikeStand:Purchase", {
-			name = bikeData.name,
-			vehicleHash = bikeData.model,
-			price = bikeData.price,
-			spawnCoords = locationData.vehicleSpawn.xyz,
-			spawnHeading = locationData.vehicleSpawn.w,
+			bike = data.bike,
+			location = data.location,
 		}, function(success)
 			if success then
 				_justBoughtFuckingBike[data.location] = true

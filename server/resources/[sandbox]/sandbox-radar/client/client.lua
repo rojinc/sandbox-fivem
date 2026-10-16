@@ -181,7 +181,7 @@ function EnableRadar()
 										plate = targetPlate,
 										fast = true,
 										locked = false,
-										flag = false,
+										flag = GlobalState.RadarFlaggedPlates?[targetPlate] ~= nil,
 										class = class,
 									}
 									data.frontFast = RADAR_FRONT_FAST
@@ -244,7 +244,7 @@ function EnableRadar()
 										plate = targetPlate,
 										fast = true,
 										locked = false,
-										flag = false,
+										flag = GlobalState.RadarFlaggedPlates?[targetPlate] ~= nil,
 										class = class,
 									}
 									data.rearFast = RADAR_REAR_FAST

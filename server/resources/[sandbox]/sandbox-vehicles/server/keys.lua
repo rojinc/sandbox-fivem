@@ -1,14 +1,5 @@
 VEHICLE_KEYS = {}
 
-RegisterNetEvent("Vehicles:Server:StealLocalKeys", function(vehNet)
-	local src = source
-	local veh = NetworkGetEntityFromNetworkId(vehNet)
-	local vehEnt = Entity(veh)
-	if vehEnt and vehEnt.state.VIN then
-		Vehicles.Keys:Give(src, vehEnt.state.VIN)
-	end
-end)
-
 _vehKeys = {
 	Keys = {
 		Has = function(self, source, VIN, groupKeys)

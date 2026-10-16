@@ -26,8 +26,30 @@ RegisterNetEvent('VehicleSync:Server:OpenDoor', function(vNet, door, loose, inst
     TriggerClientEvent('VehicleSync:Client:OpenDoor', NetworkGetEntityOwner(veh), vNet, door, loose, instant)
 end)
 
-RegisterNetEvent('VehicleSync:Server:BodyRepair', function(vNet, door, loose, instant)
+-- Resolve a net id to a vehicle the calling player is actually standing next to.
+local function nearbyVehicle(src, vNet, maxDistance)
+    if type(vNet) ~= 'number' then
+        return nil
+    end
     local veh = NetworkGetEntityFromNetworkId(vNet)
+    if not veh or veh == 0 or not DoesEntityExist(veh) then
+        return nil
+    end
+    local ped = GetPlayerPed(src)
+    if not ped or ped == 0 then
+        return nil
+    end
+    if #(GetEntityCoords(ped) - GetEntityCoords(veh)) > (maxDistance or 8.0) then
+        return nil
+    end
+    return veh
+end
+
+RegisterNetEvent('VehicleSync:Server:BodyRepair', function(vNet)
+    local veh = nearbyVehicle(source, vNet, 10.0)
+    if not veh then
+        return
+    end
 
     local ent = Entity(veh)
     if ent and ent.state then
@@ -43,8 +65,11 @@ RegisterNetEvent('VehicleSync:Server:BodyRepair', function(vNet, door, loose, in
     TriggerClientEvent('VehicleSync:Client:BodyRepair', -1, vNet)
 end)
 
-RegisterNetEvent('VehicleSync:Server:EngineRepair', function(vNet, door, loose, instant)
-    local veh = NetworkGetEntityFromNetworkId(vNet)
+RegisterNetEvent('VehicleSync:Server:EngineRepair', function(vNet)
+    local veh = nearbyVehicle(source, vNet, 10.0)
+    if not veh then
+        return
+    end
 
     local ent = Entity(veh)
     if ent and ent.state then

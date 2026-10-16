@@ -555,16 +555,29 @@ end
 RegisterNetEvent("Phone:Redline:FinishRace", function(nId, data, laps, plate, vehName)
 	local src = source
 	local char = Fetch:CharacterSource(src)
+	if char == nil or char:GetData("Profiles")?.redline?.name == nil then
+		return
+	end
 	local alias = char:GetData("Profiles").redline.name
 
 	local key = tostring(data)
+	local race = _races[key]
+	if race == nil or race.racers == nil or type(laps) ~= "number" then
+		return
+	end
+	for _, done in ipairs(race.completed or {}) do
+		if done == alias then
+			return
+		end
+	end
 
-	local vehEnt = Entity(NetworkGetEntityFromNetworkId(nId)).state
+	local veh = NetworkGetEntityFromNetworkId(nId)
+	local vehEnt = veh and veh ~= 0 and DoesEntityExist(veh) and Entity(veh).state or nil
 	_races[key].racers[alias] = {
 		laps = laps,
 		sid = char:GetData("SID"),
-		isOwned = vehEnt.Owned,
-		car = vehName,
+		isOwned = vehEnt and vehEnt.Owned or false,
+		car = tostring(vehName),
 	}
 
 	if _races[key].completed == nil then

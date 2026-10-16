@@ -324,28 +324,33 @@ function RegisterCallbacks()
     end)
 
     Callbacks:RegisterServerCallback('BikeStand:Purchase', function(source, data, cb)
-        if type(data.vehicleHash) == 'number' and type(data.price) == 'number' and data.price > 100 then
-            local char = Fetch:CharacterSource(source)
-            if char and char:GetData('SID') then
-                -- TODO: Charge Money
-                if Wallet:Modify(source, -data.price) then
-                    Vehicles.Owned:AddToCharacter(char:GetData('SID'), data.vehicleHash, 0, 'bike', { make = 'Bicycle', model = data.name, class = 'Bicycle', value = data.price }, function(success, vehicleData)
-                        if success and vehicleData then
-                            Vehicles.Owned:Spawn(source, vehicleData.VIN, data.spawnCoords, data.spawnHeading, function(success)
-                                Vehicles.Keys:Add(source, vehicleData.VIN)
-                                cb(true)
-                            end)
-                        else
-                            cb(false)
-                        end
-                    end)
-                else
-                    cb(false)
-                end
-            end
-        else
-            cb(false)
+        -- Price, model and spawn point come from shared/bike_stand.lua, never from the client.
+        local bike = type(data) == 'table' and BikeStandBikes[math.tointeger(tonumber(data.bike)) or -1] or nil
+        local stand = type(data) == 'table' and BikeStandLocations[math.tointeger(tonumber(data.location)) or -1] or nil
+        local char = Fetch:CharacterSource(source)
+        if not bike or not stand or not stand.vehicleSpawn or not char or not char:GetData('SID') then
+            return cb(false)
         end
+
+        local ped = GetPlayerPed(source)
+        if not ped or ped == 0 or #(GetEntityCoords(ped) - stand.vehicleSpawn.xyz) > 60.0 then
+            return cb(false)
+        end
+
+        if not Wallet:Modify(source, -bike.price) then
+            return cb(false)
+        end
+
+        Vehicles.Owned:AddToCharacter(char:GetData('SID'), bike.model, 0, 'bike', { make = 'Bicycle', model = bike.name, class = 'Bicycle', value = bike.price }, function(success, vehicleData)
+            if success and vehicleData then
+                Vehicles.Owned:Spawn(source, vehicleData.VIN, stand.vehicleSpawn.xyz, stand.vehicleSpawn.w, function()
+                    Vehicles.Keys:Add(source, vehicleData.VIN)
+                    cb(true)
+                end)
+            else
+                cb(false)
+            end
+        end)
     end)
 
     Callbacks:RegisterServerCallback('Dealerships:CheckPersonsCredit', function(source, data, cb)

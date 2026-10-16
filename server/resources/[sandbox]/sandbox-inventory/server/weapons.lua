@@ -480,18 +480,49 @@ AddEventHandler("Proxy:Shared:RegisterReady", function()
 	exports["sandbox-base"]:RegisterComponent("Weapons", WEAPONS)
 end)
 
-RegisterNetEvent("Weapon:Server:UpdateAmmo", function(slot, ammo, clip)
-	Weapons:Save(source, slot, ammo, clip)
+local MAX_AMMO = 9999
+
+-- Ammo counts arrive from the client; accept only sane integers.
+local function sanitizeAmmo(value)
+	local n = tonumber(value)
+	if n == nil or n ~= n or n < 0 or n > MAX_AMMO then
+		return nil
+	end
+	return math.floor(n)
+end
+
+-- Only the character that owns an item may report ammo for it.
+local function ownsItem(src, itemId)
+	if itemId == nil or (type(itemId) ~= "number" and type(itemId) ~= "string") then
+		return false
+	end
+	local char = Fetch:CharacterSource(src)
+	if char == nil then
+		return false
+	end
+	local slot = INVENTORY:GetItem(itemId)
+	return slot ~= nil and tostring(slot.Owner) == tostring(char:GetData("SID"))
+end
+
+RegisterNetEvent("Weapon:Server:UpdateAmmo", function(itemId, ammo, clip)
+	local src = source
+	ammo, clip = sanitizeAmmo(ammo), sanitizeAmmo(clip)
+	if ammo == nil or clip == nil or not ownsItem(src, itemId) then
+		return
+	end
+	Weapons:Save(src, itemId, ammo, clip)
 end)
 
 RegisterNetEvent("Weapon:Server:UpdateAmmoDiff", function(diff, ammo, clip)
-	local _src = source
-	if diff?.id then
-		INVENTORY:UpdateMetaData(diff.id, {
-			ammo = ammo,
-			clip = clip,
-		})
+	local src = source
+	ammo, clip = sanitizeAmmo(ammo), sanitizeAmmo(clip)
+	if ammo == nil or clip == nil or type(diff) ~= "table" or not ownsItem(src, diff.id) then
+		return
 	end
+	INVENTORY:UpdateMetaData(diff.id, {
+		ammo = ammo,
+		clip = clip,
+	})
 end)
 
 RegisterNetEvent("Weapons:Server:RemoveAttachment", function(slotId, attachment)

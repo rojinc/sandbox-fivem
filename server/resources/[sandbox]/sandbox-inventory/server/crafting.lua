@@ -144,6 +144,11 @@ CRAFTING = {
 				return { error = true, message = "Invalid Bench" }
 			end
 
+			qty = math.tointeger(tonumber(qty))
+			if qty == nil or qty < 1 or qty > 50 then
+				return { error = true, message = "Invalid Quantity" }
+			end
+
 			local recipies = _types[bench].recipes
 			if _types[bench].isPubSchemTable then
 				local t = GetCharacterPublicSchems(crafter, false)

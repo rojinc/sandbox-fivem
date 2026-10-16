@@ -1,5 +1,7 @@
 _state = false
-_rate = GetResourceKvpInt("TAXI_RATE") or 10
+-- GetResourceKvpInt returns 0 when nothing is stored, so treat 0 as "unset".
+local _savedRate = GetResourceKvpInt("TAXI_RATE")
+_rate = (_savedRate and _savedRate > 0) and _savedRate or 10
 
 AddEventHandler("Taxi:Shared:DependencyUpdate", RetrieveComponents)
 function RetrieveComponents()
@@ -12,7 +14,7 @@ function RetrieveComponents()
 end
 
 AddEventHandler("Core:Shared:Ready", function()
-	exports["sandbox-base"]:RequestDependencies("Jail", {
+	exports["sandbox-base"]:RequestDependencies("Taxi", {
 		"Logger",
 		"Blips",
 		"Keybinds",
@@ -125,7 +127,7 @@ _TAXI = {
 			end
 		end,
 		Decrease = function(self)
-			if _rate > 0 then
+			if _rate > 1 then
 				_rate = _rate - 1
 				SetResourceKvpInt("TAXI_RATE", _rate)
 				SendNUIMessage({

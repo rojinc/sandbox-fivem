@@ -1953,19 +1953,27 @@ end
 RegisterNetEvent("Inventory:Server:UpdateSettings", function(data)
 	local src = source
 	local char = Fetch:CharacterSource(src)
-	if char ~= nil then
-		local settings = char:GetData("InventorySettings") or _defInvSettings
-		for k, v in pairs(data) do
+	if char == nil or type(data) ~= "table" then
+		return
+	end
+
+	local settings = {}
+	for k, v in pairs(char:GetData("InventorySettings") or _defInvSettings) do
+		settings[k] = v
+	end
+	-- only known settings, with the type they were declared with
+	for k, v in pairs(data) do
+		if _defInvSettings[k] ~= nil and type(v) == type(_defInvSettings[k]) then
 			settings[k] = v
 		end
-		char:SetData("InventorySettings", settings)
 	end
+	char:SetData("InventorySettings", settings)
 end)
 
 RegisterNetEvent("Inventory:Server:TriggerAction", function(data)
 	local src = source
 	local char = Fetch:CharacterSource(src)
-	if char ~= nil then
+	if char ~= nil and type(data) == "table" then
 		if LoadedEntitys[data.invType] ~= nil and LoadedEntitys[data.invType].action ~= nil then
 			TriggerEvent(LoadedEntitys[data.invType].action.event, src, data)
 		end
@@ -1975,6 +1983,9 @@ end)
 RegisterNetEvent("Inventory:Server:Request", function(secondary)
 	local src = source
 	local char = Fetch:CharacterSource(src)
+	if char == nil then
+		return
+	end
 
 	local plyrInvData = {
 		size = (LoadedEntitys[1].slots or 10),
