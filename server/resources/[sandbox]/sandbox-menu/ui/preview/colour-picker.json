@@ -1,0 +1,27 @@
+{
+    "viewport": [1920, 1080],
+    "backdrop": true,
+    "messages": [
+        {
+            "type": "SETUP_MENU",
+            "data": {
+                "data": {
+                    "id": "vehicle_customs_paint",
+                    "label": "Paint respray",
+                    "items": [
+                        { "type": "TEXT", "id": "p-item0", "label": "Primary paint", "options": { "classes": ["heading"] } },
+                        { "type": "TEXT", "id": "p-item1", "label": "Changing either primary paint option costs $500", "options": { "classes": ["pad", "code", "center", "textLarge"] } },
+                        { "type": "SELECT", "id": "p-item2", "label": "Primary paint type", "options": { "disabled": false, "current": 1, "list": [ { "label": "Normal", "value": 0 }, { "label": "Metallic", "value": 1 }, { "label": "Pearl", "value": 2 }, { "label": "Matte", "value": 3 }, { "label": "Metal", "value": 4 }, { "label": "Chrome", "value": 5 } ] } },
+                        { "type": "COLORPICKER", "id": "p-item3", "options": { "disabled": false, "current": { "r": 24, "g": 96, "b": 180 } } },
+                        { "type": "TEXT", "id": "p-item4", "label": "Secondary paint", "options": { "classes": ["heading"] } },
+                        { "type": "SELECT", "id": "p-item5", "label": "Secondary paint type", "options": { "disabled": false, "current": 0, "list": [ { "label": "Normal", "value": 0 }, { "label": "Metallic", "value": 1 }, { "label": "Pearl", "value": 2 } ] } },
+                        { "type": "COLORPICKER", "id": "p-item6", "options": { "disabled": false, "current": { "r": 15, "g": 15, "b": 15 } } },
+                        { "type": "GOBACK", "id": "p-item7", "label": "Go back", "options": { "disabled": false } }
+                    ]
+                }
+            }
+        },
+        { "type": "APP_SHOW" },
+        { "type": "PREVIEW_KEYS", "data": { "keys": ["ArrowDown", "Enter", "ArrowDown", "ArrowRight", "ArrowRight", "ArrowRight"] }, "delay": 100 }
+    ]
+}

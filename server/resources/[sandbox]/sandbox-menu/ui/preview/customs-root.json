@@ -1,0 +1,29 @@
+{
+    "viewport": [1920, 1080],
+    "backdrop": true,
+    "messages": [
+        {
+            "type": "SETUP_MENU",
+            "data": {
+                "data": {
+                    "id": "vehicle_customs",
+                    "label": "Vehicle customs",
+                    "items": [
+                        { "type": "TEXT", "id": "vehicle_customs-item0", "label": "Current total: $0", "options": { "classes": ["pad", "center", "code", "textLarge", "colorSuccess", "bold"] } },
+                        { "type": "SUBMENU", "id": "vehicle_customs_paint", "menu": "vehicle_customs_paint", "label": "Paint respray", "options": { "disabled": false } },
+                        { "type": "SUBMENU", "id": "vehicle_customs_livery", "menu": "vehicle_customs_livery", "label": "Livery", "options": { "disabled": true } },
+                        { "type": "SUBMENU", "id": "vehicle_customs_extras", "menu": "vehicle_customs_extras", "label": "Extras", "options": { "disabled": false } },
+                        { "type": "SUBMENU", "id": "vehicle_customs_lighting", "menu": "vehicle_customs_lighting", "label": "Lighting", "options": { "disabled": false } },
+                        { "type": "SUBMENU", "id": "vehicle_customs_wheels", "menu": "vehicle_customs_wheels", "label": "Wheels and tyres", "options": { "disabled": false } },
+                        { "type": "SUBMENU", "id": "vehicle_customs_body_parts", "menu": "vehicle_customs_body_parts", "label": "Body parts and cosmetics", "options": { "disabled": false } },
+                        { "type": "SUBMENU", "id": "vehicle_customs_performance", "menu": "vehicle_customs_performance", "label": "Performance", "options": { "disabled": false } },
+                        { "type": "BUTTON", "id": "vehicle_customs-item8", "label": "Pay and save changes", "options": { "disabled": false, "success": true } },
+                        { "type": "BUTTON", "id": "vehicle_customs-item9", "label": "Discard and exit", "options": { "disabled": false, "error": true } }
+                    ]
+                }
+            }
+        },
+        { "type": "APP_SHOW" },
+        { "type": "PREVIEW_KEYS", "data": { "keys": ["ArrowDown", "ArrowDown"] }, "delay": 100 }
+    ]
+}

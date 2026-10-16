@@ -1,0 +1,24 @@
+{
+    "viewport": [1920, 1080],
+    "backdrop": true,
+    "messages": [
+        {
+            "type": "SETUP_MENU",
+            "data": {
+                "data": {
+                    "id": "vehicle_customs_wheels",
+                    "label": "Wheels",
+                    "items": [
+                        { "type": "SELECT", "id": "s-item0", "label": "Wheel type", "options": { "disabled": false, "current": 0, "list": [ { "label": "Sport", "value": 0 }, { "label": "Muscle", "value": 1 }, { "label": "Lowrider", "value": 2 }, { "label": "SUV", "value": 3 }, { "label": "Off-road", "value": 4 }, { "label": "Tuner", "value": 5 }, { "label": "High end", "value": 7 } ] } },
+                        { "type": "SELECT", "id": "s-item1", "label": "Wheel colour - $400", "options": { "disabled": false, "current": 5, "list": [ { "label": "Black", "value": 0 }, { "label": "Graphite", "value": 1 }, { "label": "Black steel", "value": 2 }, { "label": "Dark steel", "value": 3 }, { "label": "Silver", "value": 4 }, { "label": "Bluish silver", "value": 5 }, { "label": "Rolled steel", "value": 6 }, { "label": "Shadow silver", "value": 7 }, { "label": "Stone silver", "value": 8 }, { "label": "Midnight silver", "value": 9 }, { "label": "Cast iron silver", "value": 10 }, { "label": "Anthracite black", "value": 11 }, { "label": "Matte black", "value": 12 }, { "label": "Matte grey", "value": 13 }, { "label": "Light grey", "value": 14 }, { "label": "Util black", "value": 15 }, { "label": "Util black poly", "value": 16 }, { "label": "Util dark silver", "value": 17 }, { "label": "Util silver", "value": 18 }, { "label": "Util gun metal", "value": 19 }, { "label": "Util shadow silver", "value": 20 } ] } },
+                        { "type": "TICKER", "id": "s-item2", "label": "Wheels - $2,000", "options": { "disabled": false, "min": -1, "max": 24, "current": -1 } },
+                        { "type": "TICKER", "id": "s-item3", "label": "Rear wheels - $2,000", "options": { "disabled": true, "min": -1, "max": 24, "current": -1 } },
+                        { "type": "GOBACK", "id": "s-item4", "label": "Go back", "options": { "disabled": false } }
+                    ]
+                }
+            }
+        },
+        { "type": "APP_SHOW" },
+        { "type": "PREVIEW_KEYS", "data": { "keys": ["ArrowDown", "Enter", "ArrowDown", "ArrowDown"] }, "delay": 100 }
+    ]
+}

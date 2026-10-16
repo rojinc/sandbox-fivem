@@ -1,0 +1,42 @@
+{
+    "viewport": [1920, 1080],
+    "backdrop": true,
+    "messages": [
+        {
+            "type": "SETUP_MENU",
+            "data": {
+                "data": {
+                    "id": "dealerShowroom",
+                    "label": "Showroom management",
+                    "items": [
+                        { "type": "TEXT", "id": "dealerShowroom-item0", "label": "Pick a display spot, then the vehicle to put on it.", "options": { "classes": ["pad"] } },
+                        { "type": "SUBMENU", "id": "dealerShowroom-sports", "menu": "dealerShowroom-sports", "label": "Sports", "options": { "disabled": false } },
+                        { "type": "SUBMENU", "id": "dealerShowroom-suv", "menu": "dealerShowroom-suv", "label": "SUVs", "options": { "disabled": false } },
+                        { "type": "GOBACK", "id": "dealerShowroom-item3", "label": "Close", "options": { "disabled": false } }
+                    ]
+                }
+            }
+        },
+        { "type": "APP_SHOW" },
+        {
+            "type": "SUBMENU_OPEN",
+            "delay": 100,
+            "data": {
+                "addHistroy": true,
+                "data": {
+                    "id": "dealerShowroom-sports",
+                    "label": "Sports vehicles",
+                    "items": [
+                        { "type": "ADVANCED", "id": "dealerShowroom-sports-item0", "label": "Pegassi Zentorno", "options": { "disabled": false, "secondaryLabel": "#1" } },
+                        { "type": "ADVANCED", "id": "dealerShowroom-sports-item1", "label": "Grotti Itali GTO", "options": { "disabled": false, "secondaryLabel": "#2" } },
+                        { "type": "ADVANCED", "id": "dealerShowroom-sports-item2", "label": "Ocelot Pariah", "options": { "disabled": false, "secondaryLabel": "S class" } },
+                        { "type": "ADVANCED", "id": "dealerShowroom-sports-item3", "label": "Benefactor Krieger", "options": { "disabled": true, "secondaryLabel": "$1,850,000" } },
+                        { "type": "ADVANCED", "id": "dealerShowroom-sports-item4", "label": "No vehicle", "options": { "disabled": false, "secondaryLabel": "#5" } },
+                        { "type": "GOBACK", "id": "dealerShowroom-sports-item5", "label": "Go back", "options": { "disabled": false } }
+                    ]
+                }
+            }
+        },
+        { "type": "PREVIEW_KEYS", "data": { "keys": ["ArrowDown"] }, "delay": 100 }
+    ]
+}

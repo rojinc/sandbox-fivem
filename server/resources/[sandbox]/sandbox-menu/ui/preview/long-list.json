@@ -1,0 +1,332 @@
+{
+    "viewport": [
+        1920,
+        1080
+    ],
+    "backdrop": true,
+    "messages": [
+        {
+            "type": "SETUP_MENU",
+            "data": {
+                "data": {
+                    "id": "stockViewing",
+                    "label": "Stock in the showroom",
+                    "subtitle": "30 models, 84 vehicles",
+                    "items": [
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item0",
+                            "label": "Pegassi Zentorno",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Super class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item1",
+                            "label": "Grotti Itali GTO",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Sports class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item2",
+                            "label": "Ocelot Pariah",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Sports class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item3",
+                            "label": "Benefactor Krieger",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Super class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item4",
+                            "label": "Dewbauchee Massacro",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Sports class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item5",
+                            "label": "Pfister Comet S2",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Sports class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item6",
+                            "label": "Karin Sultan RS",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Sports class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item7",
+                            "label": "Bravado Banshee 900R",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Super class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item8",
+                            "label": "Truffade Adder",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Super class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item9",
+                            "label": "Progen T20",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Super class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item10",
+                            "label": "Overflod Entity XF",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Super class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item11",
+                            "label": "Annis Elegy RH8",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Sports class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item12",
+                            "label": "Obey 9F Cabrio",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Sports class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item13",
+                            "label": "Lampadati Furore GT",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Sports class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item14",
+                            "label": "Invetero Coquette",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Sports class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item15",
+                            "label": "Enus Paragon R",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Sports class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item16",
+                            "label": "Albany Alpha",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Sports class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item17",
+                            "label": "Hijak Khamelion",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Sports class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item18",
+                            "label": "Ubermacht Revolter",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Sports class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item19",
+                            "label": "Vapid Dominator",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Muscle class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item20",
+                            "label": "Declasse Vigero",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Muscle class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item21",
+                            "label": "Imponte Phoenix",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Muscle class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item22",
+                            "label": "Bravado Gauntlet",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Muscle class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item23",
+                            "label": "Cheval Picador",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Muscle class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item24",
+                            "label": "Willard Faction",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Muscle class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item25",
+                            "label": "Albany Buccaneer",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Muscle class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item26",
+                            "label": "Benefactor Schwartzer",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Sports class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item27",
+                            "label": "Dinka Jester",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Sports class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item28",
+                            "label": "Maibatsu Penumbra",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Sports class"
+                            }
+                        },
+                        {
+                            "type": "ADVANCED",
+                            "id": "stock-item29",
+                            "label": "Karin Futo",
+                            "options": {
+                                "disabled": false,
+                                "secondaryLabel": "Sports class"
+                            }
+                        },
+                        {
+                            "type": "GOBACK",
+                            "id": "stock-item30",
+                            "label": "Go back",
+                            "options": {
+                                "disabled": false
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "APP_SHOW"
+        },
+        {
+            "type": "PREVIEW_KEYS",
+            "data": {
+                "keys": [
+                    "ArrowDown",
+                    "ArrowDown",
+                    "ArrowDown",
+                    "ArrowDown",
+                    "ArrowDown",
+                    "ArrowDown",
+                    "ArrowDown",
+                    "ArrowDown",
+                    "ArrowDown",
+                    "ArrowDown",
+                    "ArrowDown",
+                    "ArrowDown",
+                    "ArrowDown",
+                    "ArrowDown",
+                    "ArrowDown",
+                    "ArrowDown",
+                    "ArrowDown",
+                    "ArrowDown",
+                    "ArrowDown",
+                    "ArrowDown",
+                    "ArrowDown",
+                    "ArrowDown"
+                ]
+            },
+            "delay": 100
+        }
+    ]
+}

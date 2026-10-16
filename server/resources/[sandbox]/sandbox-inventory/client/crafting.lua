@@ -217,10 +217,11 @@ end)
 
 RegisterNUICallback("Crafting:Craft", function(data, cb)
 	Callbacks:ServerCallback("Crafting:Craft", data, function(state)
-		if not state.error then
+		if type(state) == "table" and not state.error then
 			cb(state)
 		else
-			Notification:Error(string.format("Error - %s", state.message or "Something Is Broken, Report This"))
+			local message = type(state) == "table" and state.message or nil
+			Notification:Error(string.format("Error - %s", message or "Something Is Broken, Report This"))
 			cb(false)
 		end
 	end)

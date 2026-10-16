@@ -1,0 +1,128 @@
+/*
+ * Phone-wide classes. Everything else lives in component styles.
+ * Text is 16px or more everywhere on the screen; square corners; colour from tokens.
+ */
+
+/* A list of records: each row a button or a block with a bottom rule. */
+.ph-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.ph-list > li {
+    border-bottom: 1px solid var(--au-border);
+}
+.ph-row {
+    display: flex;
+    align-items: center;
+    gap: var(--au-s3);
+    width: 100%;
+    min-height: 56px;
+    padding: var(--au-s2) var(--au-s4);
+    border: 0;
+    background: transparent;
+    color: var(--au-text);
+    font: inherit;
+    font-size: var(--au-fs-xs);
+    text-align: left;
+    cursor: pointer;
+}
+button.ph-row:hover {
+    background: var(--au-bg-alt);
+}
+button.ph-row:focus-visible {
+    outline: 3px solid var(--au-focus);
+    outline-offset: -3px;
+}
+.ph-row.is-selected {
+    background: var(--au-bg-alt-shade);
+    font-weight: 700;
+}
+.ph-row__main {
+    flex: 1;
+    min-width: 0;
+}
+.ph-row__title {
+    display: block;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.ph-row__sub {
+    display: block;
+    color: var(--au-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.ph-row__side {
+    flex-shrink: 0;
+    color: var(--au-muted);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Page padding and a section heading inside an app page. */
+.ph-pad {
+    padding: var(--au-s4);
+}
+.ph-section {
+    margin: 0;
+    padding: var(--au-s4) var(--au-s4) var(--au-s2);
+    font-size: var(--au-fs-xs);
+    font-weight: 700;
+    color: var(--au-text);
+    border-bottom: 1px solid var(--au-border);
+}
+.ph-note {
+    margin: 0;
+    padding: var(--au-s3) var(--au-s4);
+    color: var(--au-muted);
+    font-size: var(--au-fs-xs);
+}
+
+/* Definition rows for one thing. */
+.ph-facts {
+    margin: 0;
+    padding: 0;
+}
+.ph-facts > div {
+    display: grid;
+    grid-template-columns: minmax(96px, 40%) 1fr;
+    gap: var(--au-s1) var(--au-s3);
+    padding: var(--au-s2) var(--au-s4);
+    border-bottom: 1px solid var(--au-border);
+    font-size: var(--au-fs-xs);
+}
+.ph-facts dt {
+    font-weight: 700;
+}
+.ph-facts dd {
+    margin: 0;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-variant-numeric: tabular-nums;
+}
+
+/* A row of buttons under a form or a record. */
+.ph-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--au-s3);
+    padding: var(--au-s4);
+}
+
+/* Forms inside the phone: kit Field components stacked with room for the button bar. */
+.ph-form {
+    padding: var(--au-s4);
+}
+
+.ph-num {
+    font-variant-numeric: tabular-nums;
+}
+
+/* The NUI dev backdrop is set by the preview script; inside the game the page stays transparent. */
+body {
+    background: transparent;
+}

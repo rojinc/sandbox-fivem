@@ -1,0 +1,29 @@
+{
+    "viewport": [1920, 1080],
+    "backdrop": true,
+    "messages": [
+        {
+            "type": "SETUP_MENU",
+            "data": {
+                "data": {
+                    "id": "vehicle_customs_wheels",
+                    "label": "Wheels and lighting",
+                    "subtitle": "Pegassi Zentorno, plate 46EEK572",
+                    "items": [
+                        { "type": "TEXT", "id": "w-item0", "label": "Xenon lights", "options": { "classes": ["heading"] } },
+                        { "type": "CHECKBOX", "id": "w-item1", "label": "Xenon lights - $1,500", "options": { "disabled": false, "selected": true } },
+                        { "type": "SELECT", "id": "w-item2", "label": "Xenon colour - $750", "options": { "disabled": false, "current": 1, "list": [ { "label": "Default", "value": 255 }, { "label": "White", "value": 0 }, { "label": "Blue", "value": 1 }, { "label": "Electric blue", "value": 2 }, { "label": "Mint green", "value": 3 } ] } },
+                        { "type": "TEXT", "id": "w-item3", "label": "Wheels", "options": { "classes": ["heading"] } },
+                        { "type": "TICKER", "id": "w-item4", "label": "Wheels - $2,000", "options": { "disabled": false, "min": -1, "max": 24, "current": 3, "description": "Wheel -1 is the stock wheel. Each step fits the next rim so you can see it on the car." } },
+                        { "type": "SLIDER", "id": "w-item5", "label": "Wheel width", "options": { "disabled": false, "min": 0.2, "max": 2.5, "step": 0.05, "current": 0.75 } },
+                        { "type": "CHECKBOX", "id": "w-item6", "label": "Custom tyre smoke - $1,000", "options": { "disabled": false, "selected": false } },
+                        { "type": "COLORLIST", "id": "w-item7", "options": { "disabled": false, "label": "Tyre smoke colour", "current": 2, "colors": [ { "label": "White", "hex": "#ffffff" }, { "label": "Black", "rgb": { "r": 20, "g": 20, "b": 20 } }, { "label": "Red", "rgb": { "r": 220, "g": 40, "b": 40 } }, { "label": "Orange", "rgb": { "r": 245, "g": 130, "b": 30 } }, { "label": "Yellow", "rgb": { "r": 250, "g": 210, "b": 40 } }, { "label": "Green", "rgb": { "r": 60, "g": 180, "b": 75 } }, { "label": "Blue", "rgb": { "r": 40, "g": 110, "b": 230 } }, { "label": "Purple", "rgb": { "r": 140, "g": 70, "b": 200 } }, { "label": "Pink", "rgb": { "r": 240, "g": 110, "b": 180 } }, { "label": "Brown", "rgb": { "r": 120, "g": 80, "b": 50 } } ] } },
+                        { "type": "GOBACK", "id": "w-item8", "label": "Go back", "options": { "disabled": false } }
+                    ]
+                }
+            }
+        },
+        { "type": "APP_SHOW" },
+        { "type": "PREVIEW_KEYS", "data": { "keys": ["ArrowDown", "ArrowDown"] }, "delay": 100 }
+    ]
+}

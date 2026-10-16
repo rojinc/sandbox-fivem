@@ -1,0 +1,44 @@
+{
+    "viewport": [
+        1920,
+        1080
+    ],
+    "backdrop": true,
+    "messages": [
+        {
+            "type": "SETUP_MENU",
+            "data": {
+                "data": {
+                    "id": "stockViewing",
+                    "label": "Stock in the showroom",
+                    "items": [
+                        {
+                            "type": "SUBMENU",
+                            "id": "stockViewing-motorcycles",
+                            "menu": "stockViewing-motorcycles",
+                            "label": "Motorcycles",
+                            "options": {
+                                "disabled": false
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "APP_SHOW"
+        },
+        {
+            "type": "SUBMENU_OPEN",
+            "delay": 100,
+            "data": {
+                "addHistroy": true,
+                "data": {
+                    "id": "stockViewing-motorcycles",
+                    "label": "Motorcycles",
+                    "items": []
+                }
+            }
+        }
+    ]
+}

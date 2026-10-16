@@ -1,0 +1,12 @@
+{
+  "name": "sandbox-phone-ui",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@sandbox/ui-kit": "*"
+  }
+}

@@ -1,0 +1,25 @@
+{
+    "viewport": [1920, 1080],
+    "backdrop": true,
+    "messages": [
+        {
+            "type": "SETUP_MENU",
+            "data": {
+                "data": {
+                    "id": "salesMenu-zentorno-cash-sale",
+                    "label": "Pegassi Zentorno: new sale",
+                    "items": [
+                        { "type": "TEXT", "id": "c-item0", "label": "\n            Selling vehicle: Pegassi Zentorno<br>\n            Customer pays: $725,000<br>\n            Your commission: $14,500<br>\n        ", "options": { "classes": ["code", "pad"] } },
+                        { "type": "NUMBER", "id": "c-item1", "label": "Customer's state ID", "options": { "disabled": false, "current": "1042" } },
+                        { "type": "INPUT", "id": "c-item2", "label": "Sale note", "options": { "disabled": false, "max": 120, "current": "Paid in full at the Premium Deluxe counter" } },
+                        { "type": "SLIDER", "id": "c-item3", "label": "Dealership profit %", "options": { "disabled": false, "min": 10, "max": 40, "step": 1, "current": 25 } },
+                        { "type": "BUTTON", "id": "c-item4", "label": "Send sale request", "options": { "disabled": false, "success": true } },
+                        { "type": "BUTTON", "id": "c-item5", "label": "Send loan request", "options": { "disabled": true } }
+                    ]
+                }
+            }
+        },
+        { "type": "APP_SHOW" },
+        { "type": "PREVIEW_KEYS", "data": { "keys": ["Enter"] }, "delay": 100 }
+    ]
+}
