@@ -101,7 +101,7 @@
         position: absolute;
         inset: 0;
         border-radius: inherit;
-        background: #fff;
+        background: var(--au-text);
         opacity: 0;
         transition: opacity var(--au-fast) var(--au-ease);
     }
@@ -126,7 +126,7 @@
     }
     .knob__half:focus-visible,
     .powerkey:focus-visible {
-        outline: 2px solid var(--au-focus);
+        outline: 3px solid var(--au-focus);
         outline-offset: 0;
     }
 </style>

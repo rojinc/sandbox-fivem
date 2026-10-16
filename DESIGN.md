@@ -32,7 +32,7 @@ Exceptions to Datum, with reasons:
 - Tabler outline icons (generated subset, `npm run icons`) instead of the 13 house icons: the user's own reference uses Tabler, and Lua sends icon names at runtime (statuses, buffs, menu actions) that need a matching set. Icons still appear only on controls and status.
 - Notifications are toasts with a background tinted by type and no edge bar: the user asked for this explicitly, and the game has no page to place notices on.
 - The in-world HUD follows ThatMadCap/minimal-hud (status bars under the minimap, RPM arc speedometer, compass pills with rounded ends): the user asked for that layout explicitly.
-- Physical devices (radio handset, radar unit, taxi meter, phone, laptop) are drawn as the device, at the device's size: the user asked for the radio inside its handset image.
+- Physical devices (radio handset, radar unit, taxi meter, phone, laptop) are drawn as the device, at the device's size: the user asked for the radio inside its handset image. A field that always holds the caret on a device screen (the radio frequency) keeps a plain ink edge instead of the permanent gold focus ring.
 - No panel behind text placed on the game world or a photo (progress bars, loading status, prompts, death text): text shadow instead (`.au-overworld`). User instruction.
 - No key hints or guide footers anywhere. User instruction.
 - Text in the in-world HUD readouts (status values, compass) is smaller than 16px so the HUD stays out of the way; every menu, dialog, prompt and app uses 16px or more.

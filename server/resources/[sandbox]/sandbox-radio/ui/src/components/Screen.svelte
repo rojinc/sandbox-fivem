@@ -1,5 +1,6 @@
 <script>
-    import { Icon, uid, clamp } from '@sandbox/ui-kit';
+    import { tick } from 'svelte';
+    import { Icon, TextInput, uid, clamp } from '@sandbox/ui-kit';
     import { radio } from '../state/radio.svelte.js';
     import { formatFrequency, parseEntry } from '../lib/entry.js';
     import { rangeFor, inRange } from '../lib/ranges.js';
@@ -8,17 +9,16 @@
     /**
      * The handset's backlit display, drawn behind the cut-out of the frame image.
      * Off: a black screen. On: status row, channel readout (or what a knob just did),
-     * the frequency entry and a row of soft keys.
+     * the frequency entry and a row of soft keys. Readable text is 16px or more.
      */
     const inputId = uid('freq');
     const SEGMENTS = Array.from({ length: 10 }, (_, i) => i);
     let entry = $state('');
-    let input = $state();
 
-    const range = $derived(rangeFor(radio.type));
+    const range = $derived(rangeFor(radio.type) ?? { min: 1, max: 9999 });
     const parsed = $derived(parseEntry(entry));
-    const outOfRange = $derived(parsed !== null && !inRange(radio.type, parsed));
-    const malformed = $derived(entry.trim() !== '' && parsed === null);
+    // Anything typed that Lua would refuse: outside this radio's range, or not a frequency at all.
+    const invalid = $derived(entry.trim() !== '' && (parsed === null || !inRange(radio.type, parsed)));
     const busy = $derived(radio.pending !== null);
 
     const onChannel = $derived(radio.frequency > 0);
@@ -29,13 +29,13 @@
     const model = $derived(String(radio.typeName || 'Radio').replace(/\s+radio$/i, '') || 'Radio');
     const volume = $derived(Math.round(clamp(radio.volume, 0, 200)));
 
-    // One small word above the channel, in priority order (see CONTRACT.md).
+    // One word above the channel, in priority order (see CONTRACT.md).
     const state = $derived.by(() => {
         if (radio.pending !== null) return { text: 'Tuning', freq: radio.pending, tone: 'muted' };
         if (radio.notice?.kind === 'refused') return { text: 'Refused', freq: radio.notice.frequency, tone: 'error' };
         if (radio.notice?.kind === 'tuned') return { text: 'Tuned', tone: 'success' };
         if (onChannel) return { text: 'Receiving', tone: 'muted' };
-        return { text: 'Standby', tone: 'hint' };
+        return { text: 'Standby', tone: 'muted' };
     });
 
     const canDown = $derived(!busy && stepTarget(-1) !== null);
@@ -43,17 +43,15 @@
 
     // The entry takes the keyboard whenever the screen is lit (on open and on power-on).
     $effect(() => {
-        input?.focus({ preventScroll: true });
-    });
-    $effect(() => {
-        if (!radio.power) entry = '';
+        if (radio.power) tick().then(() => document.getElementById(inputId)?.focus({ preventScroll: true }));
+        else entry = '';
     });
 
-    function onInput(e) {
-        // Digits and one separator only; Lua rounds to one decimal.
-        entry = e.currentTarget.value.replace(/[^\d.,]/g, '').slice(0, 7);
-        e.currentTarget.value = entry;
-    }
+    // Digits and one separator only, at most "1337.55"; Lua rounds to one decimal.
+    $effect(() => {
+        const clean = entry.replace(/[^\d.,]/g, '').slice(0, 7);
+        if (clean !== entry) entry = clean;
+    });
 
     function submit(e) {
         e?.preventDefault();
@@ -101,27 +99,20 @@
         </div>
 
         <form class="entry" onsubmit={submit} autocomplete="off">
-            <div class="entry__head">
-                <label for={inputId}>Frequency</label>
-                {#if outOfRange}
-                    <span class="is-warning" id="{inputId}-msg">Out of range</span>
-                {:else if malformed}
-                    <span class="is-warning" id="{inputId}-msg">Not a frequency</span>
-                {/if}
-            </div>
-            <input
-                bind:this={input}
+            <label class="entry__label" for={inputId}>Frequency</label>
+            <span class="entry__hint" class:is-error={invalid} id="{inputId}-hint">
+                {invalid ? `Use ${range.min} to ${range.max}` : `${range.min} to ${range.max}`}
+            </span>
+            <TextInput
                 id={inputId}
-                class="entry__input au-mono"
-                type="text"
+                size="sm"
+                mono
                 inputmode="decimal"
                 spellcheck="false"
                 maxlength="7"
-                placeholder={range ? `${range.min}–${range.max}` : '1–9999'}
-                aria-invalid={outOfRange || malformed}
-                aria-describedby={outOfRange || malformed ? `${inputId}-msg` : undefined}
-                value={entry}
-                oninput={onInput}
+                {invalid}
+                aria-describedby="{inputId}-hint"
+                bind:value={entry}
             />
         </form>
 
@@ -140,25 +131,25 @@
 </div>
 
 <style>
-    /* A dim backlit LCD: one flat dark colour, lit text, nothing decorative. */
+    /* A dim backlit LCD: one flat dark colour, lit text, nothing decorative. Powered off it is black. */
     .lcd {
-        --lcd-bg: #0f1113;
-        --lcd-line: var(--au-border);
+        --lcd-bg: var(--au-bg-sunk);
         position: relative;
         display: flex;
         flex-direction: column;
         width: 100%;
         height: 100%;
         background: var(--lcd-bg);
-        /* bleed the same flat colour under the frame's soft inner edge */
+        /* the same flat colour carried under the frame's soft inner edge, so no gap shows */
         box-shadow: 0 0 0 4px var(--lcd-bg);
         color: var(--au-text);
-        line-height: 1.25;
+        font-size: var(--au-fs-xs);
+        line-height: 24px;
         user-select: none;
         transition: background var(--au-normal) var(--au-ease), box-shadow var(--au-normal) var(--au-ease);
     }
     .lcd.is-off {
-        --lcd-bg: #08090a;
+        --lcd-bg: var(--hud-black);
     }
 
     /* status row: model, signal, volume */
@@ -166,32 +157,30 @@
         display: flex;
         align-items: center;
         gap: var(--au-s2);
-        height: 28px;
+        height: 32px;
+        flex-shrink: 0;
         padding: 0 var(--au-s3);
-        border-bottom: 1px solid var(--lcd-line);
-        font-size: var(--au-fs-xxs);
+        border-bottom: 1px solid var(--au-border);
         color: var(--au-muted);
     }
     .lcd__model {
         flex: 1;
         min-width: 0;
-        font-weight: 500;
     }
     .signal {
         display: inline-flex;
         align-items: flex-end;
         gap: 1px;
-        height: 10px;
+        height: 12px;
     }
     .signal i {
         width: 3px;
-        background: var(--au-border-strong);
-        border-radius: 1px;
+        background: var(--au-border);
     }
-    .signal i:nth-child(1) { height: 4px; }
+    .signal i:nth-child(1) { height: 3px; }
     .signal i:nth-child(2) { height: 6px; }
-    .signal i:nth-child(3) { height: 8px; }
-    .signal i:nth-child(4) { height: 10px; }
+    .signal i:nth-child(3) { height: 9px; }
+    .signal i:nth-child(4) { height: 12px; }
     .signal.is-live i {
         background: var(--au-text);
     }
@@ -207,16 +196,14 @@
     }
     .minibar {
         position: relative;
-        width: 20px;
-        height: 6px;
-        border: 1px solid var(--au-border-strong);
-        border-radius: 1px;
+        width: 16px;
+        height: 8px;
+        border: 1px solid var(--au-muted);
     }
     .minibar span {
         position: absolute;
         inset: 0 auto 0 0;
         background: var(--au-text);
-        transition: width var(--au-fast) var(--au-ease);
     }
 
     /* channel readout */
@@ -225,18 +212,12 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: var(--au-s1);
         min-height: 0;
         padding: 0 var(--au-s3);
     }
     .lcd__word {
-        font-size: var(--au-fs-xxs);
-        line-height: 16px;
         color: var(--au-muted);
         white-space: nowrap;
-    }
-    .lcd__word.is-hint {
-        color: var(--au-hint);
     }
     .lcd__word.is-error {
         color: var(--au-error);
@@ -246,91 +227,73 @@
     }
     .lcd__digits {
         font-size: var(--au-fs-xxl);
-        font-weight: 500;
+        font-weight: 700;
         line-height: 48px;
-        letter-spacing: -1px;
         white-space: nowrap;
     }
     .lcd__name {
-        font-size: var(--au-fs-xs);
-        font-weight: 500;
-        line-height: 20px;
+        font-size: var(--au-fs-sm);
+        font-weight: 700;
+        line-height: 24px;
     }
     .lcd__big-word {
         font-size: var(--au-fs-lg);
-        font-weight: 500;
+        font-weight: 700;
         line-height: 48px;
     }
     .is-dim {
-        color: var(--au-hint);
+        color: var(--au-muted);
     }
     .meter {
         display: flex;
         gap: 2px;
         height: 8px;
+        margin-top: var(--au-s1);
     }
     .meter span {
         flex: 1;
         background: var(--au-bg-alt-shade);
-        border-radius: 1px;
     }
     .meter span.is-lit {
         background: var(--au-text);
     }
 
-    /* frequency entry */
+    /* frequency entry: label, hint (the error in the same place), field */
     .entry {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
         margin: 0;
         padding: 0 var(--au-s3) var(--au-s3);
     }
-    .entry__head {
-        display: flex;
-        justify-content: space-between;
-        gap: var(--au-s2);
+    .entry__label {
+        font-weight: 700;
+    }
+    .entry__hint {
         margin-bottom: var(--au-s1);
-        font-size: var(--au-fs-xxs);
-        line-height: 16px;
-        color: var(--au-hint);
+        color: var(--au-muted);
         white-space: nowrap;
     }
-    .entry__head .is-warning {
-        color: var(--au-warning);
+    .entry__hint.is-error {
+        color: var(--au-error);
+        font-weight: 700;
     }
-    .entry__input {
-        display: block;
-        box-sizing: border-box;
-        width: 100%;
-        height: 32px;
-        margin: 0;
-        padding: 0 var(--au-s2);
-        font-size: var(--au-fs-sm);
-        color: var(--au-text);
-        caret-color: var(--au-text);
-        background: var(--au-bg-sunk);
-        border: 1px solid var(--lcd-line);
-        border-radius: var(--au-radius);
+    /* The caret lives in this field whenever the radio is open, so the app-wide
+       gold focus ring would be on permanently; on the device screen the field
+       keeps a plain ink edge instead (an exception recorded in DESIGN.md). */
+    .entry :global(.au-input:focus) {
         outline: none;
-        transition: border-color var(--au-fast) var(--au-ease);
-    }
-    .entry__input::placeholder {
-        color: var(--au-hint);
-    }
-    .entry__input:focus {
-        border-color: var(--au-border-strong);
-    }
-    .entry__input:focus-visible {
-        outline: none;
-    }
-    .entry__input[aria-invalid='true'] {
-        border-color: var(--au-warning);
+        box-shadow: none;
+        border-color: var(--au-ink);
     }
 
     /* soft keys along the bottom edge of the display */
     .softkeys {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        height: 32px;
-        border-top: 1px solid var(--lcd-line);
+        flex-shrink: 0;
+        height: 40px;
+        border-top: 1px solid var(--au-border);
     }
     .softkey {
         display: inline-flex;
@@ -340,8 +303,7 @@
         margin: 0;
         padding: 0;
         font: inherit;
-        font-size: var(--au-fs-xxs);
-        font-weight: 500;
+        font-weight: 700;
         color: var(--au-text);
         background: transparent;
         border: 0;
@@ -355,11 +317,11 @@
         background: var(--au-bg-alt-shade);
     }
     .softkey:disabled {
-        color: var(--au-border-strong);
+        color: var(--au-border);
         cursor: default;
     }
     .softkey:focus-visible {
-        outline: 2px solid var(--au-focus);
-        outline-offset: -2px;
+        outline: 3px solid var(--au-focus);
+        outline-offset: -3px;
     }
 </style>

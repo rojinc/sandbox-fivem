@@ -67,21 +67,23 @@ ultrawide screens do not get a handset taller than the screen. It slides in from
 (200 ms, none with reduced motion).
 
 * The frame image sits on top with `pointer-events: none`; the screen sits behind the cut-out.
-* Screen (`components/Screen.svelte`), a dim backlit LCD: status row (model from `typeName` without
-  the "Radio" suffix, signal bars, a small volume bar and %), the state word, the channel number in
-  Roboto Mono, the channel name, the frequency entry (placeholder = the radio's range, "Out of range"
-  / "Not a frequency" next to its label), and three soft keys: Ch down, Tune (shown while the entry
-  holds a frequency), Ch up.
+* Screen (`components/Screen.svelte`), a dim backlit LCD (`--au-bg-sunk`; black `--hud-black` when
+  off) with every readable line at 16px or more: status row (model from `typeName` without the
+  "Radio" suffix, signal bars, a small volume bar and %), the state word, the channel number in
+  Roboto Mono, the channel name, the frequency entry (kit `TextInput`: label "Frequency", hint
+  "100 to 2000" under it, which turns into the error "Use 100 to 2000" when the typed value is out of
+  range or not a frequency), and three soft keys: Ch down, Tune (shown while the entry holds a
+  frequency), Ch up.
 * Hotspots (`components/Handset.svelte`): each knob is split into a left (down) and right (up) half
-  with a `title` tooltip; hovering lightens only the knob's metal (a white layer masked with the
-  frame's own alpha). The wheel over a knob turns it, one step per 90 ms. The power key is the pill
+  with a `title` tooltip; hovering lightens only the knob's metal (an ink layer masked with the
+  frame's own alpha); keyboard focus shows the kit's gold outline. The wheel over a knob turns it, one step per 90 ms. The power key is the pill
   in the bottom rocker.
 
 ## Ranges shown as hints (mirrored from `config.lua`)
 
 `src/lib/ranges.js` mirrors `_radioData` (1: 1–9999, 2: 100–2000, 3: 100–1000) for the entry's
-placeholder, the "Out of range" warning beside its label, and to clamp the Ch soft keys (the one
-at the end of the range is disabled). Every request is still sent to Lua, which is the authority; a refusal
+hint and error, and to clamp the Ch soft keys (the one at the end of the range is disabled).
+A radio with no known type uses 1 to 9999. Every request is still sent to Lua, which is the authority; a refusal
 arrives as `UPDATE_DATA` with the frequency unchanged.
 
 ## Dropped (dead, UI-only or contradicted by Lua)
