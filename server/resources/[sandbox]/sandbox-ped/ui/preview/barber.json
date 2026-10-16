@@ -1,0 +1,2088 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "settle": 500,
+  "wait": 900,
+  "messages": [
+    {
+      "type": "SET_PRICING",
+      "data": {
+        "pricing": {
+          "CREATOR": 0,
+          "BARBER": 100,
+          "SHOP": 100,
+          "TATTOO": 100,
+          "SURGERY": 2500
+        }
+      }
+    },
+    {
+      "type": "SET_TATTOOS_DATA",
+      "data": {
+        "data": [
+          {
+            "Collection": "mpairraces_overlays",
+            "Name": "TAT_AR_000",
+            "HashNameMale": "MP_Airraces_Tattoo_000_M",
+            "HashNameFemale": "MP_Airraces_Tattoo_000_F",
+            "Zone": "ZONE_TORSO"
+          },
+          {
+            "Collection": "mpairraces_overlays",
+            "Name": "TAT_AR_001",
+            "HashNameMale": "MP_Airraces_Tattoo_001_M",
+            "HashNameFemale": "MP_Airraces_Tattoo_001_F",
+            "Zone": "ZONE_TORSO"
+          },
+          {
+            "Collection": "mpairraces_overlays",
+            "Name": "TAT_AR_002",
+            "HashNameMale": "MP_Airraces_Tattoo_002_M",
+            "HashNameFemale": "MP_Airraces_Tattoo_002_F",
+            "Zone": "ZONE_TORSO"
+          },
+          {
+            "Collection": "mpairraces_overlays",
+            "Name": "TAT_AR_003",
+            "HashNameMale": "MP_Airraces_Tattoo_003_M",
+            "HashNameFemale": "MP_Airraces_Tattoo_003_F",
+            "Zone": "ZONE_LEFT_ARM"
+          },
+          {
+            "Collection": "mpairraces_overlays",
+            "Name": "TAT_AR_004",
+            "HashNameMale": "MP_Airraces_Tattoo_004_M",
+            "HashNameFemale": "MP_Airraces_Tattoo_004_F",
+            "Zone": "ZONE_TORSO"
+          },
+          {
+            "Collection": "mpairraces_overlays",
+            "Name": "TAT_AR_005",
+            "HashNameMale": "MP_Airraces_Tattoo_005_M",
+            "HashNameFemale": "MP_Airraces_Tattoo_005_F",
+            "Zone": "ZONE_TORSO"
+          },
+          {
+            "Collection": "mpairraces_overlays",
+            "Name": "TAT_AR_006",
+            "HashNameMale": "MP_Airraces_Tattoo_006_M",
+            "HashNameFemale": "MP_Airraces_Tattoo_006_F",
+            "Zone": "ZONE_TORSO"
+          },
+          {
+            "Collection": "mpairraces_overlays",
+            "Name": "TAT_AR_007",
+            "HashNameMale": "MP_Airraces_Tattoo_007_M",
+            "HashNameFemale": "MP_Airraces_Tattoo_007_F",
+            "Zone": "ZONE_TORSO"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_000",
+            "HashNameMale": "MP_MP_Biker_Tat_000_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_000_F",
+            "Zone": "ZONE_TORSO"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_001",
+            "HashNameMale": "MP_MP_Biker_Tat_001_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_001_F",
+            "Zone": "ZONE_TORSO"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_002",
+            "HashNameMale": "MP_MP_Biker_Tat_002_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_002_F",
+            "Zone": "ZONE_LEFT_LEG"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_003",
+            "HashNameMale": "MP_MP_Biker_Tat_003_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_003_F",
+            "Zone": "ZONE_TORSO"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_004",
+            "HashNameMale": "MP_MP_Biker_Tat_004_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_004_F",
+            "Zone": "ZONE_RIGHT_LEG"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_007",
+            "HashNameMale": "MP_MP_Biker_Tat_007_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_007_F",
+            "Zone": "ZONE_RIGHT_ARM"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_009",
+            "HashNameMale": "MP_MP_Biker_Tat_009_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_009_F",
+            "Zone": "ZONE_HEAD"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_012",
+            "HashNameMale": "MP_MP_Biker_Tat_012_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_012_F",
+            "Zone": "ZONE_LEFT_ARM"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_014",
+            "HashNameMale": "MP_MP_Biker_Tat_014_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_014_F",
+            "Zone": "ZONE_RIGHT_ARM"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_015",
+            "HashNameMale": "MP_MP_Biker_Tat_015_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_015_F",
+            "Zone": "ZONE_LEFT_LEG"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_016",
+            "HashNameMale": "MP_MP_Biker_Tat_016_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_016_F",
+            "Zone": "ZONE_LEFT_ARM"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_020",
+            "HashNameMale": "MP_MP_Biker_Tat_020_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_020_F",
+            "Zone": "ZONE_LEFT_ARM"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_022",
+            "HashNameMale": "MP_MP_Biker_Tat_022_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_022_F",
+            "Zone": "ZONE_RIGHT_LEG"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_024",
+            "HashNameMale": "MP_MP_Biker_Tat_024_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_024_F",
+            "Zone": "ZONE_LEFT_ARM"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_025",
+            "HashNameMale": "MP_MP_Biker_Tat_025_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_025_F",
+            "Zone": "ZONE_LEFT_ARM"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_027",
+            "HashNameMale": "MP_MP_Biker_Tat_027_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_027_F",
+            "Zone": "ZONE_LEFT_LEG"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_028",
+            "HashNameMale": "MP_MP_Biker_Tat_028_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_028_F",
+            "Zone": "ZONE_RIGHT_LEG"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_033",
+            "HashNameMale": "MP_MP_Biker_Tat_033_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_033_F",
+            "Zone": "ZONE_RIGHT_ARM"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_035",
+            "HashNameMale": "MP_MP_Biker_Tat_035_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_035_F",
+            "Zone": "ZONE_LEFT_ARM"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_036",
+            "HashNameMale": "MP_MP_Biker_Tat_036_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_036_F",
+            "Zone": "ZONE_LEFT_LEG"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_037",
+            "HashNameMale": "MP_MP_Biker_Tat_037_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_037_F",
+            "Zone": "ZONE_LEFT_LEG"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_038",
+            "HashNameMale": "MP_MP_Biker_Tat_038_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_038_F",
+            "Zone": "ZONE_HEAD"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_040",
+            "HashNameMale": "MP_MP_Biker_Tat_040_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_040_F",
+            "Zone": "ZONE_RIGHT_LEG"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_042",
+            "HashNameMale": "MP_MP_Biker_Tat_042_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_042_F",
+            "Zone": "ZONE_RIGHT_ARM"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_044",
+            "HashNameMale": "MP_MP_Biker_Tat_044_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_044_F",
+            "Zone": "ZONE_LEFT_LEG"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_045",
+            "HashNameMale": "MP_MP_Biker_Tat_045_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_045_F",
+            "Zone": "ZONE_LEFT_ARM"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_046",
+            "HashNameMale": "MP_MP_Biker_Tat_046_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_046_F",
+            "Zone": "ZONE_RIGHT_ARM"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_047",
+            "HashNameMale": "MP_MP_Biker_Tat_047_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_047_F",
+            "Zone": "ZONE_RIGHT_ARM"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_048",
+            "HashNameMale": "MP_MP_Biker_Tat_048_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_048_F",
+            "Zone": "ZONE_RIGHT_LEG"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_049",
+            "HashNameMale": "MP_MP_Biker_Tat_049_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_049_F",
+            "Zone": "ZONE_RIGHT_ARM"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_051",
+            "HashNameMale": "MP_MP_Biker_Tat_051_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_051_F",
+            "Zone": "ZONE_HEAD"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_053",
+            "HashNameMale": "MP_MP_Biker_Tat_053_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_053_F",
+            "Zone": "ZONE_LEFT_ARM"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_054",
+            "HashNameMale": "MP_MP_Biker_Tat_054_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_054_F",
+            "Zone": "ZONE_RIGHT_ARM"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_055",
+            "HashNameMale": "MP_MP_Biker_Tat_055_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_055_F",
+            "Zone": "ZONE_LEFT_ARM"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_056",
+            "HashNameMale": "MP_MP_Biker_Tat_056_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_056_F",
+            "Zone": "ZONE_LEFT_LEG"
+          },
+          {
+            "Collection": "mpbiker_overlays",
+            "Name": "TAT_BI_057",
+            "HashNameMale": "MP_MP_Biker_Tat_057_M",
+            "HashNameFemale": "MP_MP_Biker_Tat_057_F",
+            "Zone": "ZONE_LEFT_LEG"
+          },
+          {
+            "Collection": "mpchristmas2017_overlays",
+            "Name": "TAT_H27_006",
+            "HashNameMale": "MP_Christmas2017_Tattoo_006_M",
+            "HashNameFemale": "MP_Christmas2017_Tattoo_006_F",
+            "Zone": "ZONE_RIGHT_ARM"
+          },
+          {
+            "Collection": "mpchristmas2017_overlays",
+            "Name": "TAT_H27_012",
+            "HashNameMale": "MP_Christmas2017_Tattoo_012_M",
+            "HashNameFemale": "MP_Christmas2017_Tattoo_012_F",
+            "Zone": "ZONE_RIGHT_ARM"
+          },
+          {
+            "Collection": "mpchristmas2_overlays",
+            "Name": "TAT_X2_001",
+            "HashNameMale": "MP_Xmas2_M_Tat_001",
+            "HashNameFemale": "MP_Xmas2_F_Tat_001",
+            "Zone": "ZONE_LEFT_LEG"
+          },
+          {
+            "Collection": "mpchristmas2_overlays",
+            "Name": "TAT_X2_002",
+            "HashNameMale": "MP_Xmas2_M_Tat_002",
+            "HashNameFemale": "MP_Xmas2_F_Tat_002",
+            "Zone": "ZONE_LEFT_LEG"
+          },
+          {
+            "Collection": "mpchristmas2_overlays",
+            "Name": "TAT_X2_007",
+            "HashNameMale": "MP_Xmas2_M_Tat_007",
+            "HashNameFemale": "MP_Xmas2_F_Tat_007",
+            "Zone": "ZONE_HEAD"
+          },
+          {
+            "Collection": "mpchristmas2_overlays",
+            "Name": "TAT_X2_014",
+            "HashNameMale": "MP_Xmas2_M_Tat_014",
+            "HashNameFemale": "MP_Xmas2_F_Tat_014",
+            "Zone": "ZONE_RIGHT_LEG"
+          },
+          {
+            "Collection": "mpchristmas2_overlays",
+            "Name": "TAT_X2_024",
+            "HashNameMale": "MP_Xmas2_M_Tat_024",
+            "HashNameFemale": "MP_Xmas2_F_Tat_024",
+            "Zone": "ZONE_HEAD"
+          },
+          {
+            "Collection": "mpchristmas2_overlays",
+            "Name": "TAT_X2_025",
+            "HashNameMale": "MP_Xmas2_M_Tat_025",
+            "HashNameFemale": "MP_Xmas2_F_Tat_025",
+            "Zone": "ZONE_HEAD"
+          },
+          {
+            "Collection": "mpchristmas2_overlays",
+            "Name": "TAT_X2_029",
+            "HashNameMale": "MP_Xmas2_M_Tat_029",
+            "HashNameFemale": "MP_Xmas2_F_Tat_029",
+            "Zone": "ZONE_HEAD"
+          },
+          {
+            "Collection": "mpgunrunning_overlays",
+            "Name": "TAT_GR_003",
+            "HashNameMale": "MP_Gunrunning_Tattoo_003_M",
+            "HashNameFemale": "MP_Gunrunning_Tattoo_003_F",
+            "Zone": "ZONE_HEAD"
+          },
+          {
+            "Collection": "mpgunrunning_overlays",
+            "Name": "TAT_GR_006",
+            "HashNameMale": "MP_Gunrunning_Tattoo_006_M",
+            "HashNameFemale": "MP_Gunrunning_Tattoo_006_F",
+            "Zone": "ZONE_RIGHT_LEG"
+          },
+          {
+            "Collection": "mpgunrunning_overlays",
+            "Name": "TAT_GR_026",
+            "HashNameMale": "MP_Gunrunning_Tattoo_026_M",
+            "HashNameFemale": "MP_Gunrunning_Tattoo_026_F",
+            "Zone": "ZONE_RIGHT_LEG"
+          },
+          {
+            "Collection": "mpgunrunning_overlays",
+            "Name": "TAT_GR_030",
+            "HashNameMale": "MP_Gunrunning_Tattoo_030_M",
+            "HashNameFemale": "MP_Gunrunning_Tattoo_030_F",
+            "Zone": "ZONE_RIGHT_LEG"
+          },
+          {
+            "Collection": "mphipster_overlays",
+            "Name": "TAT_HP_005",
+            "HashNameMale": "FM_Hip_M_Tat_005",
+            "HashNameFemale": "FM_Hip_F_Tat_005",
+            "Zone": "ZONE_HEAD"
+          },
+          {
+            "Collection": "mphipster_overlays",
+            "Name": "TAT_HP_021",
+            "HashNameMale": "FM_Hip_M_Tat_021",
+            "HashNameFemale": "FM_Hip_F_Tat_021",
+            "Zone": "ZONE_HEAD"
+          },
+          {
+            "Collection": "mphipster_overlays",
+            "Name": "TAT_HP_038",
+            "HashNameMale": "FM_Hip_M_Tat_038",
+            "HashNameFemale": "FM_Hip_F_Tat_038",
+            "Zone": "ZONE_RIGHT_LEG"
+          }
+        ]
+      }
+    },
+    {
+      "type": "SET_PED_DATA",
+      "data": {
+        "ped": {
+          "model": "mp_m_freemode_01",
+          "customization": {
+            "face": {
+              "face1": {
+                "index": 4,
+                "texture": 2,
+                "mix": 50
+              },
+              "face2": {
+                "index": 21,
+                "texture": 9,
+                "mix": 50
+              },
+              "face3": {
+                "index": 7,
+                "texture": 0,
+                "mix": 100
+              },
+              "features": [
+                12,
+                -8,
+                0,
+                20,
+                0,
+                0,
+                5,
+                0,
+                -15,
+                0,
+                0,
+                0,
+                10,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            "eyeColor": 3,
+            "overlay": {
+              "blemish": {
+                "id": 0,
+                "index": 0,
+                "opacity": 100,
+                "disabled": true
+              },
+              "facialhair": {
+                "id": 1,
+                "index": 10,
+                "opacity": 100,
+                "disabled": false,
+                "color1": 2
+              },
+              "eyebrows": {
+                "id": 2,
+                "index": 3,
+                "opacity": 100,
+                "disabled": false,
+                "color1": 0
+              },
+              "ageing": {
+                "id": 3,
+                "index": 0,
+                "opacity": 100,
+                "disabled": true
+              },
+              "makeup": {
+                "id": 4,
+                "index": 12,
+                "opacity": 80,
+                "disabled": false,
+                "color1": 5,
+                "color2": 14
+              },
+              "blush": {
+                "id": 5,
+                "index": 2,
+                "opacity": 60,
+                "disabled": false,
+                "color1": 3
+              },
+              "complexion": {
+                "id": 6,
+                "index": 0,
+                "opacity": 100,
+                "disabled": true
+              },
+              "sundamage": {
+                "id": 7,
+                "index": 2,
+                "opacity": 40,
+                "disabled": false
+              },
+              "lipstick": {
+                "id": 8,
+                "index": 1,
+                "opacity": 90,
+                "disabled": false,
+                "color1": 7
+              },
+              "freckles": {
+                "id": 9,
+                "index": 4,
+                "opacity": 55,
+                "disabled": false
+              },
+              "chesthair": {
+                "id": 10,
+                "index": 3,
+                "opacity": 100,
+                "disabled": false,
+                "color1": 2
+              },
+              "bodyblemish": {
+                "id": 11,
+                "index": 0,
+                "opacity": 100,
+                "disabled": true
+              },
+              "addbodyblemish": {
+                "id": 12,
+                "index": 0,
+                "opacity": 100,
+                "disabled": true
+              }
+            },
+            "colors": {
+              "hair": {
+                "color1": {
+                  "index": 3,
+                  "rgb": "rgb(53, 38, 28)"
+                },
+                "color2": {
+                  "index": 7,
+                  "rgb": "rgb(211, 94, 4)"
+                }
+              },
+              "facialhair": {
+                "color1": {
+                  "index": 2,
+                  "rgb": "rgb(49, 46, 44)"
+                },
+                "color2": {
+                  "index": 2,
+                  "rgb": "rgb(49, 46, 44)"
+                }
+              },
+              "eyebrows": {
+                "color1": {
+                  "index": 0,
+                  "rgb": "rgb(28, 31, 33)"
+                },
+                "color2": {
+                  "index": 0,
+                  "rgb": "rgb(28, 31, 33)"
+                }
+              },
+              "chesthair": {
+                "color1": {
+                  "index": 2,
+                  "rgb": "rgb(49, 46, 44)"
+                },
+                "color2": {
+                  "index": 2,
+                  "rgb": "rgb(49, 46, 44)"
+                }
+              }
+            },
+            "components": {
+              "face": {
+                "componentId": 0,
+                "drawableId": 0,
+                "textureId": 0,
+                "paletteId": 0
+              },
+              "mask": {
+                "componentId": 1,
+                "drawableId": 0,
+                "textureId": 0,
+                "paletteId": 0
+              },
+              "hair": {
+                "componentId": 2,
+                "drawableId": 4,
+                "textureId": 0,
+                "paletteId": 0
+              },
+              "torso": {
+                "componentId": 3,
+                "drawableId": 15,
+                "textureId": 0,
+                "paletteId": 0
+              },
+              "leg": {
+                "componentId": 4,
+                "drawableId": 61,
+                "textureId": 3,
+                "paletteId": 0
+              },
+              "bag": {
+                "componentId": 5,
+                "drawableId": 0,
+                "textureId": 0,
+                "paletteId": 0
+              },
+              "shoes": {
+                "componentId": 6,
+                "drawableId": 34,
+                "textureId": 1,
+                "paletteId": 0
+              },
+              "accessory": {
+                "componentId": 7,
+                "drawableId": 0,
+                "textureId": 0,
+                "paletteId": 0
+              },
+              "undershirt": {
+                "componentId": 8,
+                "drawableId": 15,
+                "textureId": 0,
+                "paletteId": 0
+              },
+              "kevlar": {
+                "componentId": 9,
+                "drawableId": 0,
+                "textureId": 0,
+                "paletteId": 0
+              },
+              "badge": {
+                "componentId": 10,
+                "drawableId": 0,
+                "textureId": 0,
+                "paletteId": 0
+              },
+              "torso2": {
+                "componentId": 11,
+                "drawableId": 15,
+                "textureId": 2,
+                "paletteId": 0
+              }
+            },
+            "props": {
+              "hat": {
+                "componentId": 0,
+                "drawableId": 12,
+                "textureId": 1,
+                "disabled": false
+              },
+              "glass": {
+                "componentId": 1,
+                "drawableId": 5,
+                "textureId": 0,
+                "disabled": true
+              },
+              "ear": {
+                "componentId": 2,
+                "drawableId": 0,
+                "textureId": 0,
+                "disabled": true
+              },
+              "watch": {
+                "componentId": 6,
+                "drawableId": 3,
+                "textureId": 0,
+                "disabled": false
+              },
+              "bracelet": {
+                "componentId": 7,
+                "drawableId": 0,
+                "textureId": 0,
+                "disabled": true
+              }
+            },
+            "tattoos": [
+              {
+                "Collection": "mpairraces_overlays",
+                "Name": "TAT_AR_000",
+                "HashNameMale": "MP_Airraces_Tattoo_000_M",
+                "HashNameFemale": "MP_Airraces_Tattoo_000_F",
+                "Zone": "ZONE_TORSO"
+              },
+              {
+                "Collection": "mpairraces_overlays",
+                "Name": "TAT_AR_004",
+                "HashNameMale": "MP_Airraces_Tattoo_004_M",
+                "HashNameFemale": "MP_Airraces_Tattoo_004_F",
+                "Zone": "ZONE_TORSO"
+              },
+              {
+                "Collection": "mpairraces_overlays",
+                "Name": "TAT_AR_003",
+                "HashNameMale": "MP_Airraces_Tattoo_003_M",
+                "HashNameFemale": "MP_Airraces_Tattoo_003_F",
+                "Zone": "ZONE_LEFT_ARM"
+              },
+              {
+                "Name": "",
+                "Collection": "",
+                "Hash": "",
+                "Zone": "ZONE_TORSO"
+              }
+            ],
+            "hairOverlay": -1
+          }
+        },
+        "gender": 0
+      }
+    },
+    {
+      "type": "SET_STATE",
+      "data": {
+        "state": "BARBER"
+      }
+    },
+    {
+      "type": "APP_SHOW"
+    },
+    {
+      "type": "SET_MAX_DRAWABLE",
+      "data": {
+        "id": 11,
+        "type": "components",
+        "max": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99,
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119
+        ]
+      },
+      "delay": 150
+    },
+    {
+      "type": "SET_MAX_TEXTURE",
+      "data": {
+        "id": 11,
+        "type": "components",
+        "max": 8
+      }
+    },
+    {
+      "type": "SET_MAX_DRAWABLE",
+      "data": {
+        "id": 8,
+        "type": "components",
+        "max": [
+          0,
+          1,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59
+        ]
+      }
+    },
+    {
+      "type": "SET_MAX_TEXTURE",
+      "data": {
+        "id": 8,
+        "type": "components",
+        "max": 4
+      }
+    },
+    {
+      "type": "SET_MAX_DRAWABLE",
+      "data": {
+        "id": 9,
+        "type": "components",
+        "max": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ]
+      }
+    },
+    {
+      "type": "SET_MAX_TEXTURE",
+      "data": {
+        "id": 9,
+        "type": "components",
+        "max": 3
+      }
+    },
+    {
+      "type": "SET_MAX_DRAWABLE",
+      "data": {
+        "id": 4,
+        "type": "components",
+        "max": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89
+        ]
+      }
+    },
+    {
+      "type": "SET_MAX_TEXTURE",
+      "data": {
+        "id": 4,
+        "type": "components",
+        "max": 6
+      }
+    },
+    {
+      "type": "SET_MAX_DRAWABLE",
+      "data": {
+        "id": 6,
+        "type": "components",
+        "max": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69
+        ]
+      }
+    },
+    {
+      "type": "SET_MAX_TEXTURE",
+      "data": {
+        "id": 6,
+        "type": "components",
+        "max": 5
+      }
+    },
+    {
+      "type": "SET_MAX_DRAWABLE",
+      "data": {
+        "id": 3,
+        "type": "components",
+        "max": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      }
+    },
+    {
+      "type": "SET_MAX_TEXTURE",
+      "data": {
+        "id": 3,
+        "type": "components",
+        "max": 1
+      }
+    },
+    {
+      "type": "SET_MAX_DRAWABLE",
+      "data": {
+        "id": 2,
+        "type": "components",
+        "max": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75
+        ]
+      }
+    },
+    {
+      "type": "SET_MAX_TEXTURE",
+      "data": {
+        "id": 2,
+        "type": "components",
+        "max": 1
+      }
+    },
+    {
+      "type": "SET_MAX_DRAWABLE",
+      "data": {
+        "id": 1,
+        "type": "components",
+        "max": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54
+        ]
+      }
+    },
+    {
+      "type": "SET_MAX_TEXTURE",
+      "data": {
+        "id": 1,
+        "type": "components",
+        "max": 10
+      }
+    },
+    {
+      "type": "SET_MAX_DRAWABLE",
+      "data": {
+        "id": 5,
+        "type": "components",
+        "max": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47
+        ]
+      }
+    },
+    {
+      "type": "SET_MAX_TEXTURE",
+      "data": {
+        "id": 5,
+        "type": "components",
+        "max": 7
+      }
+    },
+    {
+      "type": "SET_MAX_DRAWABLE",
+      "data": {
+        "id": 7,
+        "type": "components",
+        "max": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59
+        ]
+      }
+    },
+    {
+      "type": "SET_MAX_TEXTURE",
+      "data": {
+        "id": 7,
+        "type": "components",
+        "max": 4
+      }
+    },
+    {
+      "type": "SET_MAX_DRAWABLE",
+      "data": {
+        "id": 10,
+        "type": "components",
+        "max": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      }
+    },
+    {
+      "type": "SET_MAX_TEXTURE",
+      "data": {
+        "id": 10,
+        "type": "components",
+        "max": 2
+      }
+    },
+    {
+      "type": "SET_MAX_DRAWABLE",
+      "data": {
+        "id": 0,
+        "type": "props",
+        "max": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59
+        ]
+      }
+    },
+    {
+      "type": "SET_MAX_TEXTURE",
+      "data": {
+        "id": 0,
+        "type": "props",
+        "max": 5
+      }
+    },
+    {
+      "type": "SET_MAX_DRAWABLE",
+      "data": {
+        "id": 1,
+        "type": "props",
+        "max": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29
+        ]
+      }
+    },
+    {
+      "type": "SET_MAX_TEXTURE",
+      "data": {
+        "id": 1,
+        "type": "props",
+        "max": 10
+      }
+    },
+    {
+      "type": "SET_MAX_DRAWABLE",
+      "data": {
+        "id": 2,
+        "type": "props",
+        "max": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      }
+    },
+    {
+      "type": "SET_MAX_TEXTURE",
+      "data": {
+        "id": 2,
+        "type": "props",
+        "max": 2
+      }
+    },
+    {
+      "type": "SET_MAX_DRAWABLE",
+      "data": {
+        "id": 6,
+        "type": "props",
+        "max": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ]
+      }
+    },
+    {
+      "type": "SET_MAX_TEXTURE",
+      "data": {
+        "id": 6,
+        "type": "props",
+        "max": 4
+      }
+    },
+    {
+      "type": "SET_MAX_DRAWABLE",
+      "data": {
+        "id": 7,
+        "type": "props",
+        "max": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      }
+    },
+    {
+      "type": "SET_MAX_TEXTURE",
+      "data": {
+        "id": 7,
+        "type": "props",
+        "max": 3
+      }
+    },
+    {
+      "type": "SET_HAIR_COLORS_MAX",
+      "data": {
+        "max": 64,
+        "maxOverlays": 19
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 0,
+        "name": "palette",
+        "rgb": "rgb(28, 31, 33)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 1,
+        "name": "palette",
+        "rgb": "rgb(39, 42, 44)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 2,
+        "name": "palette",
+        "rgb": "rgb(49, 46, 44)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 3,
+        "name": "palette",
+        "rgb": "rgb(53, 38, 28)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 4,
+        "name": "palette",
+        "rgb": "rgb(74, 42, 3)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 5,
+        "name": "palette",
+        "rgb": "rgb(117, 47, 3)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 6,
+        "name": "palette",
+        "rgb": "rgb(191, 79, 2)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 7,
+        "name": "palette",
+        "rgb": "rgb(211, 94, 4)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 8,
+        "name": "palette",
+        "rgb": "rgb(232, 142, 5)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 9,
+        "name": "palette",
+        "rgb": "rgb(242, 171, 11)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 10,
+        "name": "palette",
+        "rgb": "rgb(255, 206, 2)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 11,
+        "name": "palette",
+        "rgb": "rgb(255, 221, 56)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 12,
+        "name": "palette",
+        "rgb": "rgb(255, 232, 107)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 13,
+        "name": "palette",
+        "rgb": "rgb(179, 59, 33)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 14,
+        "name": "palette",
+        "rgb": "rgb(201, 68, 33)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 15,
+        "name": "palette",
+        "rgb": "rgb(217, 88, 24)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 16,
+        "name": "palette",
+        "rgb": "rgb(102, 33, 24)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 17,
+        "name": "palette",
+        "rgb": "rgb(135, 44, 33)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 18,
+        "name": "palette",
+        "rgb": "rgb(160, 64, 58)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 19,
+        "name": "palette",
+        "rgb": "rgb(255, 135, 104)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 20,
+        "name": "palette",
+        "rgb": "rgb(207, 207, 207)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 21,
+        "name": "palette",
+        "rgb": "rgb(161, 161, 161)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 22,
+        "name": "palette",
+        "rgb": "rgb(126, 126, 126)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 23,
+        "name": "palette",
+        "rgb": "rgb(92, 92, 92)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 24,
+        "name": "palette",
+        "rgb": "rgb(74, 74, 74)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 25,
+        "name": "palette",
+        "rgb": "rgb(52, 52, 52)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 26,
+        "name": "palette",
+        "rgb": "rgb(60, 120, 180)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 27,
+        "name": "palette",
+        "rgb": "rgb(37, 72, 150)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 28,
+        "name": "palette",
+        "rgb": "rgb(110, 60, 160)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 29,
+        "name": "palette",
+        "rgb": "rgb(190, 70, 160)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 30,
+        "name": "palette",
+        "rgb": "rgb(230, 80, 120)"
+      }
+    },
+    {
+      "type": "SET_HAIR_COLOR_RGB",
+      "data": {
+        "type": 31,
+        "name": "palette",
+        "rgb": "rgb(70, 160, 90)"
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "wait": 600,
+  "messages": [
+    { "type": "SHOW_GAME", "data": { "game": { "type": "keypad", "countdown": false, "limit": 10000, "total": "4821", "mask": false, "data": { "code": "4821" }, "needsMouse": true, "events": { "onSuccess": "Minigame:Test:Success", "onFail": "Minigame:Test:Fail" } } } },
+    { "type": "FAIL_GAME", "data": {}, "delay": 800 }
+  ]
+}

@@ -1,0 +1,282 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "settle": 500,
+  "wait": 1200,
+  "messages": [
+    {
+      "type": "SET_USERDATA",
+      "data": {
+        "user": {
+          "Source": 3,
+          "Name": "Dr Nick",
+          "AccountID": 1,
+          "Identifier": "license:7888128828188291c0ffee",
+          "Groups": [
+            "management",
+            "whitelisted"
+          ],
+          "Discord": "184562123456789012",
+          "Mention": "<@184562123456789012>",
+          "Avatar": ""
+        },
+        "permission": "management",
+        "permissionName": "Management",
+        "permissionLevel": 100
+      }
+    },
+    {
+      "type": "APP_SHOW",
+      "data": {}
+    },
+    {
+      "raw": {
+        "previewRoute": "/disconnected-players"
+      },
+      "delay": 50
+    }
+  ],
+  "mocks": {
+    "GetPlayerList": [
+      {
+        "Source": 41,
+        "Groups": [
+          "whitelisted"
+        ],
+        "Name": "Kestrel",
+        "GameName": "Kestrel",
+        "ID": 902,
+        "Discord": "203991827364550902",
+        "Mention": "<@203991827364550902>",
+        "AccountID": 902,
+        "Avatar": "",
+        "Identifier": "license:000000000000000000000000006cfe1a",
+        "Level": 0,
+        "IsStaff": false,
+        "IsAdmin": false,
+        "Character": {
+          "First": "Ruby",
+          "Last": "Hale",
+          "SID": 2210,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": [
+            {
+              "Name": "Mechanic",
+              "Grade": {
+                "Name": "Trainee"
+              }
+            }
+          ]
+        },
+        "Reason": "Exiting",
+        "DisconnectedTime": 1792108380
+      },
+      {
+        "Source": 39,
+        "Groups": [
+          "whitelisted"
+        ],
+        "Name": "Fennel",
+        "GameName": "Fennel",
+        "ID": 1333,
+        "Discord": "203991827364551333",
+        "Mention": "<@203991827364551333>",
+        "AccountID": 1333,
+        "Avatar": "",
+        "Identifier": "license:00000000000000000000000000a1127b",
+        "Level": 0,
+        "IsStaff": false,
+        "IsAdmin": false,
+        "Character": {
+          "First": "Omar",
+          "Last": "Reyes",
+          "SID": 3012,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": []
+        },
+        "Reason": "Game crashed (err_gfx_d3d_init)",
+        "DisconnectedTime": 1792107300
+      },
+      {
+        "Source": 33,
+        "Groups": [
+          "whitelisted"
+        ],
+        "Name": "Sable",
+        "GameName": "Sable",
+        "ID": 1488,
+        "Discord": "203991827364551488",
+        "Mention": "<@203991827364551488>",
+        "AccountID": 1488,
+        "Avatar": "",
+        "Identifier": "license:00000000000000000000000000b3cd30",
+        "Level": 0,
+        "IsStaff": false,
+        "IsAdmin": false,
+        "Character": false,
+        "Reason": "Kicked by Mossy: AFK in queue area",
+        "DisconnectedTime": 1792105900
+      },
+      {
+        "Source": 29,
+        "Groups": [
+          "whitelisted"
+        ],
+        "Name": "Wren",
+        "GameName": "Wren",
+        "ID": 611,
+        "Discord": "203991827364550611",
+        "Mention": "<@203991827364550611>",
+        "AccountID": 611,
+        "Avatar": "",
+        "Identifier": "license:0000000000000000000000000049d46d",
+        "Level": 0,
+        "IsStaff": false,
+        "IsAdmin": false,
+        "Character": {
+          "First": "Lucas",
+          "Last": "Ferreira",
+          "SID": 1880,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": [
+            {
+              "Name": "LSPD",
+              "Grade": {
+                "Name": "Sergeant"
+              }
+            }
+          ]
+        },
+        "Reason": "Connection timed out",
+        "DisconnectedTime": 1792103400
+      },
+      {
+        "Source": 27,
+        "Groups": [
+          "whitelisted",
+          "admin"
+        ],
+        "Name": "Mossy",
+        "GameName": "Mossy",
+        "ID": 77,
+        "Discord": "203991827364550077",
+        "Mention": "<@203991827364550077>",
+        "AccountID": 77,
+        "Avatar": "",
+        "Identifier": "license:00000000000000000000000000094de3",
+        "Level": 50,
+        "IsStaff": true,
+        "IsAdmin": false,
+        "Character": {
+          "First": "Jenna",
+          "Last": "Marbles",
+          "SID": 1402,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": [
+            {
+              "Name": "EMS",
+              "Grade": {
+                "Name": "Paramedic"
+              }
+            },
+            {
+              "Name": "Taxi",
+              "Grade": {
+                "Name": "Driver"
+              }
+            }
+          ]
+        },
+        "Reason": "Exiting",
+        "DisconnectedTime": 1792101500
+      },
+      {
+        "Source": 24,
+        "Groups": [
+          "whitelisted"
+        ],
+        "Name": "Pebble",
+        "GameName": "Pebble",
+        "ID": 1999,
+        "Discord": "203991827364551999",
+        "Mention": "<@203991827364551999>",
+        "AccountID": 1999,
+        "Avatar": "",
+        "Identifier": "license:00000000000000000000000000f18c41",
+        "Level": 0,
+        "IsStaff": false,
+        "IsAdmin": false,
+        "Character": {
+          "First": "Nadia",
+          "Last": "Kowalski",
+          "SID": 3299,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": []
+        },
+        "Reason": "Disconnected.",
+        "DisconnectedTime": 1792098000
+      },
+      {
+        "Source": 22,
+        "Groups": [
+          "whitelisted"
+        ],
+        "Name": "Ashen",
+        "GameName": "Ashen",
+        "ID": 2058,
+        "Discord": "203991827364552058",
+        "Mention": "<@203991827364552058>",
+        "AccountID": 2058,
+        "Avatar": "",
+        "Identifier": "license:00000000000000000000000000f8ad56",
+        "Level": 0,
+        "IsStaff": false,
+        "IsAdmin": false,
+        "Character": {
+          "First": "Felix",
+          "Last": "Brandt",
+          "SID": 3380,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": [
+            {
+              "Name": "Mechanic",
+              "Grade": {
+                "Name": "Trainee"
+              }
+            }
+          ]
+        },
+        "Reason": "Server restart",
+        "DisconnectedTime": 1792094400
+      },
+      {
+        "Source": 18,
+        "Groups": [
+          "whitelisted"
+        ],
+        "Name": "Rook",
+        "GameName": "Rook",
+        "ID": 2071,
+        "Discord": "203991827364552071",
+        "Mention": "<@203991827364552071>",
+        "AccountID": 2071,
+        "Avatar": "",
+        "Identifier": "license:00000000000000000000000000fa3f79",
+        "Level": 0,
+        "IsStaff": false,
+        "IsAdmin": false,
+        "Character": false,
+        "Reason": "Exiting",
+        "DisconnectedTime": 1792093700
+      }
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "wait": 3200,
+  "messages": [
+    { "type": "SHOW_GAME", "data": { "game": { "type": "scrambler", "countdown": 1, "timer": 4000, "limit": 18000, "total": 2, "difficulty": 16, "needsMouse": true, "events": { "onSuccess": "Minigame:Test:Success", "onFail": "Minigame:Test:Fail", "onPerfect": "Minigame:Test:Perfect" } } } }
+  ]
+}

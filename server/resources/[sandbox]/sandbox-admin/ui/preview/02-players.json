@@ -1,0 +1,306 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "settle": 500,
+  "wait": 1200,
+  "messages": [
+    {
+      "type": "SET_USERDATA",
+      "data": {
+        "user": {
+          "Source": 3,
+          "Name": "Dr Nick",
+          "AccountID": 1,
+          "Identifier": "license:7888128828188291c0ffee",
+          "Groups": [
+            "management",
+            "whitelisted"
+          ],
+          "Discord": "184562123456789012",
+          "Mention": "<@184562123456789012>",
+          "Avatar": ""
+        },
+        "permission": "management",
+        "permissionName": "Management",
+        "permissionLevel": 100
+      }
+    },
+    {
+      "type": "APP_SHOW",
+      "data": {}
+    },
+    {
+      "raw": {
+        "previewRoute": "/players"
+      },
+      "delay": 50
+    }
+  ],
+  "mocks": {
+    "GetPlayerList": [
+      {
+        "Source": 3,
+        "Name": "Dr Nick",
+        "AccountID": 1,
+        "Character": {
+          "First": "Nicholas",
+          "Last": "Riviera",
+          "SID": 1,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": []
+        }
+      },
+      {
+        "Source": 5,
+        "Name": "PandaBear",
+        "AccountID": 418,
+        "Character": {
+          "First": "Walter",
+          "Last": "Western",
+          "SID": 3,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": [
+            {
+              "Name": "LSPD",
+              "Grade": {
+                "Name": "Sergeant"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Source": 8,
+        "Name": "Mossy",
+        "AccountID": 77,
+        "Character": {
+          "First": "Jenna",
+          "Last": "Marbles",
+          "SID": 1402,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": [
+            {
+              "Name": "EMS",
+              "Grade": {
+                "Name": "Paramedic"
+              }
+            },
+            {
+              "Name": "Taxi",
+              "Grade": {
+                "Name": "Driver"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Source": 12,
+        "Name": "Kestrel",
+        "AccountID": 902,
+        "Character": {
+          "First": "Ruby",
+          "Last": "Hale",
+          "SID": 2210,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": [
+            {
+              "Name": "Mechanic",
+              "Grade": {
+                "Name": "Trainee"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Source": 14,
+        "Name": "velociraptor_99",
+        "AccountID": 1203,
+        "Character": false
+      },
+      {
+        "Source": 17,
+        "Name": "Juniper",
+        "AccountID": 1540,
+        "Character": {
+          "First": "Marcus",
+          "Last": "Bell",
+          "SID": 3104,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": []
+        }
+      },
+      {
+        "Source": 19,
+        "Name": "Oslo",
+        "AccountID": 1611,
+        "Character": {
+          "First": "Dante",
+          "Last": "Okafor",
+          "SID": 3188,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": [
+            {
+              "Name": "LSPD",
+              "Grade": {
+                "Name": "Sergeant"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Source": 21,
+        "Name": "TinyTim",
+        "AccountID": 1702,
+        "Character": false
+      },
+      {
+        "Source": 23,
+        "Name": "Halcyon",
+        "AccountID": 1799,
+        "Character": {
+          "First": "Ivy",
+          "Last": "Sorensen",
+          "SID": 3290,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": [
+            {
+              "Name": "EMS",
+              "Grade": {
+                "Name": "Paramedic"
+              }
+            },
+            {
+              "Name": "Taxi",
+              "Grade": {
+                "Name": "Driver"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Source": 26,
+        "Name": "Brick",
+        "AccountID": 1844,
+        "Character": {
+          "First": "Leon",
+          "Last": "Castillo",
+          "SID": 3312,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": [
+            {
+              "Name": "Mechanic",
+              "Grade": {
+                "Name": "Trainee"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Source": 28,
+        "Name": "Nova",
+        "AccountID": 1901,
+        "Character": {
+          "First": "Priya",
+          "Last": "Nair",
+          "SID": 3340,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": []
+        }
+      },
+      {
+        "Source": 31,
+        "Name": "Gravel",
+        "AccountID": 1950,
+        "Character": {
+          "First": "Hank",
+          "Last": "Mueller",
+          "SID": 3351,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": []
+        }
+      },
+      {
+        "Source": 34,
+        "Name": "Sparrow",
+        "AccountID": 2010,
+        "Character": {
+          "First": "Amara",
+          "Last": "Diallo",
+          "SID": 3402,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": [
+            {
+              "Name": "LSPD",
+              "Grade": {
+                "Name": "Sergeant"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Source": 36,
+        "Name": "Quill",
+        "AccountID": 2044,
+        "Character": {
+          "First": "Theo",
+          "Last": "Lindqvist",
+          "SID": 3417,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": []
+        }
+      },
+      {
+        "Source": 40,
+        "Name": "Dusty",
+        "AccountID": 2090,
+        "Character": false
+      },
+      {
+        "Source": 42,
+        "Name": "Marlow",
+        "AccountID": 2133,
+        "Character": {
+          "First": "Sienna",
+          "Last": "Park",
+          "SID": 3455,
+          "DOB": 662687999,
+          "Phone": "555-0133",
+          "Jobs": [
+            {
+              "Name": "EMS",
+              "Grade": {
+                "Name": "Paramedic"
+              }
+            },
+            {
+              "Name": "Taxi",
+              "Grade": {
+                "Name": "Driver"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

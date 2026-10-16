@@ -1,0 +1,6 @@
+{
+  "wait": 3300,
+  "messages": [
+    { "type": "SHOW_GAME", "data": { "game": { "type": "scanner", "countdown": 1, "timer": 150, "limit": 5000, "total": 20, "difficulty": 1, "randomKey": true, "needsMouse": false, "events": { "onSuccess": "Minigame:Test:Success", "onFail": "Minigame:Test:Fail", "onPerfect": "Minigame:Test:Perfect" } } } }
+  ]
+}

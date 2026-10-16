@@ -1,0 +1,141 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "settle": 500,
+  "wait": 1200,
+  "messages": [
+    {
+      "type": "SET_USERDATA",
+      "data": {
+        "user": {
+          "Source": 3,
+          "Name": "Dr Nick",
+          "AccountID": 1,
+          "Identifier": "license:7888128828188291c0ffee",
+          "Groups": [
+            "management",
+            "whitelisted"
+          ],
+          "Discord": "184562123456789012",
+          "Mention": "<@184562123456789012>",
+          "Avatar": ""
+        },
+        "permission": "management",
+        "permissionName": "Management",
+        "permissionLevel": 100
+      }
+    },
+    {
+      "type": "APP_SHOW",
+      "data": {}
+    },
+    {
+      "raw": {
+        "previewRoute": "/vehicles"
+      },
+      "delay": 50
+    }
+  ],
+  "mocks": {
+    "GetVehicleList": [
+      {
+        "Entity": 5121,
+        "VIN": "3SBX7A1M9K2L0P4Q",
+        "Plate": "WW 1991",
+        "Make": "Bravado",
+        "Model": "Buffalo S",
+        "OwnerId": 418
+      },
+      {
+        "Entity": 5188,
+        "VIN": "9QWE1R2T3Y4U5I6O",
+        "Plate": "LSPD 12",
+        "Make": "Vapid",
+        "Model": "Stanier",
+        "OwnerId": "police"
+      },
+      {
+        "Entity": 5203,
+        "VIN": "7LMN8O9P0Q1R2S3T",
+        "Plate": "RUBY H",
+        "Make": "Dinka",
+        "Model": "Blista",
+        "OwnerId": 902
+      },
+      {
+        "Entity": 5260,
+        "VIN": "2ABC3D4E5F6G7H8J",
+        "Plate": "EMS 04",
+        "Make": "Brute",
+        "Model": "Ambulance",
+        "OwnerId": "ems"
+      },
+      {
+        "Entity": 5311,
+        "VIN": "5ZXC6V7B8N9M0A1S",
+        "Plate": "TAXI 7",
+        "Make": "Vapid",
+        "Model": "Taxi",
+        "OwnerId": "taxi"
+      },
+      {
+        "Entity": 5342,
+        "VIN": "1KJH2G3F4D5S6A7P",
+        "Plate": "MRCDS",
+        "Make": "Benefactor",
+        "Model": "Schafter",
+        "OwnerId": 1611
+      },
+      {
+        "Entity": 5377,
+        "VIN": "8POI9U0Y1T2R3E4W",
+        "Plate": "DIALLO",
+        "Make": "Ubermacht",
+        "Model": "Oracle",
+        "OwnerId": 2010
+      },
+      {
+        "Entity": 5401,
+        "VIN": "4MNB5V6C7X8Z9L0K",
+        "Plate": "TOW 02",
+        "Make": "MTL",
+        "Model": "Flatbed",
+        "OwnerId": "tow"
+      },
+      {
+        "Entity": 5455,
+        "VIN": "6YTR7E8W9Q0A1S2D",
+        "Plate": "BRICK",
+        "Make": "Declasse",
+        "Model": "Tornado",
+        "OwnerId": 1844
+      },
+      {
+        "Entity": 5490,
+        "VIN": "0PLM1O2K3I4J5U6H",
+        "Plate": "NOVA 1",
+        "Make": "Pfister",
+        "Model": "Comet",
+        "OwnerId": 1901
+      },
+      {
+        "Entity": 5512,
+        "VIN": "3HGF4D5S6A7P8O9I",
+        "Plate": "MECH 1",
+        "Make": "Vapid",
+        "Model": "Sadler",
+        "OwnerId": "mechanic"
+      },
+      {
+        "Entity": 5533,
+        "VIN": "2QAZ3W4S5X6E7D8C",
+        "Plate": "QUILL",
+        "Make": "Karin",
+        "Model": "Sultan",
+        "OwnerId": 2044
+      }
+    ]
+  }
+}

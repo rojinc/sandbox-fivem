@@ -1,0 +1,80 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "settle": 500,
+  "wait": 1200,
+  "messages": [
+    {
+      "type": "SET_USERDATA",
+      "data": {
+        "user": {
+          "Source": 3,
+          "Name": "Dr Nick",
+          "AccountID": 1,
+          "Identifier": "license:7888128828188291c0ffee",
+          "Groups": [
+            "management",
+            "whitelisted"
+          ],
+          "Discord": "184562123456789012",
+          "Mention": "<@184562123456789012>",
+          "Avatar": ""
+        },
+        "permission": "management",
+        "permissionName": "Management",
+        "permissionLevel": 100
+      }
+    },
+    {
+      "type": "APP_SHOW",
+      "data": {}
+    },
+    {
+      "raw": {
+        "previewRoute": "/player/41"
+      },
+      "delay": 50
+    }
+  ],
+  "mocks": {
+    "GetPlayer": {
+      "Source": 41,
+      "Groups": [
+        "whitelisted"
+      ],
+      "Name": "Kestrel",
+      "GameName": "Kestrel",
+      "ID": 902,
+      "Discord": "203991827364550902",
+      "Mention": "<@203991827364550902>",
+      "AccountID": 902,
+      "Avatar": "",
+      "Identifier": "license:000000000000000000000000006cfe1a",
+      "Level": 0,
+      "IsStaff": false,
+      "IsAdmin": false,
+      "Character": {
+        "First": "Ruby",
+        "Last": "Hale",
+        "SID": 2210,
+        "DOB": 662687999,
+        "Phone": "555-0133",
+        "Jobs": [
+          {
+            "Name": "Mechanic",
+            "Grade": {
+              "Name": "Trainee"
+            }
+          }
+        ]
+      },
+      "Reason": "Exiting",
+      "DisconnectedTime": 1792108380,
+      "StaffGroup": false,
+      "Disconnected": true,
+      "Reconnected": 12
+    }
+  }
+}

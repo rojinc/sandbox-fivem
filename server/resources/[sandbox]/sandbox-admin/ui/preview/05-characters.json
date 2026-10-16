@@ -1,0 +1,232 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "settle": 500,
+  "wait": 1200,
+  "messages": [
+    {
+      "type": "SET_USERDATA",
+      "data": {
+        "user": {
+          "Source": 3,
+          "Name": "Dr Nick",
+          "AccountID": 1,
+          "Identifier": "license:7888128828188291c0ffee",
+          "Groups": [
+            "management",
+            "whitelisted"
+          ],
+          "Discord": "184562123456789012",
+          "Mention": "<@184562123456789012>",
+          "Avatar": ""
+        },
+        "permission": "management",
+        "permissionName": "Management",
+        "permissionLevel": 100
+      }
+    },
+    {
+      "type": "APP_SHOW",
+      "data": {}
+    },
+    {
+      "raw": {
+        "previewRoute": "/players-characters"
+      },
+      "delay": 50
+    }
+  ],
+  "mocks": {
+    "GetAllPlayersByCharacter": {
+      "players": [
+        {
+          "SID": 3455,
+          "First": "Sienna",
+          "Last": "Park",
+          "DOB": 748224000,
+          "BankAccount": 300145,
+          "Jobs": [
+            {
+              "Name": "EMS",
+              "Grade": {
+                "Name": "Paramedic"
+              }
+            },
+            {
+              "Name": "Taxi",
+              "Grade": {
+                "Name": "Driver"
+              }
+            }
+          ],
+          "Cash": 1240,
+          "LastPlayed": 1792108200,
+          "Phone": "555-0192",
+          "Deleted": false,
+          "User": 2133,
+          "Online": 42
+        },
+        {
+          "SID": 3417,
+          "First": "Theo",
+          "Last": "Lindqvist",
+          "DOB": 820454400,
+          "BankAccount": 300122,
+          "Jobs": [],
+          "Cash": 85,
+          "LastPlayed": 1792107900,
+          "Phone": "555-0104",
+          "Deleted": false,
+          "User": 2044,
+          "Online": 36
+        },
+        {
+          "SID": 3402,
+          "First": "Amara",
+          "Last": "Diallo",
+          "DOB": 694224000,
+          "BankAccount": 300101,
+          "Jobs": [
+            {
+              "Name": "LSPD",
+              "Grade": {
+                "Name": "Sergeant"
+              }
+            }
+          ],
+          "Cash": 4120,
+          "LastPlayed": 1792107600,
+          "Phone": "555-0188",
+          "Deleted": false,
+          "User": 2010,
+          "Online": 34
+        },
+        {
+          "SID": 3380,
+          "First": "Felix",
+          "Last": "Brandt",
+          "DOB": 760838400,
+          "BankAccount": 300077,
+          "Jobs": [
+            {
+              "Name": "Mechanic",
+              "Grade": {
+                "Name": "Trainee"
+              }
+            }
+          ],
+          "Cash": 560,
+          "LastPlayed": 1792094400,
+          "Phone": "555-0171",
+          "Deleted": false,
+          "User": 2058
+        },
+        {
+          "SID": 3351,
+          "First": "Hank",
+          "Last": "Mueller",
+          "DOB": 581990400,
+          "BankAccount": 300064,
+          "Jobs": [],
+          "Cash": 12,
+          "LastPlayed": 1792107000,
+          "Phone": "555-0142",
+          "Deleted": false,
+          "User": 1950,
+          "Online": 31
+        },
+        {
+          "SID": 3340,
+          "First": "Priya",
+          "Last": "Nair",
+          "DOB": 804556800,
+          "BankAccount": 300052,
+          "Jobs": [],
+          "Cash": 980,
+          "LastPlayed": 1792106400,
+          "Phone": "555-0119",
+          "Deleted": false,
+          "User": 1901,
+          "Online": 28
+        },
+        {
+          "SID": 3312,
+          "First": "Leon",
+          "Last": "Castillo",
+          "DOB": 726192000,
+          "BankAccount": 300040,
+          "Jobs": [
+            {
+              "Name": "Mechanic",
+              "Grade": {
+                "Name": "Trainee"
+              }
+            }
+          ],
+          "Cash": 2210,
+          "LastPlayed": 1792105200,
+          "Phone": "555-0163",
+          "Deleted": false,
+          "User": 1844,
+          "Online": 26
+        },
+        {
+          "SID": 3299,
+          "First": "Nadia",
+          "Last": "Kowalski",
+          "DOB": 789004800,
+          "BankAccount": 300033,
+          "Jobs": [],
+          "Cash": 0,
+          "LastPlayed": 1792098000,
+          "Phone": "555-0150",
+          "Deleted": false,
+          "User": 1999
+        },
+        {
+          "SID": 3290,
+          "First": "Ivy",
+          "Last": "Sorensen",
+          "DOB": 712281600,
+          "BankAccount": 300021,
+          "Jobs": [
+            {
+              "Name": "EMS",
+              "Grade": {
+                "Name": "Paramedic"
+              }
+            },
+            {
+              "Name": "Taxi",
+              "Grade": {
+                "Name": "Driver"
+              }
+            }
+          ],
+          "Cash": 775,
+          "LastPlayed": 1792108500,
+          "Phone": "555-0177",
+          "Deleted": false,
+          "User": 1799,
+          "Online": 23
+        },
+        {
+          "SID": 3277,
+          "First": "Grant",
+          "Last": "Whitlock",
+          "DOB": 639792000,
+          "BankAccount": 300018,
+          "Jobs": [],
+          "Cash": 0,
+          "LastPlayed": 1789516800,
+          "Phone": "555-0108",
+          "Deleted": true,
+          "User": 1788
+        }
+      ],
+      "pages": 1432
+    }
+  }
+}

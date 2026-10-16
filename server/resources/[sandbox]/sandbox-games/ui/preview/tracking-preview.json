@@ -1,0 +1,6 @@
+{
+  "wait": 14800,
+  "messages": [
+    { "type": "SHOW_GAME", "data": { "game": { "type": "tracking", "countdown": 1, "delay": 2500, "limit": 20000, "difficulty": 5, "needsMouse": true, "events": { "onSuccess": "Minigame:Test:Success", "onFail": "Minigame:Test:Fail" } } } }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "settle": 500,
+  "wait": 1200,
+  "messages": [
+    {
+      "type": "APP_SHOW",
+      "data": {}
+    }
+  ],
+  "mocks": {
+    "GetPlayerHistory": {
+      "current": 87,
+      "max": 128,
+      "queue": 4,
+      "history": [
+        {
+          "count": 62,
+          "time": 1792089000
+        },
+        {
+          "count": 58,
+          "time": 1792090800
+        },
+        {
+          "count": 55,
+          "time": 1792092600
+        },
+        {
+          "count": 61,
+          "time": 1792094400
+        },
+        {
+          "count": 70,
+          "time": 1792096200
+        },
+        {
+          "count": 84,
+          "time": 1792098000
+        },
+        {
+          "count": 97,
+          "time": 1792099800
+        },
+        {
+          "count": 112,
+          "time": 1792101600
+        },
+        {
+          "count": 118,
+          "time": 1792103400
+        },
+        {
+          "count": 109,
+          "time": 1792105200
+        },
+        {
+          "count": 96,
+          "time": 1792107000
+        },
+        {
+          "count": 90,
+          "time": 1792108800
+        }
+      ]
+    }
+  }
+}

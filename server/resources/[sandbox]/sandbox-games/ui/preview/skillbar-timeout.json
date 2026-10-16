@@ -1,0 +1,6 @@
+{
+  "wait": 1500,
+  "messages": [
+    { "type": "SHOW_GAME", "data": { "game": { "type": "skillbar", "timer": 600, "difficulty": 10, "needsMouse": false, "events": { "onSuccess": "Minigame:Test:Success", "onFail": "Minigame:Test:Fail" } } } }
+  ]
+}

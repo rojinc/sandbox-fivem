@@ -1,0 +1,6 @@
+{
+  "wait": 14800,
+  "messages": [
+    { "type": "SHOW_GAME", "data": { "game": { "type": "captcha", "countdown": 1, "timer": 1500, "limit": 30000, "difficulty": 4, "difficulty2": 2, "needsMouse": true, "events": { "onSuccess": "Minigame:Test:Success", "onFail": "Minigame:Test:Fail" } } } }
+  ]
+}

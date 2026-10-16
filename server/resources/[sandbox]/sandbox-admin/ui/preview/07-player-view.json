@@ -1,0 +1,140 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "settle": 500,
+  "wait": 1200,
+  "messages": [
+    {
+      "type": "SET_USERDATA",
+      "data": {
+        "user": {
+          "Source": 3,
+          "Name": "Dr Nick",
+          "AccountID": 1,
+          "Identifier": "license:7888128828188291c0ffee",
+          "Groups": [
+            "management",
+            "whitelisted"
+          ],
+          "Discord": "184562123456789012",
+          "Mention": "<@184562123456789012>",
+          "Avatar": ""
+        },
+        "permission": "management",
+        "permissionName": "Management",
+        "permissionLevel": 100
+      }
+    },
+    {
+      "type": "APP_SHOW",
+      "data": {}
+    },
+    {
+      "raw": {
+        "previewRoute": "/player/5"
+      },
+      "delay": 50
+    }
+  ],
+  "mocks": {
+    "GetPlayer": {
+      "Source": 5,
+      "Name": "PandaBear",
+      "GameName": "PandaBear",
+      "AccountID": 418,
+      "Identifier": "license:2f1c9a0e7b3d4c5a8e9f0a1b2c3d4e5f6a7b8c9d",
+      "Discord": "203991827364555001",
+      "Mention": "<@203991827364555001>",
+      "Avatar": "",
+      "Level": 0,
+      "Groups": [
+        "whitelisted"
+      ],
+      "StaffGroup": false,
+      "Character": {
+        "First": "Walter",
+        "Last": "Western",
+        "SID": 3,
+        "DOB": 662687999,
+        "Phone": "555-0133",
+        "Jobs": [
+          {
+            "Name": "LSPD",
+            "Grade": {
+              "Name": "Sergeant"
+            }
+          },
+          {
+            "Name": "Mechanic",
+            "Grade": {
+              "Name": "Trainee"
+            }
+          }
+        ],
+        "Coords": {
+          "x": 215.3271,
+          "y": -809.8123,
+          "z": 30.7291
+        }
+      },
+      "Characters": [
+        {
+          "SID": 1187,
+          "First": "Benny",
+          "Last": "Western",
+          "DOB": 599616000,
+          "BankAccount": 110042,
+          "Jobs": [
+            {
+              "Name": "Mechanic",
+              "Grade": {
+                "Name": "Trainee"
+              }
+            }
+          ],
+          "Cash": 3560,
+          "LastPlayed": 1791849600,
+          "Phone": "555-0145",
+          "Deleted": false,
+          "User": 418
+        },
+        {
+          "SID": 2451,
+          "First": "Carla",
+          "Last": "Ruiz",
+          "DOB": 741398400,
+          "BankAccount": 110310,
+          "Jobs": [],
+          "Cash": 125,
+          "LastPlayed": 1791072000,
+          "Phone": "555-0199",
+          "Deleted": false,
+          "User": 418
+        },
+        {
+          "SID": 644,
+          "First": "Rick",
+          "Last": "Sanchez",
+          "DOB": 476496000,
+          "BankAccount": 100644,
+          "Jobs": [],
+          "Cash": 0,
+          "LastPlayed": 1757548800,
+          "Phone": "555-0010",
+          "Deleted": true,
+          "User": 418
+        }
+      ],
+      "Vehicle": {
+        "Entity": 5121,
+        "VIN": "3SBX7A1M9K2L0P4Q",
+        "Plate": "WW 1991",
+        "Make": "Bravado",
+        "Model": "Buffalo S",
+        "Driver": true
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "settle": 500,
+  "wait": 1200,
+  "messages": [
+    {
+      "type": "SET_USERDATA",
+      "data": {
+        "user": {
+          "Source": 8,
+          "Name": "Mossy",
+          "AccountID": 77,
+          "Identifier": "license:0a1b2c3d4e5f60718293a4b5c6d7e8f9",
+          "Groups": [
+            "admin",
+            "whitelisted"
+          ],
+          "Discord": "203991827364555001",
+          "Mention": "<@203991827364555001>",
+          "Avatar": ""
+        },
+        "permission": "admin",
+        "permissionName": "Admin",
+        "permissionLevel": 50
+      }
+    },
+    {
+      "type": "APP_SHOW",
+      "data": {}
+    }
+  ],
+  "mocks": {
+    "GetPlayerHistory": {
+      "current": 12,
+      "max": 128,
+      "queue": 0,
+      "history": []
+    }
+  }
+}

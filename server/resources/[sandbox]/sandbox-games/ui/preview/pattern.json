@@ -1,0 +1,6 @@
+{
+  "wait": 6900,
+  "messages": [
+    { "type": "SHOW_GAME", "data": { "game": { "type": "pattern", "countdown": 1, "limit": 60000, "size": 6, "difficulty": 4, "difficulty2": 2, "total": "alphanumer", "needsMouse": true, "events": { "onSuccess": "Minigame:Test:Success", "onFail": "Minigame:Test:Fail" } } } }
+  ]
+}

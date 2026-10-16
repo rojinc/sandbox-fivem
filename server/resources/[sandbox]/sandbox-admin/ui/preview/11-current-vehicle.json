@@ -1,0 +1,74 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "settle": 500,
+  "wait": 1200,
+  "messages": [
+    {
+      "type": "SET_USERDATA",
+      "data": {
+        "user": {
+          "Source": 3,
+          "Name": "Dr Nick",
+          "AccountID": 1,
+          "Identifier": "license:7888128828188291c0ffee",
+          "Groups": [
+            "management",
+            "whitelisted"
+          ],
+          "Discord": "184562123456789012",
+          "Mention": "<@184562123456789012>",
+          "Avatar": ""
+        },
+        "permission": "management",
+        "permissionName": "Management",
+        "permissionLevel": 100
+      }
+    },
+    {
+      "type": "APP_SHOW",
+      "data": {}
+    },
+    {
+      "raw": {
+        "previewRoute": "/current-vehicle"
+      },
+      "delay": 50
+    }
+  ],
+  "mocks": {
+    "GetCurrentVehicle": {
+      "Make": "Pegassi",
+      "Model": "Zentorno",
+      "VIN": "1STF2F3A4B5C6D7E",
+      "Owned": false,
+      "Owner": null,
+      "Plate": "STAFF 1",
+      "Value": 725000,
+      "EntityModel": -1403128555,
+      "Coords": {
+        "x": 215.3271,
+        "y": -809.8123,
+        "z": 30.7291
+      },
+      "Heading": 147.23,
+      "Fuel": 98.0,
+      "Damage": {
+        "Engine": 1000,
+        "Body": 1000
+      },
+      "DamagedParts": {
+        "Axle": 100,
+        "Radiator": 100,
+        "Transmission": 100,
+        "FuelInjectors": 100,
+        "Brakes": 100,
+        "Clutch": 100,
+        "Electronics": 100
+      },
+      "Seat": -1
+    }
+  }
+}

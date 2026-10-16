@@ -1,0 +1,6 @@
+{
+  "wait": 2200,
+  "messages": [
+    { "type": "SHOW_GAME", "data": { "game": { "type": "round", "rate": 0.5, "difficulty": 4, "randomKey": true, "needsMouse": false, "events": { "onSuccess": "Minigame:Test:Success", "onFail": "Minigame:Test:Fail" } } } }
+  ]
+}
