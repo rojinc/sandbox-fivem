@@ -45,7 +45,8 @@ Callbacks are sent with `fetchNui(name, body)`.
 | `tests` | - | HTML allowed, `Test results` tag (info outline) |
 
 Unknown kinds get a neutral tag made from `type`. The author line shows the
-name in bold, then `#SID`, the phone and `to #Reply` in muted mono. The
+name in bold, then `#SID`, the phone and `replying to #Reply` as separate muted
+facts (ids and phone in mono; no dot-separated string). The
 timestamp column (HH:MM, mono, muted) is the moment the line reached this
 client; `time` is carried but not displayed.
 

@@ -71,7 +71,7 @@
     }
 </script>
 
-<Modal title="Create a character" onclose={oncancel} width="680px">
+<Modal title="Create a character" onclose={oncancel} width="680px" class="cs-create">
     <p class="intro">{slotText} You cannot change the name, gender or date of birth later.</p>
 
     {#if summary.length}
@@ -115,7 +115,7 @@
         </Field>
 
         <Field label="Biography" id="bio" hint="Up to {BIO_MAX} characters. You have used {form.bio.length}." error={errors.bio}>
-            <Textarea id="bio" bind:value={form.bio} rows={4} maxlength={BIO_MAX} invalid={Boolean(errors.bio)} placeholder="Who they are and what brought them to Los Santos" />
+            <Textarea id="bio" bind:value={form.bio} rows={3} maxlength={BIO_MAX} invalid={Boolean(errors.bio)} placeholder="Who they are and what brought them to Los Santos" />
         </Field>
     </form>
 
@@ -126,6 +126,10 @@
 </Modal>
 
 <style>
+    /* The page is always at least 1080 design px tall (App.svelte zoom), so this always fits; the body scrolls. */
+    :global(.au-modal__panel.cs-create) {
+        max-height: 1032px;
+    }
     .intro {
         max-width: none;
         margin: 0 0 20px;

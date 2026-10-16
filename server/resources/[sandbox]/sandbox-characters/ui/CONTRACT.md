@@ -97,25 +97,39 @@ the `{ label, value }` object the previous UI stored (`value` is the
 lower-case ISO 3166-1 alpha-2 code). The form validates before sending:
 names 2 to 24 letters (apostrophes and hyphens allowed, spaces stripped as
 you type), a real calendar date giving an age of 18 to 100, a gender, and a
-biography of up to 500 characters. The server re-checks the slot limit.
+biography of up to 500 characters. Validation runs on submit: an error
+summary at the top of the form takes focus and links to each field, and each
+field shows its error above the input. The server re-checks the slot limit.
 
 ## Screens
 
-* Welcome (the UI's own default state, and after `APP_RESET`): identity
-  block and a Continue button that calls `GetData` once.
-* `STATE_CHARACTERS`: characters table (name, state ID, job, last played,
-  cash), the selected character's record with Delete and Play, message of
-  the day and changelog in the right column. New character opens the create
-  form in a modal; with no characters the form opens by itself. Delete asks
-  for confirmation in a modal.
-* `STATE_SPAWN`: spawn points table, the chosen place with "Spawn here", and
-  the character's record in the right column. "Back to characters" returns
-  to the table without telling Lua (Lua only cares about the next
-  `SelectCharacter`).
-* Any `LOADING_SHOW`: a spinner and the message over the page.
+`client/nui.lua` points the camera north from (685.9, 576.2, 132.8) at the
+player's characters, which it stands up as peds left of centre (about
+x 400 to 870 at 1080p). So the console is a panel docked to the RIGHT edge
+(720 design px wide, full height, #181a1d at 96% opacity, a 1px line on its
+left edge) and everything else stays transparent.
 
-The page is laid out at 1920x1080 and zoomed to the window
-(`min(w / 1920, h / 1080)`), so 1440p and 4K keep the same proportions.
+* Welcome (the UI's own default state, and after `APP_RESET`): wordmark,
+  heading, one line and Continue, straight on the world with the
+  `.au-overworld` text shadow, no panel. Continue calls `GetData` once.
+* `STATE_CHARACTERS` (panel): identity block, characters table (name, state
+  ID, job, last played, cash), message of the day and changelog as plain text
+  sections below the table, and the selected character's record with
+  "Play as {first name}" and "Delete character" pinned at the panel's foot.
+  "Create character" opens the create form in a modal (hidden when every slot
+  is used; an alert says why). With no characters the form opens by itself.
+  Delete asks for confirmation in a modal.
+* `STATE_SPAWN` (same panel): spawn points table, then "Playing as" facts and
+  the news, with "Spawn here" and "Back to characters" pinned at the foot.
+  Back returns to the table without telling Lua (Lua only cares about the
+  next `SelectCharacter`).
+* `LOADING_SHOW`: a spinner and the message. While the panel is up it covers
+  the panel only; before that (first load) it sits on the world with the text
+  shadow.
+
+The layout is drawn at 1920x1080 and zoomed to the window
+(`min(w / 1920, h / 1080)`), so 1440p and 4K keep the same proportions. The
+panel body scrolls when the list and news are longer than the screen.
 
 ## Focus and keys
 

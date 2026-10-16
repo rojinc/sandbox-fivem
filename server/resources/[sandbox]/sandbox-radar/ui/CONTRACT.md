@@ -95,7 +95,7 @@ fixed option lists.
   the remote is docked bottom centre (`bottom: 24px`) so the cursor lands on it.
 * The root layer is `pointer-events: none`; only the remote re-enables pointer events.
 * Escape -> `fetchNui('CloseRemote')` while the remote is open; declined (handler returns `false`) while it
-  is closed so other inputs keep working. The close button and Done do the same.
+  is closed so other inputs keep working. The close button and "Close remote" do the same.
 * Keybinds (`Keybinds:Add`, client.lua; players can rebind): `radar_lock` NUMPAD `*`, `radar_remote`
   NUMPAD `/`, `radar_toggle` NUMPAD `-`. The UI shows no key hints (Lua never sends the bound keys).
   `heli_toggle` and `heli_rappell` have no UI.
