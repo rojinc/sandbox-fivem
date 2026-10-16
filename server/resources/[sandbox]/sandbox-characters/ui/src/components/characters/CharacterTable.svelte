@@ -46,7 +46,7 @@
                 <td class="au-mono">{formatSid(c.SID)}</td>
                 <td>
                     {#if job.employed}
-                        <div class="au-truncate">{job.label}{#if job.extra > 0}<span class="au-muted"> and {job.extra} more</span>{/if}</div>
+                        <div class="au-truncate">{job.label}{#if job.extra > 0}<span class="au-muted">{` and ${job.extra} more`}</span>{/if}</div>
                         {#if job.detail}<div class="sub au-truncate">{job.detail}</div>{/if}
                     {:else}
                         <span class="au-muted">Unemployed</span>

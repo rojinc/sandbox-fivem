@@ -15,7 +15,7 @@ message `type`, callback name and field name below exactly as written.
 
 | Callback | Body fields Lua reads | Reply | Notes |
 | --- | --- | --- | --- |
-| `Close` | none | `{}` | Drops NUI focus and sends `APP_HIDE`. When the UI was opened as an ATM it also plays the 1.5 s "Removing Card" progress. The UI never drops focus itself. |
+| `Close` | none | `{}` | Answers `{}` first (`client/client.lua`, added in the Svelte port so the fetch settles), then drops NUI focus and sends `APP_HIDE`. When the UI was opened as an ATM it also plays the 1.5 s "Removing Card" progress. The UI hides at once and never drops focus itself. |
 | `Bank:Fetch` | none | `{ accounts: Account[] \| false }` | Wraps server callback `Banking:GetAccounts`. The `transactions` / `loans` / `credit` fields are commented out in `client/nui.lua` and are never returned. |
 | `Bank:Register` | `type`, `name` | `Account \| false` | Only `type = "personal_savings"` is accepted server-side. |
 | `Bank:AddJoint` | `account`, `target` (passed through `tonumber`) | insert id (truthy) \| `false` | Savings accounts, owner only, target may not be another character of the same user. |
@@ -24,7 +24,7 @@ message `type`, callback name and field name below exactly as written.
 | `Bank:Deposit` | `account`, `amount`, `comments` | `{ state: boolean, balance: number }` | `comments` becomes the transaction description (`"No Description"` when omitted). |
 | `Bank:Withdraw` | `account`, `amount`, `comments` | `{ state: boolean, balance: number }` | Fails when `amount > Balance`. |
 | `Bank:Transfer` | `account`, `type` (boolean: `true` = target is a State ID, `false` = target is an account number), `target`, `amount`, `comments` | `{ state: boolean, balance: nil }` | The server replies `cb(success2)` with a single value, so `balance` is never filled for transfers; the UI computes the new balance locally. |
-| `Bank:GetTransactions` | `account`, `perPage`, `offset` (or `page`) | `{ data: Transaction[], pages: number, more: boolean } \| false` | Newest first. The UI pages with `offset` and `perPage = 15`, up to 100 rows. |
+| `Bank:GetTransactions` | `account`, `perPage`, `offset` (or `page`) | `{ data: Transaction[], pages: number, more: boolean } \| false` | Newest first. The Transactions tab pages with `offset` and `perPage = 15` (Previous / Next); the Accounts tab asks for `offset = 0, perPage = 5` for its recent activity. |
 
 All callbacks are invoked with `fetchNui(name, body)` from `@sandbox/ui-kit`.
 
@@ -56,12 +56,25 @@ withdrawals and transfers need `WITHDRAW` and `amount <= Balance`; one
 account action per 2 seconds per player (the UI applies a matching cooldown);
 joint owners and renaming need `MANAGE` and account ownership.
 
+After a deposit or withdrawal the UI patches the balance from the reply and
+lowers the cash on hand optimistically (Lua follows with `SET_DATA`); it does
+not refetch. After a transfer, a new savings account or a joint owner change
+it refetches `Bank:Fetch` quietly. Deposits and withdrawals are made from the
+Accounts tab (branch) and the Withdraw / Deposit screens (ATM, `comments`
+omitted); transfers and account management exist only at the branch.
+
+## UI-only message (previews)
+
+| `type` | `data` | Notes |
+| --- | --- | --- |
+| `NAVIGATE` | `{ tab, transfer?, cash?, atm? }` | Never sent by Lua. Switches tab after `SET_APP` and optionally prefills a form once: `transfer: { from, mode: 'sid' \| 'account', target, amount, comments, submit }`, `cash: { account, amount, comments, submit: 'deposit' \| 'withdraw' }`, `atm: { amount, submit }`. Used by `ui/preview/*.json`. |
+
 ## Focus
 
 Focus is owned by Lua. It is set with `SetNuiFocus(true, true)` before every
 `SET_APP` and dropped with `SetNuiFocus(false, false)` before every
-`APP_HIDE`. The UI closes only by calling `Close`; Escape calls `Close` unless
-a dialog is open, in which case Escape closes the dialog first.
+`APP_HIDE`. The UI closes only by calling `Close` (the Close / Remove card buttons and
+Escape); while a confirm dialog is open, Escape closes the dialog first.
 
 ## Old UI behaviour that Lua never triggers (not ported)
 
@@ -74,3 +87,5 @@ a dialog is open, in which case Escape closes the dialog first.
   returns transactions.
 - `HashRouter`, `react-toastify`, draggable dialogs, the hidden-until-character
   gate: presentation details, replaced by kit primitives.
+- `Bank:Rename`: kept in `src/lib/api.js` for completeness but no screen calls
+  it, because the server stub always answers `false`.

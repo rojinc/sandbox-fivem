@@ -5,6 +5,7 @@
     import AccountsTable from '../shared/AccountsTable.svelte';
     import ResultAlert from '../shared/ResultAlert.svelte';
     import CashForm from './CashForm.svelte';
+    import RecentActivity from './RecentActivity.svelte';
 
     /** Accounts tab: every account the character can see, and cash in or out of the selected one. */
     let alert = $state(null);
@@ -43,6 +44,7 @@
     <div class="layout">
         <div class="table-col">
             <AccountsTable rows={accounts.items} selected={accounts.selected} onselect={selectAccount} />
+            <RecentActivity />
         </div>
         <section class="cash-panel" aria-labelledby="cash-title">
             <h2 class="section-title" id="cash-title">Deposit or withdraw cash</h2>

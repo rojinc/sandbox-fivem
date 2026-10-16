@@ -1,4 +1,4 @@
-import { formatMoney, formatDate } from '@sandbox/ui-kit/util';
+import { formatMoney } from '@sandbox/ui-kit/util';
 
 export { formatMoney };
 
@@ -35,18 +35,25 @@ export function toDate(ts) {
 
 const sameDay = (a, b) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 
-/** "Today 14:05", "Yesterday 09:12" or "16 Oct 2026, 14:05". */
+/** "Today 14:05", "Yesterday 09:12", "14 Oct 13:05" or "14 Oct 2025 13:05" (24-hour throughout). */
 export function formatWhen(ts) {
     const d = toDate(ts);
     if (!d) return '—';
     const now = new Date();
     const yesterday = new Date(now);
     yesterday.setDate(now.getDate() - 1);
-    const time = d.toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit', hour12: false });
+    const time = `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
     if (sameDay(d, now)) return `Today ${time}`;
     if (sameDay(d, yesterday)) return `Yesterday ${time}`;
-    return formatDate(d.getTime());
+    const day = d.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', ...(d.getFullYear() === now.getFullYear() ? {} : { year: 'numeric' }) });
+    return `${day} ${time}`;
 }
+
+/** The server writes "No Description" when none was given; show nothing instead. */
+export const txDescription = (t) => {
+    const text = String(t?.Description ?? '').trim();
+    return text && text.toLowerCase() !== 'no description' ? text : '';
+};
 
 export const ACCOUNT_TYPES = {
     personal: { label: 'Checking', tone: 'info' },
@@ -71,14 +78,20 @@ export const isOwner = (a, character) => Boolean(a && character && String(a.Owne
 
 /** Owner / Joint owner / Job access, for the Access column. */
 export function accessOf(a, character) {
-    if (a?.Type === 'organization') return { label: a.Permissions?.WITHDRAW ? 'Job access' : 'Job (view only)', tone: 'warning' };
-    if (isOwner(a, character)) return { label: 'Owner', tone: 'success' };
-    return { label: 'Joint owner', tone: 'info' };
+    if (a?.Type === 'organization') {
+        const p = a.Permissions ?? {};
+        if (p.WITHDRAW && p.DEPOSIT) return { label: 'Job access' };
+        if (p.DEPOSIT) return { label: 'Job, deposit only' };
+        if (p.WITHDRAW) return { label: 'Job, withdraw only' };
+        return { label: 'Job, view only' };
+    }
+    if (isOwner(a, character)) return { label: 'Owner' };
+    return { label: 'Joint owner' };
 }
 
 export const TX_TYPES = {
     deposit: { label: 'Deposit', tone: 'success' },
-    withdraw: { label: 'Withdrawal', tone: 'error' },
+    withdraw: { label: 'Withdrawal', tone: 'default' },
     transfer: { label: 'Transfer', tone: 'info' },
     paycheck: { label: 'Paycheck', tone: 'success' },
     bill: { label: 'Bill', tone: 'warning' },
@@ -94,14 +107,7 @@ export function txType(t) {
     return { label: raw.charAt(0).toUpperCase() + raw.slice(1), tone: 'default' };
 }
 
-export const BRANDS = {
-    fleeca: { name: 'Fleeca Bank', short: 'Fleeca' },
-    maze: { name: 'Maze Bank', short: 'Maze' },
-    blaineco: { name: 'Blaine County Savings', short: 'Blaine County' },
-    ud: { name: 'Union Depository', short: 'Union' },
-};
-
-export const brandName = (brand) => (BRANDS[brand] ?? BRANDS.fleeca).name;
-export const brandShort = (brand) => (BRANDS[brand] ?? BRANDS.fleeca).short;
+/** Lua only ever sends brand = "fleeca". */
+export const brandName = (brand) => (brand === 'fleeca' || !brand ? 'Fleeca Bank' : String(brand));
 
 export const customerLine = (c) => (c ? `${c.First} ${c.Last} · State ID ${c.SID}` : 'Customer');

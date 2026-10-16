@@ -197,6 +197,10 @@
             ],
             "pages": 2,
             "more": true
+        },
+        "Bank:Deposit": {
+            "state": true,
+            "balance": 12680
         }
     },
     "messages": [
@@ -224,7 +228,11 @@
         {
             "type": "NAVIGATE",
             "data": {
-                "tab": "deposit"
+                "tab": "deposit",
+                "atm": {
+                    "amount": 200,
+                    "submit": true
+                }
             },
             "delay": 150
         }

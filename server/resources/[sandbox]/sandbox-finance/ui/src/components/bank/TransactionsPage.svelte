@@ -1,9 +1,9 @@
 <script>
     import { untrack } from 'svelte';
-    import { Toolbar, Select, Button, Tag, Spinner, EmptyState, PageAlert, formatMoney } from '@sandbox/ui-kit';
+    import { Select, Button, Tag, Spinner, EmptyState, PageAlert, formatMoney } from '@sandbox/ui-kit';
     import { accounts, getAccount, selectAccount } from '../../state/accounts.svelte.js';
     import { transactions, loadTransactions, PER_PAGE } from '../../state/transactions.svelte.js';
-    import { accountOption, accountName, txType, formatWhen, formatSigned } from '../../lib/format.js';
+    import { accountOption, accountName, txType, formatWhen, formatSigned, txDescription } from '../../lib/format.js';
 
     /** Transactions tab: one server page (Bank:GetTransactions) of the selected account, newest first. */
     const visible = $derived(accounts.items.filter((a) => a.Permissions?.TRANSACTIONS));
@@ -29,22 +29,21 @@
 <div class="page-head">
     <div>
         <h1>Transactions</h1>
-        <p>Newest first, {PER_PAGE} to a page.</p>
+        <p>
+            {#if account}
+                {accountName(account)} <span class="au-mono">{account.Account}</span> · balance <span class="au-mono figure">{formatMoney(account.Balance)}</span>
+            {:else}
+                Newest first, {PER_PAGE} to a page.
+            {/if}
+        </p>
     </div>
-    {#if account}
-        <div class="total">
-            <span class="au-hint">Balance</span>
-            <span class="au-mono">{formatMoney(account.Balance)}</span>
-        </div>
-    {/if}
+    <div class="au-row controls">
+        <span class="account-select">
+            <Select aria-label="Account" value={accounts.selected ?? ''} options={visible.map(accountOption)} placeholder="Choose an account" size="sm" onchange={(e) => selectAccount(e.currentTarget.value)} />
+        </span>
+        <Button variant="secondary" size="sm" icon="refresh" disabled={!allowed || loading} onclick={() => goto(transactions.page)}>Refresh</Button>
+    </div>
 </div>
-
-<Toolbar>
-    <span class="account-select">
-        <Select aria-label="Account" value={accounts.selected ?? ''} options={visible.map(accountOption)} placeholder="Choose an account" size="sm" onchange={(e) => selectAccount(e.currentTarget.value)} />
-    </span>
-    <Button variant="secondary" size="sm" icon="refresh" disabled={!allowed || loading} onclick={() => goto(transactions.page)}>Refresh</Button>
-</Toolbar>
 
 {#if accounts.status === 'loading' || accounts.status === 'idle'}
     <div class="loading"><Spinner /><span>Loading your accounts</span></div>
@@ -87,7 +86,7 @@
                     <td class="nowrap au-muted">{formatWhen(t.Timestamp)}</td>
                     <td><Tag tone={type.tone}>{type.label}</Tag></td>
                     <td class="nowrap">{t.Title}</td>
-                    <td class="au-muted au-truncate desc" title={t.Description}>{t.Description}</td>
+                    <td class="au-muted au-truncate desc" title={txDescription(t)}>{txDescription(t)}</td>
                     <td class="is-numeric" class:is-credit={t.Amount > 0}>{formatSigned(t.Amount)}</td>
                 </tr>
             {/each}
@@ -105,15 +104,21 @@
 {/if}
 
 <style>
+    .controls {
+        flex-wrap: nowrap;
+    }
     .account-select {
         display: inline-block;
-        width: 400px;
+        width: 360px;
+    }
+    .figure {
+        color: var(--au-text);
     }
     .tx {
         table-layout: fixed;
     }
     .tx td {
-        height: 32px;
+        height: 30px;
     }
     .col-date {
         width: 168px;

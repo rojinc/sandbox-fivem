@@ -1,6 +1,7 @@
 <script>
     import { Button, onKey } from '@sandbox/ui-kit';
     import { app } from '../state/app.svelte.js';
+    import { characters } from '../state/characters.svelte.js';
     import { requestData } from '../lib/flows.js';
     import Page from './common/Page.svelte';
 
@@ -24,7 +25,7 @@
 </script>
 
 {#if !app.loading}
-    <Page title="Welcome to Los Santos" subline="Connected to SandboxRP">
+    <Page title="Welcome to Los Santos" subline="Connected to {characters.serverName}">
         <div class="splash">
             <p class="splash__lead">Choose one of your characters, or create a new one, to start playing.</p>
             <Button size="lg" iconRight="arrow-right" onclick={proceed}>Continue</Button>

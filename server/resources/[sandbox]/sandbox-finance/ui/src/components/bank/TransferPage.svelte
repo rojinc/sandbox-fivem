@@ -1,7 +1,7 @@
 <script>
     import { untrack } from 'svelte';
     import { Field, TextInput, Select, Radio, Button, Modal, Spinner, EmptyState, uid, formatMoney } from '@sandbox/ui-kit';
-    import { app, startCooldown, cooldownLeft } from '../../state/app.svelte.js';
+    import { app, startCooldown, cooldownLeft, bumpActivity } from '../../state/app.svelte.js';
     import { accounts, same, getAccount, patchAccount, creditAccount, loadAccounts } from '../../state/accounts.svelte.js';
     import { api } from '../../lib/api.js';
     import { parseAmount, accountOption, accountLabel, accountName, accountType } from '../../lib/format.js';
@@ -106,6 +106,7 @@
                 if (personal) creditAccount(personal.Account, c.value);
             }
             reset();
+            bumpActivity();
             alert = {
                 type: 'success',
                 title: 'Transfer sent',
@@ -158,13 +159,13 @@
                         <TextInput id={ids.target} bind:value={form.target} inputmode="numeric" autocomplete="off" mono invalid={Boolean(errors.target)} />
                     </Field>
 
-                    <Field label="Amount" id={ids.amount} hint="Whole dollars" error={errors.amount} required>
+                    <Field label="Amount" id={ids.amount} hint="Whole dollars only" error={errors.amount} required>
                         <TextInput id={ids.amount} bind:value={form.amount} inputmode="numeric" autocomplete="off" placeholder="0" mono invalid={Boolean(errors.amount)} />
                     </Field>
                 </div>
 
-                <Field label="Description (optional)" id={ids.desc} hint="Shown on both statements">
-                    <TextInput id={ids.desc} bind:value={form.comments} maxlength="80" autocomplete="off" />
+                <Field label="Description (optional)" id={ids.desc}>
+                    <TextInput id={ids.desc} bind:value={form.comments} maxlength="80" autocomplete="off" placeholder="Shown on both statements" />
                 </Field>
 
                 <div class="au-row">
@@ -220,7 +221,8 @@
 <style>
     .layout {
         display: grid;
-        grid-template-columns: minmax(0, 560px) 320px;
+        grid-template-columns: minmax(0, 560px) 360px;
+        justify-content: space-between;
         gap: 48px;
         align-items: start;
     }

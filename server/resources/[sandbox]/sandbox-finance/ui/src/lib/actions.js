@@ -5,8 +5,8 @@
  */
 import { formatMoney } from '@sandbox/ui-kit/util';
 import { api } from './api.js';
-import { app, adjustCash, startCooldown, cooldownLeft } from '../state/app.svelte.js';
-import { patchAccount, loadAccounts } from '../state/accounts.svelte.js';
+import { app, adjustCash, startCooldown, cooldownLeft, bumpActivity } from '../state/app.svelte.js';
+import { patchAccount } from '../state/accounts.svelte.js';
 import { parseAmount, accountLabel } from './format.js';
 
 export const canDeposit = (account) => Boolean(account?.Permissions?.DEPOSIT);
@@ -46,8 +46,9 @@ export async function runCashAction(kind, account, value, comments) {
     if (res && res.state) {
         const balance = typeof res.balance === 'number' ? res.balance : account.Balance + (deposit ? value : -value);
         patchAccount(account.Account, { Balance: balance });
+        // The reply carries the new balance, so no refetch; Lua follows up with SET_DATA for the cash.
         adjustCash(deposit ? -value : value);
-        loadAccounts({ quiet: true });
+        bumpActivity();
         return {
             ok: true,
             type: 'success',

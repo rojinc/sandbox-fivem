@@ -43,12 +43,10 @@
                 <td><Tag tone={type.tone}>{type.label}</Tag></td>
                 <td class="au-muted">{accessOf(a, app.character).label}</td>
                 <td class="au-mono au-muted">
-                    {#if a.Type !== 'personal_savings'}
-                        <span class="au-hint">Not shared</span>
-                    {:else if a.JointOwners?.length}
+                    {#if a.Type === 'personal_savings' && a.JointOwners?.length}
                         {a.JointOwners.join(', ')}
                     {:else}
-                        <span class="au-hint">None</span>
+                        <span class="au-hint">—</span>
                     {/if}
                 </td>
                 <td class="is-numeric balance">{formatMoney(a.Balance)}</td>

@@ -33,48 +33,50 @@
         <span class="atm__cash">Cash <span class="au-mono">{formatMoney(app.character?.Cash ?? 0)}</span></span>
     </header>
 
-    <div class="atm__screen">
-        <MainNav items={NAV} active={app.tab} onselect={(id) => (app.tab = id)} label="ATM" />
-        <div class="atm__body">
-            {#if accounts.status === 'loading' || accounts.status === 'idle'}
-                <div class="loading"><Spinner /><span>Reading your card</span></div>
-            {:else if accounts.status === 'error'}
-                <PageAlert type="error" title="Card not read">We could not load your accounts. Remove the card and try again.</PageAlert>
-            {:else if accounts.items.length === 0}
-                <EmptyState icon="credit-card" title="No accounts">This card has no accounts linked to it.</EmptyState>
-            {:else if app.tab === 'withdraw' || app.tab === 'deposit'}
-                {#key app.tab}
-                    <AtmCash kind={app.tab} />
-                {/key}
-            {:else}
-                <div class="balance">
-                    <div class="au-hint">Available balance</div>
-                    <div class="balance__figure au-mono">{formatMoney(account?.Balance ?? 0)}</div>
-                    <div class="au-muted balance__name">{account ? `${accountName(account)} · ${account.Account}` : 'Choose an account'}</div>
-                </div>
+    <div class="atm__bezel">
+        <div class="atm__screen">
+            <MainNav items={NAV} active={app.tab} onselect={(id) => (app.tab = id)} label="ATM" />
+            <div class="atm__body">
+                {#if accounts.status === 'loading' || accounts.status === 'idle'}
+                    <div class="loading"><Spinner /><span>Reading your card</span></div>
+                {:else if accounts.status === 'error'}
+                    <PageAlert type="error" title="Card not read">We could not load your accounts. Remove the card and try again.</PageAlert>
+                {:else if accounts.items.length === 0}
+                    <EmptyState icon="credit-card" title="No accounts">This card has no accounts linked to it.</EmptyState>
+                {:else if app.tab === 'withdraw' || app.tab === 'deposit'}
+                    {#key app.tab}
+                        <AtmCash kind={app.tab} />
+                    {/key}
+                {:else}
+                    <div class="balance">
+                        <div class="au-hint">Available balance</div>
+                        <div class="balance__figure au-mono">{formatMoney(account?.Balance ?? 0)}</div>
+                        <div class="au-muted balance__name">{account ? `${accountName(account)} · ${account.Account}` : 'Choose an account'}</div>
+                    </div>
 
-                <div class="accounts" role="listbox" aria-label="Accounts">
-                    {#each accounts.items as a (a.Account)}
-                        <button
-                            type="button"
-                            class="acct"
-                            class:is-selected={same(a.Account, accounts.selected)}
-                            role="option"
-                            aria-selected={same(a.Account, accounts.selected)}
-                            onclick={() => selectAccount(a.Account)}
-                        >
-                            <span class="acct__name">{accountName(a)}</span>
-                            <span class="acct__num au-mono">{a.Account}</span>
-                            <span class="acct__bal au-mono">{formatMoney(a.Balance)}</span>
-                        </button>
-                    {/each}
-                </div>
+                    <div class="accounts" role="listbox" aria-label="Accounts">
+                        {#each accounts.items as a (a.Account)}
+                            <button
+                                type="button"
+                                class="acct"
+                                class:is-selected={same(a.Account, accounts.selected)}
+                                role="option"
+                                aria-selected={same(a.Account, accounts.selected)}
+                                onclick={() => selectAccount(a.Account)}
+                            >
+                                <span class="acct__name">{accountName(a)}</span>
+                                <span class="acct__num au-mono">{a.Account}</span>
+                                <span class="acct__bal au-mono">{formatMoney(a.Balance)}</span>
+                            </button>
+                        {/each}
+                    </div>
 
-                <div class="actions">
-                    <Button size="lg" block icon="arrow-up" disabled={!account?.Permissions?.WITHDRAW} onclick={() => (app.tab = 'withdraw')}>Withdraw cash</Button>
-                    <Button size="lg" block variant="secondary" icon="arrow-down" disabled={!account?.Permissions?.DEPOSIT} onclick={() => (app.tab = 'deposit')}>Deposit cash</Button>
-                </div>
-            {/if}
+                    <div class="actions">
+                        <Button size="lg" block icon="arrow-up" disabled={!account?.Permissions?.WITHDRAW} onclick={() => (app.tab = 'withdraw')}>Withdraw cash</Button>
+                        <Button size="lg" block variant="secondary" icon="arrow-down" disabled={!account?.Permissions?.DEPOSIT} onclick={() => (app.tab = 'deposit')}>Deposit cash</Button>
+                    </div>
+                {/if}
+            </div>
         </div>
     </div>
 
@@ -130,24 +132,24 @@
         margin-left: 4px;
     }
 
-    /* The screen: recessed into the housing. */
-    .atm__screen {
+    /* The display, recessed into the housing behind a dark bezel. */
+    .atm__bezel {
         flex: 1;
         min-height: 0;
         display: flex;
+        padding: 6px;
+        background: var(--au-bg-sunk);
+        border: 1px solid var(--au-border);
+        border-radius: 6px;
+    }
+    .atm__screen {
+        flex: 1;
+        min-width: 0;
+        display: flex;
         flex-direction: column;
         background: var(--au-bg);
-        border: 1px solid var(--au-border);
         border-radius: var(--au-radius);
-        box-shadow: inset 0 0 0 4px var(--au-bg-sunk);
         overflow: hidden;
-    }
-    .atm__screen :global(.au-mainnav) {
-        padding: 0 24px;
-        margin: 4px 4px 0;
-    }
-    .atm__screen :global(.au-mainnav__list) {
-        justify-content: space-between;
     }
     .atm__body {
         flex: 1;

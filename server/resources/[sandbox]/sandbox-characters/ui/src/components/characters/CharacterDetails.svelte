@@ -22,7 +22,7 @@
             </div>
             <div>
                 <dt>Date of birth</dt>
-                <dd>{formatDob(character.DOB)}{#if age !== null}<span class="au-muted"> ({age})</span>{/if}</dd>
+                <dd>{formatDob(character.DOB)}{#if age !== null}<span class="au-muted">{` (age ${age})`}</span>{/if}</dd>
             </div>
             <div>
                 <dt>Gender</dt>

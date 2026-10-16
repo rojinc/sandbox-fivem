@@ -17,6 +17,7 @@ export const app = $state({
     character: null, // { ID, SID, First, Last, Cash }
     prefill: null, // NAVIGATE payload, consumed once by the page it targets (previews / deep links)
     cooldownUntil: 0,
+    activity: 0, // bumped after every successful money movement so recent activity reloads
 });
 
 export function showApp({ brand, app: mode } = {}) {
@@ -66,4 +67,8 @@ export function startCooldown() {
 
 export function cooldownLeft() {
     return Math.max(0, app.cooldownUntil - Date.now());
+}
+
+export function bumpActivity() {
+    app.activity += 1;
 }

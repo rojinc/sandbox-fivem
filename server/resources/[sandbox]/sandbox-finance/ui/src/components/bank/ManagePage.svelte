@@ -1,6 +1,6 @@
 <script>
     import { untrack } from 'svelte';
-    import { Callout, Button, Field, TextInput, Select, Modal, Tag, EmptyState, uid } from '@sandbox/ui-kit';
+    import { Callout, Button, Field, TextInput, Select, Modal, EmptyState, uid } from '@sandbox/ui-kit';
     import { app } from '../../state/app.svelte.js';
     import { accounts, same, getAccount, upsertAccount, patchAccount, loadAccounts } from '../../state/accounts.svelte.js';
     import { api } from '../../lib/api.js';
@@ -142,19 +142,17 @@
                 {#if savings.JointOwners.length === 0}
                     <p class="au-muted">No joint owners yet.</p>
                 {:else}
-                    <table class="au-table au-table--striped">
+                    <table class="au-table au-table--hover joint-table">
                         <thead>
                             <tr>
                                 <th>State ID</th>
-                                <th>Role</th>
-                                <th class="col-actions">Action</th>
+                                <th class="col-actions"><span class="au-hidden">Actions</span></th>
                             </tr>
                         </thead>
                         <tbody>
                             {#each savings.JointOwners as sid, i (i)}
                                 <tr>
                                     <td class="au-mono">{sid}</td>
-                                    <td><Tag tone="info">Joint owner</Tag></td>
                                     <td class="col-actions"><Button variant="danger" size="sm" onclick={() => (removing = sid)}>Remove</Button></td>
                                 </tr>
                             {/each}
@@ -162,7 +160,7 @@
                     </table>
                 {/if}
                 <form class="joint-form" onsubmit={addJoint} novalidate>
-                    <Field label="Add a joint owner" id={ids.joint} hint="Their State ID. They must be another player." error={jointError}>
+                    <Field label="Add a joint owner" id={ids.joint} hint="Their State ID. You cannot add your own characters." error={jointError}>
                         <div class="au-row">
                             <TextInput
                                 id={ids.joint}
@@ -197,8 +195,8 @@
 <style>
     .columns {
         display: grid;
-        grid-template-columns: 400px minmax(0, 560px);
-        gap: 48px;
+        grid-template-columns: minmax(0, 400px) minmax(0, 560px);
+        gap: 64px;
         align-items: start;
     }
     .joint-form {

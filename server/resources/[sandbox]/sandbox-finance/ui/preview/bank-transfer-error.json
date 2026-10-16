@@ -228,7 +228,7 @@
                 "transfer": {
                     "from": 310442,
                     "mode": "account",
-                    "target": "31O442",
+                    "target": "",
                     "amount": "50000",
                     "submit": true
                 }

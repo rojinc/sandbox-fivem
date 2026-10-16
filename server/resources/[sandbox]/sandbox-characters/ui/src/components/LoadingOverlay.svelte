@@ -33,7 +33,7 @@
         inset: 0;
         z-index: -1;
         background: var(--au-bg);
-        opacity: 0.92;
+        opacity: 0.96;
     }
     .loading :global(.au-spinner) {
         margin-bottom: 16px;

@@ -11,7 +11,7 @@
     {
       "type": "LOADING_SHOW",
       "data": {
-        "message": "Getting Character Data"
+        "message": "Getting character data"
       }
     },
     {

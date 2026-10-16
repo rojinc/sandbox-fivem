@@ -17,4 +17,4 @@ server_scripts({
 
 ui_page("ui/dist/index.html")
 
-files({ "ui/dist/index.html", "ui/dist/*.js", "ui/dist/*.png", "ui/dist/*.webp" })
+files({ "ui/dist/index.html", "ui/dist/assets/*" })
