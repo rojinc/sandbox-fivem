@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 /**
  * Shared Vite preset for every NUI.
@@ -23,13 +23,10 @@ export function nuiViteConfig({ root, port = 3000, outDir = 'dist', extend = {} 
     return defineConfig({
         root,
         base: './',
-        plugins: [react()],
+        plugins: [svelte({ compilerOptions: { runes: true }, emitCss: true })],
         resolve: {
             alias: { '@': path.resolve(root, 'src') },
-            dedupe: ['react', 'react-dom', 'react-redux', '@emotion/react', '@emotion/styled', '@mui/material'],
-        },
-        define: {
-            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV ?? 'production'),
+            dedupe: ['svelte'],
         },
         build: {
             outDir: path.resolve(root, outDir),

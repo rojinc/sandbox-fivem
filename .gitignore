@@ -40,3 +40,4 @@ server/resources/\[sandbox\]/sandbox-pwnzor2/pac.db
 
 # headless preview screenshots
 .preview/
+ui-kit/example/dist/

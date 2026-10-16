@@ -1,0 +1,319 @@
+/* Base styles shared by every NUI. Import once from main.js after fonts. */
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+}
+
+body {
+    font-family: var(--au-font);
+    font-size: var(--au-fs-sm);
+    line-height: var(--au-lh);
+    color: var(--au-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#app {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 var(--au-s3);
+    font-weight: 700;
+    line-height: var(--au-lh-heading);
+    color: inherit;
+}
+
+h1 {
+    font-size: var(--au-fs-xl);
+}
+h2 {
+    font-size: var(--au-fs-lg);
+}
+h3 {
+    font-size: var(--au-fs-md);
+}
+h4 {
+    font-size: var(--au-fs-sm);
+}
+h5,
+h6 {
+    font-size: var(--au-fs-xs);
+}
+
+p {
+    margin: 0 0 var(--au-s4);
+    max-width: var(--au-maxwidth);
+}
+
+ul,
+ol {
+    margin: 0 0 var(--au-s4);
+    padding-left: var(--au-s6);
+}
+
+a {
+    color: var(--au-action);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 1px;
+}
+a:hover {
+    text-decoration-thickness: 2px;
+    color: var(--au-action-hover);
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+    color: inherit;
+    margin: 0;
+}
+
+input,
+textarea,
+[contenteditable='true'] {
+    user-select: text;
+    -webkit-user-select: text;
+}
+
+img,
+svg,
+video {
+    display: block;
+    max-width: 100%;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+:focus {
+    outline: none;
+}
+:focus-visible {
+    outline: 3px solid var(--au-focus);
+    outline-offset: 2px;
+}
+
+::selection {
+    background: var(--au-action);
+    color: var(--au-action-contrast);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--au-bg-alt);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--au-border);
+    border: 2px solid var(--au-bg-alt);
+    border-radius: 5px;
+}
+
+/* --------------------------------------------------------------- utilities */
+
+.au-mono {
+    font-family: var(--au-font-mono);
+    font-variant-numeric: tabular-nums;
+}
+
+.au-muted {
+    color: var(--au-muted);
+}
+
+.au-hint {
+    color: var(--au-hint);
+    font-size: var(--au-fs-xs);
+}
+
+.au-truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.au-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.au-stack > * + * {
+    margin-top: var(--au-s4);
+}
+
+.au-row {
+    display: flex;
+    align-items: center;
+    gap: var(--au-s2);
+    flex-wrap: wrap;
+}
+
+.au-grid {
+    display: grid;
+    gap: var(--au-s4);
+}
+
+.au-body {
+    max-width: var(--au-maxwidth);
+}
+
+.au-page {
+    background: var(--au-bg);
+    color: var(--au-text);
+    border-radius: var(--au-radius);
+    box-shadow: var(--au-shadow-2);
+    overflow: hidden;
+}
+
+/* Definition lists: label / value pairs on records */
+.au-dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: var(--au-s1) var(--au-s4);
+    margin: 0 0 var(--au-s4);
+}
+.au-dl dt {
+    font-weight: 700;
+}
+.au-dl dd {
+    margin: 0;
+}
+
+/* Tables */
+.au-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--au-fs-xs);
+}
+.au-table caption {
+    text-align: left;
+    font-weight: 700;
+    padding: 0 0 var(--au-s2);
+}
+.au-table th {
+    text-align: left;
+    padding: var(--au-s2) var(--au-s3);
+    border-bottom: 3px solid var(--au-text);
+    font-weight: 700;
+    white-space: nowrap;
+}
+.au-table td {
+    padding: var(--au-s2) var(--au-s3);
+    border-bottom: 1px solid var(--au-bg-alt-shade);
+    vertical-align: top;
+}
+.au-table--striped tbody tr:nth-child(even) {
+    background: var(--au-bg-shade);
+}
+.au-table--hover tbody tr:hover {
+    background: var(--au-bg-alt);
+}
+.au-table--dense th,
+.au-table--dense td {
+    padding: var(--au-s1) var(--au-s2);
+}
+.au-table .is-numeric {
+    text-align: right;
+    font-family: var(--au-font-mono);
+    font-variant-numeric: tabular-nums;
+}
+.au-table tr.is-selected {
+    background: var(--au-bg-alt-shade);
+}
+.au-table tr.is-clickable {
+    cursor: pointer;
+}
+
+/* The dark page variant: same chrome on the navy palette */
+.au-dark .au-table th {
+    border-bottom-color: var(--au-border);
+}
+
+/* Preview/dev stand-in for the game world behind over-world UI */
+body.nui-dev {
+    background: #30363c;
+}
+
+/* Keyframes shared by components */
+@keyframes au-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+@keyframes au-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes au-rise-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+@keyframes au-pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.35;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
