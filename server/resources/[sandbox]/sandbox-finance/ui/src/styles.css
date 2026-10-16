@@ -1,7 +1,6 @@
 /*
- * App chrome for the bank and ATM frames. Both are gov pages from the kit's
- * AppShell inside a fixed pixel frame; the frame is zoomed from 1920 wide so
- * 1440p and 4K keep the 1080p proportions (see App.svelte).
+ * Frame sizes for the branch console and the ATM. Both are laid out in px
+ * for 1920x1080 and zoomed for larger screens (App.svelte).
  */
 .stage {
     position: absolute;
@@ -12,52 +11,49 @@
 }
 
 .frame {
-    width: 1360px;
-    height: 860px;
+    width: 1320px;
+    height: 840px;
     animation: au-rise-in var(--au-normal) var(--au-ease);
 }
 .frame--atm {
-    width: 640px;
+    width: 560px;
     height: 780px;
 }
 
-/* Text wordmark in the header band (DESIGN.md: no coat of arms, no agency names). */
-.wordmark {
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    padding-right: 16px;
-    border-right: 1px solid var(--au-border);
-    white-space: nowrap;
-}
-.wordmark span {
-    color: var(--au-action);
-}
-
-/* Cash on hand readout in the header actions. */
-.cash-tag {
-    display: inline-flex;
-    gap: 8px;
-    align-items: baseline;
-    padding: 4px 12px;
-}
-
-.foot-spacer {
-    flex: 1;
-}
-
 /* Page helpers shared by every tab. */
-.lead {
+.page-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 16px;
+}
+.page-head h1 {
+    margin: 0;
+    font-size: var(--au-fs-lg);
+    font-weight: 500;
+}
+.page-head p {
+    margin: 4px 0 0;
     color: var(--au-muted);
-    margin-bottom: 20px;
+    font-size: var(--au-fs-xs);
 }
-.two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    align-items: start;
+/* A headline figure on the right of the page heading (balance, totals). */
+.page-head .total {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
 }
-.form-col {
-    max-width: 560px;
+.page-head .total .au-mono {
+    font-size: var(--au-fs-lg);
+    font-weight: 500;
+    line-height: 1.2;
+}
+.section-title {
+    margin: 0 0 12px;
+    font-size: var(--au-fs-sm);
+    font-weight: 500;
 }
 .loading {
     display: flex;
@@ -65,6 +61,7 @@
     gap: 12px;
     padding: 32px 0;
     color: var(--au-muted);
+    font-size: var(--au-fs-xs);
 }
 .au-table .is-credit {
     color: var(--au-success);
@@ -76,4 +73,7 @@
     width: 1%;
     white-space: nowrap;
     text-align: right;
+}
+.au-table td {
+    vertical-align: middle;
 }

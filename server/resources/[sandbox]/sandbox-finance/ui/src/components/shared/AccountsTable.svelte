@@ -4,64 +4,72 @@
     import { same } from '../../state/accounts.svelte.js';
     import { accountName, accountType, accessOf } from '../../lib/format.js';
 
-    /**
-     * Striped accounts table. Rows select an account when `onselect` is given.
-     * `compact` (ATM) drops the type, access and joint owner columns.
-     */
-    let { rows = [], selected = null, onselect, compact = false } = $props();
+    /** Accounts as a table. Rows select an account when `onselect` is given; the selected row uses the selected surface. */
+    let { rows = [], selected = null, onselect } = $props();
 
-    function pick(a) {
-        onselect?.(a.Account);
-    }
     function onkey(e, a) {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            pick(a);
+            onselect?.(a.Account);
         }
     }
 </script>
 
-<table class="au-table au-table--striped au-table--hover" class:au-table--dense={compact}>
+<table class="au-table au-table--hover accounts">
     <thead>
         <tr>
             <th>Account</th>
             <th>Name</th>
-            {#if !compact}
-                <th>Type</th>
-                <th>Access</th>
-                <th>Joint owners</th>
-            {/if}
+            <th>Type</th>
+            <th>Access</th>
+            <th>Joint owners</th>
             <th class="is-numeric">Balance</th>
         </tr>
     </thead>
     <tbody>
         {#each rows as a (a.Account)}
-            {@const access = accessOf(a, app.character)}
             {@const type = accountType(a)}
+            {@const isSelected = Boolean(onselect) && same(a.Account, selected)}
             <tr
                 class:is-clickable={Boolean(onselect)}
-                class:is-selected={Boolean(onselect) && same(a.Account, selected)}
-                aria-selected={onselect ? same(a.Account, selected) : undefined}
+                class:is-selected={isSelected}
+                aria-selected={onselect ? isSelected : undefined}
                 tabindex={onselect ? 0 : undefined}
-                onclick={onselect ? () => pick(a) : undefined}
+                onclick={onselect ? () => onselect(a.Account) : undefined}
                 onkeydown={onselect ? (e) => onkey(e, a) : undefined}
             >
                 <td class="au-mono">{a.Account}</td>
-                <td>{accountName(a)}</td>
-                {#if !compact}
-                    <td><Tag tone={type.tone}>{type.label}</Tag></td>
-                    <td><Tag tone={access.tone}>{access.label}</Tag></td>
-                    <td class="au-mono">{a.JointOwners?.length ? a.JointOwners.join(', ') : '—'}</td>
-                {/if}
-                <td class="is-numeric">{formatMoney(a.Balance)}</td>
+                <td class="name">{accountName(a)}</td>
+                <td><Tag tone={type.tone}>{type.label}</Tag></td>
+                <td class="au-muted">{accessOf(a, app.character).label}</td>
+                <td class="au-mono au-muted">
+                    {#if a.Type !== 'personal_savings'}
+                        <span class="au-hint">Not shared</span>
+                    {:else if a.JointOwners?.length}
+                        {a.JointOwners.join(', ')}
+                    {:else}
+                        <span class="au-hint">None</span>
+                    {/if}
+                </td>
+                <td class="is-numeric balance">{formatMoney(a.Balance)}</td>
             </tr>
         {/each}
     </tbody>
 </table>
 
 <style>
-    tr.is-selected td:first-child {
-        box-shadow: inset 4px 0 0 var(--au-action);
+    .accounts td {
+        height: 48px;
+    }
+    .name {
+        font-weight: 500;
+    }
+    .balance {
+        font-size: var(--au-fs-sm);
+        font-weight: 500;
+    }
+    .au-hint {
+        font-family: var(--au-font);
     }
     tr.is-clickable:focus-visible {
         outline: 3px solid var(--au-focus);

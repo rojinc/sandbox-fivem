@@ -14,5 +14,6 @@
         "message": "Getting Character Data"
       }
     }
-  ]
+  ],
+  "backdrop": true
 }

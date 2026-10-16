@@ -1,10 +1,9 @@
 <script>
-    import { Button, Toolbar, Tag, EmptyState, PageAlert, onKey } from '@sandbox/ui-kit';
-    import { faUserPlus, faUser } from '@fortawesome/free-solid-svg-icons';
+    import { Button, EmptyState, PageAlert, onKey } from '@sandbox/ui-kit';
     import { app } from '../../state/app.svelte.js';
     import { characters, select, selectedCharacter, canCreate } from '../../state/characters.svelte.js';
     import { playCharacter, deleteCharacter, createCharacter } from '../../lib/flows.js';
-    import Frame from '../common/Frame.svelte';
+    import Page from '../common/Page.svelte';
     import Notice from '../common/Notice.svelte';
     import InfoColumn from '../common/InfoColumn.svelte';
     import CharacterTable from './CharacterTable.svelte';
@@ -13,8 +12,9 @@
     import DeleteDialog from './DeleteDialog.svelte';
 
     /**
-     * STATE_CHARACTERS: the roster as a table with the selected character's
-     * record and actions under it; create and delete happen in dialogs.
+     * STATE_CHARACTERS: the roster as a table, the selected character's
+     * record and actions under it, news on the right. Create and delete
+     * happen in dialogs.
      */
     let creating = $state(false);
     let deleting = $state(null);
@@ -23,11 +23,10 @@
     const list = $derived(characters.list);
     const selected = $derived(selectedCharacter());
     const allowCreate = $derived(canCreate());
+    const unlimited = $derived(characters.limit >= 100);
     const dialogOpen = $derived(creating || Boolean(deleting));
     const keysEnabled = $derived(!app.loading && !dialogOpen);
-    const hasInfo = $derived(Boolean(characters.motd || characters.changelog));
-    const limitText = $derived(characters.limit >= 100 ? 'unlimited' : String(characters.limit));
-    const subline = $derived(characters.limit >= 100 ? `SandboxRP · ${list.length} characters` : `SandboxRP · ${list.length} of ${characters.limit} character slots used`);
+    const slots = $derived(unlimited ? `${list.length} ${list.length === 1 ? 'character' : 'characters'}` : `${list.length} of ${characters.limit} slots used`);
 
     // A player with no characters lands straight in the creation form.
     $effect(() => {
@@ -45,60 +44,52 @@
         select(list[next].ID);
     }
 
-    onKey(['ArrowDown', 'ArrowRight'], () => (keysEnabled ? moveSelection(1) : false));
-    onKey(['ArrowUp', 'ArrowLeft'], () => (keysEnabled ? moveSelection(-1) : false));
+    onKey('ArrowDown', () => (keysEnabled ? moveSelection(1) : false));
+    onKey('ArrowUp', () => (keysEnabled ? moveSelection(-1) : false));
     onKey('Enter', (e) => {
-        if (!keysEnabled || e.repeat) return false;
-        if (selected) playCharacter(selected);
-        else moveSelection(1);
+        if (!keysEnabled || e.repeat || !selected) return false;
+        playCharacter(selected);
     });
-    onKey(['Delete', 'Backspace'], () => (keysEnabled && selected ? (deleting = selected) : false));
-    onKey(['n', 'N'], () => (keysEnabled && allowCreate ? (creating = true) : false));
-    onKey('Escape', () => (keysEnabled && selected ? select(null) : false));
-
-    const hints = $derived([
-        { keys: ['↑', '↓'], label: 'Select' },
-        { keys: ['Enter'], label: 'Play' },
-        ...(allowCreate ? [{ keys: ['N'], label: 'New character' }] : []),
-        { keys: ['Del'], label: 'Delete' },
-        { keys: ['Esc'], label: 'Clear selection' },
-    ]);
 </script>
 
 {#snippet info()}
     <InfoColumn />
 {/snippet}
 
-<Frame title="Choose your character" {subline} {hints} side={hasInfo ? info : undefined}>
+<Page title="Choose a character" subline="Connected to {characters.serverName}" side={info}>
+    <div class="cs-section-head">
+        <h2>Your characters</h2>
+        <span class="cs-meta">{slots}</span>
+        <div class="cs-push">
+            <Button variant="secondary" icon="user-plus" disabled={!allowCreate || app.loading} onclick={() => (creating = true)}>New character</Button>
+        </div>
+    </div>
+
     <Notice />
 
-    <Toolbar>
-        <p class="lead">Select a character and press Play to enter Los Santos.</p>
-        {#snippet right()}
-            <Tag tone={allowCreate ? 'default' : 'warning'}>{list.length} of {limitText} slots used</Tag>
-            <Button icon={faUserPlus} disabled={!allowCreate || app.loading} onclick={() => (creating = true)}>New character</Button>
-        {/snippet}
-    </Toolbar>
-
     {#if list.length}
-        <CharacterTable rows={list} selected={characters.selected} disabled={app.loading} onselect={(c) => select(c.ID)} onplay={playCharacter} />
+        <div class="roster">
+            <CharacterTable rows={list} selected={characters.selected} disabled={app.loading} onselect={(c) => select(c.ID)} onplay={playCharacter} />
+        </div>
         {#if selected}
             <CharacterDetails character={selected} disabled={app.loading} onplay={() => playCharacter(selected)} ondelete={() => (deleting = selected)} />
         {:else}
-            <p class="au-muted pick">Select a character to see their record and play.</p>
+            <p class="pick au-muted">Select a character to play.</p>
         {/if}
         {#if !allowCreate}
-            <PageAlert type="warning" compact class="limit">All {characters.limit} character slots are in use. Delete a character to free a slot.</PageAlert>
+            <PageAlert type="neutral" compact class="limit">All {characters.limit} character slots are in use. Delete a character to make room for a new one.</PageAlert>
         {/if}
     {:else}
-        <EmptyState icon={faUser} title="You have no characters yet">
-            Create your first character to enter Los Santos.
-            {#snippet actions()}
-                <Button icon={faUserPlus} disabled={!allowCreate} onclick={() => (creating = true)}>Create a character</Button>
-            {/snippet}
-        </EmptyState>
+        <div class="empty">
+            <EmptyState icon="users" title="You have no characters yet">
+                Create your first character to start playing.
+                {#snippet actions()}
+                    <Button icon="user-plus" disabled={!allowCreate || app.loading} onclick={() => (creating = true)}>Create a character</Button>
+                {/snippet}
+            </EmptyState>
+        </div>
     {/if}
-</Frame>
+</Page>
 
 {#if creating}
     <CreateDialog
@@ -124,14 +115,34 @@
 {/if}
 
 <style>
-    .lead {
+    .roster {
+        flex: 0 1 auto;
+        min-height: 0;
+        overflow: auto;
+        border: 1px solid var(--au-border);
+        border-radius: var(--au-radius-lg);
+    }
+    .roster :global(.au-table) {
         margin: 0;
-        max-width: none;
+    }
+    .roster :global(.au-table tbody tr:last-child td) {
+        border-bottom: 0;
+    }
+    .roster :global(.au-table thead th) {
+        position: sticky;
+        top: 0;
+        background: var(--au-bg);
+        z-index: 1;
     }
     .pick {
-        margin: 16px 0 0;
+        margin: 24px 0 0;
+    }
+    .empty {
+        border: 1px dashed var(--au-border-strong);
+        border-radius: var(--au-radius-lg);
+        padding: 32px 0;
     }
     :global(.au-alert.limit) {
-        margin-top: 24px;
+        margin: 16px 0 0;
     }
 </style>

@@ -17,8 +17,17 @@
     {
       "type": "SET_DATA",
       "data": {
-        "changelog": null,
-        "motd": "Welcome to SandboxRP \u2014 patch 3.2 is live. Report bugs in <b>#support</b>.",
+        "changelog": {
+          "_id": "6710f0aa0000000000000001",
+          "title": "Patch 3.2",
+          "date": "$nowMs-86400000",
+          "changes": [
+            "Character select rebuilt: faster loading and clearer spawn choices.",
+            "Mechanics can now order parts from the Benny's terminal.",
+            "Fixed phone contacts not saving after a restart."
+          ]
+        },
+        "motd": "Welcome to SandboxRP — patch 3.2 is live. Report bugs in <b>#support</b>.",
         "characters": [
           {
             "ID": "606e8a3c8144f19ec0aeeece",
@@ -28,7 +37,7 @@
             "Phone": "555-0142",
             "DOB": "1991-04-12T12:00:00.000Z",
             "Gender": 0,
-            "LastPlayed": 1792090000000,
+            "LastPlayed": "$nowMs-7200000",
             "Jobs": [
               {
                 "Id": "police",
@@ -45,7 +54,8 @@
               }
             ],
             "GangChain": false,
-            "Preview": false
+            "Preview": false,
+            "Cash": 18450
           },
           {
             "ID": "606e8a3c8144f19ec0aeeecf",
@@ -58,7 +68,8 @@
             "LastPlayed": -1,
             "Jobs": {},
             "GangChain": false,
-            "Preview": false
+            "Preview": false,
+            "Cash": 1000
           },
           {
             "ID": "62a1c0ffee0000000000d0c3",
@@ -68,7 +79,7 @@
             "Phone": "555-0177",
             "DOB": "1985-11-30T12:00:00.000Z",
             "Gender": 0,
-            "LastPlayed": 1788600000000,
+            "LastPlayed": "$nowMs-345600000",
             "Jobs": [
               {
                 "Id": "mechanic",
@@ -99,10 +110,12 @@
             },
             "Preview": {
               "model": "mp_m_freemode_01"
-            }
+            },
+            "Cash": 243900
           }
         ],
-        "characterLimit": 3
+        "characterLimit": 3,
+        "serverName": "SandboxRP"
       }
     },
     {
@@ -119,16 +132,43 @@
       "data": {
         "spawns": [
           {
-            "id": "LastLocation",
-            "label": "Last Location",
+            "id": "APT:1:1042",
+            "label": "Alta Street Apartments",
             "location": {
-              "x": 215.3,
-              "y": -810.1,
-              "z": 30.7,
-              "h": 0.0
+              "x": -271.2,
+              "y": -957.6,
+              "z": 91.1,
+              "h": 70.0
             },
-            "icon": "location-smile",
-            "event": "Characters:GlobalSpawn"
+            "icon": "building",
+            "event": "Apartment:SpawnInside",
+            "ID": 1
+          },
+          {
+            "id": "6501aa00000000000000a001",
+            "label": "3671 Whispymound Drive",
+            "location": {
+              "x": 8.5,
+              "y": 540.0,
+              "z": 176.0,
+              "h": 150.0
+            },
+            "icon": "house",
+            "event": "Properties:SpawnInside",
+            "ID": 2
+          },
+          {
+            "id": "JobSpawn:police:1",
+            "label": "Mission Row Police Department",
+            "location": {
+              "x": 441.2,
+              "y": -981.9,
+              "z": 30.7,
+              "h": 90.0
+            },
+            "icon": "shield-halved",
+            "event": "Characters:GlobalSpawn",
+            "ID": 3
           },
           {
             "id": 1,
@@ -139,7 +179,8 @@
               "z": 21.36,
               "h": 0.0
             },
-            "event": "Characters:GlobalSpawn"
+            "event": "Characters:GlobalSpawn",
+            "ID": 4
           },
           {
             "id": "64f1a2b3c4d5e6f7a8b9c0d1",
@@ -150,20 +191,8 @@
               "z": 43.3,
               "h": 70.0
             },
-            "icon": "hospital",
-            "event": "Characters:GlobalSpawn"
-          },
-          {
-            "id": "64f1a2b3c4d5e6f7a8b9c0d2",
-            "label": "Mirror Park Apartments",
-            "location": {
-              "x": 1200.0,
-              "y": -570.0,
-              "z": 69.0,
-              "h": 0.0
-            },
-            "icon": "house-tree",
-            "event": "Characters:GlobalSpawn"
+            "event": "Characters:GlobalSpawn",
+            "ID": 5
           },
           {
             "id": "64f1a2b3c4d5e6f7a8b9c0d3",
@@ -174,20 +203,20 @@
               "z": 32.8,
               "h": 120.0
             },
-            "icon": "bed",
-            "event": "Characters:GlobalSpawn"
+            "event": "Characters:GlobalSpawn",
+            "ID": 6
           },
           {
             "id": "64f1a2b3c4d5e6f7a8b9c0d4",
-            "label": "Paleto Bay Sheriff",
+            "label": "Paleto Bay Sheriff's Office",
             "location": {
               "x": -440.0,
               "y": 6010.0,
               "z": 31.7,
               "h": 220.0
             },
-            "icon": "shield-halved",
-            "event": "Characters:GlobalSpawn"
+            "event": "Characters:GlobalSpawn",
+            "ID": 7
           }
         ]
       }
@@ -201,5 +230,6 @@
     {
       "type": "LOADING_HIDE"
     }
-  ]
+  ],
+  "backdrop": true
 }

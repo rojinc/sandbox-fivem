@@ -17,8 +17,17 @@
     {
       "type": "SET_DATA",
       "data": {
-        "changelog": null,
-        "motd": "Welcome to SandboxRP \u2014 patch 3.2 is live. Report bugs in <b>#support</b>.",
+        "changelog": {
+          "_id": "6710f0aa0000000000000001",
+          "title": "Patch 3.2",
+          "date": "$nowMs-86400000",
+          "changes": [
+            "Character select rebuilt: faster loading and clearer spawn choices.",
+            "Mechanics can now order parts from the Benny's terminal.",
+            "Fixed phone contacts not saving after a restart."
+          ]
+        },
+        "motd": "Welcome to SandboxRP — patch 3.2 is live. Report bugs in <b>#support</b>.",
         "characters": [
           {
             "ID": "606e8a3c8144f19ec0aeeece",
@@ -28,7 +37,7 @@
             "Phone": "555-0142",
             "DOB": "1991-04-12T12:00:00.000Z",
             "Gender": 0,
-            "LastPlayed": 1792090000000,
+            "LastPlayed": "$nowMs-7200000",
             "Jobs": [
               {
                 "Id": "police",
@@ -45,7 +54,8 @@
               }
             ],
             "GangChain": false,
-            "Preview": false
+            "Preview": false,
+            "Cash": 18450
           },
           {
             "ID": "606e8a3c8144f19ec0aeeecf",
@@ -58,7 +68,8 @@
             "LastPlayed": -1,
             "Jobs": {},
             "GangChain": false,
-            "Preview": false
+            "Preview": false,
+            "Cash": 1000
           },
           {
             "ID": "62a1c0ffee0000000000d0c3",
@@ -68,7 +79,7 @@
             "Phone": "555-0177",
             "DOB": "1985-11-30T12:00:00.000Z",
             "Gender": 0,
-            "LastPlayed": 1788600000000,
+            "LastPlayed": "$nowMs-345600000",
             "Jobs": [
               {
                 "Id": "mechanic",
@@ -99,7 +110,8 @@
             },
             "Preview": {
               "model": "mp_m_freemode_01"
-            }
+            },
+            "Cash": 243900
           },
           {
             "ID": "63b0000000000000000000a1",
@@ -109,7 +121,7 @@
             "Phone": "555-0301",
             "DOB": "1996-02-29T12:00:00.000Z",
             "Gender": 1,
-            "LastPlayed": 1791900000000,
+            "LastPlayed": "$nowMs-86400000",
             "Jobs": [
               {
                 "Id": "ems",
@@ -126,7 +138,8 @@
               }
             ],
             "GangChain": false,
-            "Preview": false
+            "Preview": false,
+            "Cash": 5120
           },
           {
             "ID": "63b0000000000000000000a2",
@@ -136,10 +149,11 @@
             "Phone": "555-0302",
             "DOB": "1979-07-21T12:00:00.000Z",
             "Gender": 0,
-            "LastPlayed": 1785000000000,
+            "LastPlayed": "$nowMs-1900800000",
             "Jobs": [],
             "GangChain": false,
-            "Preview": false
+            "Preview": false,
+            "Cash": 72
           },
           {
             "ID": "63b0000000000000000000a3",
@@ -149,7 +163,7 @@
             "Phone": "555-0303",
             "DOB": "2001-12-05T12:00:00.000Z",
             "Gender": 1,
-            "LastPlayed": 1792105000000,
+            "LastPlayed": "$nowMs-1500000",
             "Jobs": [
               {
                 "Id": "realestate",
@@ -163,7 +177,8 @@
               }
             ],
             "GangChain": false,
-            "Preview": false
+            "Preview": false,
+            "Cash": 31275
           },
           {
             "ID": "63b0000000000000000000a4",
@@ -176,10 +191,12 @@
             "LastPlayed": -1,
             "Jobs": {},
             "GangChain": false,
-            "Preview": false
+            "Preview": false,
+            "Cash": 1000
           }
         ],
-        "characterLimit": 100
+        "characterLimit": 100,
+        "serverName": "SandboxRP"
       }
     },
     {
@@ -191,5 +208,6 @@
         "state": "STATE_CHARACTERS"
       }
     }
-  ]
+  ],
+  "backdrop": true
 }

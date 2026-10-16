@@ -1,6 +1,5 @@
 <script>
     import { Modal, Button, PageAlert } from '@sandbox/ui-kit';
-    import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
     import { formatSid, fullName, jobLines } from '../../lib/format.js';
 
     /**
@@ -28,7 +27,7 @@
 
     {#snippet actions()}
         <Button variant="secondary" onclick={oncancel}>Keep character</Button>
-        <Button variant="danger" icon={faTrashCan} onclick={() => onconfirm?.(character)}>Delete forever</Button>
+        <Button variant="danger" icon="trash" onclick={() => onconfirm?.(character)}>Delete forever</Button>
     {/snippet}
 </Modal>
 

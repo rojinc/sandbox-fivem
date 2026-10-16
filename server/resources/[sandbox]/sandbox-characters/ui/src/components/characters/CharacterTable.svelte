@@ -1,12 +1,19 @@
 <script>
     import { Tag } from '@sandbox/ui-kit';
-    import { ageFrom, formatCash, formatDob, formatSid, fullName, genderLabel, jobSummary, lastPlayed } from '../../lib/format.js';
+    import { ageFrom, formatCash, formatSid, fullName, genderLabel, jobSummary, lastPlayed } from '../../lib/format.js';
 
-    /** The roster as a striped table. Click selects, double-click plays. */
+    /** The roster as a table. Click selects, double-click plays. */
     let { rows = [], selected = null, disabled = false, onselect, onplay } = $props();
 </script>
 
-<table class="au-table au-table--striped au-table--hover cs-table" aria-label="Your characters">
+<table class="au-table au-table--hover cs-table" aria-label="Your characters">
+    <colgroup>
+        <col style="width:30%" />
+        <col style="width:12%" />
+        <col />
+        <col style="width:16%" />
+        <col style="width:12%" />
+    </colgroup>
     <thead>
         <tr>
             <th>Name</th>
@@ -25,29 +32,28 @@
             <tr
                 class="is-clickable"
                 class:is-selected={isSelected}
-                aria-current={isSelected ? 'true' : undefined}
+                aria-selected={isSelected}
                 onclick={() => !disabled && onselect?.(c)}
                 ondblclick={() => !disabled && onplay?.(c)}
             >
                 <td>
                     <div class="name">
-                        <span class="cs-name">{fullName(c)}</span>
+                        <span class="cs-name au-truncate">{fullName(c)}</span>
                         {#if played.never}<Tag tone="info">New</Tag>{/if}
                     </div>
-                    <div class="au-hint">{genderLabel(c.Gender)}{#if age !== null} · {age}{/if} · {formatDob(c.DOB)}</div>
+                    <div class="sub">{genderLabel(c.Gender)}{#if age !== null}, {age}{/if}</div>
                 </td>
                 <td class="au-mono">{formatSid(c.SID)}</td>
                 <td>
                     {#if job.employed}
-                        <span class="job">{job.label}</span>
-                        {#if job.detail}<span class="au-muted"> · {job.detail}</span>{/if}
-                        {#if job.extra > 0}<Tag>+{job.extra} more</Tag>{/if}
+                        <div class="au-truncate">{job.label}{#if job.extra > 0}<span class="au-muted"> and {job.extra} more</span>{/if}</div>
+                        {#if job.detail}<div class="sub au-truncate">{job.detail}</div>{/if}
                     {:else}
                         <span class="au-muted">Unemployed</span>
                     {/if}
                 </td>
                 <td title={played.absolute ?? undefined}>
-                    {#if played.never}<span class="au-muted">Never played</span>{:else}{played.relative}{/if}
+                    {#if played.never}<span class="au-muted">Never</span>{:else}{played.relative}{/if}
                 </td>
                 <td class="is-numeric">{formatCash(c.Cash)}</td>
             </tr>
@@ -56,16 +62,21 @@
 </table>
 
 <style>
+    table {
+        table-layout: fixed;
+    }
     .name {
         display: flex;
         align-items: center;
         gap: 8px;
-        font-size: var(--au-fs-sm);
+        min-width: 0;
     }
-    .job {
-        font-weight: 500;
+    .sub {
+        margin-top: 2px;
+        color: var(--au-hint);
+        font-size: 13px;
     }
-    td :global(.au-tag) {
-        margin-left: 4px;
+    td {
+        font-size: var(--au-fs-xs);
     }
 </style>

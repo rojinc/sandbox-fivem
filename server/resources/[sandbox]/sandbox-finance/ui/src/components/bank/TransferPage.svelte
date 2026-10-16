@@ -1,10 +1,10 @@
 <script>
     import { untrack } from 'svelte';
-    import { Field, TextInput, Select, Radio, Button, Modal, uid, formatMoney } from '@sandbox/ui-kit';
+    import { Field, TextInput, Select, Radio, Button, Modal, Spinner, EmptyState, uid, formatMoney } from '@sandbox/ui-kit';
     import { app, startCooldown, cooldownLeft } from '../../state/app.svelte.js';
     import { accounts, same, getAccount, patchAccount, creditAccount, loadAccounts } from '../../state/accounts.svelte.js';
     import { api } from '../../lib/api.js';
-    import { parseAmount, accountOption, accountLabel } from '../../lib/format.js';
+    import { parseAmount, accountOption, accountLabel, accountName, accountType } from '../../lib/format.js';
     import ResultAlert from '../shared/ResultAlert.svelte';
 
     /** Transfer tab: Bank:Transfer to a State ID (type = true) or an account number (type = false). */
@@ -118,46 +118,82 @@
     }
 </script>
 
-<h1>Transfer money</h1>
-<p class="lead">Send money to a person by State ID, or to any account number. Transfers are immediate and cannot be reversed.</p>
-
-<ResultAlert {alert} onclose={() => (alert = null)} />
-
-<form class="form-col" onsubmit={submit} novalidate>
-    <Field label="From account" id={ids.from} error={errors.from} required>
-        <Select id={ids.from} bind:value={form.from} options={sources.map(accountOption)} placeholder="Choose an account" invalid={Boolean(errors.from)} />
-    </Field>
-
-    <Field label="Send to" required>
-        <div class="au-row radios">
-            <Radio bind:group={form.mode} value="sid" name="transfer-mode" label="A person (State ID)" />
-            <Radio bind:group={form.mode} value="account" name="transfer-mode" label="An account number" />
-        </div>
-    </Field>
-
-    <Field
-        label={toSid ? 'State ID' : 'Account number'}
-        id={ids.target}
-        hint={toSid ? 'The money lands in their everyday account' : 'Six digits, as shown on their statement'}
-        error={errors.target}
-        required
-    >
-        <TextInput id={ids.target} bind:value={form.target} inputmode="numeric" autocomplete="off" mono width="240px" block={false} invalid={Boolean(errors.target)} />
-    </Field>
-
-    <Field label="Amount" id={ids.amount} hint={fromAccount ? `Available: ${formatMoney(fromAccount.Balance)}` : undefined} error={errors.amount} required>
-        <TextInput id={ids.amount} bind:value={form.amount} inputmode="numeric" autocomplete="off" placeholder="0" mono width="240px" block={false} invalid={Boolean(errors.amount)} />
-    </Field>
-
-    <Field label="Description (optional)" id={ids.desc} hint="Shown on both statements">
-        <TextInput id={ids.desc} bind:value={form.comments} maxlength="80" autocomplete="off" />
-    </Field>
-
-    <div class="au-row">
-        <Button type="submit">Send transfer</Button>
-        <Button variant="tertiary" onclick={reset}>Clear</Button>
+<div class="page-head">
+    <div>
+        <h1>Transfer money</h1>
+        <p>Send money to a person by State ID, or to any account number. Transfers are immediate and cannot be reversed.</p>
     </div>
-</form>
+</div>
+
+<div class="layout">
+    <div>
+        <ResultAlert {alert} onclose={() => (alert = null)} />
+
+        {#if accounts.status === 'loading' || accounts.status === 'idle'}
+            <div class="loading"><Spinner /><span>Loading your accounts</span></div>
+        {:else if sources.length === 0}
+            <EmptyState icon="lock" title="Nothing to send from">None of your accounts allow withdrawals.</EmptyState>
+        {:else}
+            <form onsubmit={submit} novalidate>
+                <Field label="From account" id={ids.from} error={errors.from} required>
+                    <Select id={ids.from} bind:value={form.from} options={sources.map(accountOption)} placeholder="Choose an account" invalid={Boolean(errors.from)} />
+                </Field>
+
+                <fieldset class="mode">
+                    <legend>Send to</legend>
+                    <div class="au-row radios">
+                        <Radio bind:group={form.mode} value="sid" name="transfer-mode" label="A person (State ID)" />
+                        <Radio bind:group={form.mode} value="account" name="transfer-mode" label="An account number" />
+                    </div>
+                </fieldset>
+
+                <div class="pair">
+                    <Field
+                        label={toSid ? 'State ID' : 'Account number'}
+                        id={ids.target}
+                        hint={toSid ? 'Paid into their checking account' : 'As shown on their statement'}
+                        error={errors.target}
+                        required
+                    >
+                        <TextInput id={ids.target} bind:value={form.target} inputmode="numeric" autocomplete="off" mono invalid={Boolean(errors.target)} />
+                    </Field>
+
+                    <Field label="Amount" id={ids.amount} hint="Whole dollars" error={errors.amount} required>
+                        <TextInput id={ids.amount} bind:value={form.amount} inputmode="numeric" autocomplete="off" placeholder="0" mono invalid={Boolean(errors.amount)} />
+                    </Field>
+                </div>
+
+                <Field label="Description (optional)" id={ids.desc} hint="Shown on both statements">
+                    <TextInput id={ids.desc} bind:value={form.comments} maxlength="80" autocomplete="off" />
+                </Field>
+
+                <div class="au-row">
+                    <Button type="submit" icon="send">Review transfer</Button>
+                    <Button variant="tertiary" onclick={reset}>Clear</Button>
+                </div>
+            </form>
+        {/if}
+    </div>
+
+    <aside class="summary" aria-label="Sending account">
+        <h2 class="section-title">Sending from</h2>
+        {#if fromAccount}
+            <div class="summary-balance au-mono">{formatMoney(fromAccount.Balance)}</div>
+            <div class="au-hint">Available balance</div>
+            <dl class="au-dl summary-dl">
+                <dt>Account</dt>
+                <dd class="au-mono">{fromAccount.Account}</dd>
+                <dt>Name</dt>
+                <dd>{accountName(fromAccount)}</dd>
+                <dt>Type</dt>
+                <dd>{accountType(fromAccount).label}</dd>
+            </dl>
+        {:else}
+            <p class="au-muted">Choose an account to send from.</p>
+        {/if}
+        <p class="au-hint note">The bank accepts one transaction every 2 seconds. You cannot send money to another character of your own.</p>
+    </aside>
+</div>
 
 {#if confirm}
     <Modal title="Confirm transfer" onclose={() => (confirm = null)} width="480px">
@@ -182,8 +218,49 @@
 {/if}
 
 <style>
+    .layout {
+        display: grid;
+        grid-template-columns: minmax(0, 560px) 320px;
+        gap: 48px;
+        align-items: start;
+    }
+    .mode {
+        border: 0;
+        padding: 0;
+        margin: 0 0 16px;
+    }
+    .mode legend {
+        padding: 0;
+        margin-bottom: 4px;
+        font-size: var(--au-fs-xs);
+        font-weight: 500;
+    }
     .radios {
         gap: 24px;
-        padding-top: 4px;
+    }
+    .pair {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+    .summary {
+        background: var(--au-bg-shade);
+        border: 1px solid var(--au-border);
+        border-radius: var(--au-radius-lg);
+        padding: 20px;
+    }
+    .summary-balance {
+        font-size: var(--au-fs-xl);
+        font-weight: 500;
+        line-height: 1.2;
+    }
+    .summary-dl {
+        margin: 16px 0;
+        font-size: var(--au-fs-xs);
+    }
+    .note {
+        margin: 0;
+        padding-top: 12px;
+        border-top: 1px solid var(--au-border);
     }
 </style>

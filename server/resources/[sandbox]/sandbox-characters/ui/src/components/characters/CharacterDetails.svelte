@@ -1,88 +1,98 @@
 <script>
     import { Button } from '@sandbox/ui-kit';
-    import { faPlay, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-    import { ageFrom, formatCash, formatDob, formatSid, fullName, genderLabel, jobLines, lastPlayed } from '../../lib/format.js';
+    import { ageFrom, formatDob, formatSid, fullName, genderLabel, jobLines } from '../../lib/format.js';
 
-    /** The selected row's record and the Play / Delete actions. */
+    /** The selected row's record with the Play / Delete actions, under the table. */
     let { character, disabled = false, onplay, ondelete } = $props();
 
     const jobs = $derived(jobLines(character.Jobs));
-    const played = $derived(lastPlayed(character.LastPlayed));
     const age = $derived(ageFrom(character.DOB));
 </script>
 
 <section class="details" aria-label="Selected character">
-    <div class="details__head">
-        <h2 class="details__title">{fullName(character)}</h2>
-        <span class="details__sid au-mono">{formatSid(character.SID)}</span>
-    </div>
-    <div class="details__body">
-        <dl class="au-dl details__dl">
-            <dt>Phone</dt>
-            <dd class="au-mono">{character.Phone || '—'}</dd>
-            <dt>Date of birth</dt>
-            <dd>{formatDob(character.DOB)}{#if age !== null} (age {age}){/if}</dd>
-            <dt>Gender</dt>
-            <dd>{genderLabel(character.Gender)}</dd>
-            <dt>Jobs</dt>
-            <dd>
-                {#if jobs.length}
-                    {#each jobs as line, i (i)}<div>{line}</div>{/each}
-                {:else}
-                    Unemployed
-                {/if}
-            </dd>
-            <dt>Last played</dt>
-            <dd>{#if played.never}Never played{:else}{played.relative} <span class="au-muted">({played.absolute})</span>{/if}</dd>
-            <dt>Cash</dt>
-            <dd class="au-mono">{formatCash(character.Cash)}</dd>
-        </dl>
-        <div class="details__actions">
-            <Button size="lg" icon={faPlay} onclick={onplay} {disabled}>Play</Button>
-            <Button variant="secondary" icon={faTrashCan} onclick={ondelete} {disabled}>Delete character</Button>
+    <div class="details__who">
+        <div class="details__name">
+            <h3>{fullName(character)}</h3>
+            <span class="au-mono au-muted">{formatSid(character.SID)}</span>
         </div>
+        <dl class="details__facts">
+            <div>
+                <dt>Phone</dt>
+                <dd class="au-mono">{character.Phone || '—'}</dd>
+            </div>
+            <div>
+                <dt>Date of birth</dt>
+                <dd>{formatDob(character.DOB)}{#if age !== null}<span class="au-muted"> ({age})</span>{/if}</dd>
+            </div>
+            <div>
+                <dt>Gender</dt>
+                <dd>{genderLabel(character.Gender)}</dd>
+            </div>
+            <div class="details__jobs">
+                <dt>Jobs</dt>
+                <dd class="au-truncate">{jobs.length ? jobs.join('; ') : 'Unemployed'}</dd>
+            </div>
+        </dl>
+    </div>
+    <div class="details__actions">
+        <Button variant="secondary" size="lg" icon="trash" onclick={ondelete} {disabled}>Delete</Button>
+        <Button size="lg" icon="player-play" onclick={onplay} {disabled}>Play</Button>
     </div>
 </section>
 
 <style>
     .details {
+        display: flex;
+        align-items: center;
+        gap: 40px;
         margin-top: 24px;
+        padding: 20px 24px;
+        background: var(--au-bg-shade);
         border: 1px solid var(--au-border);
-        border-radius: var(--au-radius);
+        border-radius: var(--au-radius-lg);
     }
-    .details__head {
+    .details__who {
+        flex: 1;
+        min-width: 0;
+    }
+    .details__name {
         display: flex;
         align-items: baseline;
         gap: 12px;
-        padding: 12px 20px;
-        background: var(--au-bg-shade);
-        border-bottom: 1px solid var(--au-bg-alt-shade);
+        margin-bottom: 12px;
     }
-    .details__title {
+    .details__name h3 {
         margin: 0;
         font-size: var(--au-fs-md);
+        font-weight: 500;
     }
-    .details__sid {
-        color: var(--au-muted);
-    }
-    .details__body {
+    .details__facts {
         display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 32px;
-        padding: 16px 20px 20px;
-    }
-    .details__dl {
+        gap: 40px;
         margin: 0;
         font-size: var(--au-fs-xs);
-        grid-template-columns: 120px 1fr;
+    }
+    .details__facts > div {
+        flex-shrink: 0;
+        min-width: 0;
+    }
+    .details__facts .details__jobs {
+        flex: 1 1 auto;
+        flex-shrink: 1;
+    }
+    .details__facts dt {
+        color: var(--au-hint);
+        font-size: 13px;
+    }
+    .details__facts dd {
+        margin: 2px 0 0;
     }
     .details__actions {
         display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
+        gap: 12px;
         flex-shrink: 0;
-        min-width: 220px;
+    }
+    .details__actions :global(.au-btn--primary) {
+        min-width: 160px;
     }
 </style>

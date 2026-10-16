@@ -1,0 +1,132 @@
+{
+  "viewport": [
+    2560,
+    1440
+  ],
+  "settle": 500,
+  "messages": [
+    {
+      "type": "APP_SHOW"
+    },
+    {
+      "type": "LOADING_SHOW",
+      "data": {
+        "message": "Getting Character Data"
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "changelog": {
+          "_id": "6710f0aa0000000000000001",
+          "title": "Patch 3.2",
+          "date": "$nowMs-86400000",
+          "changes": [
+            "Character select rebuilt: faster loading and clearer spawn choices.",
+            "Mechanics can now order parts from the Benny's terminal.",
+            "Fixed phone contacts not saving after a restart."
+          ]
+        },
+        "motd": "Welcome to SandboxRP — patch 3.2 is live. Report bugs in <b>#support</b>.",
+        "characters": [
+          {
+            "ID": "606e8a3c8144f19ec0aeeece",
+            "SID": 1042,
+            "First": "Jordan",
+            "Last": "Reyes",
+            "Phone": "555-0142",
+            "DOB": "1991-04-12T12:00:00.000Z",
+            "Gender": 0,
+            "LastPlayed": "$nowMs-7200000",
+            "Jobs": [
+              {
+                "Id": "police",
+                "Name": "Police",
+                "Workplace": {
+                  "Id": "lspd",
+                  "Name": "Los Santos Police Department"
+                },
+                "Grade": {
+                  "Id": "sergeant",
+                  "Name": "Sergeant",
+                  "Level": 3
+                }
+              }
+            ],
+            "GangChain": false,
+            "Preview": false,
+            "Cash": 18450
+          },
+          {
+            "ID": "606e8a3c8144f19ec0aeeecf",
+            "SID": 2210,
+            "First": "Mia",
+            "Last": "Okafor",
+            "Phone": "555-0199",
+            "DOB": "1998-09-03T12:00:00.000Z",
+            "Gender": 1,
+            "LastPlayed": -1,
+            "Jobs": {},
+            "GangChain": false,
+            "Preview": false,
+            "Cash": 1000
+          },
+          {
+            "ID": "62a1c0ffee0000000000d0c3",
+            "SID": 3375,
+            "First": "Dante",
+            "Last": "Caruso",
+            "Phone": "555-0177",
+            "DOB": "1985-11-30T12:00:00.000Z",
+            "Gender": 0,
+            "LastPlayed": "$nowMs-345600000",
+            "Jobs": [
+              {
+                "Id": "mechanic",
+                "Name": "Mechanic",
+                "Workplace": {
+                  "Id": "bennys",
+                  "Name": "Benny's Original Motor Works"
+                },
+                "Grade": {
+                  "Id": "owner",
+                  "Name": "Owner",
+                  "Level": 5
+                }
+              },
+              {
+                "Id": "taxi",
+                "Name": "Downtown Cab Co.",
+                "Workplace": false,
+                "Grade": {
+                  "Id": "driver",
+                  "Name": "Driver",
+                  "Level": 1
+                }
+              }
+            ],
+            "GangChain": {
+              "Gang": "ballas"
+            },
+            "Preview": {
+              "model": "mp_m_freemode_01"
+            },
+            "Cash": 243900
+          }
+        ],
+        "characterLimit": 3,
+        "serverName": "SandboxRP"
+      }
+    },
+    {
+      "type": "LOADING_HIDE"
+    },
+    {
+      "type": "SET_STATE",
+      "data": {
+        "state": "STATE_CHARACTERS"
+      }
+    }
+  ],
+  "backdrop": true
+}

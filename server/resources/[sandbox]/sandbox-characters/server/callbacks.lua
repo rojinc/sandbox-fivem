@@ -39,6 +39,7 @@ function RegisterCallbacks()
 		end
 
 		local motd = GetConvar("motd", "Welcome to SandboxRP")
+		local serverName = GetConvar("sv_projectName", "SandboxRP")
 		Database.Game:find({
 			collection = "changelogs",
 			options = {
@@ -49,14 +50,14 @@ function RegisterCallbacks()
 			limit = 1,
 		}, function(success, results)
 			if not success then
-				cb({ changelog = nil, motd = "" })
+				cb({ changelog = nil, motd = "", serverName = serverName })
 				return
 			end
 
 			if #results > 0 then
-				cb({ changelog = results[1], motd = motd })
+				cb({ changelog = results[1], motd = motd, serverName = serverName })
 			else
-				cb({ changelog = nil, motd = motd })
+				cb({ changelog = nil, motd = motd, serverName = serverName })
 			end
 		end)
 	end)
@@ -117,6 +118,7 @@ function RegisterCallbacks()
 					LastPlayed = v.LastPlayed,
 					Jobs = v.Jobs,
 					SID = v.SID,
+					Cash = v.Cash,
 					GangChain = v.GangChain,
 					Preview = shit[v._id] or false,
 				})

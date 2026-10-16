@@ -8,7 +8,7 @@ import { characters, select } from '../state/characters.svelte.js';
 
 /** Splash -> roster. Lua drives the rest with LOADING_* / SET_DATA / SET_STATE. */
 export function requestData() {
-    showLoading('Loading Server Data');
+    showLoading('Loading server data');
     fetchNui('GetData');
 }
 
@@ -17,27 +17,27 @@ export function playCharacter(character) {
     if (!character?.ID) return;
     select(character.ID);
     characters.pending = 'select';
-    showLoading('Getting Spawn Points');
+    showLoading('Getting spawn points');
     fetchNui('SelectCharacter', { id: character.ID });
 }
 
 export function deleteCharacter(character) {
     if (!character?.ID) return;
     characters.pending = 'delete';
-    showLoading('Deleting Character');
+    showLoading('Deleting character');
     fetchNui('DeleteCharacter', { id: character.ID });
 }
 
 /** body: { first, last, gender: 0|1, dob: ISO string, origin: { label, value } | null, bio } */
 export function createCharacter(body) {
     characters.pending = 'create';
-    showLoading('Creating Character');
+    showLoading('Creating character');
     fetchNui('CreateCharacter', body);
 }
 
 export function spawnCharacter(character, spawnPoint) {
     if (!character || !spawnPoint) return;
     characters.pending = 'play';
-    showLoading('Spawning');
+    showLoading('Entering Los Santos');
     fetchNui('PlayCharacter', { character, spawn: spawnPoint });
 }

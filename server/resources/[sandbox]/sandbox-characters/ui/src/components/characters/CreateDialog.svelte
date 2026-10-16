@@ -1,6 +1,5 @@
 <script>
     import { Modal, Button, Field, TextInput, Select, Radio, Textarea } from '@sandbox/ui-kit';
-    import { faCheck } from '@fortawesome/free-solid-svg-icons';
     import { COUNTRIES } from '../../data/countries.js';
     import { BIO_MAX, MONTHS, NAME_MAX, buildDobIso, cleanName, dayOptions, validateForm, yearOptions } from '../../lib/validate.js';
 
@@ -59,7 +58,7 @@
     }
 </script>
 
-<Modal title="New character" onclose={oncancel} width="680px">
+<Modal eyebrow="New character" title="Create a character" onclose={oncancel} width="680px">
     <p class="intro">Slot {slot} of {limitText}. Name, gender and date of birth are permanent once the character is created.</p>
 
     <form id="create-character" onsubmit={submit} novalidate autocomplete="off">
@@ -98,7 +97,7 @@
 
     {#snippet actions()}
         <Button variant="secondary" onclick={oncancel}>Cancel</Button>
-        <Button type="submit" form="create-character" icon={faCheck}>Create character</Button>
+        <Button type="submit" form="create-character" icon="check">Create character</Button>
     {/snippet}
 </Modal>
 

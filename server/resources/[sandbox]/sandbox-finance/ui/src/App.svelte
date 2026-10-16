@@ -4,19 +4,23 @@
     import BankScreen from './components/bank/BankScreen.svelte';
     import AtmScreen from './components/atm/AtmScreen.svelte';
 
-    /** The frame is designed at 1920 wide; larger screens zoom it so it never looks tiny. */
-    let scale = $state(1);
+    /**
+     * Both frames are laid out in px for 1920x1080. Larger screens zoom the
+     * frame by the same ratio so 1440p and 4K keep the 1080p proportions.
+     */
+    let zoom = $state(1);
     $effect(() => {
-        const update = () => {
-            scale = Math.max(1, Math.round((window.innerWidth / 1920) * 100) / 100);
+        const fit = () => {
+            const ratio = Math.min(window.innerWidth / 1920, window.innerHeight / 1080) || 1;
+            zoom = Math.max(1, Math.round(ratio * 100) / 100);
         };
-        update();
-        window.addEventListener('resize', update);
-        return () => window.removeEventListener('resize', update);
+        fit();
+        window.addEventListener('resize', fit);
+        return () => window.removeEventListener('resize', fit);
     });
 
     // Escape closes through Lua (the Close callback drops focus) unless a dialog
-    // is open: the Modal's own Escape handler closes it first and the app declines the key.
+    // is open: the Modal's own Escape handler closes it first and this declines the key.
     onEscape(() => {
         if (!app.visible) return false;
         if (document.querySelector('.au-modal')) return false;
@@ -27,7 +31,7 @@
 
 {#if app.visible}
     <div class="stage">
-        <div class="frame" class:frame--atm={app.mode === 'ATM'} style:zoom={scale}>
+        <div class="frame" class:frame--atm={app.mode === 'ATM'} style:zoom>
             {#if app.mode === 'ATM'}
                 <AtmScreen />
             {:else}

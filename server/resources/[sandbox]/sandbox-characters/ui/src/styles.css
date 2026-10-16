@@ -1,43 +1,99 @@
 /*
- * Character select is designed in px for 1920x1080. App.svelte sets `zoom`
- * on .cs-root from the viewport size so 1440p and 4K keep the proportions.
+ * Character select: a full-screen console page over the game. Designed in
+ * px at 1920x1080; App.svelte zooms .cs-root for other resolutions.
  */
 .cs-root {
     position: fixed;
     top: 0;
     left: 0;
     overflow: hidden;
+    background: var(--au-bg);
+    color: var(--au-text);
 }
 
-/* The gov page floats over the game world with a margin all round. */
-.cs-frame {
-    position: absolute;
-    top: 40px;
-    bottom: 40px;
-    left: 50%;
-    width: 1600px;
-    margin-left: -800px;
-}
-
-.cs-name {
-    font-weight: 700;
-}
-
-/* Record tables: rows are selected, not opened, so the selection needs a rule. */
+/* Record tables: rows are selected (surface only, no edge rule), double-click plays. */
 .cs-table th,
 .cs-table td {
     vertical-align: middle;
 }
+.cs-table td {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+.cs-table th:first-child,
+.cs-table td:first-child {
+    padding-left: 16px;
+}
+.cs-table th:last-child,
+.cs-table td:last-child {
+    padding-right: 16px;
+}
 .cs-table tbody tr {
     transition: background var(--au-fast) var(--au-ease);
 }
-.cs-table tbody tr.is-selected td:first-child {
-    box-shadow: inset 4px 0 0 var(--au-action);
-}
-.cs-table tbody tr.is-selected td {
+.cs-table tbody tr.is-selected,
+.cs-table tbody tr.is-selected:hover {
     background: var(--au-bg-alt-shade);
 }
-.cs-table tbody tr:focus-visible {
-    outline: 3px solid var(--au-focus);
-    outline-offset: -3px;
+.cs-name {
+    font-size: var(--au-fs-sm);
+    font-weight: 500;
+    color: var(--au-text);
+}
+
+/* Section heading inside a column: title, muted meta, actions on the right. */
+.cs-section-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 40px;
+    margin-bottom: 16px;
+}
+.cs-section-head h2 {
+    margin: 0;
+    font-size: var(--au-fs-md);
+    font-weight: 500;
+}
+.cs-section-head .cs-meta {
+    color: var(--au-muted);
+    font-size: var(--au-fs-xs);
+}
+.cs-section-head .cs-push {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+}
+
+/* Plain text sections in the right column (no boxes, no rules). */
+.cs-note + .cs-note {
+    margin-top: 40px;
+}
+.cs-note h2 {
+    margin: 0 0 8px;
+    font-size: var(--au-fs-sm);
+    font-weight: 700;
+}
+.cs-note p,
+.cs-note ul,
+.cs-note .cs-note__body {
+    margin: 0;
+    max-width: none;
+    font-size: var(--au-fs-xs);
+    color: var(--au-muted);
+}
+.cs-note ul {
+    padding-left: 20px;
+}
+.cs-note li + li {
+    margin-top: 6px;
+}
+.cs-note .cs-note__date {
+    margin: -4px 0 8px;
+    color: var(--au-hint);
+    font-size: 13px;
+}
+.cs-note b,
+.cs-note strong {
+    color: var(--au-text);
+    font-weight: 500;
 }

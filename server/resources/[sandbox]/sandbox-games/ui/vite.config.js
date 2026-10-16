@@ -1,3 +1,3 @@
 import { nuiViteConfig } from '@sandbox/ui-kit/vite';
 
-export default nuiViteConfig({ root: import.meta.dirname, port: 3019 });
+export default nuiViteConfig({ root: import.meta.dirname, port: 3016 });

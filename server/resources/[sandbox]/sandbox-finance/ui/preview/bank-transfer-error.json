@@ -1,0 +1,239 @@
+{
+    "viewport": [
+        1920,
+        1080
+    ],
+    "backdrop": true,
+    "settle": 400,
+    "wait": 700,
+    "mocks": {
+        "Bank:Fetch": {
+            "accounts": [
+                {
+                    "Account": 310442,
+                    "Balance": 12480,
+                    "Type": "personal",
+                    "Owner": "12345",
+                    "Name": "310442",
+                    "Permissions": {
+                        "MANAGE": true,
+                        "BALANCE": true,
+                        "WITHDRAW": true,
+                        "DEPOSIT": true,
+                        "TRANSACTIONS": true
+                    }
+                },
+                {
+                    "Account": 418820,
+                    "Balance": 54000,
+                    "Type": "personal_savings",
+                    "Owner": "12345",
+                    "Name": "House fund",
+                    "Permissions": {
+                        "MANAGE": true,
+                        "BALANCE": true,
+                        "WITHDRAW": true,
+                        "DEPOSIT": true,
+                        "TRANSACTIONS": true
+                    },
+                    "JointOwners": [
+                        23456,
+                        34567
+                    ]
+                },
+                {
+                    "Account": 502117,
+                    "Balance": 3250,
+                    "Type": "personal_savings",
+                    "Owner": "45678",
+                    "Name": "Rent pot",
+                    "Permissions": {
+                        "MANAGE": false,
+                        "BALANCE": true,
+                        "WITHDRAW": true,
+                        "DEPOSIT": true,
+                        "TRANSACTIONS": true
+                    }
+                },
+                {
+                    "Account": 900015,
+                    "Balance": 1840500,
+                    "Type": "organization",
+                    "Owner": "police",
+                    "Name": "LSPD operating",
+                    "Permissions": {
+                        "MANAGE": false,
+                        "BALANCE": true,
+                        "WITHDRAW": false,
+                        "DEPOSIT": true,
+                        "TRANSACTIONS": true,
+                        "BILL": false
+                    }
+                }
+            ]
+        },
+        "Bank:GetTransactions": {
+            "data": [
+                {
+                    "Type": "deposit",
+                    "Account": 310442,
+                    "Title": "Cash Deposit",
+                    "Timestamp": 1792158060000,
+                    "Amount": 1200,
+                    "Description": "No Description"
+                },
+                {
+                    "Type": "transfer",
+                    "Account": 310442,
+                    "Title": "Outgoing Bank Transfer",
+                    "Timestamp": 1792148700000,
+                    "Amount": -2500,
+                    "Description": "Transfer to Account: 418820. Description: House fund top-up"
+                },
+                {
+                    "Type": "paycheck",
+                    "Account": 310442,
+                    "Title": "Paycheck",
+                    "Timestamp": 1792087500000,
+                    "Amount": 3360,
+                    "Description": "Paycheck For 240 Minutes Worked"
+                },
+                {
+                    "Type": "withdraw",
+                    "Account": 310442,
+                    "Title": "Cash Withdrawal",
+                    "Timestamp": 1792065900000,
+                    "Amount": -400,
+                    "Description": "No Description"
+                },
+                {
+                    "Type": "bill",
+                    "Account": 310442,
+                    "Title": "Bill Payment",
+                    "Timestamp": 1792051500000,
+                    "Amount": -185,
+                    "Description": "Los Santos Customs: brake pads and labour"
+                },
+                {
+                    "Type": "fine",
+                    "Account": 310442,
+                    "Title": "Fine",
+                    "Timestamp": 1791983100000,
+                    "Amount": -750,
+                    "Description": "Citation 2026-1188: speeding on Del Perro Fwy"
+                },
+                {
+                    "Type": "transfer",
+                    "Account": 310442,
+                    "Title": "Incoming Bank Transfer",
+                    "Timestamp": 1791972300000,
+                    "Amount": 900,
+                    "Description": "Transfer from Account: 502117. Description: Your half of the rent"
+                },
+                {
+                    "Type": "withdraw",
+                    "Account": 310442,
+                    "Title": "Cash Withdrawal",
+                    "Timestamp": 1791907500000,
+                    "Amount": -200,
+                    "Description": "ATM, Legion Square"
+                },
+                {
+                    "Type": "deposit",
+                    "Account": 310442,
+                    "Title": "Cash Deposit",
+                    "Timestamp": 1791889500000,
+                    "Amount": 650,
+                    "Description": "Tips"
+                },
+                {
+                    "Type": "paycheck",
+                    "Account": 310442,
+                    "Title": "Paycheck",
+                    "Timestamp": 1791813900000,
+                    "Amount": 2880,
+                    "Description": "Paycheck For 205 Minutes Worked"
+                },
+                {
+                    "Type": "loan",
+                    "Account": 310442,
+                    "Title": "Loan Payment",
+                    "Timestamp": 1791799500000,
+                    "Amount": -1250,
+                    "Description": "Vehicle loan 7731, payment 4 of 12"
+                },
+                {
+                    "Type": "withdraw",
+                    "Account": 310442,
+                    "Title": "Cash Withdrawal",
+                    "Timestamp": 1791727500000,
+                    "Amount": -60,
+                    "Description": "No Description"
+                },
+                {
+                    "Type": "transfer",
+                    "Account": 310442,
+                    "Title": "Outgoing Bank Transfer",
+                    "Timestamp": 1791691500000,
+                    "Amount": -300,
+                    "Description": "Transfer to Account: 662091. Description: Concert tickets"
+                },
+                {
+                    "Type": "deposit",
+                    "Account": 310442,
+                    "Title": "Cash Deposit",
+                    "Timestamp": 1791619500000,
+                    "Amount": 5000,
+                    "Description": "Car sale, Sultan RS"
+                },
+                {
+                    "Type": "bill",
+                    "Account": 310442,
+                    "Title": "Bill Payment",
+                    "Timestamp": 1791547500000,
+                    "Amount": -95,
+                    "Description": "Downtown Cab Co."
+                }
+            ],
+            "pages": 2,
+            "more": true
+        }
+    },
+    "messages": [
+        {
+            "type": "SET_DATA",
+            "data": {
+                "type": "character",
+                "data": {
+                    "ID": "64f0c2",
+                    "SID": 12345,
+                    "First": "Maya",
+                    "Last": "Hart",
+                    "Cash": 1234
+                }
+            }
+        },
+        {
+            "type": "SET_APP",
+            "data": {
+                "brand": "fleeca",
+                "app": "BANK"
+            },
+            "delay": 50
+        },
+        {
+            "type": "NAVIGATE",
+            "data": {
+                "tab": "transfer",
+                "transfer": {
+                    "from": 310442,
+                    "mode": "account",
+                    "target": "31O442",
+                    "amount": "50000",
+                    "submit": true
+                }
+            },
+            "delay": 150
+        }
+    ]
+}

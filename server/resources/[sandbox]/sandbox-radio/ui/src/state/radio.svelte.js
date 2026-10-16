@@ -5,7 +5,8 @@
  * or refused, but stays silent when the requested channel equals the current one).
  */
 export const TUNE_TIMEOUT = 1500; // ms before a request that got no answer is dropped
-export const NOTICE_TIMEOUT = 2200; // ms the Tuned / Refused tag stays up
+export const NOTICE_TIMEOUT = 2200; // ms the Tuned / Refused word stays on the screen
+export const OSD_TIMEOUT = 1400; // ms the volume / click-sound readout stays on the screen
 
 export const radio = $state({
     open: false,
@@ -22,6 +23,7 @@ export const radio = $state({
     // local
     pending: null, // frequency sent with SetChannel, awaiting UPDATE_DATA
     notice: null, // { kind: 'tuned' | 'refused', frequency }
+    osd: null, // { kind: 'volume' } | { kind: 'clicks', dir: 1 | -1 }: what the knobs just did
 });
 
 const num = (value, fallback) => {
@@ -35,6 +37,7 @@ export function setOpen(open) {
     if (!radio.open) {
         radio.pending = null;
         radio.notice = null;
+        radio.osd = null;
     }
 }
 
@@ -73,4 +76,14 @@ export function tuneRequested(frequency) {
     setTimeout(() => {
         if (radio.pending === frequency) radio.pending = null;
     }, TUNE_TIMEOUT);
+}
+
+let osdSeq = 0;
+/** Show what a knob just did on the screen for OSD_TIMEOUT (a real handset does the same). */
+export function showOsd(osd) {
+    const seq = ++osdSeq;
+    radio.osd = osd;
+    setTimeout(() => {
+        if (osdSeq === seq) radio.osd = null;
+    }, OSD_TIMEOUT);
 }

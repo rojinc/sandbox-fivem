@@ -1,0 +1,120 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "settle": 500,
+  "messages": [
+    {
+      "type": "APP_SHOW"
+    },
+    {
+      "type": "LOADING_SHOW",
+      "data": {
+        "message": "Getting Character Data"
+      }
+    },
+    {
+      "type": "SET_DATA",
+      "data": {
+        "changelog": null,
+        "motd": "Welcome to SandboxRP — patch 3.2 is live. Report bugs in <b>#support</b>.",
+        "characters": [
+          {
+            "ID": "606e8a3c8144f19ec0aeeece",
+            "SID": 1042,
+            "First": "Jordan",
+            "Last": "Reyes",
+            "Phone": "555-0142",
+            "DOB": "1991-04-12T12:00:00.000Z",
+            "Gender": 0,
+            "LastPlayed": "$nowMs-7200000",
+            "Jobs": [
+              {
+                "Id": "police",
+                "Name": "Police",
+                "Workplace": {
+                  "Id": "lspd",
+                  "Name": "Los Santos Police Department"
+                },
+                "Grade": {
+                  "Id": "sergeant",
+                  "Name": "Sergeant",
+                  "Level": 3
+                }
+              }
+            ],
+            "GangChain": false,
+            "Preview": false,
+            "Cash": 18450
+          },
+          {
+            "ID": "606e8a3c8144f19ec0aeeecf",
+            "SID": 2210,
+            "First": "Mia",
+            "Last": "Okafor",
+            "Phone": "555-0199",
+            "DOB": "1998-09-03T12:00:00.000Z",
+            "Gender": 1,
+            "LastPlayed": -1,
+            "Jobs": {},
+            "GangChain": false,
+            "Preview": false,
+            "Cash": 1000
+          }
+        ],
+        "characterLimit": 3,
+        "serverName": "SandboxRP"
+      }
+    },
+    {
+      "type": "LOADING_HIDE"
+    },
+    {
+      "type": "SET_STATE",
+      "data": {
+        "state": "STATE_CHARACTERS"
+      }
+    },
+    {
+      "type": "LOADING_SHOW",
+      "data": {
+        "message": "Creating character"
+      }
+    },
+    {
+      "type": "CREATE_CHARACTER",
+      "data": {
+        "character": {
+          "ID": "6710f0aa00000000000000c4",
+          "User": "acc-1",
+          "SID": 4410,
+          "First": "Lena",
+          "Last": "Kowalski",
+          "Phone": "555-0188",
+          "DOB": "2000-06-21T12:00:00.000Z",
+          "Gender": 1,
+          "LastPlayed": -1,
+          "Jobs": {},
+          "Cash": 1000,
+          "New": true,
+          "Bio": "Moved from Liberty City for a fresh start.",
+          "Origin": {
+            "label": "Poland",
+            "value": "pl"
+          }
+        }
+      }
+    },
+    {
+      "type": "SET_STATE",
+      "data": {
+        "state": "STATE_CHARACTERS"
+      }
+    },
+    {
+      "type": "LOADING_HIDE"
+    }
+  ],
+  "backdrop": true
+}

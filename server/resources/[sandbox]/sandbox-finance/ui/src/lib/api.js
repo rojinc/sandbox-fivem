@@ -2,7 +2,8 @@ import { fetchNui } from '@sandbox/ui-kit/nui';
 
 /** Every RegisterNUICallback in client/*.lua, with the exact body Lua reads. */
 export const api = {
-    close: () => fetchNui('Close'),
+    /** Lua drops focus and answers APP_HIDE; nothing useful comes back, so a failure is ignored. */
+    close: () => fetchNui('Close').catch(() => null),
     fetchAccounts: () => fetchNui('Bank:Fetch'),
     /** Only `personal_savings` is accepted server-side; `name` is read by Lua but ignored by the server. */
     register: (type = 'personal_savings', name) => fetchNui('Bank:Register', name ? { type, name } : { type }),

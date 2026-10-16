@@ -184,6 +184,7 @@ AddEventHandler("Finance:Client:Paycheck", function(entity, data)
 end)
 
 RegisterNUICallback("Close", function(data, cb)
+	cb({})
 	SetNuiFocus(false, false)
 	SendNUIMessage({
 		type = "APP_HIDE",

@@ -28,7 +28,7 @@
             "Phone": "555-0142",
             "DOB": "1991-04-12T12:00:00.000Z",
             "Gender": 0,
-            "LastPlayed": 1792090000000,
+            "LastPlayed": "$nowMs-7200000",
             "Jobs": [
               {
                 "Id": "police",
@@ -45,10 +45,12 @@
               }
             ],
             "GangChain": false,
-            "Preview": false
+            "Preview": false,
+            "Cash": 18450
           }
         ],
-        "characterLimit": 3
+        "characterLimit": 3,
+        "serverName": "SandboxRP"
       }
     },
     {
@@ -60,5 +62,6 @@
         "state": "STATE_CHARACTERS"
       }
     }
-  ]
+  ],
+  "backdrop": true
 }

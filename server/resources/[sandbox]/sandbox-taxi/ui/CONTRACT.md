@@ -19,7 +19,9 @@ into `src/state/meter.svelte.js`.
 Derived values (UI only, `src/state/meter.svelte.js`):
 
 * miles    = `trip / 1609`
-* fare     = `ceil(miles * rate)` in whole dollars (`formatMoney`, "$1,234")
+* fare     = `ceil(miles * rate)` in whole dollars, shown as plain digits after
+  a fixed `$` in a four-cell segment field (unused leading cells show as unlit
+  `8`s; a longer fare widens the field)
 * time     = number of `UPDATE_TRIP` ticks received since the cab first moved
   this ride, shown as `mm:ss` (`formatClock`). One tick per second in game; the
   clock keeps running while the cab waits, and starts again at 0 after
@@ -27,6 +29,8 @@ Derived values (UI only, `src/state/meter.svelte.js`):
 * state    = *Running* when the last tick's `trip >= 0.5`; *Paused* when the
   ride has distance but the last tick was below that; *Stopped* when the trip
   is 0 (just shown, or reset). The React build called these Moving / Waiting.
+  All three words are printed on the display as annunciators; the current one
+  is lit.
 
 Keybinds (`Keybinds:Add`, no default key): `taxi_increase_rate`,
 `taxi_decrease_rate`, `taxi_reset_trip`, `taxi_toggle_hud`. They are bound by
@@ -49,6 +53,13 @@ Bottom-right, above the sandbox-hud speedometer cluster (both are on screen
 whenever the player drives). Chrome is sized in px for 1920 wide; `App.svelte`
 zooms the root by `window.innerWidth / 1920` so 1440p and 4K keep the same
 proportions. The preview folder has one 2560x1440 scenario for this.
+
+## Look
+
+A dash-mounted meter rather than a panel: a black housing (`--au-bg-sunk`,
+1px `--au-border` edge, slight inner shadow) around one backlit display
+(`--hud-black`) with amber digits (`--au-warning`) and amber legends FARE /
+DIST / TIME / RATE. No header band, no status pill, no icons.
 
 ## Dropped (not driven by Lua)
 

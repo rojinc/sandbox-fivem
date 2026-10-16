@@ -5,7 +5,10 @@
     import CharactersScreen from './components/characters/CharactersScreen.svelte';
     import SpawnScreen from './components/spawn/SpawnScreen.svelte';
 
-    /* Everything is laid out for 1920x1080; larger (or smaller) screens get the same page scaled. */
+    /*
+     * Laid out in px for 1920x1080. Larger (or smaller) screens get the same
+     * page zoomed, so 1440p and 4K keep the proportions instead of looking tiny.
+     */
     const DESIGN_W = 1920;
     const DESIGN_H = 1080;
     let scale = $state(1);
@@ -14,9 +17,9 @@
 
     function fit() {
         const s = Math.min(window.innerWidth / DESIGN_W, window.innerHeight / DESIGN_H) || 1;
-        scale = s;
-        width = Math.round(window.innerWidth / s);
-        height = Math.round(window.innerHeight / s);
+        scale = Math.round(s * 1000) / 1000;
+        width = Math.round(window.innerWidth / scale);
+        height = Math.round(window.innerHeight / scale);
     }
 
     $effect(() => {
@@ -27,12 +30,12 @@
 </script>
 
 {#if !app.hidden}
-    <div class="cs-root" style="zoom:{scale};width:{width}px;height:{height}px">
+    <div class="cs-root" style:zoom={scale} style:width="{width}px" style:height="{height}px">
         {#if app.state === STATE_CHARACTERS}
             <CharactersScreen />
         {:else if app.state === STATE_SPAWN}
             <SpawnScreen />
-        {:else if !app.loading}
+        {:else}
             <Splash />
         {/if}
         <LoadingOverlay />

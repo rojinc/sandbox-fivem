@@ -92,6 +92,23 @@ export function formatCash(cash) {
     return typeof cash === 'number' && Number.isFinite(cash) ? formatMoney(cash) : '—';
 }
 
+/**
+ * What kind of place a spawn is, from the id / event the providing resource
+ * sets (sandbox-apartments, sandbox-properties, sandbox-jobs, this resource).
+ */
+export function spawnKind(spawn) {
+    const id = String(spawn?.id ?? '');
+    const event = spawn?.event ?? '';
+    if (id === 'LastLocation') return 'Last location';
+    if (event === 'Jail:SpawnJailed') return 'Prison';
+    if (event === 'Hospital:SpawnICU') return 'Hospital';
+    if (event === 'Apartment:SpawnInside' || id.startsWith('APT:')) return 'Apartment';
+    if (event === 'Properties:SpawnInside') return 'Property';
+    if (id.startsWith('JobSpawn:')) return 'Work';
+    if (/creation/i.test(spawn?.label ?? '')) return 'New character';
+    return 'Public';
+}
+
 /** A one-line description for the special spawns Lua hands out. */
 export function spawnHint(spawn) {
     if (spawn?.id === 'LastLocation') return 'Where you logged out';

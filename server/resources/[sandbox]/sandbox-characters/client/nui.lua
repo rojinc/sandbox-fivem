@@ -40,7 +40,7 @@ RegisterNUICallback("GetData", function(data, cb)
 	Callbacks:ServerCallback("Characters:GetServerData", {}, function(serverData)
 		SendNUIMessage({
 			type = "LOADING_SHOW",
-			data = { message = "Getting Character Data" },
+			data = { message = "Getting character data" },
 		})
 
 		FadeOutWithTimeout(500)
@@ -141,6 +141,7 @@ RegisterNUICallback("GetData", function(data, cb)
 				data = {
 					changelog = serverData.changelog,
 					motd = serverData.motd,
+					serverName = serverData.serverName,
 					characters = characters,
 					characterLimit = characterLimit,
 				},

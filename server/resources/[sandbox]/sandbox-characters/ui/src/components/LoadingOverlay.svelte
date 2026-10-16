@@ -8,40 +8,42 @@
 
 {#if app.loading}
     <div class="loading" role="status" aria-live="polite" aria-busy="true">
-        <div class="loading__panel au-page">
-            <Spinner size={48} label={message} />
-            <div class="loading__text">
-                <h2 class="loading__title">{message}</h2>
-                <p class="au-muted">This only takes a moment.</p>
-            </div>
-        </div>
+        <Spinner size={40} label={message} />
+        <div class="loading__title">{message}</div>
+        <div class="loading__sub">This only takes a moment.</div>
     </div>
 {/if}
 
 <style>
     .loading {
-        position: fixed;
+        position: absolute;
         inset: 0;
         z-index: 1100;
-        display: grid;
-        place-items: center;
-        background: rgba(10, 20, 24, 0.55);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
         animation: au-fade-in var(--au-normal) var(--au-ease);
     }
-    .loading__panel {
-        display: flex;
-        align-items: center;
-        gap: 24px;
-        width: 480px;
-        padding: 28px 32px;
+    /* The page behind stays faintly visible so the wait reads as "working on this". */
+    .loading::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: var(--au-bg);
+        opacity: 0.92;
     }
-    .loading__text {
-        min-width: 0;
+    .loading :global(.au-spinner) {
+        margin-bottom: 16px;
     }
     .loading__title {
-        margin-bottom: 4px;
+        font-size: var(--au-fs-md);
+        font-weight: 500;
     }
-    .loading__text p {
-        margin: 0;
+    .loading__sub {
+        color: var(--au-muted);
+        font-size: var(--au-fs-xs);
     }
 </style>

@@ -1,7 +1,6 @@
 <script>
     import { untrack } from 'svelte';
     import { Callout, Button, Field, TextInput, Select, Modal, Tag, EmptyState, uid } from '@sandbox/ui-kit';
-    import { faPlus } from '@fortawesome/free-solid-svg-icons';
     import { app } from '../../state/app.svelte.js';
     import { accounts, same, getAccount, upsertAccount, patchAccount, loadAccounts } from '../../state/accounts.svelte.js';
     import { api } from '../../lib/api.js';
@@ -113,22 +112,26 @@
     }
 </script>
 
-<h1>Manage accounts</h1>
-<p class="lead">Open savings accounts and decide who else can use them.</p>
+<div class="page-head">
+    <div>
+        <h1>Manage accounts</h1>
+        <p>Open savings accounts and decide who else can use them.</p>
+    </div>
+</div>
 
 <ResultAlert {alert} onclose={() => (alert = null)} />
 
-<div class="two-col">
+<div class="columns">
     <section>
-        <h2>Open a savings account</h2>
+        <h2 class="section-title">Open a savings account</h2>
         <Callout title="How savings accounts work">
             <p>A savings account keeps money separate from your checking account. You can add joint owners who can deposit and withdraw, and remove them at any time. Only you can manage the account.</p>
         </Callout>
-        <Button icon={faPlus} loading={opening} onclick={openSavings}>Open a savings account</Button>
+        <Button icon="plus" loading={opening} onclick={openSavings}>Open a savings account</Button>
     </section>
 
     <section>
-        <h2>Joint owners</h2>
+        <h2 class="section-title">Joint owners</h2>
         {#if owned.length === 0}
             <EmptyState title="No savings accounts">Open a savings account to share it with joint owners.</EmptyState>
         {:else}
@@ -192,6 +195,12 @@
 {/if}
 
 <style>
+    .columns {
+        display: grid;
+        grid-template-columns: 400px minmax(0, 560px);
+        gap: 48px;
+        align-items: start;
+    }
     .joint-form {
         margin-top: 24px;
     }

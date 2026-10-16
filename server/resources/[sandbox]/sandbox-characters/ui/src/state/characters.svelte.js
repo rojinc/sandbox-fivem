@@ -3,7 +3,7 @@
  * request and notice.
  *
  * From Lua (see ../../CONTRACT.md):
- *   SET_DATA         { changelog, motd, characters, characterLimit }
+ *   SET_DATA         { changelog, motd, characters, characterLimit, serverName? }
  *   CREATE_CHARACTER { character }
  *   DELETE_CHARACTER { id }
  *   SET_SPAWNS       { spawns }   (clears a pending "select")
@@ -11,11 +11,21 @@
  */
 import { asArray } from '../lib/format.js';
 
+export const DEFAULT_SERVER_NAME = 'SandboxRP';
+
+/** "^1Sandbox^7RP" -> "SandboxRP" */
+function cleanServerName(v) {
+    const s = typeof v === 'string' ? v.replace(/\^\d/g, '').trim() : '';
+    return s || DEFAULT_SERVER_NAME;
+}
+
 const initial = () => ({
     list: [],
     changelog: null,
     motd: null,
     limit: 3,
+    /** sv_projectName from Lua, without FiveM colour codes. */
+    serverName: DEFAULT_SERVER_NAME,
     /** ID of the highlighted row (UI-local). */
     selected: null,
     /** 'create' | 'delete' | 'select' | 'play' while a callback is in flight (UI-local). */
@@ -48,6 +58,7 @@ export function setData(d) {
     characters.changelog = d.changelog && typeof d.changelog === 'object' ? d.changelog : null;
     characters.motd = typeof d.motd === 'string' && d.motd.trim() ? d.motd : null;
     characters.limit = Number(d.characterLimit) > 0 ? Number(d.characterLimit) : characters.limit;
+    characters.serverName = cleanServerName(d.serverName);
     characters.selected = defaultSelection(list);
     characters.pending = null;
 }

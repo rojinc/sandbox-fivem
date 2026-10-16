@@ -18,9 +18,10 @@
       "type": "SET_DATA",
       "data": {
         "changelog": null,
-        "motd": "Welcome to SandboxRP \u2014 patch 3.2 is live. Report bugs in <b>#support</b>.",
+        "motd": "Welcome to SandboxRP — patch 3.2 is live. Report bugs in <b>#support</b>.",
         "characters": [],
-        "characterLimit": 3
+        "characterLimit": 3,
+        "serverName": "SandboxRP"
       }
     },
     {
@@ -33,5 +34,6 @@
       }
     }
   ],
-  "wait": 900
+  "wait": 900,
+  "backdrop": true
 }
