@@ -4,7 +4,7 @@
  * when a text field should get the key instead.
  */
 import { view } from '../state/menu.svelte.js';
-import { send, moveCursor, step, activate, goBack, closeMenu, endEdit, moveEditor, nudgeChannel, commitPending } from './actions.js';
+import { send, sound, moveCursor, step, activate, goBack, closeMenu, endEdit, moveEditor, nudgeChannel, commitPending } from './actions.js';
 
 export const KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter', 'Backspace', 'Escape'];
 
@@ -58,7 +58,9 @@ export function handleKey(e) {
             if (!e.repeat) activate(item);
             break;
         case 'Backspace':
-            if (!e.repeat) goBack();
+            if (e.repeat) break;
+            sound('BACK');
+            goBack();
             break;
         case 'Escape':
             if (!e.repeat) closeMenu();

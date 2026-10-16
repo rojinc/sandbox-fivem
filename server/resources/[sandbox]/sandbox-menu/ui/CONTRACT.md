@@ -70,7 +70,7 @@ Every callback answers `"OK"`/`"ok"`; the UI does not read the answers.
 ### Going back
 
 A `GOBACK` row sends `Selected { id }` first; Backspace and the empty-state
-button skip that. Then: `MenuClose { id: <showing menu> }`, and either
+button skip that. A back row and Backspace play `BACK`. Then: `MenuClose { id: <showing menu> }`, and either
 `MenuOpen { id: <previous menu>, back: true }` (the previous menu is shown at
 once with its cursor where it was, and Lua's `SUBMENU_OPEN`/`SETUP_MENU` answer
 refreshes it), or, at the root, `Close {}`.

@@ -42,6 +42,7 @@
     .options {
         max-height: 272px;
         overflow-y: auto;
+        scroll-padding-block: var(--au-s5);
         border: 2px solid var(--au-ink);
         background: var(--au-input-bg);
     }
