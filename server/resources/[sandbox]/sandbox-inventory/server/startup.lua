@@ -196,7 +196,10 @@ function SetupItemUses(itemData)
 
 	if itemData.type == 1 and itemsDatabase[itemData.name].statusChange ~= nil then
 		INVENTORY.Items:RegisterUse(itemData.name, "StatusConsumable", function(source, item) -- Foo
-			INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, 1)
+			-- No effect unless the item was really used up.
+			if not INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, 1) then
+				return
+			end
 
 			if itemsDatabase[item.Name].statusChange.Add ~= nil then
 				for k, v in pairs(itemsDatabase[item.Name].statusChange.Add) do
@@ -255,15 +258,39 @@ function SetupItemUses(itemData)
 		end)
 	elseif itemData.type == 2 then
 		INVENTORY.Items:RegisterUse(itemData.name, "Weapons", function(source, item)
+			_lastWeaponUsed[source] = item.id
 			TriggerClientEvent("Weapons:Client:Use", source, item)
 		end)
 	elseif itemData.type == 9 then
 		INVENTORY.Items:RegisterUse(itemData.name, "Ammo", function(source, item)
-			Callbacks:ClientCallback(source, "Weapons:AddAmmo", itemsDatabase[item.Name], function(state)
-				if state then
-					Inventory.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, 1)
-				end
-			end)
+			local ammoData = itemsDatabase[item.Name]
+
+			-- Loaded into the gun the client has out, once that is known to be
+			-- the player's own and to take this ammo.
+			local equipped = AwaitClientCallback(source, "Weapons:Check", {}, 15000)
+			local weapon = type(equipped) == "table" and GetOwnWeapon(equipped.id, item.Owner) or nil
+			if weapon == nil then
+				Execute:Client(source, "Notification", "Error", "No Weapon Equipped")
+				return
+			elseif itemsDatabase[weapon.Name].ammoType ~= ammoData.ammoType then
+				Execute:Client(source, "Notification", "Error", "Wrong Ammo Type")
+				return
+			end
+
+			-- The box goes first; if the client does not load it (cancelled, no
+			-- answer) or the gun cannot take it, the same box is given back.
+			if not INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, 1) then
+				return
+			end
+
+			if
+				AwaitClientCallback(source, "Weapons:AddAmmo", ammoData, 15000) == true
+				and AddWeaponAmmo(weapon.id, item.Owner, ammoData.ammoType, ammoData.bulletCount or 10)
+			then
+				return
+			end
+
+			INVENTORY:AddItem(item.Owner, item.Name, 1, item.MetaData or {}, 1, false, false, false, false, item.Slot, item.CreateDate, item.Quality, true)
 		end)
 	elseif itemData.type == 10 then
 		INVENTORY.Items:RegisterUse(itemData.name, "Containers", function(source, item)
@@ -310,9 +337,8 @@ function SetupItemUses(itemData)
 	if itemData.phoneCase ~= nil then
 		INVENTORY.Items:RegisterUse(itemData.name, "PhoneCase", function(source, item)
 			local char = Fetch:CharacterSource(source, true)
-			if char ~= nil then
+			if char ~= nil and INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, 1) then
 				char:SetData("PhoneCase", itemData.phoneCase)
-				INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, 1)
 			end
 		end)
 	end
@@ -529,14 +555,14 @@ function RegisterCommands()
 		local sid = char:GetData("SID")
 		local tsid = tChar:GetData("SID")
 
-		MySQL.query.await("DELETE FROM inventory WHERE owner = ? AND type = ?", { sid, 1 })
+		MySQL.query.await("DELETE FROM inventory WHERE owner = ? AND type = ?", { tostring(tsid), 1 })
 		Execute:Client(
 			tChar:GetData("Source"),
 			"Notification",
 			"Error",
-			"Your inventory was cleared by " .. tostring(tsid)
+			"Your inventory was cleared by " .. tostring(sid)
 		)
-		Execute:Client(source, "Notification", "Success", "You cleared the inventory of " .. tostring(sid))
+		Execute:Client(source, "Notification", "Success", "You cleared the inventory of " .. tostring(tsid))
 		refreshShit(tsid, true)
 	end, {
 		help = "Clear Player Inventory",

@@ -282,7 +282,7 @@ AddEventHandler("Core:Shared:Ready", function()
 					metadata.Owner = cData.SID
 				end
 
-				local insData = INVENTORY:AddItem(cData.SID, v.name, v.countTo, metadata, 1, false, false, false, false, slot, false, false, true)
+				local insData = INVENTORY:AddItem(cData.SID, v.name, v.count or 1, metadata, 1, false, false, false, false, slot, false, false, true)
 				slot += 1
 			end
 

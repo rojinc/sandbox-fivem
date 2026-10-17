@@ -25,6 +25,50 @@ local _materialsTable = {
 	{ 5, { name = "ironbar", min = 10, max = 50 } },
 }
 
+-- Takes one out of a pack or box that counts what is left in MetaData.Count:
+-- the last one takes the pack with it, and an empty pack is thrown away.
+-- True only when this very row was still the player's and held one, so the
+-- caller hands out the contents only then.
+local function takeFromPack(source, item, emptyMessage)
+	local row = INVENTORY:GetItem(item.id)
+	if
+		row == nil
+		or row.Name ~= item.Name
+		or tostring(row.Owner) ~= tostring(item.Owner)
+		or tonumber(row.invType) ~= tonumber(item.invType)
+		or tonumber(row.Slot) ~= tonumber(item.Slot)
+	then
+		return false
+	end
+
+	local md = json.decode(row.MetaData or "{}") or {}
+	local count = math.floor(tonumber(md.Count) or 0)
+	if count <= 1 then
+		local removed = INVENTORY.Items:RemoveId(item.Owner, item.invType, item)
+		if count < 1 then
+			Execute:Client(source, "Notification", "Error", emptyMessage)
+			return false
+		end
+		return removed
+	end
+
+	-- Only over the information just read, so two uses cannot both take the same one.
+	md.Count = count - 1
+	local taken = MySQL.update.await("UPDATE inventory SET information = JSON_SET(information, '$.Count', ?) WHERE id = ? AND owner = ? AND type = ? AND information = ?", {
+		md.Count,
+		row.id,
+		tostring(row.Owner),
+		row.invType,
+		row.MetaData,
+	}) or 0
+	if taken < 1 then
+		return false
+	end
+
+	TriggerClientEvent("Inventory:Client:UpdateMetadata", source, row.Slot, json.encode(md), "Count")
+	return true
+end
+
 function RegisterRandomItems()
 	INVENTORY.Items:RegisterUse("vanityitem", "VanityItems", function(source, item, itemData)
 		if item?.MetaData?.CustomItemAction == "overlay" then
@@ -35,7 +79,9 @@ function RegisterRandomItems()
 	end)
 
 	INVENTORY.Items:RegisterUse("cigarette", "RandomItems", function(source, item)
-		INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType)
+		if not INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType) then
+			return
+		end
 		Player(source).state.stressTicks = { "3", "3", "3", "3", "3", "3", "3", "3" }
 		TriggerClientEvent("Status:Client:Ticks:Stress", source)
 	end)
@@ -113,30 +159,14 @@ function RegisterRandomItems()
 	end)
 
 	INVENTORY.Items:RegisterUse("cigarette_pack", "RandomItems", function(source, item)
-		if (item.MetaData.Count and tonumber(item.MetaData.Count) or 0) > 0 then
+		if takeFromPack(source, item, "Pack Has No More Cigarettes In It") then
 			INVENTORY:AddItem(item.Owner, "cigarette", 1, {}, 1)
-			if tonumber(item.MetaData.Count) - 1 <= 0 then
-				INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType)
-			else
-				INVENTORY:SetMetaDataKey(item.id, "Count", tonumber(item.MetaData.Count) - 1, source)
-			end
-		else
-			INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType)
-			Execute:Client(source, "Notification", "Error", "Pack Has No More Cigarettes In It")
 		end
 	end)
 
 	INVENTORY.Items:RegisterUse("rusty_strawsprinkbox", "RustyBrowns", function(source, item)
-		if (item.MetaData.Count and tonumber(item.MetaData.Count) or 0) > 0 then
+		if takeFromPack(source, item, "Box Has No More Donuts In It") then
 			INVENTORY:AddItem(item.Owner, "rusty_strawsprinkle", 1, {}, 1)
-			if tonumber(item.MetaData.Count) - 1 <= 0 then
-				INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType)
-			else
-				INVENTORY:SetMetaDataKey(item.id, "Count", tonumber(item.MetaData.Count) - 1, source)
-			end
-		else
-			INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType)
-			Execute:Client(source, "Notification", "Error", "Box Has No More Donuts In It")
 		end
 	end)
 
@@ -161,16 +191,8 @@ function RegisterRandomItems()
 				name = 'rusty_ring'
 			},
 		}
-		if (item.MetaData.Count and tonumber(item.MetaData.Count) or 0) > 0 then
+		if takeFromPack(source, item, "Box Has No More Donuts In It") then
 			INVENTORY:AddItem(item.Owner, _mixedDonuts[math.random(#_mixedDonuts)].name, 1, {}, 1)
-			if tonumber(item.MetaData.Count) - 1 <= 0 then
-				INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType)
-			else
-				INVENTORY:SetMetaDataKey(item.id, "Count", tonumber(item.MetaData.Count) - 1, source)
-			end
-		else
-			INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType)
-			Execute:Client(source, "Notification", "Error", "Box Has No More Donuts In It")
 		end
 	end)
 
@@ -201,16 +223,8 @@ function RegisterRandomItems()
 				name = 'rusty_custard'
 			},
 		}
-		if (item.MetaData.Count and tonumber(item.MetaData.Count) or 0) > 0 then
+		if takeFromPack(source, item, "Box Has No More Donuts In It") then
 			INVENTORY:AddItem(item.Owner, _mixedDonuts[math.random(#_mixedDonuts)].name, 1, {}, 1)
-			if tonumber(item.MetaData.Count) - 1 <= 0 then
-				INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType)
-			else
-				INVENTORY:SetMetaDataKey(item.id, "Count", tonumber(item.MetaData.Count) - 1, source)
-			end
-		else
-			INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType)
-			Execute:Client(source, "Notification", "Error", "Box Has No More Donuts In It")
 		end
 	end)
 
@@ -226,38 +240,39 @@ function RegisterRandomItems()
 				name = 'rusty_ring'
 			},
 		}
-		if (item.MetaData.Count and tonumber(item.MetaData.Count) or 0) > 0 then
+		if takeFromPack(source, item, "Box Has No More Donuts In It") then
 			INVENTORY:AddItem(item.Owner, _mixedDonuts[math.random(#_mixedDonuts)].name, 1, {}, 1)
-			if tonumber(item.MetaData.Count) - 1 <= 0 then
-				INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType)
-			else
-				INVENTORY:SetMetaDataKey(item.id, "Count", tonumber(item.MetaData.Count) - 1, source)
-			end
-		else
-			INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType)
-			Execute:Client(source, "Notification", "Error", "Box Has No More Donuts In It")
 		end
 	end)
 
 	INVENTORY.Items:RegisterUse("armor", "RandomItems", function(source, item)
-		INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType)
+		if not INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType) then
+			return
+		end
 		SetPedArmour(GetPlayerPed(source), 50)
 	end)
 
 	INVENTORY.Items:RegisterUse("heavyarmor", "RandomItems", function(source, item)
-		INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType)
+		if not INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType) then
+			return
+		end
 		SetPedArmour(GetPlayerPed(source), 100)
 	end)
 
 	INVENTORY.Items:RegisterUse("pdarmor", "RandomItems", function(source, item)
-		INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType)
+		if not INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType) then
+			return
+		end
 		SetPedArmour(GetPlayerPed(source), 100)
 	end)
 
 	INVENTORY.Items:RegisterUse("parts_box", "RandomItems", function(source, item)
 		local char = Fetch:CharacterSource(source)
 		if char ~= nil then
-			INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType)
+			-- The parts come out of this box only once it is gone.
+			if not INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType) then
+				return
+			end
 			if item.MetaData.Items then
 				for k, v in ipairs(item.MetaData.Items) do
 					INVENTORY:AddItem(item.Owner, v.name, v.count, {}, 1)
@@ -267,7 +282,9 @@ function RegisterRandomItems()
 	end)
 
 	INVENTORY.Items:RegisterUse("birthday_cake", "RandomItems", function(source, item)
-		INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType)
+		if not INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType) then
+			return
+		end
 		TriggerClientEvent('Inventory:Client:RandomItems:BirthdayCake', source)
 	end)
 
@@ -278,10 +295,17 @@ function RegisterRandomItems()
 				if char then
 					local states = char:GetData("States") or {}
 					if not hasValue(states, "SCRIPT_PARACHUTE") then
-						INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType)
+						-- This answer comes after the use has finished, so the parachute
+						-- may have been moved meanwhile: equip it only once it is gone.
+						if not INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, item.invType) then
+							return
+						end
 
-						table.insert(states, "SCRIPT_PARACHUTE")
-						char:SetData("States", states)
+						states = char:GetData("States") or {}
+						if not hasValue(states, "SCRIPT_PARACHUTE") then
+							table.insert(states, "SCRIPT_PARACHUTE")
+							char:SetData("States", states)
+						end
 					else
 						Execute:Client(source, "Notification", "Error", "Already Have Parachute Equipped")
 					end
@@ -329,5 +353,6 @@ function RegisterRandomItems()
 				end
 			end
 		end
+		cb(true)
 	end)
 end

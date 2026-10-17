@@ -1,5 +1,16 @@
 _weaponModels = {}
 
+-- The weapon row each player last drew or holstered through Items.Use (the
+-- "Weapons" use in server/startup.lua): the only gun whose ammo they may save
+-- once it has left their inventory (Weapon:Server:UpdateAmmoDiff).
+_lastWeaponUsed = {}
+
+local _attachmentBusy = {}
+local _throwing = {}
+local _flashThrows = {}
+local FLASH_WINDOW_MS = 10000
+local FLASH_MAX_DISTANCE = 40.0
+
 local weaponCheaters = {
 	[`WEAPON_ANIMAL`] = "Animal",
 	[`WEAPON_COUGAR`] = "Cougar",
@@ -219,18 +230,38 @@ AddEventHandler("Core:Shared:Ready", function()
 
 		Callbacks:RegisterServerCallback("Weapons:UseThrowable", function(source, data, cb)
 			local char = Fetch:CharacterSource(source)
-			if char ~= nil then
-				if INVENTORY.Items:RemoveSlot(char:GetData("SID"), data.Name, 1, data.Slot, 1) then
-					local slotExists = INVENTORY:SlotExists(char:GetData("SID"), data.Slot, 1)
-					if not slotExists then
-						TriggerClientEvent("Weapons:Client:ForceUnequip", source)
-					end
-
-					cb()
-				end
-			else
-				cb()
+			if char == nil or type(data) ~= "table" then
+				return cb(false)
 			end
+
+			local sid = char:GetData("SID")
+			local slot = math.tointeger(tonumber(data.Slot) or 0)
+			_throwing[source] = true
+
+			-- The slot the client threw from must really hold that throwable, and
+			-- one of them has to be used up before the throw counts.
+			local s = slot ~= nil and slot > 0 and INVENTORY:GetSlot(sid, slot, 1) or nil
+			local thrown = s ~= nil
+				and s.Name == data.Name
+				and itemsDatabase[s.Name] ~= nil
+				and itemsDatabase[s.Name].isThrowable
+				and INVENTORY.Items:RemoveSlot(sid, s.Name, 1, slot, 1)
+
+			if thrown and s.Name == "WEAPON_FLASHBANG" then
+				_flashThrows[source] = _flashThrows[source] or {}
+				table.insert(_flashThrows[source], GetGameTimer())
+			end
+			_throwing[source] = nil
+
+			if not thrown then
+				TriggerClientEvent("Weapons:Client:ForceUnequip", source)
+				return cb(false)
+			end
+
+			if not INVENTORY:SlotExists(sid, slot, 1) then
+				TriggerClientEvent("Weapons:Client:ForceUnequip", source)
+			end
+			cb(true)
 		end)
 
 		Callbacks:RegisterServerCallback("Weapons:PossibleCheaterWarning", function(source, data, cb)
@@ -263,7 +294,92 @@ AddEventHandler("Characters:Server:PlayerDropped", function(source)
 			DeleteEntity(v)
 		end
 	end
+
+	_lastWeaponUsed[source] = nil
+	_throwing[source] = nil
+	_flashThrows[source] = nil
 end)
+
+-- Asks the client and waits for its answer, giving up after timeoutMs: a
+-- progress bar that cannot start ("Already Doing An Action") never answers,
+-- and a use waiting on it would hold the player's item lock. nil = no answer.
+function AwaitClientCallback(source, event, data, timeoutMs)
+	local p = promise.new()
+	local settled = false
+	local function settle(answer)
+		if not settled then
+			settled = true
+			p:resolve({ answer })
+		end
+	end
+	Callbacks:ClientCallback(source, event, data, settle)
+	SetTimeout(timeoutMs or 15000, settle)
+	return Citizen.Await(p)[1]
+end
+
+-- Row ids arrive from clients: only plain whole numbers are looked up.
+local function validId(id)
+	if type(id) == "number" then
+		return id > 0 and id == math.floor(id)
+	end
+	return type(id) == "string" and id:match("^%d+$") ~= nil
+end
+
+-- The row, if it is one of this character's own weapons in their pockets, and
+-- its decoded MetaData (row.MetaData stays the raw JSON string).
+function GetOwnWeapon(id, sid)
+	if not validId(id) then
+		return nil
+	end
+	local row = INVENTORY:GetItem(id)
+	local def = row ~= nil and itemsDatabase[row.Name] or nil
+	if def == nil or def.type ~= 2 or tostring(row.Owner) ~= tostring(sid) or tonumber(row.invType) ~= 1 then
+		return nil
+	end
+	return row, json.decode(row.MetaData or "{}") or {}
+end
+
+local function takeOffAttachment(source, slotId, attachment)
+	local char = Fetch:CharacterSource(source)
+	if char == nil then
+		return false
+	end
+
+	local sid = char:GetData("SID")
+	local slot = INVENTORY:GetSlot(sid, slotId, 1)
+	local def = slot ~= nil and itemsDatabase[slot.Name] or nil
+	local comps = def ~= nil and def.type == 2 and slot.MetaData.WeaponComponents or nil
+	local comp = type(comps) == "table" and comps[attachment] or nil
+	if type(comp) ~= "table" or comp.item == nil then
+		return false
+	end
+
+	local itemData = Inventory.Items:GetData(comp.item)
+	if itemData == nil then
+		return false
+	end
+
+	-- Cleared by the same statement that checks it is still fitted, so two
+	-- requests can never both get the attachment back.
+	local path = string.format('$.WeaponComponents."%s"', attachment)
+	local cleared = MySQL.update.await(
+		"UPDATE inventory SET information = JSON_REMOVE(information, ?) WHERE id = ? AND owner = ? AND type = 1 AND JSON_CONTAINS_PATH(information, 'one', ?) AND JSON_UNQUOTE(JSON_EXTRACT(information, ?)) = ?",
+		{ path, slot.id, tostring(sid), path, path .. ".item", comp.item }
+	) or 0
+	if cleared < 1 then
+		return false
+	end
+
+	INVENTORY:AddItem(sid, itemData.name, 1, {}, 1, false, false, false, false, false, comp.created or os.time())
+
+	comps[attachment] = nil
+	local now = INVENTORY:GetItem(slot.id)
+	if now ~= nil then
+		TriggerClientEvent("Inventory:Client:UpdateMetadata", source, now.Slot, now.MetaData, "WeaponComponents")
+	end
+	TriggerClientEvent("Weapons:Client:UpdateAttachments", source, comps)
+	return true
+end
 
 WEAPONS = {
 	IsEligible = function(self, source)
@@ -276,9 +392,12 @@ WEAPONS = {
 		end
 	end,
 	Save = function(self, source, id, ammo, clip)
-		INVENTORY:UpdateMetaData(id, {
-			ammo = ammo,
-			clip = clip,
+		-- Only these two keys: rewriting the whole blob from an older read could
+		-- put back an attachment that was taken off in between.
+		MySQL.update.await("UPDATE inventory SET information = JSON_SET(information, '$.ammo', ?, '$.clip', ?) WHERE id = ?", {
+			ammo,
+			clip,
+			id,
 		})
 	end,
 	Purchase = function(self, sid, item, isScratched, isCompanyOwned)
@@ -351,128 +470,131 @@ WEAPONS = {
 	end,
 	EquipAttachment = function(self, source, item)
 		local char = Fetch:CharacterSource(source)
-		if char ~= nil then
-			local p = promise.new()
-			Callbacks:ClientCallback(source, "Weapons:Check", {}, function(data)
-				if not data then
-					Execute:Client(source, "Notification", "Error", "No Weapon Equipped")
-					p:resolve(false)
-				else
-					local itemData = Inventory.Items:GetData(item.Name)
-					local weaponData = Inventory.Items:GetData(data.item)
-					if itemData ~= nil and itemData.component ~= nil then
-						if itemData.component.strings[weaponData.weapon or weaponData.name] ~= nil then
-							Callbacks:ClientCallback(
-								source,
-								"Weapons:EquipAttachment",
-								itemData.label,
-								function(notCancelled)
-									if notCancelled then
-										local slotData = INVENTORY:GetItem(data.id)
-
-										if slotData ~= nil then
-											slotData.MetaData = json.decode(slotData.MetaData or "{}")
-
-											local unequipItem = nil
-											local unequipCreated = nil
-											if
-												slotData.MetaData.WeaponComponents ~= nil
-												and slotData.MetaData.WeaponComponents[itemData.component.type]
-													~= nil
-											then
-												if
-													slotData.MetaData.WeaponComponents[itemData.component.type].attachment
-													== itemData.component.string
-												then
-													Execute:Client(
-														source,
-														"Notification",
-														"Error",
-														"Attachment Already Equipped"
-													)
-													return p:resolve(false)
-												end
-												unequipItem =
-													slotData.MetaData.WeaponComponents[itemData.component.type].item
-												unequipCreated =
-													slotData.MetaData.WeaponComponents[itemData.component.type].created
-											end
-
-											local comps = table.copy(slotData.MetaData.WeaponComponents or {})
-											comps[itemData.component.type] = {
-												type = itemData.component.type,
-												item = item.Name,
-												created = item.CreateDate,
-												attachment = itemData.component.strings[weaponData.weapon or weaponData.name],
-											}
-
-											Inventory.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, 1)
-											if unequipItem ~= nil then
-												local returnData = Inventory.Items:GetData(unequipItem)
-												if returnData?.component?.returnItem then
-													INVENTORY:AddItem(item.Owner, unequipItem, 1, {}, 1, false, false, false, false, false, unequipCreated or os.time())
-												end
-											end
-
-											INVENTORY:SetMetaDataKey(
-												slotData.id,
-												"WeaponComponents",
-												comps,
-												source
-											)
-
-											Wait(400)
-
-											SetGunPropData(source, char:GetData("SID"), getInventory(source, char:GetData("SID"), 1, false), true)
-											TriggerClientEvent("Weapons:Client:UpdateAttachments", source, comps)
-
-											return p:resolve(true)
-										else
-											return p:resolve(false)
-										end
-										
-									else
-										return p:resolve(false)
-									end
-								end
-							)
-						else
-							Execute:Client(source, "Notification", "Error", "This Does Not Fit On This Weapon")
-							return p:resolve(false)
-						end
-					else
-						Execute:Client(source, "Notification", "Error", "Something Was Not Defined")
-						return p:resolve(false)
-					end
-				end
-			end)
-
-			return Citizen.Await(p)
-		else
+		if char == nil then
 			return false
 		end
-	end,
-	RemoveAttachment = function(self, source, slotId, attachment)
-		local char = Fetch:CharacterSource(source)
-		if char ~= nil then
-			local slot = INVENTORY:GetSlot(char:GetData("SID"), slotId, 1)
-			if slot ~= nil then
-				if slot.MetaData.WeaponComponents ~= nil and slot.MetaData.WeaponComponents[attachment] ~= nil then
-					local itemData = Inventory.Items:GetData(slot.MetaData.WeaponComponents[attachment].item)
-					if itemData ~= nil then
-						INVENTORY:AddItem(char:GetData("SID"), itemData.name, 1, {}, 1, false, false, false, false, false, slot.MetaData.WeaponComponents[attachment].created or os.time())
-						slot.MetaData.WeaponComponents[attachment] = nil	
-						INVENTORY:SetMetaDataKey(
-							slot.id,
-							"WeaponComponents",
-							slot.MetaData.WeaponComponents,
-							source
-						)
-						TriggerClientEvent("Weapons:Client:UpdateAttachments", source, slot.MetaData.WeaponComponents)
-					end
-				end
+		local sid = char:GetData("SID")
+
+		local data = AwaitClientCallback(source, "Weapons:Check", {}, 15000)
+		if not data then
+			Execute:Client(source, "Notification", "Error", "No Weapon Equipped")
+			return false
+		end
+
+		-- The client only says which gun it has out: it must be this character's
+		-- own weapon, in their pockets, of that name.
+		local weapon = type(data) == "table" and GetOwnWeapon(data.id, sid) or nil
+		if weapon == nil or weapon.Name ~= data.item then
+			Execute:Client(source, "Notification", "Error", "No Weapon Equipped")
+			return false
+		end
+
+		local itemData = Inventory.Items:GetData(item.Name)
+		local weaponData = Inventory.Items:GetData(weapon.Name)
+		if itemData == nil or itemData.component == nil then
+			Execute:Client(source, "Notification", "Error", "Something Was Not Defined")
+			return false
+		end
+
+		local attachment = itemData.component.strings[weaponData.weapon or weaponData.name]
+		if attachment == nil then
+			Execute:Client(source, "Notification", "Error", "This Does Not Fit On This Weapon")
+			return false
+		end
+
+		if AwaitClientCallback(source, "Weapons:EquipAttachment", itemData.label, 20000) ~= true then
+			return false
+		end
+
+		-- The bar gave time to move things around: read the gun again.
+		local slotData, md = GetOwnWeapon(weapon.id, sid)
+		if slotData == nil then
+			return false
+		end
+		local fitted = (md.WeaponComponents or {})[itemData.component.type]
+		if fitted ~= nil and fitted.attachment == attachment then
+			Execute:Client(source, "Notification", "Error", "Attachment Already Equipped")
+			return false
+		end
+
+		-- Use the attachment up first; nothing is fitted unless it is really gone.
+		if not INVENTORY.Items:RemoveSlot(item.Owner, item.Name, 1, item.Slot, 1) then
+			return false
+		end
+
+		local comps, replaced, encoded
+		for _ = 1, 3 do
+			comps = table.copy(md.WeaponComponents or {})
+			replaced = comps[itemData.component.type]
+			comps[itemData.component.type] = {
+				type = itemData.component.type,
+				item = item.Name,
+				created = item.CreateDate,
+				attachment = attachment,
+			}
+			md.WeaponComponents = comps
+			local candidate = json.encode(md)
+
+			-- Written only over the information just read, so an attachment taken
+			-- off (or ammo saved) in between is never put back by this older copy.
+			local changed = MySQL.update.await("UPDATE inventory SET information = ? WHERE id = ? AND owner = ? AND type = 1 AND information = ?", {
+				candidate,
+				slotData.id,
+				tostring(sid),
+				slotData.MetaData,
+			}) or 0
+			if changed > 0 then
+				encoded = candidate
+				break
+			end
+
+			slotData, md = GetOwnWeapon(weapon.id, sid)
+			if slotData == nil then
+				break
 			end
 		end
+
+		if encoded == nil then
+			-- The gun left or kept changing: give the attachment back as it was.
+			INVENTORY:AddItem(item.Owner, item.Name, 1, item.MetaData or {}, 1, false, false, false, false, item.Slot, item.CreateDate, item.Quality, true)
+			return false
+		end
+
+		if replaced ~= nil and replaced.item ~= nil then
+			local returnData = Inventory.Items:GetData(replaced.item)
+			if returnData?.component?.returnItem then
+				INVENTORY:AddItem(item.Owner, replaced.item, 1, {}, 1, false, false, false, false, false, replaced.created or os.time())
+			end
+		end
+
+		TriggerClientEvent("Inventory:Client:UpdateMetadata", source, slotData.Slot, encoded, "WeaponComponents")
+
+		Wait(400)
+
+		SetGunPropData(source, sid, getInventory(source, sid, 1, false), true)
+		TriggerClientEvent("Weapons:Client:UpdateAttachments", source, comps)
+
+		return true
+	end,
+	RemoveAttachment = function(self, source, slotId, attachment)
+		slotId = math.tointeger(tonumber(slotId) or 0)
+		if slotId == nil or slotId < 1 or type(attachment) ~= "string" or not attachment:match("^[%w_]+$") then
+			return false
+		end
+
+		-- One removal at a time per player.
+		if _attachmentBusy[source] then
+			return false
+		end
+		_attachmentBusy[source] = true
+		local ok, res = pcall(takeOffAttachment, source, slotId, attachment)
+		_attachmentBusy[source] = nil
+
+		if not ok then
+			Logger:Error("Weapons", string.format("Removing attachment %s failed: %s", attachment, tostring(res)))
+			return false
+		end
+		return res
 	end,
 }
 
@@ -491,45 +613,142 @@ local function sanitizeAmmo(value)
 	return math.floor(n)
 end
 
--- Only the character that owns an item may report ammo for it.
-local function ownsItem(src, itemId)
-	if itemId == nil or (type(itemId) ~= "number" and type(itemId) ~= "string") then
+-- Sets only the ammo/clip keys of a gun's row. update(row, def, ammo, clip) is
+-- given the stored values and returns the new ones (nil leaves the row alone);
+-- the write lands only over the information it was worked out from, else it
+-- is worked out again, so a concurrent load or save is never lost.
+local function updateWeaponAmmo(id, update)
+	if not validId(id) then
 		return false
 	end
-	local char = Fetch:CharacterSource(src)
-	if char == nil then
-		return false
+	for _ = 1, 3 do
+		local row = INVENTORY:GetItem(id)
+		local def = row ~= nil and itemsDatabase[row.Name] or nil
+		if def == nil or def.type ~= 2 or def.isThrowable then
+			return false
+		end
+
+		local md = json.decode(row.MetaData or "{}") or {}
+		local ammo, clip = update(row, def, math.floor(tonumber(md.ammo) or 0), math.floor(tonumber(md.clip) or 0))
+		if ammo == nil then
+			return false
+		end
+
+		local changed = MySQL.update.await("UPDATE inventory SET information = JSON_SET(information, '$.ammo', ?, '$.clip', ?) WHERE id = ? AND information = ?", {
+			ammo,
+			clip,
+			row.id,
+			row.MetaData,
+		}) or 0
+		if changed > 0 then
+			return true
+		end
 	end
-	local slot = INVENTORY:GetItem(itemId)
-	return slot ~= nil and tostring(slot.Owner) == tostring(char:GetData("SID"))
+	return false
+end
+
+-- A client reports what is left after firing, so it can only lower the stored
+-- ammo; the clip never holds more than the total.
+local function lowerAmmo(ammo, clip, stored, storedClip)
+	ammo = math.min(ammo, stored)
+	clip = math.min(clip, ammo)
+	if ammo == stored and clip == storedClip then
+		return nil
+	end
+	return ammo, clip
+end
+
+-- Loads count rounds into one of this character's own guns in their pockets,
+-- if it takes that ammo type. The only way stored ammo goes up; called by the
+-- ammo use in server/startup.lua once the box is gone.
+function AddWeaponAmmo(id, sid, ammoType, count)
+	return updateWeaponAmmo(id, function(row, def, ammo, clip)
+		if def.ammoType ~= ammoType or tostring(row.Owner) ~= tostring(sid) or tonumber(row.invType) ~= 1 then
+			return nil
+		end
+		local loaded = math.min(ammo + count, MAX_AMMO)
+		if loaded <= ammo then
+			return nil
+		end
+		return loaded, clip
+	end)
 end
 
 RegisterNetEvent("Weapon:Server:UpdateAmmo", function(itemId, ammo, clip)
 	local src = source
 	ammo, clip = sanitizeAmmo(ammo), sanitizeAmmo(clip)
-	if ammo == nil or clip == nil or not ownsItem(src, itemId) then
+	local char = Fetch:CharacterSource(src)
+	if ammo == nil or clip == nil or char == nil then
 		return
 	end
-	Weapons:Save(src, itemId, ammo, clip)
+
+	local sid = tostring(char:GetData("SID"))
+	updateWeaponAmmo(itemId, function(row, def, stored, storedClip)
+		-- Only the character's own gun, in their pockets.
+		if tostring(row.Owner) ~= sid or tonumber(row.invType) ~= 1 then
+			return nil
+		end
+		return lowerAmmo(ammo, clip, stored, storedClip)
+	end)
 end)
 
 RegisterNetEvent("Weapon:Server:UpdateAmmoDiff", function(diff, ammo, clip)
 	local src = source
 	ammo, clip = sanitizeAmmo(ammo), sanitizeAmmo(clip)
-	if ammo == nil or clip == nil or type(diff) ~= "table" or not ownsItem(src, diff.id) then
+	-- Sent when the equipped gun has just been moved out of this player's
+	-- inventory, so it has to be the gun they last drew; checked and cleared
+	-- before anything yields, so it is accepted once.
+	local last = _lastWeaponUsed[src]
+	if ammo == nil or clip == nil or type(diff) ~= "table" or last == nil or tostring(diff.id) ~= tostring(last) then
 		return
 	end
-	INVENTORY:UpdateMetaData(diff.id, {
-		ammo = ammo,
-		clip = clip,
-	})
+	_lastWeaponUsed[src] = nil
+
+	updateWeaponAmmo(last, function(row, def, stored, storedClip)
+		return lowerAmmo(ammo, clip, stored, storedClip)
+	end)
 end)
 
 RegisterNetEvent("Weapons:Server:RemoveAttachment", function(slotId, attachment)
 	Weapons:RemoveAttachment(source, slotId, attachment)
 end)
 
+-- One flash per flashbang this player threw (Weapons:UseThrowable) in the
+-- last FLASH_WINDOW_MS.
+local function takeFlashThrow(src)
+	local thrown = _flashThrows[src]
+	local now = GetGameTimer()
+	while thrown ~= nil and #thrown > 0 do
+		if now - table.remove(thrown, 1) <= FLASH_WINDOW_MS then
+			return true
+		end
+	end
+	return false
+end
+
 RegisterNetEvent("Weapons:Server:DoFlashFx", function(coords, netId)
-	TriggerEvent("Particles:Server:DoFx", coords, "flash")
-	TriggerClientEvent("Weapons:Client:DoFlashFx", -1, coords.x, coords.y, coords.z, 10000, 8, 20.0, netId, 25, 1.6)
+	local src = source
+	if type(coords) ~= "vector3" and type(coords) ~= "table" then
+		return
+	end
+	local x, y, z = tonumber(coords.x), tonumber(coords.y), tonumber(coords.z)
+	if x == nil or y == nil or z == nil then
+		return
+	end
+
+	-- The throw is reported first; give a slow Weapons:UseThrowable a moment.
+	local waitUntil = GetGameTimer() + 3000
+	while _throwing[src] and (_flashThrows[src] == nil or #_flashThrows[src] == 0) and GetGameTimer() < waitUntil do
+		Wait(100)
+	end
+
+	-- Only where the thrower could have thrown it.
+	local pos = vector3(x, y, z)
+	local ped = GetPlayerPed(src)
+	if ped == 0 or not (#(GetEntityCoords(ped) - pos) <= FLASH_MAX_DISTANCE) or not takeFlashThrow(src) then
+		return
+	end
+
+	TriggerEvent("Particles:Server:DoFx", pos, "flash")
+	TriggerClientEvent("Weapons:Client:DoFlashFx", -1, x, y, z, 10000, 8, 20.0, tonumber(netId) or 0, 25, 1.6)
 end)

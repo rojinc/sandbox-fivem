@@ -158,6 +158,9 @@ AddEventHandler("Core:Shared:Ready", function()
 					if not status then
 						Weapons.Ammo:Add(data)
 						cb(true)
+					else
+						-- Cancelled: the server gives the ammo back.
+						cb(false)
 					end
 				end)
 			else
@@ -780,7 +783,12 @@ function UpdateAmmo(item, isDiff)
 
 	if isDiff then
 		-- print(string.format("Save Ammo (Diff) - Total: %s, Clip: %s (Before - Total: %s, Clip: %s)", ammo, clip, item.MetaData.ammo, item.MetaData.clip))
-		TriggerServerEvent("Weapon:Server:UpdateAmmoDiff", isDiff, ammo, clip)
+		TriggerServerEvent("Weapon:Server:UpdateAmmoDiff", {
+			id = item.id,
+			owner = isDiff.owner,
+			type = isDiff.type,
+			slot = isDiff.slot,
+		}, ammo, clip)
 	else
 		-- print(string.format("Save Ammo - Total: %s, Clip: %s (Before - Total: %s, Clip: %s)", ammo, clip, item.MetaData.ammo, item.MetaData.clip))
 		TriggerServerEvent("Weapon:Server:UpdateAmmo", item.id, ammo, clip)

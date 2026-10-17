@@ -41,6 +41,12 @@
   - Removal helpers report whether rows were really deleted, items used up
     by a progress bar must still be in place when it ends, and one action
     per player runs at a time, so use-and-move tricks keep nothing.
+  - Weapons: ammo boxes, attachments, armour, packs and other consumables
+    take effect only after the item is really removed, and come back if the
+    reload is cancelled; attachments can't be taken off twice; thrown
+    weapons are consumed from the right slot; flashbangs need a real throw;
+    the client can only lower a gun's stored ammo. Starting items are given
+    in their configured amounts, and /clearinventory clears the target.
   - Crafting checks the bench, distance and cooldown on the server, and
     schematics can only be learned from the real schematic item.
   - Selling for money (tacos, fishing, corner dealing, strip clubs, gem
