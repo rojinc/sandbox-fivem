@@ -21,6 +21,10 @@
   inventory settings, crafting quantities, vehicle repairs by distance, race
   finishes, bicycle purchases (price and model resolved server-side), roulette
   totals. The never-triggered key-theft handler was removed.
+- Inventory: "Give to the nearest person" hands part or all of a stack to
+  the closest player within 3 m. The server checks both people, the distance,
+  the slot as stored, the amount and the receiver's weight and space, then
+  moves the item itself, so durability and other item details go with it.
 - Phone adverts are rebuilt on the server: author, number, id and time come
   from the character and server clock, not the client. `/resetphonepos` docks
   the phone again, and Dynasty 8 is restricted to the real estate job again.

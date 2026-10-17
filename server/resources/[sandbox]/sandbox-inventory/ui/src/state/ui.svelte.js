@@ -12,6 +12,8 @@ export const ui = $state({
     message: null,
     /** { slotFrom, slotTo, name, count, quantity, price } while the add-to-shop form is open */
     addToShop: null,
+    /** true while a give waits for the server */
+    giving: false,
 });
 
 /** Pointer position in frame coordinates, kept apart so only the ghost re-renders on move. */

@@ -1642,6 +1642,7 @@ function RegisterCallbacks()
 	Callbacks:RegisterServerCallback("Inventory:MergeItem", DoMerge)
 	Callbacks:RegisterServerCallback("Inventory:SwapItem", DoSwap)
 	Callbacks:RegisterServerCallback("Inventory:MoveItem", DoMove)
+	Callbacks:RegisterServerCallback("Inventory:GiveItem", DoGive)
 
 	Callbacks:RegisterServerCallback("Inventory:OpenTrunk", function(source, data, cb)
 		local myCoords = GetEntityCoords(GetPlayerPed(source))
@@ -2022,6 +2023,12 @@ RegisterNetEvent("Inventory:Server:Request", function(secondary)
 end)
 
 local _inUse = {}
+
+-- True while the player is part-way through using an item (server/give.lua).
+function IsUsingItem(source)
+	return _inUse[source] == true
+end
+
 INVENTORY = {
 	CreateDropzone = function(self, routeId, coords)
 		local area = {
@@ -2625,9 +2632,9 @@ INVENTORY = {
 		GetCounts = function(self, owner, invType)
 			if invType == 1 then
 				if _invCounts[owner] == nil then
-					getInventory(owner, invType)
+					getInventory(nil, owner, invType)
 				end
-				return _invCounts[owner]
+				return _invCounts[owner] or {}
 			else
 				-- non-players shouldn't be counting, so why are we here?
 				return {}
@@ -2636,13 +2643,13 @@ INVENTORY = {
 		GetWeights = function(self, owner, invType)
 			if invType == 1 then
 				if _invCounts[owner] == nil then
-					getInventory(owner, invType)
+					getInventory(nil, owner, invType)
 				end
 				local weights = 0
-				for k, v in pairs(_invCounts[owner]) do
+				for k, v in pairs(_invCounts[owner] or {}) do
 					local itemExist = itemsDatabase[k]
 					if itemExist then
-						weight += (itemExist.weight * v)
+						weights += (itemExist.weight * v)
 					end
 				end
 				return weights

@@ -46,7 +46,7 @@ No key hints are shown anywhere.
 | `SET_PLAYER_INVENTORY` | `PlayerInventory` (below) | `Inventory.Set.Player:Inventory` | merged into the player inventory; `invType` forced to 1; slot locks kept |
 | `SET_SECONDARY_INVENTORY` | `SecondaryInventory` (below) | `Inventory.Set.Secondary:Inventory` | replaces the secondary; slot locks kept only when owner and invType match |
 | `SHOW_SECONDARY_INVENTORY` | none | `Inventory.Open:Secondary` | shows the right-hand panel |
-| `SET_INVENTORIES` | `{ player?: { inventory }, secondary?: { inventory } }` | `StoreFailedPurchase` | merges both (rolls back an optimistic purchase) |
+| `SET_INVENTORIES` | `{ player?: { inventory }, secondary?: { inventory } }` | `StoreFailedPurchase`, `Inventory:Client:Given` | merges both (rolls back an optimistic purchase; refreshes the player grid of both people after a give) |
 | `SET_PLAYER_SLOT` | `{ slot: number \| SlotRecord }` | `Inventory:Client:SetSlot` | unlocks that player slot (the server sometimes sends the whole slot record; the UI reads `.Slot`) |
 | `SET_SECONDARY_SLOT` | `{ slot: number }` | same | unlocks that secondary slot |
 | `USE_ITEM_PLAYER` | `{ originSlot: number }` | hotkeys 1 to 5, throwables (weapons.lua) | locks the player slot while it is used |
@@ -106,6 +106,7 @@ old UI labelled the same numbers lbs and the Lua defines no unit.
 | `SwapSlot` | same without `isSplit` | `"OK"` | |
 | `MergeSlot` | same without `isSplit` | `"OK"` | |
 | `UseItem` | `{ owner, slot, invType }` | `"OK"` | player items only |
+| `GiveItem` | `{ slot, count }` | `{ success: true, count } \| { reason }` | player items only. Lua (`client/give.lua`) adds the nearest visible player within 3 m as `target`; `Inventory:GiveItem` (`server/give.lua`) checks both people, the routing bucket, the distance, the slot as stored, the amount, the receiver's weight and a free or matching slot, then moves the item rows. `reason` is plain English shown as is. |
 | `AddToShop` | `{ ownerFrom, invTypeFrom, slotFrom, ownerTo, invTypeTo, slotTo, price, quantity }` | `{ player: SlotRecord[], secondary: SlotRecord[] } \| false` | player shop moderators only |
 | `SubmitAction` | `{ owner, invType }` | `"OK"` | the secondary's `action` button; Lua closes the inventory |
 | `UpdateSettings` | `{ muted: boolean, useBank: boolean }` | `"OK"` | exactly the server whitelist (`_defInvSettings` in server/inventory.lua); the UI always sends both keys with the current values |
@@ -127,7 +128,9 @@ also clears itself after 10 seconds so a lost reply cannot freeze a slot.
   the `DISABLED` sound and a message between the panels.
 - Click an item to select it (2px ink edge). The amount field then sets how
   many move when you drag the selected item, buy it or move it across with the
-  button; Use acts on the selected player item.
+  button; Use acts on the selected player item, and "Give to the nearest
+  person" hands that amount over. Nothing changes until the server answers;
+  both grids then refresh through `SET_INVENTORIES`.
 - Shortcuts kept from the old UI, never advertised: Shift-click moves the
   stack across, Ctrl-drag takes half, middle click uses, right click picks up
   half the stack (Ctrl-right click one) until the next click.
@@ -144,6 +147,14 @@ also clears itself after 10 seconds so a lost reply cannot freeze a slot.
 - Rarity colours and glows: rarity is a small Tag in the tooltip.
 
 ## Lua changes
+
+- `server/give.lua` and `client/give.lua` (new): the Give flow above, with a
+  750 ms cooldown per player and a log line for each give. The server refuses
+  while the giver is dead, cuffed or using an item.
+- `server/inventory.lua`: registers `Inventory:GiveItem`; `IsUsingItem(source)`
+  exposes the item-use lock; `Items:GetCounts` and `Items:GetWeights` passed
+  shifted arguments to `getInventory` on a cache miss, and `GetWeights` added to
+  an undefined global, so both errored. Both are fixed.
 
 - `client/crafting.lua:218-228` `Crafting:Craft`: the callback indexed `state.error`
   on a `nil`/`false` answer from the server and never answered the UI; it now

@@ -7,7 +7,7 @@
 import { fetchNui } from '@sandbox/ui-kit/nui';
 import { catalog } from '../state/catalog.svelte.js';
 import { app } from '../state/app.svelte.js';
-import { inv, slotItem, capacityOf, lockSlot } from '../state/inventory.svelte.js';
+import { inv, slotItem, capacityOf, lockSlot, unlockSlot } from '../state/inventory.svelte.js';
 import { ui, say } from '../state/ui.svelte.js';
 import { itemDef, itemLabel, inventoryWeight, stackMax, durabilityOf, parseMeta, formatCount } from './item.js';
 import { playDrag } from './sound.js';
@@ -348,6 +348,49 @@ export function useSlot(side, slot) {
     lockSlot('player', it.Slot);
     ui.message = null;
     return true;
+}
+
+/** Why this slot cannot be given right now, or null. */
+export function giveBlock(side, instance) {
+    if (!instance) return 'Select an item in your inventory first.';
+    if (side !== 'player') return 'Move the item to your inventory to give it.';
+    if (app.mode !== 'inventory') return 'You cannot give items at a crafting bench.';
+    if (inv.inUse) return 'You are using an item. Wait for it to finish.';
+    if (ui.giving) return 'Wait for the last item to be handed over.';
+    if (inv.locks.player[instance.Slot]) return 'That slot is still updating. Try again in a moment.';
+    if (itemDef(catalog.items, instance.Name).invalid) return 'This item has no definition, so it cannot be given.';
+    return null;
+}
+
+/**
+ * Hand some of a slot to the nearest person. Lua picks who; the server checks
+ * the distance, the amount and their space, then both inventories refresh
+ * through SET_INVENTORIES. Nothing changes here until it answers.
+ */
+export async function giveSlot(slot, count) {
+    const it = slotItem('player', slot);
+    const block = giveBlock('player', it);
+    if (block) return refuse(block);
+    const def = itemDef(catalog.items, it.Name);
+    const label = itemLabel(it, def);
+    const n = Math.max(1, Math.min(Math.floor(Number(count)) || 1, Number(it.Count) || 1));
+    sound('SELECT');
+    lockSlot('player', it.Slot);
+    ui.giving = true;
+    ui.message = null;
+    let res = null;
+    try {
+        res = await fetchNui('GiveItem', { slot: it.Slot, count: n });
+    } catch {
+        res = null;
+    }
+    ui.giving = false;
+    unlockSlot('player', it.Slot);
+    if (res && res.success) {
+        say(`You gave ${formatCount(Number(res.count) || n)} ${label}.`, 'success');
+        return true;
+    }
+    return refuse(res?.reason || 'The item was not given. Try again.');
 }
 
 export async function submitAddToShop() {
