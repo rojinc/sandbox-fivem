@@ -16,22 +16,6 @@ local function toInt(value)
 	return math.tointeger(n)
 end
 
-local function playerWeight(sid)
-	local rows = MySQL.rawExecute.await(
-		"SELECT item_id AS Name, COUNT(*) AS Count FROM inventory WHERE owner = ? AND type = 1 GROUP BY item_id",
-		{ tostring(sid) }
-	) or {}
-
-	local total = 0
-	for _, row in ipairs(rows) do
-		local def = itemsDatabase[row.Name]
-		if def ~= nil then
-			total += (def.weight or 0) * row.Count
-		end
-	end
-	return total
-end
-
 local function cannotAct(state)
 	return state.isDead or state.isCuffed or state.isHardCuffed
 end
@@ -93,7 +77,7 @@ function DoGive(source, data, cb)
 	-- Room: weight and a slot on their side.
 	local tSid = tChar:GetData("SID")
 	local capacity = getCapacity(1)
-	if capacity ~= nil and playerWeight(tSid) + (def.weight or 0) * count > capacity then
+	if capacity ~= nil and StoredWeight(tSid, 1) + (def.weight or 0) * count > capacity then
 		return cb({ reason = "They cannot carry that much." })
 	end
 

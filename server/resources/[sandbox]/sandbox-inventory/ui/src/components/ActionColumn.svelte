@@ -5,7 +5,7 @@
     import { inv, slotItem } from '../state/inventory.svelte.js';
     import { ui } from '../state/ui.svelte.js';
     import { itemDef, itemLabel, formatCount, formatPrice, unitPrice } from '../lib/item.js';
-    import { quickTransfer, useSlot, giveSlot, submitAddToShop, closeInventory, saveSettings } from '../lib/actions.js';
+    import { quickTransfer, useSlot, giveSlot, throwSlot, submitAddToShop, closeInventory, saveSettings } from '../lib/actions.js';
 
     /**
      * Between the panels: the selected item, the amount field and the actions
@@ -46,6 +46,10 @@
 
     function give() {
         giveSlot(sel.slot, amount);
+    }
+
+    function toss() {
+        throwSlot(sel.slot, amount);
     }
 </script>
 
@@ -103,6 +107,7 @@
                     {/if}
                     {#if !fromSecondary && !crafting}
                         <Button block variant="secondary" loading={ui.giving} onclick={give}>Give to the nearest person</Button>
+                        <Button block variant="secondary" onclick={toss}>Throw {label}</Button>
                     {/if}
                 </div>
             {/if}
@@ -125,7 +130,7 @@
             {#if crafting}
                 <p class="meta">Craft from the recipes on the right. Each one is checked against the items on the left.</p>
             {:else}
-                <p class="meta">Select an item to use it, give it or move part of a stack. Drag items between slots to move them.</p>
+                <p class="meta">Select an item to use, give or throw it, or to move part of a stack. Drag items between slots to move them.</p>
             {/if}
         </div>
     {/if}

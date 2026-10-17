@@ -393,6 +393,38 @@ export async function giveSlot(slot, count) {
     return refuse(res?.reason || 'The item was not given. Try again.');
 }
 
+/** Why this slot cannot be thrown right now, or null. */
+export function throwBlock(side, instance) {
+    if (!instance) return 'Select an item in your inventory first.';
+    if (side !== 'player') return 'Move the item to your inventory to throw it.';
+    if (app.mode !== 'inventory') return 'You cannot throw items at a crafting bench.';
+    if (inv.inUse) return 'You are using an item. Wait for it to finish.';
+    if (inv.locks.player[instance.Slot]) return 'That slot is still updating. Try again in a moment.';
+    if (itemDef(catalog.items, instance.Name).invalid) return 'This item has no definition, so it cannot be thrown.';
+    return null;
+}
+
+/**
+ * Throw some of a slot. Lua closes the inventory, throws the item with real
+ * physics and only then asks the server to move it where it landed, so the
+ * grid is left alone here.
+ */
+export async function throwSlot(slot, count) {
+    const it = slotItem('player', slot);
+    const block = throwBlock('player', it);
+    if (block) return refuse(block);
+    const n = Math.max(1, Math.min(Math.floor(Number(count)) || 1, Number(it.Count) || 1));
+    sound('SELECT');
+    let res = null;
+    try {
+        res = await fetchNui('ThrowItem', { slot: it.Slot, count: n, name: it.Name });
+    } catch {
+        res = null;
+    }
+    if (res && res.success) return true;
+    return refuse(res?.reason || 'The item was not thrown. Try again.');
+}
+
 export async function submitAddToShop() {
     const form = ui.addToShop;
     if (!form) return;

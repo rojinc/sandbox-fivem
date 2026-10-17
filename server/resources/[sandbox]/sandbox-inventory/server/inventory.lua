@@ -1638,11 +1638,30 @@ function CreateDZIfNotExist(source, coords)
 	end
 end
 
+-- After any move, swap or merge that touches the ground, re-read those
+-- dropzones so the objects drawn for them match (server/dropzones.lua).
+local function withGroundSync(handler)
+	return function(source, data, cb)
+		handler(source, data, function(...)
+			if type(data) == "table" then
+				if tonumber(data.invTypeFrom) == 10 then
+					MarkDropzone(data.ownerFrom)
+				end
+				if tonumber(data.invTypeTo) == 10 then
+					MarkDropzone(data.ownerTo)
+				end
+			end
+			cb(...)
+		end)
+	end
+end
+
 function RegisterCallbacks()
-	Callbacks:RegisterServerCallback("Inventory:MergeItem", DoMerge)
-	Callbacks:RegisterServerCallback("Inventory:SwapItem", DoSwap)
-	Callbacks:RegisterServerCallback("Inventory:MoveItem", DoMove)
+	Callbacks:RegisterServerCallback("Inventory:MergeItem", withGroundSync(DoMerge))
+	Callbacks:RegisterServerCallback("Inventory:SwapItem", withGroundSync(DoSwap))
+	Callbacks:RegisterServerCallback("Inventory:MoveItem", withGroundSync(DoMove))
 	Callbacks:RegisterServerCallback("Inventory:GiveItem", DoGive)
+	Callbacks:RegisterServerCallback("Inventory:ThrowItem", DoThrow)
 
 	Callbacks:RegisterServerCallback("Inventory:OpenTrunk", function(source, data, cb)
 		local myCoords = GetEntityCoords(GetPlayerPed(source))
@@ -1758,6 +1777,7 @@ function RegisterCallbacks()
 			elseif exists and not hasItems then
 				INVENTORY:RemoveDropzone(route, inventory.owner)
 			end
+			MarkDropzone(inventory.owner)
 		else
 			if _refreshAttchs[inventory.owner] then
 				_refreshAttchs[inventory.owner] = false
@@ -2031,8 +2051,15 @@ end
 
 INVENTORY = {
 	CreateDropzone = function(self, routeId, coords)
+		local id = string.format("%s:%s:%s", math.ceil(coords.x), math.ceil(coords.y), routeId)
+		for _, v in ipairs(_dropzones) do
+			if v.id == id then
+				return id
+			end
+		end
+
 		local area = {
-			id = string.format("%s:%s:%s", math.ceil(coords.x), math.ceil(coords.y), routeId),
+			id = id,
 			route = routeId,
 			coords = {
 				x = coords.x,
@@ -2043,6 +2070,7 @@ INVENTORY = {
 
 		table.insert(_dropzones, area)
 		TriggerClientEvent("Inventory:Client:AddDropzone", -1, area)
+		MarkDropzone(area.id)
 
 		return area.id
 	end,
@@ -2452,6 +2480,12 @@ INVENTORY = {
 						retval = INVENTORY:AddSlot(v.owner, Name, c, MetaData, v.slot, v.type, forceCreateDate or false, quality or false)
 					else
 						retval = INVENTORY:AddSlot(v.owner, Name, c, MetaData, mSlot, v.type, forceCreateDate or false, quality or false)
+					end
+				end
+
+				for _, v in ipairs(slotsData) do
+					if v.type == 10 then
+						MarkDropzone(v.owner)
 					end
 				end
 
