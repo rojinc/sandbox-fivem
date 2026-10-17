@@ -4,6 +4,15 @@ local _fishing = {}
 
 local _fishingCooldowns = {}
 
+-- Fish the shop owners buy (mirrors basicFish in client/jobs/fishing.lua); all are caught by this job.
+local _sellableFish = {
+	fishing_chub = true,
+	fishing_grasscarp = true,
+	fishing_kelp = true,
+	fishing_bass = true,
+	fishing_rockfish = true,
+}
+
 AddEventHandler("Labor:Server:Startup", function()
 	RegisterFishingItems()
 
@@ -86,6 +95,11 @@ AddEventHandler("Labor:Server:Startup", function()
 
 	Callbacks:RegisterServerCallback("Fishing:Sell", function(source, data, cb)
 		local char = Fetch:CharacterSource(source)
+
+		-- only the fish the shop owner buys; anything else would sell at its database price
+		if type(data) ~= "string" or not _sellableFish[data] then
+			return
+		end
 
 		local itemData = Inventory.Items:GetData(data)
 

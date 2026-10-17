@@ -91,7 +91,16 @@ AddEventHandler("Labor:Server:Startup", function()
 	Callbacks:RegisterServerCallback("WeedRun:DoDropoff", function(source, data, cb)
 		if _joiners[source] ~= nil then
 			local char = Fetch:CharacterSource(source)
-			if char ~= nil then
+			local seller = _sellers[_joiners[source]]
+			-- Only one brick per delivery the queue handed out, and only at that delivery's buyer.
+			if
+				char ~= nil
+				and seller ~= nil
+				and seller.state == 1
+				and seller.location ~= nil
+				and #(GetEntityCoords(GetPlayerPed(source)) - vector3(seller.location.x, seller.location.y, seller.location.z)) <= 10.0
+			then
+				seller.state = 2 -- claim this delivery before Remove yields
 				if Inventory.Items:Remove(char:GetData("SID"), 1, "weed_brick", 1) then
 					local repLevel = Reputation:GetLevel(source, "WeedRun") or 0
 					local calcLvl = repLevel
@@ -140,6 +149,7 @@ AddEventHandler("Labor:Server:Startup", function()
 
 					cb(true)
 				else
+					seller.state = 1 -- no brick handed over; the delivery is still open
 					cb(false)
 				end
 			else

@@ -18,8 +18,13 @@ function RegisterCallbacks()
 		end
 	end)
 
+	-- Confiscated items come back only once the sentence is over.
 	Callbacks:RegisterServerCallback("Jail:RetreiveItems", function(source, data, cb)
+		if Jail:IsJailed(source) then
+			return cb(false)
+		end
 		Inventory.Holding:Take(source)
+		cb(true)
 	end)
 
 	Callbacks:RegisterServerCallback("Jail:Release", function(source, data, cb)

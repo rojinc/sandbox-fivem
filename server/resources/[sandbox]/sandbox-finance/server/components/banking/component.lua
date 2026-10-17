@@ -235,9 +235,31 @@ _BANKING = {
 			return false
 		end,
 		-- Withdraw But Checks If Has Balance
+		-- The balance check and the debit are one statement, so parallel charges cannot overdraw.
 		Charge = function(self, accountNumber, amount, transactionLog)
-			if Banking.Balance:Has(accountNumber, (math.floor(amount))) then
-				return Banking.Balance:Withdraw(accountNumber, (math.floor(amount)), transactionLog)
+			local amt = amount and math.floor(amount)
+			if amt and amt > 0 then
+				local u = MySQL.query.await("UPDATE bank_accounts SET balance = balance - ? WHERE account = ? AND balance >= ?", {
+					amt,
+					accountNumber,
+					amt
+				})
+
+				if u and u.affectedRows == 1 then
+					if transactionLog then
+						Banking.TransactionLogs:Add(
+							accountNumber,
+							transactionLog.type,
+							-amt,
+							transactionLog.title,
+							transactionLog.description,
+							transactionLog.transactionAccount,
+							transactionLog.data
+						)
+					end
+
+					return true
+				end
 			end
 			return false
 		end,

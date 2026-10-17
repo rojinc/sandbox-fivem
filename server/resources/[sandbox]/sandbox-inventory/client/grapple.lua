@@ -205,7 +205,10 @@ function Grapple.new(dest, options)
 					SetEntityAlpha(oldPedRef, 255, 0)
 				end)
 			end
-			TriggerServerEvent("Inventory:Server:Grapple:DestroyRope", grappleId)
+			-- Only the rope's owner ends it for everyone; other clients just clean up locally.
+			if not notMyPed then
+				TriggerServerEvent("Inventory:Server:Grapple:DestroyRope", grappleId)
+			end
 		end
 	end
 

@@ -210,7 +210,7 @@ AddEventHandler("Drugs:Server:Startup", function()
         local char = Fetch:CharacterSource(source)
         if char ~= nil then
             local still = Inventory:GetItem(data.data)
-            if still.Owner == tostring(char:GetData("SID")) then
+            if still ~= nil and still.Owner == tostring(char:GetData("SID")) then
                 local md = json.decode(still.MetaData)
                 local stillData = Drugs.Moonshine.Still:Get(md.Still)
                 if Inventory.Items:RemoveId(char:GetData("SID"), 1, still) then
@@ -392,7 +392,7 @@ AddEventHandler("Drugs:Server:Startup", function()
         local char = Fetch:CharacterSource(source)
         if char ~= nil then
             local barrel = Inventory:GetItem(data.data)
-            if barrel.Owner == tostring(char:GetData("SID")) then
+            if barrel ~= nil and barrel.Owner == tostring(char:GetData("SID")) then
                 local md = json.decode(barrel.MetaData)
                 if Inventory.Items:RemoveId(char:GetData("SID"), 1, barrel) then
                     Drugs.Moonshine.Barrel:CreatePlaced(char:GetData("SID"), data.endCoords.coords, data.endCoords.rotation, os.time(), md.Brew)

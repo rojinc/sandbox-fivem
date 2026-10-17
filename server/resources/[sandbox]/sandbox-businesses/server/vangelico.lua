@@ -1,4 +1,5 @@
 local _jobName = "vangelico"
+local _selling = {} -- [source] = GetGameTimer() deadline while that player's Sell call is running
 
 AddEventHandler("Businesses:Server:Startup", function()
 	Callbacks:RegisterServerCallback("Businesses:VANGELICO:OpenTable", function(source, data, cb)
@@ -7,7 +8,12 @@ AddEventHandler("Businesses:Server:Startup", function()
 
 	Callbacks:RegisterServerCallback("Businesses:VANGELICO:Sell", function(source, data, cb)
 		local char = Fetch:CharacterSource(source)
+		-- one sale per player at a time; the lease frees itself if a sale ever errors out
+		if not char or (_selling[source] or 0) > GetGameTimer() then
+			return
+		end
 		if Jobs.Permissions:HasJob(source, _jobName, false, false, false, false, "JOB_SELL_GEMS") then
+			_selling[source] = GetGameTimer() + 60000
 			local its = Inventory.Items:GetAllOfTypeNoStack(char:GetData("SID"), 1, 11)
 
 			if its and #its > 0 then
@@ -65,6 +71,7 @@ AddEventHandler("Businesses:Server:Startup", function()
 			else
 				Execute:Client(source, "Notification", "Error", "You Don't Have Any Gems To Sell")
 			end
+			_selling[source] = nil
 		end
 	end)
 end)

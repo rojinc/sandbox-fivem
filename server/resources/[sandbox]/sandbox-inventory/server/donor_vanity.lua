@@ -1,3 +1,53 @@
+-- Limits match the input dialog in client/donor_vanity.lua.
+local VANITY_LABEL_MAX = 24
+local VANITY_DESCRIPTION_MAX = 100
+local VANITY_IMAGE_MAX = 240
+local VANITY_AMOUNT_MAX = 20
+local VANITY_ACTIONS = { [""] = true, no_action = true, overlay = true, overlayall = true }
+-- The upload hosts the dialog tells players to use.
+local VANITY_IMAGE_HOSTS = {
+	["imgur.com"] = true,
+	["www.imgur.com"] = true,
+	["i.imgur.com"] = true,
+	["cdn.discordapp.com"] = true,
+}
+
+-- Trimmed text without control characters or angle brackets; nil if it is not
+-- a string or is longer than maxLen bytes.
+local function CleanVanityText(value, maxLen)
+	if type(value) ~= "string" then
+		return nil
+	end
+	value = string.match(string.gsub(value, "[%c<>]", ""), "^%s*(.-)%s*$")
+	if #value > maxLen then
+		return nil
+	end
+	return value
+end
+
+-- An https URL on one of the allowed hosts ending in an image extension, or nil.
+local function CleanVanityImage(url)
+	if type(url) ~= "string" then
+		return nil
+	end
+	url = string.match(url, "^%s*(.-)%s*$")
+	if #url > VANITY_IMAGE_MAX then
+		return nil
+	end
+
+	local host, path = string.match(url, "^[Hh][Tt][Tt][Pp][Ss]?://([%w%.%-]+)(/[%w%-_%./]+)$")
+	if host == nil or not VANITY_IMAGE_HOSTS[string.lower(host)] then
+		return nil
+	end
+
+	local ext = string.match(string.lower(path), "%.(%a+)$")
+	if ext ~= "png" and ext ~= "jpg" and ext ~= "jpeg" and ext ~= "gif" then
+		return nil
+	end
+
+	return string.format("https://%s%s", string.lower(host), path)
+end
+
 function RegisterDonorVanityItemsCallbacks()
 	Callbacks:RegisterServerCallback("Inventory:DonorSales:GetPending", function(source, data, cb)
 		local plyr = Fetch:Source(source)
@@ -37,27 +87,42 @@ function RegisterDonorVanityItemsCallbacks()
 	end)
 	Callbacks:RegisterServerCallback("Inventory:DonorSales:SubmitVanityItem", function(source, data, cb)
 		local plyr = Fetch:Source(source)
-		if plyr then
-			local char = Fetch:CharacterSource(source)
-			
-			local label = data.vanity_item_label
-			local description = data.vanity_item_description
-			local image = data.vanity_item_image
-			local amount = tonumber(data.vanity_item_amount)
-			local action = data.vanity_item_action or ""
+		local char = Fetch:CharacterSource(source)
+		if plyr and char then
+			if type(data) ~= "table" then
+				data = {}
+			end
 
-			if label and description and image and amount and amount > 0 then
+			local label = CleanVanityText(data.vanity_item_label, VANITY_LABEL_MAX)
+			local description = CleanVanityText(data.vanity_item_description, VANITY_DESCRIPTION_MAX)
+			local image = CleanVanityImage(data.vanity_item_image)
+			local amount = math.tointeger(tonumber(data.vanity_item_amount))
+			local action = data.vanity_item_action or ""
+			if not VANITY_ACTIONS[action] then
+				action = nil
+			end
+
+			if
+				label
+				and #label > 0
+				and description
+				and image
+				and action
+				and amount
+				and amount >= 1
+				and amount <= VANITY_AMOUNT_MAX
+			then
 				local sid = char:GetData("SID")
 				local pending = Inventory.Donator:GetPending(plyr:GetData("Identifier"), true)
-				if #pending > 0 then
-					local foundToken = nil
-					for k, v in ipairs(pending) do
-						if not v.redeemed then
-							foundToken = v.id
-							break
-						end
+				local foundToken = nil
+				for k, v in ipairs(pending or {}) do
+					if not v.redeemed then
+						foundToken = v.id
+						break
 					end
+				end
 
+				if foundToken ~= nil then
 					if Inventory.Donator:RemovePending(plyr:GetData("Identifier"), foundToken) then
 						local t = Sequence:Get("VanityItem")
 
@@ -221,14 +286,20 @@ function RegisterDonorVanityItemsCallbacks()
 
 			return results
 		end,
+		-- True only if this call redeemed the token. oxmysql reports matched rows, so
+		-- without `redeemed = 0` an already-redeemed token would still count.
 		RemovePending = function(self, playerIdentifier, id)
-			local res = MySQL.query.await("UPDATE donator_items SET redeemed = ? WHERE id = ? AND player = ?", {
+			if id == nil then
+				return false
+			end
+
+			local res = MySQL.query.await("UPDATE donator_items SET redeemed = ? WHERE id = ? AND player = ? AND redeemed = 0", {
 				true,
 				id,
 				playerIdentifier,
 			})
 
-			return res.affectedRows > 0
+			return res ~= nil and res.affectedRows == 1
 		end,
 		DeletePending = function(self, playerIdentifier, id)
 			local res = MySQL.query.await("DELETE FROM donator_items WHERE id = ? AND player = ?", {

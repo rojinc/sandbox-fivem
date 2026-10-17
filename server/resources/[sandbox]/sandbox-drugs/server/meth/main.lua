@@ -140,7 +140,7 @@ AddEventHandler("Drugs:Server:Startup", function()
         local char = Fetch:CharacterSource(source)
         if char ~= nil then
             local table = Inventory:GetItem(data.data)
-            if table.Owner == tostring(char:GetData("SID")) then
+            if table ~= nil and table.Owner == tostring(char:GetData("SID")) then
                 local md = json.decode(table.MetaData)
                 local tableData = Drugs.Meth:GetTable(md.MethTable)
                 if Inventory.Items:RemoveId(char:GetData("SID"), 1, table) then

@@ -348,6 +348,7 @@ shopLocations = {}
 storeBankAccounts = {}
 pendingShopDeposits = {}
 local _startingPendingDepositThread = false
+local PAYOUT_INTERVAL_MS = 1000 * 60 * 10
 function LoadShops()
 	CreateThread(function()
 		Wait(10000)
@@ -382,47 +383,63 @@ function LoadShops()
 		_startingPendingDepositThread = true
 		CreateThread(function()
 			while true do
-				Wait(1000 * 60 * 60)
-
-				for k, v in pairs(pendingShopDeposits) do
-					if v.tax then
-						Logger:Trace(
-							"Inventory",
-							string.format(
-								"Depositing ^2$%s^7 To ^3%s^7 For Tax On ^2%s^7 Store Transactions",
-								v.amount,
-								k,
-								v.transactions
-							)
-						)
-						Banking.Balance:Deposit(k, v.amount, {
-							type = "deposit",
-							title = "Sales Tax",
-							description = string.format("Deposit For Sales Tax On %s Store Sales", v.transactions),
-							data = {},
-						}, true)
-					else
-						Logger:Trace(
-							"Inventory",
-							string.format(
-								"Depositing ^2$%s^7 To ^3%s^7 For ^2%s^7 Store Transactions",
-								v.amount,
-								k,
-								v.transactions
-							)
-						)
-						Banking.Balance:Deposit(k, v.amount, {
-							type = "deposit",
-							title = "Store Sales",
-							description = string.format("Deposit For %s Store Sales", v.transactions),
-							data = {},
-						}, true)
-					end
-
-					pendingShopDeposits[k] = nil
-				end
+				Wait(PAYOUT_INTERVAL_MS)
+				PayShopDeposits()
 			end
 		end)
+	end
+end
+
+-- Shop takings are queued per bank account and paid in batches. Use this,
+-- never the table directly: it ignores a missing account instead of erroring
+-- after the buyer has already paid.
+function QueueShopDeposit(account, amount, tax)
+	amount = math.floor(tonumber(amount) or 0)
+	if account == nil or amount <= 0 then
+		return
+	end
+	local entry = pendingShopDeposits[account]
+	if entry == nil then
+		entry = { amount = 0, transactions = 0, tax = tax == true }
+		pendingShopDeposits[account] = entry
+	end
+	entry.amount += amount
+	entry.transactions += 1
+end
+
+-- Pays a snapshot of the queue, so sales made while deposits are being sent
+-- stay queued for the next run; a deposit that fails is queued again.
+function PayShopDeposits()
+	local batch = pendingShopDeposits
+	pendingShopDeposits = {}
+
+	for k, v in pairs(batch) do
+		local title = v.tax and "Sales Tax" or "Store Sales"
+		local description = v.tax and string.format("Deposit For Sales Tax On %s Store Sales", v.transactions)
+			or string.format("Deposit For %s Store Sales", v.transactions)
+
+		Logger:Trace(
+			"Inventory",
+			string.format("Depositing ^2$%s^7 To ^3%s^7 For ^2%s^7 Store Transactions%s", v.amount, k, v.transactions, v.tax and " (tax)" or "")
+		)
+
+		local ok = v.amount > 0 and Banking.Balance:Deposit(k, v.amount, {
+			type = "deposit",
+			title = title,
+			description = description,
+			data = {},
+		}, true)
+
+		if not ok and v.amount > 0 then
+			Logger:Warn("Inventory", string.format("Store deposit of $%s to %s failed; queued again", v.amount, k))
+			local entry = pendingShopDeposits[k]
+			if entry == nil then
+				pendingShopDeposits[k] = v
+			else
+				entry.amount += v.amount
+				entry.transactions += v.transactions
+			end
+		end
 	end
 end
 
@@ -435,7 +452,8 @@ function RegisterCommands()
 				tonumber(args[2]),
 			}
 		)
-		storeBankAccounts[string.format("shop:%s", tonumber(args[1]))] = tonumber(args[2])
+		-- Purchases look accounts up by the shop's entity id, as LoadShops does.
+		storeBankAccounts[tonumber(args[1])] = tonumber(args[2])
 	end, {
 		help = "Link Bank Account To Shop",
 		params = {

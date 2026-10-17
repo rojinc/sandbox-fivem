@@ -327,6 +327,7 @@ AddEventHandler("Labor:Server:Startup", function()
 
 				if count > 0 then
 					local totalPayout = 0
+					local sold = 0
 					for i = 1, count do
 						local item = Inventory.Items:GetFirst(char:GetData("SID"), data, 1)
 						if item then
@@ -335,8 +336,10 @@ AddEventHandler("Labor:Server:Startup", function()
 								payout = 100
 							end
 	
-							if Inventory.Items:Remove(char:GetData("SID"), 1, data, 1) then
+							-- delete the same row the payout was priced on
+							if Inventory.Items:RemoveId(char:GetData("SID"), 1, item) then
 								totalPayout = math.ceil(totalPayout + payout)
+								sold = sold + 1
 							end
 						end
 					end
@@ -344,7 +347,7 @@ AddEventHandler("Labor:Server:Startup", function()
 					Banking.Balance:Deposit(Banking.Accounts:GetPersonal(char:GetData("SID")).Account, totalPayout, {
 						type = "deposit",
 						title = "Gems Sale",
-						description = string.format("Sold %s x%s", itemData.label, count),
+						description = string.format("Sold %s x%s", itemData.label, sold),
 						data = {
 							gem = data,
 							repLvl = repLvl,

@@ -23,6 +23,14 @@ local _toolsForSale = {
 	{ id = 1, item = "meth_pipe", price = 500, qty = 100, vpn = false },
 }
 
+-- The items CornerDealing:GetSaleMenu offers; nothing else can be sold to a buyer.
+local _saleItems = {
+	weed_baggy = true,
+	oxy = true,
+	meth_bag = true,
+	coke_bag = true,
+}
+
 AddEventHandler("Labor:Server:Startup", function()
     Vendor:Create("CornerDealer", false, "Unknown", false, {}, _toolsForSale, "badge-dollar", "View Offers", false, false, true)
 
@@ -208,18 +216,24 @@ AddEventHandler("Labor:Server:Startup", function()
 	end)
 
 	Callbacks:RegisterServerCallback("CornerDealing:DoSale", function(source, data, cb)
-		if _joiners[source] ~= nil then
+		if _joiners[source] ~= nil and type(data) == "table" and _saleItems[data.item] then
 			local char = Fetch:CharacterSource(source)
 			if char ~= nil then
+				local seller = _sellers[_joiners[source]]
 				if
-					_sellers[_joiners[source]].state == 1
-					and _sellers[_joiners[source]].pedNet ~= nil
-					and _sellers[_joiners[source]].pedNet == data.netId
+					seller.state == 1
+					and seller.pedNet ~= nil
+					and seller.pedNet == data.netId
+					and seller.soldPed ~= data.netId
 				then
 					local ent = NetworkGetEntityFromNetworkId(data.netId)
 					local entState = Entity(ent).state
 
 					if entState?.seller == source then
+						-- Claim this buyer before anything yields: a second call for the same ped is refused.
+						seller.soldPed = data.netId
+						entState.seller = nil
+
 						local slot = Inventory.Items:GetFirst(char:GetData("SID"), data.item, 1)
 						if slot ~= nil then
 							if Inventory.Items:RemoveId(char:GetData("SID"), 1, slot) then
@@ -291,14 +305,21 @@ AddEventHandler("Labor:Server:Startup", function()
 								entState.seller = nil
 								cb(true)
 							else
+								-- nothing was sold; release the buyer so a different item can be offered
+								seller.soldPed = nil
+								entState.seller = source
 								cb(false)
 							end
 						else
+							seller.soldPed = nil
+							entState.seller = source
 							cb(false)
 						end
 					else
 						cb(false)
 					end
+				else
+					cb(false)
 				end
 			else
 				cb(false)

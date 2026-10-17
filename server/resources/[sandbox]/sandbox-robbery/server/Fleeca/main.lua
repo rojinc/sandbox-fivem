@@ -789,9 +789,11 @@ AddEventHandler("Robbery:Server:Setup", function()
 		local char = Fetch:CharacterSource(source)
 		if os.time() >= itemData.MetaData.Finished then
 			local amt = itemData.MetaData?.CustomAmt and (math.random(itemData.MetaData?.CustomAmt.Random) + itemData.MetaData?.CustomAmt.Min) or (math.random(5000) + 10000)
-			Logger:Info("Robbery", string.format("%s %s (%s) Used A Money Bag, Received $%s", char:GetData("First"), char:GetData("Last"), char:GetData("SID"), amt))
-			Inventory.Items:RemoveSlot(itemData.Owner, itemData.Name, 1, itemData.Slot, itemData.invType)
-			Wallet:Modify(source, amt)
+			-- pay only if this bag was actually taken out of the slot
+			if Inventory.Items:RemoveSlot(itemData.Owner, itemData.Name, 1, itemData.Slot, itemData.invType) then
+				Logger:Info("Robbery", string.format("%s %s (%s) Used A Money Bag, Received $%s", char:GetData("First"), char:GetData("Last"), char:GetData("SID"), amt))
+				Wallet:Modify(source, amt)
+			end
 		else
 			Execute:Client(source, "Notification", "Error", "Not Ready Yet", 6000)
 		end

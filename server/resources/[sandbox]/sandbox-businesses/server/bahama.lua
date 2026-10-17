@@ -1,3 +1,9 @@
+-- Dirty-cash items the Make It Rain menu offers (client/bahama.lua); 'cash' is handled separately.
+local _rainItems = {
+    moneyroll = true,
+    moneyband = true,
+}
+
 AddEventHandler('Businesses:Server:Startup', function()
     Callbacks:RegisterServerCallback('BH:MakeItRain', function(source, data, cb)
         local char = Fetch:CharacterSource(source)
@@ -10,7 +16,7 @@ AddEventHandler('Businesses:Server:Startup', function()
                     Wallet:Modify(targetChar:GetData('Source'), 100)
                     return cb(true)
                 end
-            elseif itemData then
+            elseif itemData and _rainItems[data.type] then
                 if Inventory.Items:Has(char:GetData('SID'), 1, data.type, 1) then
                     if Inventory.Items:Remove(char:GetData('SID'), 1, data.type, 1) then
                         Wallet:Modify(targetChar:GetData('Source'), math.floor(itemData.price * 0.1))

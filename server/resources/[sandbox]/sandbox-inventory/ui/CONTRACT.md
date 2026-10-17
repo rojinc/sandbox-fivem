@@ -46,7 +46,7 @@ No key hints are shown anywhere.
 | `SET_PLAYER_INVENTORY` | `PlayerInventory` (below) | `Inventory.Set.Player:Inventory` | merged into the player inventory; `invType` forced to 1; slot locks kept |
 | `SET_SECONDARY_INVENTORY` | `SecondaryInventory` (below) | `Inventory.Set.Secondary:Inventory` | replaces the secondary; slot locks kept only when owner and invType match |
 | `SHOW_SECONDARY_INVENTORY` | none | `Inventory.Open:Secondary` | shows the right-hand panel |
-| `SET_INVENTORIES` | `{ player?: { inventory }, secondary?: { inventory } }` | `StoreFailedPurchase`, `Inventory:Client:Given` | merges both (rolls back an optimistic purchase; refreshes the player grid of both people after a give) |
+| `SET_INVENTORIES` | `{ player?: { inventory }, secondary?: { inventory } }` | `StoreFailedPurchase`, `Inventory:Client:Given`, `Inventory:Client:Resync` | merges both (rolls back an optimistic purchase; refreshes the player grid of both people after a give) |
 | `SET_PLAYER_SLOT` | `{ slot: number \| SlotRecord }` | `Inventory:Client:SetSlot` | unlocks that player slot (the server sometimes sends the whole slot record; the UI reads `.Slot`) |
 | `SET_SECONDARY_SLOT` | `{ slot: number }` | same | unlocks that secondary slot |
 | `USE_ITEM_PLAYER` | `{ originSlot: number }` | hotkeys 1 to 5, throwables (weapons.lua) | locks the player slot while it is used |
@@ -106,6 +106,7 @@ old UI labelled the same numbers lbs and the Lua defines no unit.
 | `SwapSlot` | same without `isSplit` | `"OK"` | |
 | `MergeSlot` | same without `isSplit` | `"OK"` | |
 | `UseItem` | `{ owner, slot, invType }` | `"OK"` | player items only |
+| `ThrowItem` | `{ slot, count, name }` | `{ success: true } \| { reason }` | player items only. Lua (`client/throw.lua`) closes the inventory and throws a local object with physics; where it rests goes to `Inventory:ThrowItem` (`server/throw.lua`), which checks 15 m reach, that the slot still holds `name`, the amount and the ground's room, then moves the rows into a dropzone there. Water or out of reach: nothing moves. |
 | `GiveItem` | `{ slot, count }` | `{ success: true, count } \| { reason }` | player items only. Lua (`client/give.lua`) adds the nearest visible player within 3 m as `target`; `Inventory:GiveItem` (`server/give.lua`) checks both people, the routing bucket, the distance, the slot as stored, the amount, the receiver's weight and a free or matching slot, then moves the item rows. `reason` is plain English shown as is. |
 | `AddToShop` | `{ ownerFrom, invTypeFrom, slotFrom, ownerTo, invTypeTo, slotTo, price, quantity }` | `{ player: SlotRecord[], secondary: SlotRecord[] } \| false` | player shop moderators only |
 | `SubmitAction` | `{ owner, invType }` | `"OK"` | the secondary's `action` button; Lua closes the inventory |
@@ -120,6 +121,17 @@ old UI labelled the same numbers lbs and the Lua defines no unit.
 Moves are optimistic, as before: the UI updates both grids at once and locks
 the two slots until `SET_PLAYER_SLOT` / `SET_SECONDARY_SLOT` unlock them. A lock
 also clears itself after 10 seconds so a lost reply cannot freeze a slot.
+
+The server checks every move, swap, merge and purchase before it changes a row
+(`server/access.lua`): the player's own pockets or the one secondary the server
+opened for them, from within 12 m of where it was opened; the item and amount
+actually in the source slot (the UI's `name` is replaced); a destination slot
+that exists and is empty or holds the same item with room; weight on both
+sides; and no bag inside itself. One action per player runs at a time, and none
+while an item is being used. A refusal answers `{ reason }`, unlocks the two
+slots and resends both inventories through `SET_INVENTORIES`, so the grid goes
+back to what the server holds. Purchases (`server/purchases.lua`) charge for
+exactly the rows or shop stock handed over, at the stored price.
 
 ## Interaction
 
@@ -145,6 +157,16 @@ also clears itself after 10 seconds so a lost reply cannot freeze a slot.
   `SET_CRAFTING`, `END_CRAFTING`, `CRAFT_PROGRESS`, `RESET_SLOT`: reducer cases
   of the old UI that no Lua sends.
 - Rarity colours and glows: rarity is a small Tag in the tooltip.
+
+## Ground items
+
+Dropzones are drawn as objects (`client/drops.lua`, `client/drop_props.lua`):
+the server keeps up to three item names per zone (`server/dropzones.lua`, re-read
+from the rows after anything touches the ground) and removes empty zones. Each
+client spawns local, non-networked objects for zones in its routing bucket
+within 50 m, picked from the item name, a word in it, the weapon's model or the
+item type, with a paper bag as the fallback. The ground panel opens only for a
+zone within 3 m, or for a new spot at the player's feet whose id matches it.
 
 ## Lua changes
 

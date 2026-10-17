@@ -25,6 +25,28 @@
   the closest player within 3 m. The server checks both people, the distance,
   the slot as stored, the amount and the receiver's weight and space, then
   moves the item itself, so durability and other item details go with it.
+- Inventory audit (three passes over moves, item use, drops, shops,
+  crafting and the jobs that buy items) and the fixes for what it found:
+  - Moves, swaps, merges and purchases accept only your own pockets or the
+    inventory the server opened for you, from where you opened it; the item,
+    amount, slot, stack and weight are the server's, not the UI's. Before,
+    any client could empty any player, stash or trunk from anywhere.
+  - Shops charge for exactly what they hand over at the stored price; free
+    shops no longer hand anything to anyone; player-shop stock can't be
+    taken for the price of one unit, swapped out, or bought while closed.
+  - Shop and stash opens check distance; searching another player needs
+    on-duty police, prison or security staff within 3.5 m.
+  - AddItem adds exactly the amount asked (it used to add a full stack per
+    slot), and gives each gun and bag its own serial or storage id.
+  - Removal helpers report whether rows were really deleted, items used up
+    by a progress bar must still be in place when it ends, and one action
+    per player runs at a time, so use-and-move tricks keep nothing.
+  - Crafting checks the bench, distance and cooldown on the server, and
+    schematics can only be learned from the real schematic item.
+  - Selling for money (tacos, fishing, corner dealing, strip clubs, gem
+    buyers, Fleeca bags, mining, weed runs) pays only for items removed;
+    bank charges can no longer overdraw; shop takings are paid every 10
+    minutes without losing sales made during the payout.
 - Phone adverts are rebuilt on the server: author, number, id and time come
   from the character and server clock, not the client. `/resetphonepos` docks
   the phone again, and Dynasty 8 is restricted to the real estate job again.

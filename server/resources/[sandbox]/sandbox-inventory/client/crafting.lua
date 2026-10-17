@@ -40,9 +40,9 @@ CRAFTING = {
 								SetEntityHeading(obj, v.location.h)
 							end
 
+							-- Mirrors the server: `shared` only opens a bench with no char/job/rep requirement.
 							if
-								v.restrictions.shared
-								or (v.restrictions.char ~= nil and v.restrictions.char == LocalPlayer.state.Character:GetData(
+								(v.restrictions.char ~= nil and v.restrictions.char == LocalPlayer.state.Character:GetData(
 									"SID"
 								))
 								or (v.restrictions.job ~= nil and Jobs.Permissions:HasJob(
@@ -55,7 +55,13 @@ CRAFTING = {
 								))
 								or (
 									v.restrictions.rep ~= nil
-									and Reputation:GetLevel(v.restrictions.rep.id) >= v.restrictions.rep.level
+									and (Reputation:GetLevel(v.restrictions.rep.id) or 0) >= v.restrictions.rep.level
+								)
+								or (
+									v.restrictions.shared
+									and v.restrictions.char == nil
+									and v.restrictions.job == nil
+									and v.restrictions.rep == nil
 								)
 							then
 								local menu = {

@@ -5,6 +5,7 @@
 
 local SYNC_INTERVAL_MS = 300
 local SHOWN_ITEMS = 3
+local NEW_ZONE_GRACE_MS = 5000
 
 local _dirty = {}
 
@@ -52,6 +53,12 @@ function SyncDropzone(id)
 	) or {}
 
 	if #rows == 0 then
+		-- A zone made a moment ago may still be waiting for its first rows
+		-- (a throw or an overflow writes them after a few queries): look again.
+		if area.created ~= nil and GetGameTimer() - area.created < NEW_ZONE_GRACE_MS then
+			_dirty[tostring(id)] = true
+			return
+		end
 		-- Look the zone up again: the query yielded, so the list may have moved.
 		local k = findArea(id)
 		if k ~= nil and not _doingThings[string.format("%s-%s", id, 10)] then
